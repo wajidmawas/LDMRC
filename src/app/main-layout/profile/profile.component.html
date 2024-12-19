@@ -1,0 +1,144 @@
+<div class="block-header">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <h2>Profile</h2>
+            
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="d-flex flex-row-reverse">
+                <div class="page_action">
+
+                </div>
+                <div class="p-2 d-flex">
+                    <button class="btn btn-danger mr-2" data-toggle="modal" data-target="#delaccount"><i class="fa fa-trash-o mr-2"></i>DELETE ACCOUNT</button>
+                    <button class="btn btn-success mr-2" (click)="logout()"><i class="fa fa-sign-out mr-2"></i>LOGOUT</button>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#delaccount"><i class="fa fa-pencil mr-2"></i>EDIT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  
+
+<div class="row clearfix">
+    <div class="col-lg-12">
+        <div class="card whitebg">  
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-lg-12 d-flex align-items-start">
+                                <div class="media">
+                                    <div class="media-left m-r-15">
+                                        <img src="" class="user-photo media-object" alt="User">
+                                    </div> 
+                                </div>
+                                <div class="details_profile"> 
+                                    <div class="d-flex flex-column align-items-start ml-5">
+                                        <h6 class="prof_title">{{userdetails.first_name}}</h6>
+
+                                        <div class="detailsInner">
+                                            <span>Email ID :</span>
+                                            <span>{{userdetails.email_id}}</span>
+                                        </div>
+                                        <div class="detailsInner">
+                                            <span>Mobile Number :</span>
+                                            <span>{{userdetails.mobile_no}}</span>
+                                        </div>
+                                        <div class="detailsInner">
+                                            <span>Age :</span>
+                                            <span>{{userdetails.age}}</span>
+                                        </div>
+                                        <div class="detailsInner">
+                                            <span>DOB :</span>
+                                            <span>{{userdetails.dob | date:'dd/MM/yyyy' }}</span>
+                                        </div>
+                                        <div class="detailsInner">
+                                            <span>Gender :</span>
+                                            <span>{{userdetails.gender}}</span>
+                                        </div>
+                                        <div class="detailsInner">
+                                            <span>Cast :</span>
+                                            <span>{{userdetails.caste}}</span>
+                                        </div>
+                                        <div class="detailsInner">
+                                            <span>Address :</span>
+                                            <span>{{userdetails.address_1}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                       
+                    </div>
+
+                   
+
+                    
+                </div>
+
+                
+
+                 
+
+            </div>
+
+            <div class="col-lg-12 mt-4">
+                <h4>Experience Details</h4>
+                <div class="card"> 
+        
+                            <div class="body text-center d-flex justify-content-center flex-column">
+                               <img src="assets/images/loader.png" class="loader_img"/>
+                               <button class="btn btn-primary" data-toggle="modal" data-target="#expdetails">Add Professional Details</button>
+                            </div>
+        
+                           
+        
+                            
+                        </div>
+        
+                        
+        
+                         
+        
+                    </div>
+        </div>
+    
+
+
+<div class="modal fade" id="delaccount" tabindex="-1" role="dialog" aria-labelledby="delaccount" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="modal-body d-flex align-items-center flex-column justify-content-center alertbox">
+            <img src="assets/images/loader.png" width="128"/>
+            <h2>Are you sure?</h2>
+            <p>Do you really want to delete the account?</p>
+           </div>
+           <div class="modal-footer text-center">
+            <button type="button" class="btn btn-lg btn-outline-primary" data-dismiss="modal">NO</button>
+            <button type="button" class="btn btn-lg btn-primary">YES</button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="expdetails" tabindex="-1" role="dialog" aria-labelledby="expdetails" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Experience Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+             
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </div>
+  </div>

@@ -1,0 +1,130 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "iconic-angular-html": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+              "lodash"
+           ],
+            "outputPath": "dist/ldmrc",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+              
+            ],
+            "scripts": [
+              "src/assets/bundles/libscripts.bundle.js",
+              "src/assets/bundles/vendorscripts.bundle.js",
+              "src/assets/vendor/toastr/toastr.js",
+              "src/assets/bundles/c3.bundle.js",
+              "src/assets/js/jquery-migrate-1.2.1.min.js",
+              "src/assets/js/jquery-ui.min.js",  
+              "src/assets/js/gsap.min.js","src/assets/js/Draggable.min.js",
+              "src/assets/js/demo.min.js","src/assets/js/dmuploader.min.js","src/assets/js/dropzone.js",
+              "src/assets/js/summernote.js","src/assets/bundles/Instafeed.min.js",
+              "src/assets/bundles/jquery.steps.js",
+              "src/assets/bundles/gmaps.js",
+              "src/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js",
+              "src/assets/bundles/select2.min.js",
+              "src/assets/bundles/mainscripts.bundle.js" ,
+              "src/assets/bundles/fullcalendarscripts.bundle.js",
+              "src/assets/bundles/fullcalendar.js",
+              "src/assets/bundles/calendar.js" ,
+              "src/assets/js/h-menu.js" 
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "6mb",
+                  "maximumError": "8mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "380kb",
+                  "maximumError": "680kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "iconic-angular-html:build:production"
+            },
+            "development": {
+              "buildTarget": "iconic-angular-html:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "iconic-angular-html:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
+}

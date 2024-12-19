@@ -1,0 +1,112 @@
+  
+   <div class="header" id="header-sroll">
+    <div class="container-fluid">
+        <div class="desk-menu">
+            <div class="logo">
+                <div class="d-flex">
+                    <a href="/">
+                    <h1 class="logo-adn">AICC</h1>
+                </a>
+                </div>
+            </div>
+            <nav class="box-menu">
+                <div class="menu-container">
+                    <div class="menu-head">
+                        <h4 class="text-left mb-0 text-white">AICC</h4>
+                    </div>
+                    <div class="menu-header-container">
+                        <ul id="cd-primary-nav" class="menu">
+                            <li class="menu-item">
+                                <a href="#">Congress <br>Organisation</a> 
+                            </li>
+                            <li class="menu-item">
+                                <a href="#">Congress <br>Leaders</a> 
+                            </li>
+                            <li class="menu-item">
+                                <a href="#">Leaders Development<br> Mission</a> 
+                            </li>
+                            <li class="menu-item">
+                                <a href="#">Elections, Elected <br>Members Data</a> 
+                            </li>
+                            <li class="menu-item">
+                                <a href="#">Activities of the SC, ST, <br>OBC & Minority Depts</a> 
+                            </li>
+                            <li class="menu-item">
+                                <a href="#">Trainings/<br>Online Trainings</a> 
+                            </li>
+                            <li class="menu-item">
+                                <a href="#">Knowledge Base<br> (Repositiry or<br> Documents/Videos)</a> 
+                            </li>
+                            <li class="menu-item">
+                                <a href="#">Meetings & <br>Communications</a> 
+                            </li>
+                            <li *ngIf="isLoggedIn">
+                                <button class="btn dropdown-toggle text-white" type="button"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{userDetails.first_name}}
+                                  </button>
+                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" (click)="profile()" href="javascript::(0)">Profile</a>
+                                    <a class="dropdown-item logout" (click)="logout()" href="javascript::(0)">Logout</a>
+                                  </div>
+                            </li>
+                            <li *ngIf="!isLoggedIn"  class="menu-item">
+                                <a href="javascript::(0)" (click)="login()">Login</a>
+                              </li>
+                            <li class="line"></li>
+                        </ul>
+                    </div>
+                     
+                </div>
+                <div class="hamburger-menu">
+                    <div class="bar"></div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+  <!-- Top navbar div start 
+  <nav class="navbar navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-brand d-flex align-items-center navbar-fixed-top-alignment">
+            <button type="button" class="btn-toggle-offcanvas"><i class="fa fa-bars"></i></button>
+          
+        </div>
+        
+        <div class="navbar-right align-items-center navbar-right-alignment">
+           
+
+            <div id="navbar-menu">
+               
+                <ul class="nav navbar-nav d-flex align-items-center flex-row">
+                  
+                    <li>
+                        <div class="user-account mt-0 mb-0 ml-2 d-flex align-items-center"> 
+                          
+                            <img src="{{userDtail.userimage}}" class="rounded-circle user-photo cursor" data-toggle="dropdown" alt="User Pic">
+                            <div class="d-flex flex-column justify-content-start align-items-start mx-2">
+                                <a href="javascript:void(0);" class="dropdown-toggle p-0 user-name no-arrow" >
+                                    <strong class="username_txt">{{userDtail.username}}</strong>
+                                </a>
+                                <small >Location</small>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>-->
+
+  <!-- Horizontal menu  -->
+  
+ 
+
+<!-- <div [ngClass]="{'expiry-loader-wrapper':userDtail.validDays <= 0}" *ngIf="userDtail.validDays <= 0">
+    <div class="loader">
+        <div class="m-t-30"><img src="assets/images/CA_Loader.gif" width="100" alt="Iconic"></div>
+        <p>{{'Common.lblDear' | translate}} {{userDtail.username}}</p>
+        <p>{{'Common.lblacntexpiredon' | translate}} Dt.{{userDtail.expiryDate | date:'EEEE, MMMM d, y'}}, {{'Common.lblcontactAdmin' | translate}}</p>
+        
+        <button type="button" class="btn btn-primary" (click)="logout()"><i class="icon-power mr-2"></i> {{'Role.drpLogout' | translate}}</button>
+    </div>
+</div> -->

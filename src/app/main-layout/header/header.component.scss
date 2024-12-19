@@ -1,0 +1,24 @@
+.storage{
+    font-size: 14px; 
+}
+.storage i{
+    margin-right: 5px
+}
+
+.lang{
+    color:var(--heading-color)
+}
+
+.dropdown-item.active, .dropdown-item:active{
+    color:  #fff !important;
+}
+ 
+@media only screen and (max-width: 767px) {
+    .lang{
+        margin-bottom: 0 !important;
+    }
+    .menu{
+        flex-direction: column;
+    }
+   
+}

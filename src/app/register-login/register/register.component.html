@@ -1,0 +1,135 @@
+<div id="wrapper" class="theme-cyan">
+    <div class="vertical-align-wrap">
+        <div class="vertical-align-middle auth-main col-lg-12">
+            <div class="row">
+                
+                <div class="col-lg-6  mx-auto">
+                    
+            <div class="auth-box"> 
+                <div class="card">
+                    
+                    <div class="header text-center">
+                        <h4 class="lead">Registration</h4> 
+                    </div>
+                    <div class="body">
+                        <div class="mb-4 mt-4">
+                        <mat-radio-group class="custom-radio-group" aria-label="Select an option" [(ngModel)]="selectedOption" (change)="onOptionChange()">
+                            <mat-radio-button value="1" color="primary">AICC Family</mat-radio-button>
+                            <mat-radio-button value="2" color="primary">General User</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        <form class="form-auth-small">
+                            <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">First Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter First Name" [(ngModel)]="clsuser.first_name" [ngModelOptions]="{standalone: true}" maxlength="50">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Last Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter Last Name" [(ngModel)]="clsuser.last_name" [ngModelOptions]="{standalone: true}" maxlength="50">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Email ID</label>
+                                            <input type="email" class="form-control" placeholder="Email" [(ngModel)]="clsuser.email_id" [ngModelOptions]="{standalone: true}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Phone Number</label>
+                                            <input type="text" class="form-control" maxlength="10" placeholder="Enter Phone Number" [(ngModel)]="clsuser.mobile_no" [ngModelOptions]="{standalone: true}">
+                                        </div>
+                                    </div>
+                            
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Age</label>
+                                            <input type="number" class="form-control" placeholder="Enter Your Age" [(ngModel)]="clsuser.age" [ngModelOptions]="{standalone: true}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">DOB</label>
+                                            <input type="date" class="form-control" placeholder="Enter Your DOB" [(ngModel)]="clsuser.dob" [ngModelOptions]="{standalone: true}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Gender</label>
+                                            <select class="form-control" (change)="ongenderChange($event)" [(ngModel)]="clsuser.gender" [ngModelOptions]="{standalone: true}">
+                                                <option value="">Select Gender</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Caste</label>
+                                            <select class="form-control" (change)="onCasteChange($event)" [(ngModel)]="clsuser.caste" [ngModelOptions]="{standalone: true}">
+                                                <option value=0>Select Caste</option>
+                                                <option *ngFor="let caste of casteList" [value]="caste.id">{{ caste.name }}</option> 
+                                                </select>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 mt-2 mb-2">
+
+                                            <h5>Address Details</h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Address 1</label>
+                                                <input type="text" class="form-control" placeholder="Enter your Address" [(ngModel)]="clsuser.address_1" [ngModelOptions]="{standalone: true}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Address 2</label>
+                                                <input type="text" class="form-control" placeholder="Enter your Address" [(ngModel)]="clsuser.address_2" [ngModelOptions]="{standalone: true}">
+                                            </div>
+                                        </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">State</label>
+                                            <select class="form-control" (change)="onstateChange($event)" [(ngModel)]="clsuser.state_id" [ngModelOptions]="{standalone: true}">
+                                                <option value="">Select State</option>
+                                                <option *ngFor="let state of states" [value]="state.STATEID">{{ state.STATENAME }}</option> 
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">City</label>
+                                            <select class="form-control" (change)="oncityChange($event)" [(ngModel)]="clsuser.city_id" [ngModelOptions]="{standalone: true}">
+                                                <option value="">Select City</option>
+                                                <option *ngFor="let city of cities" [value]="city.DISTRICTID">{{ city.DISTRICTNAME }}</option> 
+                                                </select>
+                                        </div>
+                                    </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg btn_login" (click)="register()">REGISTER</button>
+                            
+                                </div>
+                            </div>
+                            <div class="bottom w-100 text-center">
+                                <span class="helper-text">Already have an account? <a href="/auth/login">Login</a></span>
+                            </div>
+                        </form>
+                       
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>

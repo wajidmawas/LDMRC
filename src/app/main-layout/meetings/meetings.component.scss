@@ -1,0 +1,74 @@
+.nav-item{
+    margin-right: 5px;
+}
+
+.meeting_list{
+    background-color: var(--card-color);
+    padding: 15px;
+    display: flex;
+    align-items: center; 
+}
+
+.meeting-dtls{
+    background: #bce0fd;
+    padding: 10px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.meeting-dtls span{
+    display: block;
+    color: #2699fb;
+    font-size: 14px;
+}
+
+ 
+.meeting-dtls label{
+    display: block;
+    color: #2699fb;
+    font-size: 18px;
+}
+.meetingtype{
+    background: #fffdd1;
+    border-radius: 20px;
+    color: #000;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 5px 8px;
+}
+
+.meeting_list_left{ 
+    margin-right: 20px;
+    width: 60%;
+}
+
+.meeting_list_left h6{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.meeting_list_left span{
+    color: #2699fb;
+}
+
+.collapse .card-body .mdc-form-field>label{
+    font-size: 12px !important;
+}
+.alertbox{
+    padding: 20px 0;
+}
+.alertbox h2{
+    font-size: 30px;
+    color: #2699fb;
+    font-weight: 600;
+    margin: 15px 0;
+}
+.alertbox p{
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 10px;
+}

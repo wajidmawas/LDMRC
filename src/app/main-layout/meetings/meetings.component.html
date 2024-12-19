@@ -1,0 +1,116 @@
+<div class="container-fluid">
+ <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
+                <a href="javascript::(0)" (click)="backtohome()">
+                <i class="fa fa-arrow-left mr-2"></i></a>
+                <h2 class="mb-0">Meetings & Communications</h2> 
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+    
+                    </div>
+                    <div class="p-2 d-flex">
+                        <button class="btn btn-primary mr-2" >Send Message</button> 
+                        <button class="btn btn-primary" (click)="addmeeting()">Schedule a Meeting</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="row mt-5 mb-5">
+    <div class="col-lg-12">
+        <div class="d-flex tabsearch align-items-center justify-content-between"> 
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="pills-upmeeting-tab" data-toggle="pill" href="#pills-upmeeting" role="tab" aria-controls="pills-upmeeting" aria-selected="true">Upcoming Meetings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-mymeeting-tab" data-toggle="pill" href="#pills-mymeeting" role="tab" aria-controls="pills-mymeeting" aria-selected="false">My Meetings</a>
+        </li> 
+        <li class="nav-item">
+            <a class="nav-link" id="pills-Message-tab" data-toggle="pill" href="#pills-Message" role="tab" aria-controls="pills-Message" aria-selected="false">My Messages</a>
+          </li> 
+      </ul>
+      <div class="tabseachBar">
+            <div class="search">
+                <span>Search</span>
+                <input type="text" class="form-control">
+                <button type="btn btn-primary" class="srch_icon"><i class="fa fa-search"></i></button>
+            </div>
+
+            <div class="drp">
+                <span>Sort By</span>
+                <select class="form-control">
+                    <option>All</option>
+                </select>
+            </div>
+      </div>
+    </div>
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-upmeeting" role="tabpanel" aria-labelledby="pills-upmeeting-tab">
+            <div class="meeting_list">
+                <div class="meeting-dtls">
+                    <span>04 Dec 2024 <br/>Wednesday</span>
+                    <label>10:00AM</label>
+                    <div class="meetingtype">
+                        Physical Meeting
+                    </div>
+                </div>
+                <div class="meeting_list_left">
+                    <h6>Status Update meeting on..</h6>
+                    <span>Org by: Rajesh</span>
+                    <span>Chairman</span>
+                </div>
+                <div class="meeting_list_right">
+                    <button class="btn btn-primary mr-2">Join</button> 
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="pills-mymeeting" role="tabpanel" aria-labelledby="pills-mymeeting-tab">
+            <div class="meeting_list">
+                <div class="meeting-dtls">
+                    <span>04 Dec 2024 <br/>Wednesday</span>
+                    <label>10:00AM</label>
+                    <div class="meetingtype">
+                        Physical Meeting
+                    </div>
+                </div>
+                <div class="meeting_list_left">
+                    <h6>Status Update meeting on..</h6>
+                    <span>Org by: Rajesh</span>
+                    <span>Chairman</span>
+                </div>
+                <div class="meeting_list_right">
+                    <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#cancelalert">Cancel</button> 
+                    <button class="btn btn-primary mr-2">Re-Schedule</button> 
+                    <button class="btn btn-primary mr-2">Join</button> 
+                </div>
+            </div>
+        </div> 
+        <div class="tab-pane fade" id="pills-Message" role="tabpanel" aria-labelledby="pills-Message-tab">Message</div> 
+      </div>
+    </div>
+</div>
+    </div>
+
+    <div class="modal fade" id="cancelalert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <div class="modal-body d-flex align-items-center flex-column justify-content-center alertbox">
+             <img src="assets/images/loader.png" width="128"/>
+             <h2>Are you sure?</h2>
+             <p>Do you really want to cancel the meeting?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-lg btn-outline-primary" data-dismiss="modal">NO</button>
+              <button type="button" class="btn btn-lg btn-primary">YES</button>
+            </div>
+          </div>
+        </div>
+      </div>

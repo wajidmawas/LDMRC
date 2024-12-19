@@ -1,0 +1,73 @@
+<div class="block-header">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <h2>{{'Menu.lblAlerts'| translate}}</h2>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript::"><i class="fa fa-dashboard"></i></a></li>                            
+                <li class="breadcrumb-item active">{{'Menu.lblAlerts'| translate}}</li>
+            </ul>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="d-flex flex-row-reverse">
+                <div class="page_action">
+
+                </div>
+                <div class="p-2 d-flex">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>   
+
+<div class="row clearfix row-deck">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="dataTables_length"><label>Showing {{allnotifications[0].row_num}} to {{allnotifications[allnotifications.length-1].row_num}} of  {{noofrecords}} entries</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <ul class="pagination float-right">
+                                <li class="paginate_button page-item previous">
+                                    <a href="javascript::" (click)="prevrecords()" class="page-link">Previous</a>
+                                </li>  
+                                <li class="paginate_button page-item active">
+                                    <a href="#" class="page-link">{{pagecount}}</a></li>
+                                <li class="paginate_button page-item next">
+                                    <a href="javascript::" (click)="nextrecords()" class="page-link">Next</a>
+                                </li>  
+                            </ul>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-hover js-basic-example dataTable table-custom">
+                        <thead>
+                            <tr>
+                                <th>{{'Common.lblSNo' | translate}}</th>
+                                <th>{{'Common.lblActionPerform' | translate}}</th>
+                                <th>{{'NewCampaign.lblCreatedBy' | translate}}</th>
+                                <th>{{'Common.lblCreatedOn' | translate}}</th>
+                                <th>{{'Common.lblReadUnRead' | translate}}</th>
+                                <th>{{'Common.lblActions' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let noti of allnotifications">
+                                <td>{{noti.row_num}}</td>
+                                <td> <i class="{{noti.icon}}"></i>{{noti.auditlog_actionPerform}}</td>
+                                <td>{{noti.createdBy}}</td>
+                                <td>{{noti.createdOn}}</td>
+                                <td>{{noti.isRead}}</td>
+                                <td><button *ngIf="noti.isRead=='Un-Read'" class="btn btn-sm btn-primary" (click)="read(noti.auditlog_id)">{{'Common.drpMarkasRead' | translate}}</button></td>
+                            </tr>
+                            </tbody>
+                            </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

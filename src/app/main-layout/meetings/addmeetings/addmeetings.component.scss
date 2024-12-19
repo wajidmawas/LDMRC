@@ -1,0 +1,42 @@
+
+::ng-deep .mdc-form-field > label{
+    color: #2699fb !important; // Use your primary color
+
+}
+ 
+::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle {
+border: 1px solid #2699fb !important; /*change radio button not checked border */
+background-color: #cfe9ff;
+}
+::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle{
+background-color: #cfe9ff;
+}
+
+::ng-deep .mat-checkbox {
+    .mat-checkbox-ripple .mat-ripple-element {
+        background-color: #2699fb !important;
+    }
+    .mat-checkbox-frame {
+        border-color: #2699fb !important;
+    }
+}
+
+::ng-deep .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background{
+    border-color: #2699fb !important;
+}
+
+.card-header{
+    padding: 5px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent !important;
+    border:none !important
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.4) sepia(80%) saturate(1000%) hue-rotate(200deg);
+}
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.4) sepia(80%) saturate(1000%) hue-rotate(200deg);
+}

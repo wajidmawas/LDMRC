@@ -1,0 +1,127 @@
+.dropdown-toggle::after{
+    margin-right: 0.255em;
+    margin-left: unset;
+}
+
+.mr-2, .mx-2{
+    margin-left: 0.5rem !important;
+    margin-right: unset !important;
+}
+
+.icon-style { 
+    margin-left: 10px;
+    margin-right: unset;
+}
+.dasd_del{
+
+    left: 0;
+    right:unset;
+}
+
+.bottom_div ul li i{
+    margin-right: unset;
+    margin-left: 10px;
+}
+
+.bottom_div{
+    padding: 10px 40px 10px 0px !important;
+}
+
+.icon_bg{
+    margin-left: 10px;
+    margin-right: unset;
+}
+
+.grp_drp{
+    right: unset;
+    left: 15px;
+}
+
+.dropdown-item{
+    text-align: right;
+}
+
+.btn-search{
+    left: 0;
+}
+
+.rtl_mode .btn-search{
+    right:inherit !important;
+    margin-left:  0 !important;
+}
+
+.calendar_icon{
+    right: inherit;
+    left: 0;
+}
+
+.pac-container {
+    z-index: 10000 !important;
+}
+
+.rtl_mode .navbar-fixed-top{
+    left: inherit !important;
+    right: 0;
+}
+
+#PendingPlayers #tblPlayers td{
+    text-align: left;
+}
+
+.mat-mdc-paginator-page-size, .mat-mdc-paginator-range-actions{
+    direction: ltr;
+}
+
+.autocomplete-container .input-container input{
+    direction: ltr !important;
+}
+ 
+
+.cdk-global-overlay-wrapper{ 
+    direction: rtl;
+}
+
+.grp_drp .dropdown-menu{
+    left: 0 !important;
+}
+
+.prior{
+    right: inherit;
+    left: 10%;
+}
+
+.showbtn{ 
+    right: inherit;
+    left: 10px; 
+}
+
+.clslabel table td{
+    padding-right: 0 !important;
+    padding-left: 10px;
+}
+
+.add-ons-input-btn{
+    margin-right: 5px;
+}
+.mdc-form-field>label{
+    padding-right: 4px !important;
+    padding-left: 0 !important;
+}
+
+.input-group-append .btn{
+    color:#c7c7c7;
+}
+
+input[type=radio], input[type="checkbox"]{
+    margin-left: 5px !important;
+}
+
+.date-span{
+    right: inherit !important;
+    left: 0;
+}
+
+#uploadmedia .btn{
+    float: left !important;
+}
+

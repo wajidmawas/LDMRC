@@ -1,0 +1,44 @@
+.footer{
+    background: #2699fb;
+    width: 100%;
+    padding: 50px 30px;
+}
+
+.footer_link_title{
+    font-size: 16px;
+    font-weight: bold;
+    color:#fff;
+    margin-bottom: 15px;
+}
+
+.footer a, .footer p{
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.quick_links{
+    margin: 0;
+    padding: 0;
+}
+
+.quick_links li{
+    list-style-type: none;
+    margin-bottom: 5px;
+}
+
+.srch_txbox{
+    background-color: transparent !important; 
+    border:1px solid #fff;
+    color: #fff !important;
+}
+::placeholder{
+    color: #fff;
+}
+.btn-white{
+    background-color: #fff;
+    border-color: #fff;
+    padding: 12px 15px;
+}
+
+
