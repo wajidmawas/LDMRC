@@ -16,8 +16,8 @@
         <div class="row mt-3 mb-3">
             <div class="col-lg-12">
             <mat-radio-group class="custom-radio-group" aria-label="Select an option" [(ngModel)]="selectedOption" (change)="onOptionChange()">
-                <mat-radio-button value="1" color="primary">Physical Meeting</mat-radio-button>
-                <mat-radio-button value="0" color="primary">Zoom Meeting</mat-radio-button>
+                <mat-radio-button  value="1" [(ngModel)]="clsinvite.isonline" color="primary">Physical Meeting</mat-radio-button>
+                <mat-radio-button value="0" [(ngModel)]="clsinvite.isonline" color="primary">Zoom Meeting</mat-radio-button>
               </mat-radio-group>
             </div>
         </div>
@@ -25,47 +25,50 @@
             <div class="col-lg-12">
                 <div class="form-group">
                     <label for="my-input">Title</label>
-                    <input id="my-input" class="form-control" type="text" name="">
+                    <input id="my-input" class="form-control" placeholder="Enter Title" [(ngModel)]="clsinvite.title" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label >Date</label>
-                    <input class="form-control" type="date" name="">
+                    <input class="form-control" type="date" placeholder="Enter Date" [(ngModel)]="clsinvite.date" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label >Time</label>
-                    <input class="form-control" type="time" name="">
+                    <input class="form-control" type="time" placeholder="Enter Time" [(ngModel)]="clsinvite.time" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
             <div class="col-lg-12">
-                <div class="form-group">
+                <div class="form-group" >
                     <label >Organisers</label>
-                    <select class="form-control">
+                    <select class="form-control" [(ngModel)]="clsinvite.organizer" [ngModelOptions]="{standalone: true}">
                         <option>Select Organisers</option>
+                        <option value="1">AICC</option>
                     </select>
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="form-group">
+                <div class="form-group"  >
                     <label >Notification</label>
-                    <select class="form-control">
+                    <select class="form-control" [(ngModel)]="clsinvite.notification" [ngModelOptions]="{standalone: true}">
                         <option>Notification Type</option>
+                        <option value="1">Email</option>
+                        <option value="2">SSM</option>
                     </select>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
                     <label ></label>
-                    <input class="form-control" type="number" name="">
+                    <input class="form-control" type="number" placeholder="Enter Duration" [(ngModel)]="clsinvite.duration" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
                     <label ></label>
-                    <select class="form-control">
+                    <select class="form-control"  [(ngModel)]="clsinvite.durationtype" [ngModelOptions]="{standalone: true}">
                         <option>Seconds</option>
                         <option>Minutes</option>
                         <option>Hour[s]</option>
@@ -75,7 +78,7 @@
             <div class="col-lg-12">
                 <div class="form-group">
                     <label >Description</label>
-                    <textarea class="form-control"></textarea>
+                    <textarea class="form-control" placeholder="Enter Description" [(ngModel)]="clsinvite.description" [ngModelOptions]="{standalone: true}"></textarea>
                 </div>
             </div>
         </div>
@@ -198,33 +201,44 @@
                                                     </div>
                                                   </div>
                                                 </div>
-                                                <div class="col-lg-12 mt-1 mb-1">
+                                                <div class="col-lg-12 mt-1 mb-1" >
                                                     <h6>Designation</h6>
                                                 </div>
+                                                <div *ngFor="let designation of designationsList">
+                                                    <mat-checkbox
+                                                      class="example-margin"
+                                                      [(ngModel)]="clsinvite.designations"
+                                                      [value] ="designation.id"
+                                                      color="primary">
+                                                      {{ designation.name }}
+                                                    </mat-checkbox>
+                                                  </div>
+
+<!-- 
                                                 <div class="col-lg-4">
-                                                    <mat-checkbox class="example-margin" color="primary">Hon'ble Cong President</mat-checkbox>
+                                                    <mat-checkbox class="example-margin" [(ngModel)]="clsinvite.designations" color="primary">Hon'ble Cong President</mat-checkbox>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <mat-checkbox class="example-margin" color="primary">President</mat-checkbox>
+                                                    <mat-checkbox class="example-margin" [(ngModel)]="clsinvite.designations" color="primary">President</mat-checkbox>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <mat-checkbox class="example-margin" color="primary">Chairman</mat-checkbox>
+                                                    <mat-checkbox class="example-margin" [(ngModel)]="clsinvite.designations" color="primary">Chairman</mat-checkbox>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <mat-checkbox class="example-margin" color="primary">General Secrateries</mat-checkbox>
+                                                    <mat-checkbox class="example-margin" [(ngModel)]="clsinvite.designations" color="primary">General Secrateries</mat-checkbox>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <mat-checkbox class="example-margin" color="primary">Treasurer</mat-checkbox>
+                                                    <mat-checkbox class="example-margin" [(ngModel)]="clsinvite.designations" color="primary">Treasurer</mat-checkbox>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <mat-checkbox class="example-margin" color="primary">Secrateries</mat-checkbox>
+                                                    <mat-checkbox class="example-margin" [(ngModel)]="clsinvite.designations" color="primary">Secrateries</mat-checkbox>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <mat-checkbox class="example-margin" color="primary">Joint Secrateries</mat-checkbox>
+                                                    <mat-checkbox class="example-margin" [(ngModel)]="clsinvite.designations" color="primary">Joint Secrateries</mat-checkbox>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <mat-checkbox class="example-margin" color="primary">Incharges</mat-checkbox>
-                                                </div>
+                                                    <mat-checkbox class="example-margin" [(ngModel)]="clsinvite.designations" color="primary">Incharges</mat-checkbox>
+                                                </div> -->
                         </div>
                     </div>
                 </div>
@@ -233,8 +247,8 @@
         <div class="col-lg-2"></div>
 
         <div class="col-lg-12 mt-4 mb-4 text-center">
-            <button class="btn btn-lg btn-outline-primary mr-2">Cancel</button>
-            <button class="btn btn-lg btn-primary">Invite</button>
+            <button class="btn btn-lg btn-outline-primary mr-2" (click)="cancel()">Cancel</button>
+            <button class="btn btn-lg btn-primary" (click)="invite()">Invite</button>
         </div>
     </div> 
 
