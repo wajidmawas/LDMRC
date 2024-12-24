@@ -10,12 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './addmeetings.component.scss'
 })
 export class AddmeetingsComponent {
-  // Hardcoding the list of designations
-   designationsList = [
-    { id: "1", name: "Hon'ble Cong President" },
-    { id: "2", name: 'General Secretary' },
-    // Add more designations here as needed
-   ]
+   designationsList: { id: string,name : string, selected: boolean }[] = [];
   isLoggedIn:any='';
   selectedOption: string = '1';
   isonline: boolean = false;
@@ -110,24 +105,33 @@ export class AddmeetingsComponent {
   
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
-        var parseresponse = JSON.parse(response.response); 
-        if (response["errorCode"] === "200") {
-          // this.casteList = parseresponse.Table;
-          // this.states = parseresponse.Table1;
-        } else {
-          console.error("API returned an error:", response.message); 
-        }
+        const parseresponse = JSON.parse(response.response); 
+        this.designationsList = parseresponse.Table2;
       },
       error: (error: any) => {
         console.error("API call failed:", error);
-        // Handle the error appropriately
-        // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
       },
       complete: () => {
         console.log("API call completed.");
       }
     });
   }
+  updateDesignations(designation: any): void {
+    debugger;
+    // Filter the selected designations
+    if (designation.selected) {
+      // Add the selected designation in the desired format
+      const selectedDesignation = { id: designation.id };
+      // Add it to the array if it's not already present
+      if (!this.clsinvite.designations.some(d => d.id === designation.id)) {
+        this.clsinvite.designations.push(selectedDesignation);
+      }
+    } else {
+      // Remove the designation if it is unchecked
+      this.clsinvite.designations = this.clsinvite.designations.filter(d => d.id !== designation.id);
+    }
+  }
+  
 }
 
 
@@ -151,16 +155,9 @@ export class cls_addmeeting {
   created_by:number=0;
   duration_type:string='type';
   // organizer_id:number=0;
-  // designations: number[] = []  // Initially an empty array
-    // designations: string[] = [] ; // Initially an empty array
-
-    designations: { id: number }[] = [
-      { id: 0 }
-    ];
+      designations: { id: string }[] = [];
     participants: { id: number }[] = [
       { id: 0 }
     ];
     // participants: string[] = ["1","2"]  // Initially an empty array
-
-  // designations: number= 0  // Initially an empty array
 }
