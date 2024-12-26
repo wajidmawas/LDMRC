@@ -12,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './addmeetings.component.scss'
 })
 export class AddmeetingsComponent implements OnInit {
+  
    designationsList: { id: string,name : string, selected: boolean }[] = [];
   categories1: {
     id: number;
@@ -24,7 +25,7 @@ export class AddmeetingsComponent implements OnInit {
     }[];
     selected: boolean;
   }[] = [];
-
+  todayDate: string='';
   isLoggedIn:any='';
   selectedOption: number = 1;
   isonline: number = 0;
@@ -33,6 +34,8 @@ export class AddmeetingsComponent implements OnInit {
     setTimeout(() => {
       $(".page-loader-wrapper-review").fadeOut();
     }, 300);
+    const today = new Date();
+    this.todayDate = today.toISOString().split('T')[0]; // Extracts the date part
   }
   ngOnInit() {  
     $(".page-loader-wrapper").fadeOut();  
@@ -53,8 +56,12 @@ export class AddmeetingsComponent implements OnInit {
   }
 
   invite() {
-    var validate:boolean=false;
-    if(this.clsinvite.title == undefined || this.clsinvite.title == null || this.clsinvite.title == '') {
+     var validate:boolean=false;
+    if (this.clsinvite.isonline == null  || this.clsinvite.isonline === 0) {
+      this.snackbar.showInfo("Please select Meeting", "Error");
+      validate = true;
+    }
+    else if(this.clsinvite.title == undefined || this.clsinvite.title == null || this.clsinvite.title == '') {
       this.snackbar.showInfo("Please enter title","Error");
       validate=true;
     }
@@ -82,6 +89,23 @@ export class AddmeetingsComponent implements OnInit {
     else if(this.clsinvite.description == undefined || this.clsinvite.description == null || this.clsinvite.description == '') {
       this.snackbar.showInfo("Please enter your description","Error");
       validate=true;
+    }
+    else if(this.clsinvite.short_desc == undefined || this.clsinvite.short_desc == null || this.clsinvite.short_desc == '') {
+      this.snackbar.showInfo("Please enter your Shot description","Error");
+      validate=true;
+    }
+    else if(this.clsinvite.organizer_id == undefined || this.clsinvite.organizer_id == null || this.clsinvite.organizer_id == 0) {
+      this.snackbar.showInfo("Please Select Organisers","Error");
+      validate=true;
+    }
+ 
+    else if (this.clsinvite.participants == null || this.clsinvite.participants.length === 0) {
+      this.snackbar.showInfo("Please Select Participants", "Error");
+      validate = true;
+    }
+    else if (this.clsinvite.designations == null || this.clsinvite.designations.length === 0) {
+      this.snackbar.showInfo("Please Select Designations", "Error");
+      validate = true;
     }
    if(!validate) {
     $(".page-loader-wrapper-review").show(); 
@@ -193,6 +217,24 @@ this.categories1 = (categoriesWithActivities|| []).map((category: any) => ({
       }
     console.log(this.clsinvite.participants);  // To verify
   }
+  selectAllActivities(category: any) {
+    category.activities.forEach((activity: any) => {
+      activity.Activityselected = category.selected;
+      if (activity.Activityselected) {
+        // Add the selected designation in the desired format
+        const selectedOrganisation = { id: activity.id };
+        // Add it to the array if it's not already present
+        if (!this.clsinvite.participants.some(d => d.id === activity.id)) {
+          this.clsinvite.participants.push(selectedOrganisation);
+        }
+      } else {
+        // Remove the designation if it is unchecked
+        this.clsinvite.participants = this.clsinvite.participants.filter(d => d.id !== activity.id);
+      }
+    });
+    console.log( this.clsinvite.participants);
+  }
+  
 }
 
 
