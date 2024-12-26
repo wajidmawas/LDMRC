@@ -15,10 +15,11 @@
     <div class="col-lg-5">
         <div class="row mt-3 mb-3">
             <div class="col-lg-12">
-            <mat-radio-group class="custom-radio-group" aria-label="Select an option" [(ngModel)]="selectedOption" (change)="onOptionChange()">
-                <mat-radio-button  value="1" [(ngModel)]="clsinvite.isonline" color="primary">Physical Meeting</mat-radio-button>
-                <mat-radio-button value="0" [(ngModel)]="clsinvite.isonline" color="primary">Zoom Meeting</mat-radio-button>
-              </mat-radio-group>
+                <mat-radio-group class="custom-radio-group" aria-label="Select an option" [(ngModel)]="selectedOption" (change)="onOptionChange()">
+                    <mat-radio-button value="0" [(ngModel)]="clsinvite.isonline" color="primary">Physical Meeting</mat-radio-button>
+                    <mat-radio-button value="1" [(ngModel)]="clsinvite.isonline" color="primary">Zoom Meeting</mat-radio-button>
+                  </mat-radio-group>
+                  
             </div>
         </div>
         <div class="row">
@@ -43,7 +44,7 @@
             <div class="col-lg-12">
                 <div class="form-group" >
                     <label >Organisers</label>
-                    <select class="form-control" [(ngModel)]="clsinvite.organizer" [ngModelOptions]="{standalone: true}">
+                    <select class="form-control" [(ngModel)]="clsinvite.organizer_id" [ngModelOptions]="{standalone: true}">
                         <option>Select Organisers</option>
                         <option value="1">AICC</option>
                     </select>
@@ -52,7 +53,7 @@
             <div class="col-lg-6">
                 <div class="form-group"  >
                     <label >Notification</label>
-                    <select class="form-control" [(ngModel)]="clsinvite.notification" [ngModelOptions]="{standalone: true}">
+                    <select class="form-control" [(ngModel)]="clsinvite.notification_type" [ngModelOptions]="{standalone: true}">
                         <option>Notification Type</option>
                         <option value="1">Email</option>
                         <option value="2">SSM</option>
@@ -68,7 +69,7 @@
             <div class="col-lg-3">
                 <div class="form-group">
                     <label ></label>
-                    <select class="form-control"  [(ngModel)]="clsinvite.durationtype" [ngModelOptions]="{standalone: true}">
+                    <select class="form-control"  [(ngModel)]="clsinvite.duration_type" [ngModelOptions]="{standalone: true}">
                         <option>Seconds</option>
                         <option>Minutes</option>
                         <option>Hour[s]</option>
@@ -79,6 +80,24 @@
                 <div class="form-group">
                     <label >Description</label>
                     <textarea class="form-control" placeholder="Enter Description" [(ngModel)]="clsinvite.description" [ngModelOptions]="{standalone: true}"></textarea>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label >Meeting Link</label>
+                    <textarea class="form-control" placeholder="Enter Meeting Link" [(ngModel)]="clsinvite.meeting_link" [ngModelOptions]="{standalone: true}"></textarea>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label >Meeting Location</label>
+                    <textarea class="form-control" placeholder="Enter Meeting Location" [(ngModel)]="clsinvite.meeting_location" [ngModelOptions]="{standalone: true}"></textarea>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label >Short Description</label>
+                    <textarea class="form-control" placeholder="Enter Short Description" [(ngModel)]="clsinvite.short_desc" [ngModelOptions]="{standalone: true}"></textarea>
                 </div>
             </div>
         </div>
@@ -98,109 +117,44 @@
                     <div class="col-lg-12">
                         <h6>Organisation</h6>
                     </div> 
-                    <div class="col-lg-4"> 
-                            <div class="card-header" id="headingOne">
-                                <mat-checkbox class="example-margin" color="primary">AICC</mat-checkbox>
-                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                 <i class="fa fa-caret-down"></i>
-                                </button> 
-                              </div>
+                    <div class="col-lg-4" *ngIf="categories1"> 
+                        <div  *ngFor="let category of categories1" class="card">
+                            <div class="card-header" [id]="'heading' + category.name">
+                              <mat-checkbox class="example-margin" color="primary">{{ category.name }}</mat-checkbox>
+                              <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse' + category.name" 
+                                      aria-expanded="true" [attr.aria-controls]="'collapse' + category.name">
+                                <i class="fa fa-caret-down"></i>
+                              </button>
+                            </div>
                           
-                              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                                <div class="card-body">
-                                    <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                    <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                    <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                    <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox> 
+                           
+                            <div [id]="'collapse' + category.name" class="collapse" [attr.aria-labelledby]="'heading' + category.name" data-parent="#accordion">
+                              <div class="card-body">
+                                <div *ngIf="category.activities && category.activities.length > 0">
+                                 
+                                  <div *ngFor="let activity of category.activities">
+
+                                    <mat-checkbox class="example-margin" (change)="onCheckboxChange($event, activity)" [(ngModel)]="activity.Activityselected" color="primary">{{ activity.title }}</mat-checkbox>
+                                  </div>
+                                </div>
+                                    <div *ngIf="(category.activities ?? []).length === 0">
+                                  <p>No activities available for this department.</p>
                                 </div>
                               </div>
                             </div>
-                            <div class="col-lg-4"> 
-                                <div class="card-header" id="headingTwo"> 
-                                        <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                       <i class="fa fa-caret-down"></i>
-                                      </button> 
-                                  </div>
-                              
-                                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                        <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                        <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                        <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                    </div>
-                                  </div>
-                                </div>
+                          </div>
+                          
 
-                                <div class="col-lg-4"> 
-                                    <div class="card-header" id="headingThree"> 
-                                            <mat-checkbox class="example-margin" color="primary">SC Dept</mat-checkbox>
-                                          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                                           <i class="fa fa-caret-down"></i>
-                                          </button> 
-                                      </div>
-                                  
-                                      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                            <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                            <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                            <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>  
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="col-lg-4"> 
-                                        <div class="card-header" id="headingFour"> 
-                                                <mat-checkbox class="example-margin" color="primary">ST Dept</mat-checkbox>
-                                              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                                               <i class="fa fa-caret-down"></i>
-                                              </button> 
-                                          </div>
-                                      
-                                          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                                <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                                <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                                <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox> 
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="col-lg-4"> 
-                                            <div class="card-header" id="headingFive"> 
-                                                    <mat-checkbox class="example-margin" color="primary">OBC Dept</mat-checkbox>
-                                                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
-                                                   <i class="fa fa-caret-down"></i>
-                                                  </button> 
-                                              </div>
-                                          
-                                              <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                                    <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                                    <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                                    <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>  
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div class="col-lg-4"> 
-                                                <div class="card-header" id="headingSix"> 
-                                                        <mat-checkbox class="example-margin" color="primary">Minority Dept</mat-checkbox>
-                                                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
-                                                       <i class="fa fa-caret-down"></i>
-                                                      </button> 
-                                                  </div>
-                                              
-                                                  <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
-                                                    <div class="card-body">
-                                                        <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                                        <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                                        <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox>
-                                                        <mat-checkbox class="example-margin" color="primary">PCCs</mat-checkbox> 
-                                                    </div>
-                                                  </div>
-                                                </div>
+                           
+                            </div>
+                           
+                           
+
+                              
+                              
+                                       
+                          
+                                         
                                                 <div class="col-lg-12 mt-1 mb-1" >
                                                     <h6>Designation</h6>
                                                 </div>
