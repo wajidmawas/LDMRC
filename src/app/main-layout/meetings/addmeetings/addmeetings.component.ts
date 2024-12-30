@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Meetingsservice } from '../meetings.service';
 import { SnackbarService } from 'src/shared/snackbar-service';
 import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
+
 
 
 @Component({
@@ -12,7 +14,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './addmeetings.component.scss'
 })
 export class AddmeetingsComponent implements OnInit {
-  
+  meetingId: string | null = null;
+  OrganisersList: any = [];
    designationsList: { id: string,name : string, selected: boolean }[] = [];
   categories1: {
     id: number;
@@ -30,7 +33,7 @@ export class AddmeetingsComponent implements OnInit {
   selectedOption: number = 1;
   isonline: number = 0;
   clsinvite:cls_addmeeting=new cls_addmeeting();
-  constructor(private service:Meetingsservice, private snackbar:SnackbarService, private translate:TranslateService) {
+  constructor(private route: ActivatedRoute,private service:Meetingsservice, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
       $(".page-loader-wrapper-review").fadeOut();
     }, 300);
@@ -38,13 +41,62 @@ export class AddmeetingsComponent implements OnInit {
     this.todayDate = today.toISOString().split('T')[0]; // Extracts the date part
   }
   ngOnInit() {  
+    debugger;
     $(".page-loader-wrapper").fadeOut();  
     this.isLoggedIn = localStorage.getItem("cl_user");
     this.getLookupMaster(0);
     this.getActivityMaster(0);
-    console.log(this.categories1); // Ensure this prints the correct data
+    this.getOrganizer(0);
+     // Retrieve 'id' from query parameters (e.g., ?id=4)
+     this.route.queryParams.subscribe(params => {
+      this.meetingId = params['id']; // Get the 'id' query parameter
+      this.loadMeetingData(this.meetingId); // Call method to load data using the 'id'
+    });
+
+    // Alternatively, if the 'id' is part of the route path (e.g., /meetings/:id)
+    // this.route.snapshot.paramMap.get('id'); // For route parameters
   }
- 
+  loadMeetingData(id: string | null): void {
+    if (id) {
+      console.log('Load data for meeting with id:', id);
+      const objRequest = {
+        typeId: 13,
+        userid: 0,
+        filterId: id,
+        filterText: "",
+        filterText1: ""
+      };
+    
+      this.service.getMasters(objRequest).subscribe({
+        next: (response: any) => { 
+          const parseresponse = JSON.parse(response.response); 
+          console.log(parseresponse);
+
+          debugger;
+          this.clsinvite.title= parseresponse.Table[0].title;
+          this.clsinvite. date= parseresponse.Table[0].date.split('T')[0]; // Format to YYYY-MM-DD
+          this.clsinvite.time= parseresponse.Table[0].time;
+          this.clsinvite.organizer_id= parseresponse.Table[0].organizer;
+          this.clsinvite.notification_type= parseresponse.Table[0].notif_type;
+          this.clsinvite.duration= parseresponse.Table[0].notif_duration;
+          this.clsinvite.duration_type= parseresponse.Table[0].notif_durationType;
+          this.clsinvite.description= parseresponse.Table[0].description;
+          this.clsinvite.meeting_link= parseresponse.Table[0].meeting_link;
+          this.clsinvite.meeting_location= parseresponse.Table[0].meeting_location;
+          this.clsinvite.short_desc= parseresponse.Table[0].short_desc;
+          this.clsinvite.isonline= parseresponse.Table[0].isonline;
+          
+        },
+        error: (error: any) => {
+          console.error("API call failed:", error);
+        },
+        complete: () => {
+          console.log("API call completed.");
+        }
+      });
+     }
+  }
+
   backtohome(){
     window.location.href = "/meetings";
   }
@@ -177,6 +229,30 @@ this.categories1 = (categoriesWithActivities|| []).map((category: any) => ({
   }))
 }));
          console.log(this.categories1);
+      },
+      error: (error: any) => {
+        console.error("API call failed:", error);
+      },
+      complete: () => {
+        console.log("API call completed.");
+      }
+    });
+  }
+  getOrganizer(id: any) {
+    const objRequest = {
+      typeId: 8,
+      userid: 0,
+      filterId: id,
+      filterText: "",
+      filterText1: ""
+    };
+  
+    this.service.getMasters(objRequest).subscribe({
+      next: (response: any) => { 
+        const parseresponse = JSON.parse(response.response); 
+        this.OrganisersList = parseresponse.Table;
+       console.log(this.OrganisersList);
+
       },
       error: (error: any) => {
         console.error("API call failed:", error);

@@ -51,44 +51,44 @@
     </div>
       <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-upmeeting" role="tabpanel" aria-labelledby="pills-upmeeting-tab">
-            <div class="meeting_list">
+            <div class="meeting_list" *ngFor="let meeting of upcomingmeetings">
                 <div class="meeting-dtls">
-                    <span>04 Dec 2024 <br/>Wednesday</span>
-                    <label>10:00AM</label>
-                    <div class="meetingtype">
-                        Physical Meeting
-                    </div>
+                  <span>{{ meeting.Date }} <br />{{ meeting.Day }}</span>
+                  <label>{{ meeting.time }}</label>
+                  <div class="meetingtype">
+                    {{ meeting.Meeting }}
+                  </div>
                 </div>
                 <div class="meeting_list_left">
-                    <h6>Status Update meeting on..</h6>
-                    <span>Org by: Rajesh</span>
-                    <span>Chairman</span>
+                  <h6>{{ meeting.title }} on..</h6>
+                  <span>Org by: {{ meeting.organizer }}</span>
+                
                 </div>
                 <div class="meeting_list_right">
-                    <button class="btn btn-primary mr-2">Join</button> 
+                  <button class="btn btn-primary mr-2" (click)="joinZoomMeeting(meeting)">Join</button>
                 </div>
-            </div>
+              </div>
         </div>
         <div class="tab-pane fade" id="pills-mymeeting" role="tabpanel" aria-labelledby="pills-mymeeting-tab">
-            <div class="meeting_list">
+            <div class="meeting_list" *ngFor="let meeting of upcomingmeetings">
                 <div class="meeting-dtls">
-                    <span>04 Dec 2024 <br/>Wednesday</span>
-                    <label>10:00AM</label>
-                    <div class="meetingtype">
-                        Physical Meeting
-                    </div>
+                  <span>{{ meeting.Date }} <br />{{ meeting.Day }}</span>
+                  <label>{{ meeting.time }}</label>
+                  <div class="meetingtype">
+                    {{ meeting.Meeting }}
+                  </div>
                 </div>
                 <div class="meeting_list_left">
-                    <h6>Status Update meeting on..</h6>
-                    <span>Org by: Rajesh</span>
-                    <span>Chairman</span>
+                  <h6>{{ meeting.title }} on..</h6>
+                  <span>Org by: {{ meeting.organizer }}</span>
+                
                 </div>
                 <div class="meeting_list_right">
                     <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#cancelalert">Cancel</button> 
-                    <button class="btn btn-primary mr-2">Re-Schedule</button> 
-                    <button class="btn btn-primary mr-2">Join</button> 
+                    <button class="btn btn-primary mr-2" (click)="ReSchedule(meeting)">Re-Schedule</button> 
+                  <button class="btn btn-primary mr-2" (click)="joinZoomMeeting(meeting)">Join</button>
                 </div>
-            </div>
+              </div>
         </div> 
         <div class="tab-pane fade" id="pills-Message" role="tabpanel" aria-labelledby="pills-Message-tab">Message</div> 
       </div>

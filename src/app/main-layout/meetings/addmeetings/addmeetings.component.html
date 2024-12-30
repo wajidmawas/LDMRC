@@ -45,8 +45,8 @@
                 <div class="form-group" >
                     <label >Organisers</label>
                     <select class="form-control" [(ngModel)]="clsinvite.organizer_id" [ngModelOptions]="{standalone: true}">
-                        <option>Select Organisers</option>
-                        <option value="1">AICC</option>
+                        <option value="">Select Organisers</option>
+                        <option *ngFor="let Organisers of OrganisersList" [value]="Organisers.id">{{ Organisers.first_name }} {{ Organisers.last_name}}</option> 
                     </select>
                 </div>
             </div>
