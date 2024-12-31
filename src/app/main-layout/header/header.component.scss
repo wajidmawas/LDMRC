@@ -13,6 +13,13 @@
     color:  #fff !important;
 }
  
+.pr_btn{
+    background: #fff !important;
+    border-radius: 20px;
+} 
+.pr_btn .dropdown-toggle::after{
+    color: #000 !important;
+}
 @media only screen and (max-width: 767px) {
     .lang{
         margin-bottom: 0 !important;

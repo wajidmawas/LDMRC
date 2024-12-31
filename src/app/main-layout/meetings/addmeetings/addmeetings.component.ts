@@ -16,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AddmeetingsComponent implements OnInit {
   meetingId: string | null = null;
   OrganisersList: any = [];
+  
    designationsList: { id: string,name : string, selected: boolean }[] = [];
   categories1: {
     id: number;
@@ -32,6 +33,7 @@ export class AddmeetingsComponent implements OnInit {
   isLoggedIn:any='';
   selectedOption: number = 1;
   isonline: number = 0;
+  expandedPanels: { [key: string]: boolean } = {};
   clsinvite:cls_addmeeting=new cls_addmeeting();
   constructor(private route: ActivatedRoute,private service:Meetingsservice, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
@@ -55,6 +57,12 @@ export class AddmeetingsComponent implements OnInit {
 
     // Alternatively, if the 'id' is part of the route path (e.g., /meetings/:id)
     // this.route.snapshot.paramMap.get('id'); // For route parameters
+  }
+  isExpanded(panelName: string): boolean {
+    return !!this.expandedPanels[panelName];
+  }
+  toggleCollapse(panelName: string) {
+    this.expandedPanels[panelName] = !this.expandedPanels[panelName];
   }
   loadMeetingData(id: string | null): void {
     if (id) {

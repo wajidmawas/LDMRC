@@ -40,8 +40,8 @@
                             <li class="menu-item">
                                 <a href="#">Meetings & <br>Communications</a> 
                             </li>
-                            <li *ngIf="isLoggedIn">
-                                <button class="btn dropdown-toggle text-white" type="button"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <li *ngIf="isLoggedIn" class="pr_btn">
+                                <button class="btn dropdown-toggle" type="button"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{userDetails.first_name}}
                                   </button>
                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

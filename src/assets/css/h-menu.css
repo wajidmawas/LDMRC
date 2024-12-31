@@ -217,6 +217,7 @@
     float: left;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 .h_menu header .desk-menu .logo {
     float: left;
@@ -258,8 +259,7 @@
     transition: all 0.3s ease-in-out;
     position: relative;
     padding: 0;
-    display: block;
-    margin: 0 auto;
+    display: block; 
     float: right;
     text-align: center;
 }

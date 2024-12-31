@@ -1,9 +1,10 @@
 <div id="wrapper" class="theme-cyan">
     <div class="vertical-align-wrap">
+        <div class="container-fluid">
         <div class="vertical-align-middle auth-main col-lg-12">
             <div class="row">
              
-            <div class="col-lg-5 mx-auto">  
+            <div class="col-lg-4 ml-auto">  
             <div class="auth-box"> 
                 <div class="card" *ngIf="!otpForm && !isforgotForm">
                      
@@ -18,7 +19,7 @@
                                 <label class="w-100 text-left">Mobile Number</label>
                                 <input type="text" class="form-control" maxlength="10" [(ngModel)]="clslogin.mobile_no"  [ngModelOptions]="{ standalone: true }" placeholder="Enter Mobile Number">
                             </div> 
-                            <button type="submit" class="btn btn-primary btn-lg mt-5" (click)="login()">Continue</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg" (click)="login()">GET OTP</button>
                            
                             <div class="bottom text-center w-100">  
                                 <span class="text-center">Don't have an account? <a href="/auth/register">Register</a></span>
@@ -74,5 +75,6 @@
         </div>
     </div>
         </div>
+    </div>
     </div>
 </div>

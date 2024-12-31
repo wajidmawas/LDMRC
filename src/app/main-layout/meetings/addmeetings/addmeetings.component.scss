@@ -40,3 +40,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 input[type="time"]::-webkit-calendar-picker-indicator {
     filter: invert(0.4) sepia(80%) saturate(1000%) hue-rotate(200deg);
 }
+
+.collapse-container {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease-in-out;
+  }
+  
+  .collapse-container.open {
+    max-height: 1000px; /* Set a sufficiently large value */
+  }

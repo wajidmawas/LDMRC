@@ -30,7 +30,7 @@ a:hover{
 .bottom span{ 
     width: 100%;
     display: inline-block;
-    color:#2699fb;
+    color:#505050;
 }
 .bottom span a{
     font-weight: bold;
@@ -53,14 +53,17 @@ a:hover{
 }
 
 .auth-box{
-    width: 100%;
+    width: 100%; 
 }
 .auth-box .card{
     background: #fff;
-    border-radius: 0 !important;
+    border-radius: 20px !important;
     box-shadow: 0px 0px 25px #abc8e0;
     border:0;
     padding:30px 0;
+    display: flex;
+    justify-content: center;
+    height: 90vh;
 }
 .card:hover,.card:active, .card:focus{
     box-shadow: none;
@@ -68,14 +71,13 @@ a:hover{
 .form-control{
     border-radius: 50px;
 }
-.btn{
-    border-radius: 0px !important;
+.btn{ 
     padding: 12px 25px;
 }
 .lead{
     font-size: 40px;
     font-weight: bold; 
-    color:#2699fb;
+    color:#000;
     margin-top: 20px;
 }
 .form-auth-small{
@@ -83,7 +85,7 @@ a:hover{
 }
 .leadp{
     font-size: 14px; 
-    color:#2699fb; 
+    color:#505050; 
 }
 .control-label{
     margin-bottom: 10px;
@@ -118,6 +120,11 @@ a:hover{
 }
 .helper-text{
     margin: 10px 0 !important;
+}
+.bottom{
+    position: absolute;
+    bottom: 30px;
+    left: 0;
 }
 @media screen and (max-width: 767px) {
     .lead{
