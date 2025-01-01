@@ -37,6 +37,7 @@
               
             ],
             "scripts": [
+              "src/assets/js/jquery.min.js",
               "src/assets/bundles/libscripts.bundle.js",
               "src/assets/bundles/vendorscripts.bundle.js",
               "src/assets/vendor/toastr/toastr.js",
@@ -54,7 +55,8 @@
               "src/assets/bundles/fullcalendarscripts.bundle.js",
               "src/assets/bundles/fullcalendar.js",
               "src/assets/bundles/calendar.js" ,
-              "src/assets/js/h-menu.js" 
+              "src/assets/js/h-menu.js" ,
+              "src/assets/js/owl.carousel.js"
             ]
           },
           "configurations": {

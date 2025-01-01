@@ -82,6 +82,9 @@ export class loginComponent implements OnInit, AfterViewInit {
   back(){
     this.otpForm=false;
   }
+  back1(){
+    window.location.href = "/dashboard"; 
+  }
   validateOTP() { 
     if(this.clslogin.otp == undefined || this.clslogin.otp == null || this.clslogin.otp == "") {
       this.snackbar.showInfo("Please enter otp","Error");

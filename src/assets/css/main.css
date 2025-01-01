@@ -1997,8 +1997,9 @@ body {
     background-color: #bababa;
     border-radius: 20px; 
   }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 body.font-nunito {
-    font-family: "Nunito", sans-serif
+    font-family: "Inter", serif !important;
 }
 
 body.font-ubuntu {
@@ -2054,6 +2055,30 @@ footer {
     flex: 1 1 auto
 }
 
+.owl-nav{
+    position: absolute;
+    top:-60px;
+    right:20px;
+}
+
+.owl-nav button{
+    width: 32px;
+    height: 32px;
+    border-radius: 50px;
+    background-color: #f1f1f1 !important;
+}
+.owl-prev{
+    margin-right: 10px;
+}
+.owl-nav button:focus{
+    outline: none !important;
+}
+.owl-nav button:hover{
+    background-color: #19aaed !important;
+}
+.owl-nav button:hover span{
+    color: #ffff !important;
+}
 @media only screen and (max-width: 767px) {
     
    
@@ -2823,12 +2848,12 @@ html.fullscreen-bg,html.fullscreen-bg body,html.fullscreen-bg #wrapper {
     -ms-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;
-    background: var(--card-color);
-    border: 0px solid var(--border-color);
+    background: #fff;
+    border: 1px solid #d5d5d5;
     margin-bottom: 30px;
     position: relative;
     width: 100%;
-    border-radius: 0;
+    border-radius: 20px;
 }
 .card1{
     -webkit-transition: all 0.3s;
@@ -2852,13 +2877,18 @@ html.fullscreen-bg,html.fullscreen-bg body,html.fullscreen-bg #wrapper {
 } */
 .card .header {
     color: var(--dark-color);
-    padding: 0 20px;
+    padding: 20px;
     position: relative;
     box-shadow: none;
-    margin-bottom: 0;
-    background-color: #eeeeee;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+    margin-bottom: 0; 
+}
+.header h4{
+    font-size: 28px;
+    font-weight: 600;
+    color: #000;
+}
+.text-dark{
+    color: #000 !important;
 }
 .card1 .header {
     color: var(--dark-color);
@@ -3933,7 +3963,7 @@ label {
     -webkit-box-shadow: none;
     box-shadow: none;
     background-color: #fff;
-    border-color: #ababab;
+    border-color: #9b9b9b;
     font-size: 14px;
     height: auto; 
     border-radius: 10px !important;
@@ -10824,7 +10854,7 @@ div.mat-mdc-select-panel{
 }
 
 .form-control{
-    color: var(--primary-color) !important;
+    color: #000 !important;
 }
 
 [data-theme="dark"] .mat-mdc-select-arrow svg{
@@ -11381,19 +11411,27 @@ video{
 }
 
 .table{
-    background-color: #f1f9ff;
-    padding: 10px;
+    padding: 5px;
+    border: 1px solid #D5D5D5; 
+
 }
 .table-striped tbody tr:nth-of-type(odd){
-    background-color: #bce0fd;
+    background-color: #f3f5f6;
+}
+.table-striped tbody tr:nth-of-type(even){
+    background-color: #E6E6E6;
 }
 
 .table td{
-    color: #2699fb;
+    color: #000;
+    font-size: 12px;
 }
 
 .table th{
-    color: #848585;
+    color: #000;
+    font-size: 12px;
+    font-weight: 400;
+    background-color: #C3E9FC;
 }
 
 .card_title{
@@ -11428,4 +11466,8 @@ app-footer{
 }
 .modal-content{
     border-radius: 0 !important;
+} 
+
+.btn_arrow{
+    width: 16px;
 }

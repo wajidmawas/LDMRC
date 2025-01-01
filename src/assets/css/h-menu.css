@@ -71,7 +71,7 @@
     --primary-gradient: linear-gradient(45deg, #2929b9, #87b70a);
 }
 [class="theme-cyan"] {
-    --primary-color: #2699fb;
+    --primary-color: #19aaed;
     --primary-color2: #33bab0;
     --primary-color3: #8bcec9;
     --secondary-color: #637aae;
@@ -193,7 +193,7 @@
     width: 100%;
     float: left;
     position: fixed;
-    z-index: 10;
+    z-index: 100;
     padding: 10px 0;
 }
 .h_menu header::before {

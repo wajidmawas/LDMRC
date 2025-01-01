@@ -15,26 +15,38 @@ a:hover{
     top: 5%;
 
 }
+.logo{
+    width:100px;
+}
 #wrapper{
-    background: #f1f9ff !important;
+    background: url("../../../assets/images/login_bg.png") !important;
 }
 .back{
-    position: relative;
-    padding: 0 !important;
+    position: absolute;
+    top:4%;
+    left: 0;
+    padding: 5px 10px;
     z-index: 9;
+    border-radius: 50px;
     margin-bottom: 5px;
+    border:1px solid #9b9b9b
 }
 .back a{
-    color: #2699fb;
+    color: #000;
+    font-size: 14px;
 }
 .bottom span{ 
     width: 100%;
     display: inline-block;
-    color:#505050;
+    color:#9b9b9b;
+}
+.btn_login{ 
+    background: #97ddff !important;
+    border-color: #97ddff !important;
 }
 .bottom span a{
     font-weight: bold;
-    color:#2699fb;
+    color:#19aaed;
 }
 .gicon{
     width: 24px; 
@@ -64,6 +76,10 @@ a:hover{
     display: flex;
     justify-content: center;
     height: 90vh;
+    align-items: center;
+}
+.card .body{
+    width: 100%;
 }
 .card:hover,.card:active, .card:focus{
     box-shadow: none;
@@ -75,7 +91,7 @@ a:hover{
     padding: 12px 25px;
 }
 .lead{
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold; 
     color:#000;
     margin-top: 20px;
@@ -85,7 +101,7 @@ a:hover{
 }
 .leadp{
     font-size: 14px; 
-    color:#505050; 
+    color:#9b9b9b; 
 }
 .control-label{
     margin-bottom: 10px;
