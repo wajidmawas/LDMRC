@@ -138,6 +138,7 @@ export class AddmeetingsComponent implements OnInit {
     this.clearDesignations();
     this.clearParticipants();
     this.clsinvite.organizer_id =0;
+    
   }
 // Clear the designations checkboxes
 clearDesignations() {
