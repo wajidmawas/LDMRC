@@ -60,6 +60,29 @@ export class MeetingsComponent {
   ReSchedule(meeting:any) {
     window.location.href = "/meetings/addmeetings?id="+meeting.id;
   }
+  Cancel(meeting:any) {
+    debugger;
+    const objRequest = {
+      typeId: 20,
+      userid: 0,
+      filterId: meeting.id,
+      filterText: "",
+      filterText1: ""
+    };
+  
+    this.service.getMasters(objRequest).subscribe({
+      next: (response: any) => { 
+        debugger;
+         const parseresponse = JSON.parse(response.response); 
+      },
+      error: (error: any) => {
+        console.error("API call failed:", error);
+      },
+      complete: () => {
+        console.log("API call completed.");
+      }
+    });
+  }
 
   addmeeting(){
     window.location.href = "/meetings/addmeetings";

@@ -19,6 +19,7 @@
                     <mat-radio-button value="0" [(ngModel)]="clsinvite.isonline" color="primary">Physical Meeting</mat-radio-button>
                     <mat-radio-button value="1" [(ngModel)]="clsinvite.isonline" color="primary">Zoom Meeting</mat-radio-button>
                   </mat-radio-group>
+           
                   
             </div>
         </div>
@@ -155,7 +156,7 @@
                                     </div>
                                   </div>
                                   <div *ngIf="(category.activities ?? []).length === 0">
-                                    <p>No activities available for this department.</p>
+                                    <p>No Users are available for this Organisation.</p>
                                   </div>
                                 </div>
                               </div>
