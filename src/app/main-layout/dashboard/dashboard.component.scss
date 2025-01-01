@@ -10,35 +10,68 @@
 .pos-rel{
     position: relative;
 }
-
+.meeting_title_link{
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    background: #19aaed;
+}
+.meeting_title_link img{
+    width: 16px;
+    height: 16px;
+    transform: rotate(-45deg);
+}
 .mnth_title{
-    font-size: 24px;
-    color: #2699fb;
+    font-size: 20px;
+    color: #fff;
+    font-weight: normal;
 }
 .title{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 10px 0;
+    margin: 20px 0;
 }
 .title h6{
-    font-size: 16px;
-    color: #2699fb;
-    font-weight: bold;
+    font-size: 20px;
+    color: #fff; 
+    font-weight: normal; 
 }
-
+.nav-item{
+    border-radius: 5px;
+    border:1px solid #485257;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link{
+    background-color: #19aaed !important;
+}
+.nav-pills>li>a{
+    background-color: #2c393f !important;
+    border-radius: 5px !important;
+}
+.nav-pills .nav-link{
+    border-bottom: 0 !important;
+    font-size: 12px;
+}
 .title i{
     color: #2699fb;
     font-size: 16px;
 }
 
 .meeting_list{
-    background-color: #bce0fd;
+    background-color: #fff;
     padding: 10px;
     display: flex;
+    width: 100%;
     align-items: center;
     margin-bottom: 10px;
+    border-radius: 15px;
     justify-content: space-between;
+}
+.tab-content > .active{
+    padding-right: 0 !important;
 }
 
 .meeting_list_left{
@@ -47,17 +80,34 @@
     flex-direction: column;
 }
 .meeting_list span{
-    color: #2699fb;
-    font-size: 12px;
+    color: #9b9b9b;
+    font-size: 10px; 
+}
+.team_mem{
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #2c393f !important;
+}
+.datetime{
+    background-color: #2c393f;
+    border-radius: 10px;
+    padding: 0 10px;
     margin-top: 5px;
 }
+.datetime span{
+    color: #fff;
+    font-size: 10px;
+}
+.btn_login{
+    width: 70%; 
+}
 .meeting_list_left h6{
-    color: #2699fb;
-    font-size: 18x;
-    font-weight: bold;
+    color: #000;
+    font-size: 14px;
+    font-weight: normal;
     white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .meeting_list_right{
     display: flex;
@@ -84,12 +134,17 @@
 }
 
 .card-title{
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 14px; 
     text-align: center;
     display: block;
-}
+    color: #000;
+    padding: 0 20px;
+    line-height: 20px;
 
+}
+.item .cards .card-body img{
+    width: 72px;
+}
 .menu:hover{
     background: #2699fb;
 }
@@ -104,4 +159,155 @@
 
 .text-grey{
     color: #7f7f7f;
+}
+
+.cards{
+    border-radius: 20px;
+    border: 1px solid #97ddff;
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    height: 250px;
+}
+
+.meetings_bg{
+    background-color: #2c393f !important;
+}
+
+.viewall{
+    background-color: #19aaed;
+    border-radius: 50px;
+    padding: 7px 12px;
+    font-size: 10px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.thumbnail img{
+    width: 100%;
+}
+
+.thumb-div{
+    width: 80%;
+    position: absolute;
+    bottom: 5%;
+    left: 10%; 
+    background-color: #fff;
+    border-radius: 20px;
+}
+.thumb_inner{
+    padding: 20px;
+    width: 80%;
+}
+
+.thumb_inner h1{
+    font-size: 20px;
+    color: #19AAED;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.thumb_inner span{
+    color: #000;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.pdf_dnload{
+    background-color: #c6e2ee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 140px;
+    width: 20%;
+    border-radius: 0 20px 20px 0px;
+
+}
+.pdf_dnload img{
+    width: 20px;
+}
+
+.training_img{
+    width: 40%;
+    position: relative;
+}
+.tim_details{
+position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left: 17px;
+    bottom: 10px;
+}
+.tim_details span{
+    font-size: 10px;
+    color: #000;
+}
+
+.tim_details label{
+    font-size: 12px;
+    font-weight: 500;
+    color: #000;
+}
+
+.training_dtls{
+    width: 60%;
+}
+
+.training_dtls h2{
+    font-size: 12px;
+    color: #000;
+}
+
+.training_dur{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.detials span{
+    font-size: 10px;
+    color: #000;
+}
+.detials label{
+    font-weight: bold;
+    font-size: 10px;
+    color: #000;
+}
+
+.train_b_details{
+    width: 100%;
+    border-radius: 50px;
+    background: #13446D;
+    padding: 3px 5px;
+    margin:5px 0;
+}
+
+.train_b_details h4{
+    font-size: 12px;
+    color: #fff;
+    margin-left: 5px;
+    margin-bottom: 0;
+}
+
+.train_b_details span{
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.train_b_details span img{
+    width: 16px;
+}
+
+.btn-white{
+    background-color: #fff;
+    font-size: 12px;
+    font-weight: 500;
 }

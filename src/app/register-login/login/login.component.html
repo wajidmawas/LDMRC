@@ -7,7 +7,10 @@
             <div class="col-lg-4 ml-auto">  
             <div class="auth-box"> 
                 <div class="card" *ngIf="!otpForm && !isforgotForm">
-                     
+                    <div class="back ml-3">
+                        <a href="javascript::" (click)="back1()"><i class="fa fa-arrow-left mr-2"></i>Back</a>
+                    </div>
+                     <img src="../../../assets/images/logo.png" class="logo"/>
                     <div class="header text-center">
                         <h4 class="lead">Sign In</h4> 
                         <p class="leadp">Enter your mobile number to continue</p>
@@ -19,7 +22,7 @@
                                 <label class="w-100 text-left">Mobile Number</label>
                                 <input type="text" class="form-control" maxlength="10" [(ngModel)]="clslogin.mobile_no"  [ngModelOptions]="{ standalone: true }" placeholder="Enter Mobile Number">
                             </div> 
-                            <button type="submit" class="btn btn-primary btn-block btn-lg" (click)="login()">GET OTP</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg btn_login" (click)="login()">Get OTP</button>
                            
                             <div class="bottom text-center w-100">  
                                 <span class="text-center">Don't have an account? <a href="/auth/register">Register</a></span>
@@ -30,11 +33,12 @@
 
                 <div class="card" *ngIf="otpForm">
                     <div class="back ml-3">
-                        <a href="javascript::" (click)="back()"><i class="fa fa-arrow-left"></i></a>
+                        <a href="javascript::" (click)="back()"><i class="fa fa-arrow-left"></i> Back</a>
                     </div>
+                    <img src="../../../assets/images/logo.png" class="logo"/>
                     <div class="header text-center">
                         <h4 class="lead">OTP Verification</h4>
-                        <p class="leadp">We have sent OTP on your Mobile Number. Please capture for verification</p>
+                        <p class="leadp">We have sent OTP on your Mobile Number. Please capture for verification.</p>
                     </div>
                     <div class="body d-flex justify-content-center">
                         <form class="form-auth-small">
@@ -43,7 +47,7 @@
                                 <span class="helper-text m-b-10"><a href="javascript::" (click)="login()" >Didn't Receive OTP?</a></span>
                             </div>
                             <div class="w-100 text-center mt-5">
-                            <button type="submit" class="btn btn-primary btn-lg" (click)="validateOTP()">VERIFY OTP</button>
+                            <button type="submit" class="btn btn-primary btn-lg btn_login" (click)="validateOTP()">VERIFY OTP</button>
                         </div>
                             <div class="bottom text-center w-100">
                                

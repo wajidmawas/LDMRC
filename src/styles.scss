@@ -24,6 +24,8 @@ $my-theme: mat.define-light-theme((color: (primary: $my-primary, accent: $my-acc
 @import "assets/css/select2.min.css";
 @import "assets/vendor/bootstrap-treeview/bootstrap-treeview.min.css";
 @import "assets/css/h-menu.css";
+@import "assets/css/owl.carousel.min.css";
+@import "assets/css/owl.theme.default.css";
 .video_login{
     position: relative;
     width: 100%; 

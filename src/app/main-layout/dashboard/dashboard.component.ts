@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { FormControl } from '@angular/forms';
 import { map, startWith, Subject, takeUntil } from 'rxjs';
-
+declare var $: any;
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
@@ -58,7 +58,30 @@ constructor(public sharedService: SharedService) {
 
 
   ngAfterViewInit(): void {
-  
+    $('.owl-carousel').owlCarousel({
+      loop:true,
+      margin:20,
+      responsiveClass:true,
+      nav:true,
+      autoplay:false,
+    autoplayTimeout:2000,
+    autoplayHoverPause:true,
+      responsive:{
+          0:{
+              items:1,
+              nav:false
+          },
+          600:{
+              items:3,
+              nav:false
+          },
+          1000:{
+              items:5,
+              nav:true, 
+          }
+      }
+    });
+    
   }
 
 
@@ -67,6 +90,7 @@ ngOnDestroy() {
   this._onDestroy.complete();
 }
 
+ 
 
 }
 

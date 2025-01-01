@@ -2,9 +2,7 @@
     width: 200px !important;
 }
                    
-.auth-box{
-    align-items: flex-start !important;
-}        
+         
 a{
     color:#fff;
 }
@@ -22,25 +20,30 @@ body{
     overflow: hidden;
 }
 #wrapper{
-    background: #f1f9ff !important;
+    background: url("../../../assets/images/login_bg.png") !important;
 }
 .back{
-    position: relative;
-    padding: 0 !important;
+    position: absolute;
+    top:4%;
+    left: 0;
+    padding: 5px 10px;
     z-index: 9;
+    border-radius: 50px;
     margin-bottom: 5px;
+    border:1px solid #9b9b9b
 }
 .back a{
-    color: #2699fb;
+    color: #000;
+    font-size: 14px;
 }
 .bottom span{ 
     width: 100%;
     display: inline-block;
-    color:#2699fb;
+    color:#9b9b9b;
 }
 .bottom span a{
     font-weight: bold;
-    color:#2699fb;
+    color:#19aaed;
 }
 .gicon{
     width: 24px; 
@@ -61,12 +64,20 @@ body{
 .auth-box{
     width: 100%;
 }
+.logo{
+    width:100px;
+    margin-top: 4%;
+}
 .auth-box .card{
     background: #fff;
-    border-radius: 0 !important;
+    border-radius: 20px !important;
     box-shadow: 0px 0px 25px #abc8e0;
     border:0;
     padding:30px 0;
+    display: flex; 
+    align-items: center;
+    height: 90vh; 
+    overflow-y: auto;
 }
 .card:hover,.card:active, .card:focus{
     box-shadow: none;
@@ -74,39 +85,44 @@ body{
 .form-control{
     border-radius: 50px;
 }
-.btn{
-    border-radius: 0px !important;
+.btn{ 
     padding: 12px 25px;
 }
+.btn_login{
+    width: 70%;
+    background: #97ddff !important;
+    border-color: #97ddff !important;
+}
 .lead{
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold; 
-    color:#2699fb;
+    color:#000;
     margin-top: 20px;
 }
-.form-auth-small{
-    width: 100%;
+.form-auth-small, .top_radio_btns{
+    width: 90%;
+    margin: auto;
 }
- 
+
 .leadp{
-    font-size: 16px; 
-    color:#2699fb; 
+    font-size: 14px; 
+    color:#9b9b9b; 
 }
 .control-label{
     margin-bottom: 10px;
 }
 ::ng-deep .mdc-form-field > label{
-        color: #2699fb !important; // Use your primary color
+        color: #000 !important; // Use your primary color
    
   }
  
 
 ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle {
-  border: 1px solid #2699fb !important; /*change radio button not checked border */
-  background-color: #cfe9ff;
+  border: 1px solid #9b9b9b !important; /*change radio button not checked border */
+  background-color: #fff;
 }
 ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle{
-    background-color: #cfe9ff;
+    background-color: #fff;
 }
  
 
@@ -156,7 +172,7 @@ body{
         position: relative; 
         left: 0;
     }
-    .form-auth-small{
+    .form-auth-small, .top_radio_btns{
         width: 100%;
     }
     .mble{
