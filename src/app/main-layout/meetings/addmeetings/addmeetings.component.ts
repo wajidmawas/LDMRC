@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './addmeetings.component.scss'
 })
 export class AddmeetingsComponent implements OnInit {
-  meetingId: string | null = null;
+  meetingId: number | null = null;
   OrganisersList: any = [];
   
    designationsList: { id: string,name : string, selected: boolean }[] = [];
@@ -64,7 +64,7 @@ export class AddmeetingsComponent implements OnInit {
   toggleCollapse(panelName: string) {
     this.expandedPanels[panelName] = !this.expandedPanels[panelName];
   }
-  loadMeetingData(id: string | null): void {
+  loadMeetingData(id: number | null): void {
     if (id) {
       console.log('Load data for meeting with id:', id);
       const objRequest = {
@@ -81,9 +81,10 @@ export class AddmeetingsComponent implements OnInit {
           console.log(parseresponse);
 
           debugger;
+          this.clsinvite.is_reschdule= id;
           this.clsinvite.title= parseresponse.Table[0].title;
           this.clsinvite. date= parseresponse.Table[0].date.split('T')[0]; // Format to YYYY-MM-DD
-          this.clsinvite.time= parseresponse.Table[0].time;
+          this.clsinvite.time= parseresponse.Table[0].time.split(' ')[0];
           this.clsinvite.organizer_id= parseresponse.Table[0].organizer;
           this.clsinvite.notification_type= parseresponse.Table[0].notif_type;
           this.clsinvite.duration= parseresponse.Table[0].notif_duration;
@@ -93,7 +94,14 @@ export class AddmeetingsComponent implements OnInit {
           this.clsinvite.meeting_location= parseresponse.Table[0].meeting_location;
           this.clsinvite.short_desc= parseresponse.Table[0].short_desc;
           this.clsinvite.isonline= parseresponse.Table[0].isonline;
+          this.selectedOption = this.clsinvite.isonline; // Bind to the selectedOption model
           
+ 
+           // Update the designations based on the API response
+          this.updateDesignationsList(parseresponse.Table2); 
+// Update the organisation based on the API response
+ this.updateOrganisationList(parseresponse.Table3);
+
         },
         error: (error: any) => {
           console.error("API call failed:", error);
@@ -109,12 +117,45 @@ export class AddmeetingsComponent implements OnInit {
     window.location.href = "/meetings";
   }
   onOptionChange() {
-    this.clsinvite.isonline = this.selectedOption === 0 ? 0 : 1;
-   
+     this.clsinvite.isonline = this.selectedOption === 0 ? 0 : 1;
   }
   cancel() {
+    this.clsinvite.title='';
+    this.clsinvite.date= '';
+    this.clsinvite.time=''; 
+    this.clsinvite.notification_type=0;
+    this.clsinvite.duration = 0;
+    this.clsinvite.description = '';
+    this.clsinvite.isonline=0;
+    this.clsinvite.meeting_location='';
+    this.clsinvite.meeting_link='';
+    this.clsinvite.short_desc='';
+    this.clsinvite.is_reschdule=0;
+    this.clsinvite.created_by=1;
+    this.clsinvite.duration_type='';
+    this.clsinvite.designations=[];
+    this.clsinvite.participants=[];
+    this.clearDesignations();
+    this.clearParticipants();
+    this.clsinvite.organizer_id =0;
+    
   }
+// Clear the designations checkboxes
+clearDesignations() {
+  this.designationsList.forEach(designation => {
+    designation.selected = false;  // Clear the selection for each designation
+  });
+}
 
+// Clear the participants checkboxes
+clearParticipants() {
+  this.categories1.forEach(category => {
+    category.selected = false;  // Clear the selection for each category
+    category.activities.forEach(activity => {
+      activity.Activityselected = false;  // Clear the selection for each activity
+    });
+  });
+}
   invite() {
      var validate:boolean=false;
     if (this.clsinvite.isonline == null  || this.clsinvite.isonline === 0) {
@@ -301,6 +342,51 @@ this.categories1 = (categoriesWithActivities|| []).map((category: any) => ({
       }
     console.log(this.clsinvite.participants);  // To verify
   }
+  
+updateDesignationsList(apiResponse: any[]): void {
+  this.designationsList.forEach(designation => {
+    // Mark as selected if the name matches a role in the API response
+    designation.selected = apiResponse.some(role => 
+      role.Role === designation.name && role.id === designation.id);
+     // Add the selected designation in the desired format
+     if (designation.selected) {
+      const selectedDesignation = { id: designation.id };
+   // Add it to the array if it's not already present
+   if (!this.clsinvite.designations.some(d => d.id === designation.id)) {
+     this.clsinvite.designations.push(selectedDesignation);
+   }
+  }
+
+  });
+  
+}
+updateOrganisationList(apiResponse: any[]): void {
+  this.categories1.forEach(organisation => {
+    // If activities are a string, parse them into objects
+    if (typeof organisation.activities === 'string') {
+      organisation.activities = JSON.parse(organisation.activities);
+    }
+    const Editactivities: { id: number, title: string, activity_type: number }[] = JSON.parse(apiResponse[0].activities);
+
+     organisation.activities.forEach(activity => {
+    // Set Activityselected to true if the activity ID exists in the parsed activities
+    activity.Activityselected = Editactivities.some((apiActivity: { id: number }) => apiActivity.id === activity.id);
+      // If the activity is selected, add it to the participants array (if not already present)
+      if (activity.Activityselected) {
+        const selectedOrganisation = { id: activity.id };
+        if (!this.clsinvite.participants.some(d => d.id === activity.id)) {
+          this.clsinvite.participants.push(selectedOrganisation);
+        }
+      } else {
+        // If the activity is unselected, remove it from the participants array (if present)
+        this.clsinvite.participants = this.clsinvite.participants.filter(d => d.id !== activity.id);
+      }
+    });
+
+    // Track whether the entire category is selected based on its activities
+    organisation.selected = organisation.activities.some(activity => activity.Activityselected);
+  });
+}
   selectAllActivities(category: any) {
     category.activities.forEach((activity: any) => {
       activity.Activityselected = category.selected;

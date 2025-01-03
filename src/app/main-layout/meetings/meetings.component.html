@@ -84,7 +84,7 @@
                 
                 </div>
                 <div class="meeting_list_right">
-                    <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#cancelalert">Cancel</button> 
+                    <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#cancelalert" (click)="Cancel(meeting)">Cancel</button> 
                     <button class="btn btn-primary mr-2" (click)="ReSchedule(meeting)">Re-Schedule</button> 
                   <button class="btn btn-primary mr-2" (click)="joinZoomMeeting(meeting)">Join</button>
                 </div>
