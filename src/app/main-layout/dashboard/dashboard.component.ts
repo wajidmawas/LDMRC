@@ -58,7 +58,7 @@ constructor(public sharedService: SharedService) {
 
 
   ngAfterViewInit(): void {
-    $('.owl-carousel').owlCarousel({
+    $('.loop').owlCarousel({
       loop:true,
       margin:20,
       responsiveClass:true,
@@ -81,7 +81,30 @@ constructor(public sharedService: SharedService) {
           }
       }
     });
-    
+    $('.loop1').owlCarousel({
+      loop:false,
+      center: true,
+      margin:20,
+      responsiveClass:true,
+      nav:true,
+      autoplay:false,
+    autoplayTimeout:2000,
+    autoplayHoverPause:true,
+      responsive:{
+          0:{
+              items:2,
+              nav:false
+          },
+          600:{
+              items:2,
+              nav:false
+          },
+          1000:{
+              items:4,
+              nav:true, 
+          } 
+      }
+    });
   }
 
 
