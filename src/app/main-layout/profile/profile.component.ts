@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   states: any = []; cities: any = [];ActivityType: any = [];
   userDtail:any={};
   userdetails:any={};
+  villages:any=[];
 constructor(private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
       
     this.titleService.setTitle("AICC - Profile");
@@ -56,6 +57,7 @@ onstateChange(event: any): void {
 }
 oncityChange(event: any): void {
   this.selectedCity = event.target.value; 
+  this.getvillages(event.target.value,this.selectedState);
 }
 onvillageChange(event: any): void {
   this.selectedVillage = event.target.value; 
@@ -79,6 +81,35 @@ getCities(id: any) {
       if (response["errorCode"] === "200") { 
         this.cities = parseresponse.Table
        console.log("Cities" + JSON.stringify(this.cities))
+      } else {
+        console.error("API returned an error:", response.message); 
+      }
+    },
+    error: (error: any) => {
+      console.error("API call failed:", error);
+      
+    },
+    complete: () => {
+      console.log("API call completed.");
+    }
+  });
+}
+getvillages(id: any,state :any) {
+  const objRequest = {
+    typeId: 5,
+    userid: 0,
+    filterId: state,
+    filterText: id,
+    filterText1: ""
+  };
+  console.log(JSON.stringify(objRequest));
+  this.service.getMasters(objRequest).subscribe({
+    next: (response: any) => { 
+      var parseresponse = JSON.parse(response.response); 
+     
+      if (response["errorCode"] === "200") { 
+        this.villages = parseresponse.Table
+       console.log("villages" + JSON.stringify(this.villages))
       } else {
         console.error("API returned an error:", response.message); 
       }
@@ -216,6 +247,10 @@ onFileChange(event: any) {
 CancelActivity()
 {
   this.clsactivity = new cls_addactivity(); // Reset form data
+}
+Back()
+{
+  window.location.href = "/profile";
 }
 }
 
