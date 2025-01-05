@@ -10,9 +10,9 @@ export class dashboardService {
 
   // Method for fetching the list of all players by filters
   getMasters(clsobj:object) {
-    return this.http.post(this.sharedService._baseUrl + this.UserProfileManagementUrl + "/GetMasters", clsobj,{ headers: this.sharedService.returnHttpHeaders()});
+    debugger;
+    return this.http.post(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/_GetMasters", clsobj,{ headers: this.sharedService.returnHttpHeaders()});
   }
-
   getPlayersByClient(clsobj:object) {
     return this.http.post(this.sharedService._baseUrl + this.UserProfileManagementUrl + "/_GetPlayersByClient", clsobj,{ headers: this.sharedService.returnHttpHeaders()});
   }

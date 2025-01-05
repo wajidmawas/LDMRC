@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { FormControl } from '@angular/forms';
 import { map, startWith, Subject, takeUntil } from 'rxjs';
+
 declare var $: any;
 @Component({
   selector: 'dashboard',
@@ -17,6 +18,7 @@ declare var $: any;
 })
 
 export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
+  images: any[] = [];
   title = 'dashboard';
 
   @ViewChild('tableExport', { static: false }) table: any; // Reference to the HTML table element
@@ -28,8 +30,10 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     
   currentDateTime:string ='';
   private _onDestroy = new Subject<void>(); 
-constructor(public sharedService: SharedService) {
-
+constructor(public sharedService: SharedService,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
+  setTimeout(() => {
+    $(".page-loader-wrapper-review").fadeOut();
+  }, 300);
     this.userDetail = this.sharedService.getUserSession();
     
     var year  = new Date().getFullYear();
@@ -47,6 +51,7 @@ constructor(public sharedService: SharedService) {
   ngOnInit() {  
     $(".page-loader-wrapper").fadeOut();  
     this.isLoggedIn = localStorage.getItem("cl_user");
+    this.LoadSlider(0);
   }
 
   gotoMeetings(){
@@ -90,7 +95,30 @@ ngOnDestroy() {
   this._onDestroy.complete();
 }
 
- 
+LoadSlider(id:any) {
+  debugger;
+  const objRequest = {
+    typeId: 21,
+    userid: 0,
+    filterId: id,
+    filterText: "",
+    filterText1: ""
+  };
+
+  this.service.getMasters(objRequest).subscribe({
+    next: (response: any) => { 
+      debugger;
+       const parseresponse = JSON.parse(response.response); 
+       this.images = parseresponse.Table;
+    },
+    error: (error: any) => {
+      console.error("API call failed:", error);
+    },
+    complete: () => {
+      console.log("API call completed.");
+    }
+  });
+}
 
 }
 
