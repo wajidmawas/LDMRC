@@ -108,6 +108,37 @@
                                        <img src="assets/images/loader.png" class="loader_img"/>
                                        <button class="btn btn-primary" data-toggle="modal" data-target="#addactivity">Add Activity</button>
                                     </div>
+                                    <div class="activities-container">
+                                        <h2>Activities</h2>
+                                        <div class="search-bar">
+                                          <input type="text" placeholder="Search :" />
+                                          <button>
+                                            <i class="fa fa-search"></i>
+                                          </button>
+                                        </div>
+                                        <div class="activities-grid">
+                                          <div class="activity-card" *ngFor="let activity of Activities">
+                                            <div class="activity-image">
+                                              <!-- Placeholder for image -->
+                                            </div>
+                                            <div class="activity-content">
+                                              <h3>{{ activity.title }}</h3>
+                                              <div class="activity-meta">
+                                                <span>
+                                                  <i class="fa fa-user"></i> {{ activity.Author }}
+                                                </span>
+                                                <span>
+                                                  <i class="fa fa-calendar"></i> {{ activity.Date }}
+                                                </span>
+                                              </div>
+                                            </div>
+                                            <button class="edit-button" data-toggle="modal" data-target="#addactivity" (click)="EditActivity(activity)">Edit</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      
+
+
                                 </div>
                             </div>
         </div>

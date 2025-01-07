@@ -76,7 +76,7 @@ export class SharedService {
     return this.headers.set('content-type', 'application/json') 
     .set('Content-Type', 'application/json')
     .set('Access-Control-Allow-Origin', '*')
-      .set('Authorization', 'CF703BE5EC3D451496FADFABD41118B197CB14263CC1887587AF543620BAA3FB');
+    .set('Authorization', 'CF703BE5EC3D451496FADFABD41118B197CB14263CC1887587AF543620BAA3FB');
   }
 
   returnHttpHeadersWithDefaultToken() {
@@ -99,9 +99,16 @@ export class SharedService {
       .set('observe', 'events');
   }
 
+  // postForFormData(url: string, formData: FormData) {
+  //   const headers = new HttpHeaders()
+  //   .set('clientid', this.getUserSession().clientCode);
+
+  //   return this.http.post(url, formData, { headers }).pipe(map(this.extractData)).toPromise();
+  // } 
+
   postForFormData(url: string, formData: FormData) {
     const headers = new HttpHeaders()
-    .set('clientid', this.getUserSession().clientCode);
+    .set('Authorization', 'CF703BE5EC3D451496FADFABD41118B197CB14263CC1887587AF543620BAA3FB');
 
     return this.http.post(url, formData, { headers }).pipe(map(this.extractData)).toPromise();
   } 
