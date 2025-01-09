@@ -20,7 +20,7 @@
     
                     </div>
                     <div class="p-2 d-flex">
-                        <button class="btn btn-primary mr-2" >Send Message <img src="../../../assets/images/btn_arrow.png" class="ml-2 btn_arrow"/></button> 
+                        <button class="btn btn-primary mr-2" (click)="addmessage()">Send Message <img src="../../../assets/images/btn_arrow.png" class="ml-2 btn_arrow"/></button> 
                         <button class="btn btn-primary" (click)="addmeeting()">Schedule a Meeting <img src="../../../assets/images/btn_arrow.png" class="ml-2 btn_arrow"/></button>
                     </div>
                 </div>
@@ -49,6 +49,10 @@
           <span>Search</span>
           <input type="text" class="form-control round">
           <button type="btn btn-primary" class="srch_icon"><i class="fa fa-search"></i></button>
+      </div>
+      <div class="btns">
+        <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
+        <button class="btn btn-secondary"><i class="fa fa-cloud-download mr-2"></i>Download</button>
       </div>
 <!-- 
       <div class="drp">
@@ -166,7 +170,49 @@
               </ng-template>
         
         </div>
-        <div class="tab-pane fade" id="pills-Message" role="tabpanel" aria-labelledby="pills-Message-tab">Message</div> 
+        <div class="tab-pane fade" id="pills-Message" role="tabpanel" aria-labelledby="pills-Message-tab">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                  <tr>
+                    <th>Sr. No</th>
+                    <th>Image, Video, Audio</th>
+                    <th>Content</th>
+                    <th>Sender</th>
+                    <th>Date & Time</th>
+                    <th>Receipents</th>
+                    <th>Status</th>
+              </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>01.</td>
+                      <td><img src="../../../assets/images/logo.png" width="32" height="32"></td>
+                      <td class="wp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis iaculis ultrices. Aliquam ipsum ante, dictum quis eros non, vestibulum auctor justo. Duis egestas elementum</td>
+                      <td class="wp">Shri Mallikarjun Kharge</td>
+                      <td class="wp">02 DEC 2024 11:00 AM</td>
+                      <td class="wp">Shri Sanjay Neeraj, Shri Hitendra Pithadiya, Shri Devender Yadav, Shri Shaktisinh Gohil, Shri Rahul Gandhi, Shri K Raju, more</td>
+                      <td>Successful</td>
+                  </tr>
+                  <tr>
+                      <td>01.</td>
+                      <td><img src="../../../assets/images/logo.png" width="32" height="32"></td>
+                      <td class="wp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis iaculis ultrices. Aliquam ipsum ante, dictum quis eros non, vestibulum auctor justo. Duis egestas elementum</td>
+                      <td class="wp">Shri Mallikarjun Kharge</td>
+                      <td class="wp">02 DEC 2024 11:00 AM</td>
+                      <td class="wp">Shri Sanjay Neeraj, Shri Hitendra Pithadiya, Shri Devender Yadav, Shri Shaktisinh Gohil, Shri Rahul Gandhi, Shri K Raju, more</td>
+                      <td>Successful</td>
+                  </tr>
+              </tbody>
+          </table>
+          </div>
+          <ng-template #noMeetings>
+            <div class="no-meetings col-lg-12 d-flex flex-column lign-items-center justify-content-center mb-5 mt-5">
+              <img src="../../../assets/images/noactivity.png" class="mb-3 mt-3"/>
+              <h4>You have not schedule any meetings yet!</h4>
+            </div>
+          </ng-template>
+        </div> 
       </div>
     </div>
 </div>

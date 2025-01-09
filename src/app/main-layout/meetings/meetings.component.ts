@@ -87,6 +87,9 @@ export class MeetingsComponent {
   addmeeting(){
     window.location.href = "/meetings/addmeetings";
   }
+  addmessage(){
+    window.location.href = "/meetings/addmessage";
+  }
 }
 export interface Meeting {
   title: string;

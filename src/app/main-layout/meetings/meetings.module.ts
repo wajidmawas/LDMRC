@@ -17,6 +17,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MeetingsComponent } from './meetings.component';
 import { AddmeetingsComponent } from './addmeetings/addmeetings.component';
 import {MatRadioModule} from '@angular/material/radio';
+import { AddmessageComponent } from './addmessage/addmessage.component';
 const routes: Routes = [
   {
     path: 'meetings',
@@ -26,6 +27,10 @@ const routes: Routes = [
     path: 'meetings/addmeetings',
     component: AddmeetingsComponent, 
   },
+  {
+    path: 'meetings/addmessage',
+    component: AddmessageComponent, 
+  },
 ];
 
 
@@ -33,7 +38,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     MeetingsComponent,
-    AddmeetingsComponent
+    AddmeetingsComponent,
+    AddmessageComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +60,8 @@ const routes: Routes = [
   ],
   exports: [
     MeetingsComponent,
-    AddmeetingsComponent
+    AddmeetingsComponent,
+    AddmessageComponent
    ],
   providers: [Meetingsservice]
 })

@@ -25,6 +25,9 @@
 }
 .tabseachBar{
     margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .meeting-dtls span{
     display: block;
@@ -156,4 +159,12 @@ position: absolute;
     background-color: #fff;
     font-size: 12px;
     font-weight: 500;
+}
+
+.tab-content{
+    padding: 15px 0;
+}
+
+.wp{
+    white-space: break-spaces !important;
 }
