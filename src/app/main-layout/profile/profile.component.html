@@ -1,10 +1,18 @@
 <div class="block-header">
+    <div class="row mb-2">
+        <div class="col-lg-12">
+        <ul class="breadcrumb">                          
+          <li class="breadcrumb-item">Dashboard</li>
+          <li class="breadcrumb-item active">Profile</li>
+      </ul>
+    </div>
+      </div>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <h2>Profile</h2>
             
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
+        <!-- <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="d-flex flex-row-reverse">
                 <div class="page_action">
 
@@ -15,27 +23,37 @@
                     <button class="btn btn-warning" data-toggle="modal" data-target="#delaccount"><i class="fa fa-pencil mr-2"></i>EDIT</button>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>  
 
 <div class="row clearfix">
     <div class="col-lg-12">
-        <div class="card whitebg">  
+        <div class="card whitebg">
+            <div class="banner">
+                <img src="../../../assets/images/login_bg.png"/>
+                <button class="edit-button1"><i class="icon-pencil"></i></button>
+            </div>  
                     <div class="body">
                         <div class="row">
-                            <div class="col-lg-12 d-flex align-items-start">
+                            <div class="col-lg-12 ">
                                 <div class="media">
                                     <div class="media-left m-r-15">
-                                        <img src="" class="user-photo media-object" alt="User">
+                                        <img src="../../../assets/images/main_logo.png" class="user-photo media-object" alt="User">
+                                        <h6 class="prof_title">{{userdetails.first_name}}</h6>
                                     </div> 
                                 </div>
-                                <div class="details_profile"> 
-                                    <div class="d-flex flex-column align-items-start ml-5">
-                                        <h6 class="prof_title">{{userdetails.first_name}}</h6>
+                                <div class="d-flex flex-row justify-content-end w-100 yop_btns"> 
+                                     
+                                    <button class="btn btn-secondary mr-2" data-toggle="modal" data-target="#delaccount"><i class="fa fa-pencil mr-2"></i>Edit Profile</button>
+                                        <button class="btn btn-danger mr-2" data-toggle="modal" data-target="#delaccount"><i class="fa fa-trash-o mr-2"></i>Delete Account</button>
+                                        <button class="btn btn-grey" (click)="logout()"><i class="fa fa-sign-out mr-2"></i>Logout</button>
+                                    
+                                </div>
+                                <div class="details_profile mt-3">  
 
                                         <div class="detailsInner">
-                                            <span>Email ID :</span>
+                                            <span class="small">Email ID :</span>
                                             <span>{{userdetails.email_id}}</span>
                                         </div>
                                         <div class="detailsInner">
@@ -62,7 +80,7 @@
                                             <span>Address :</span>
                                             <span>{{userdetails.address_1}}</span>
                                         </div>
-                                    </div>
+                                     
                                 </div>
                             </div>
                             
@@ -104,32 +122,31 @@
                         <h4>Activity</h4>
                         <div class="card"> 
                 
-                                    <div class="body text-center d-flex justify-content-center flex-column">
+                                    <div class="body text-center d-flex justify-content-center flex-column" *ngIf="(Activities ?? []).length === 0">
                                        <img src="assets/images/loader.png" class="loader_img"/>
                                        <button class="btn btn-primary" data-toggle="modal" data-target="#addactivity">Add Activity</button>
                                     </div>
                                     <div class="activities-container">
-                                        <h2>Activities</h2>
-                                        <div class="search-bar">
-                                          <input type="text" placeholder="Search :" />
-                                          <button>
-                                            <i class="fa fa-search"></i>
-                                          </button>
-                                        </div>
-                                        <div class="activities-grid">
-                                          <div class="activity-card" *ngFor="let activity of Activities">
-                                            <div class="activity-image">
-                                              <!-- Placeholder for image -->
+                                        <div class="d-flex justify-content-end align-items-center mb-3">
+                                            <div class="search "> 
+                                                <input type="text" class="form-control round search_txt" placeholder="Search">
+                                                <button class="srch_icon"><i class="fa fa-search"></i></button>
                                             </div>
-                                            <div class="activity-content">
-                                              <h3>{{ activity.title }}</h3>
-                                              <div class="activity-meta">
-                                                <span>
-                                                  <i class="fa fa-user"></i> {{ activity.Author }}
-                                                </span>
-                                                <span>
-                                                  <i class="fa fa-calendar"></i> {{ activity.Date }}
-                                                </span>
+                                            <button class="btn btn-primary"><i class="icon-plus mr-2"></i> Add New</button>
+                                        </div> 
+                                        
+                                        <div class="row">
+                                          <div class="col-lg-3 mb-3" *ngFor="let activity of Activities">
+                                            <div class="card no-bdr">
+                                            <div class="activity-image">
+                                           <img src="../../../assets/images/login_bg.png"/>
+                                            </div>
+                                            <div class="card-body drop_shadow">
+                                              <h3 class="active_title mb-0">{{ activity.Author }}</h3>
+                                              <span class="active_timespan">23 Dec 2024</span>
+                                              <div class="activity-meta mt-3">
+                                                <span> {{ activity.title }} 
+                                                </span> 
                                               </div>
                                             </div>
                                             <button class="edit-button" data-toggle="modal" data-target="#activitydetail" (click)="ActivityDetail(activity)" >Edit</button>
