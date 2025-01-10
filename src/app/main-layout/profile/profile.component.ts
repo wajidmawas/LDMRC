@@ -65,7 +65,6 @@ ngAfterViewInit(): void {
 }
 addactivity(){
     this.router.navigate([`/profile/addactivity`, 0]);
-  // window.location.href = "/profile/addactivity";
 }
 onstateChange(event: any): void {
   this.selectedState = event.target.value; 
