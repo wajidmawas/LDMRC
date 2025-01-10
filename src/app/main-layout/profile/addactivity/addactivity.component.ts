@@ -14,7 +14,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AddactivityComponent {
   activityId: string | null = null;
-   id:any=''; 
   clsactivity:cls_addactivity=new cls_addactivity();
   selectedState:number | null = null;
   selectedCity:number | null = null;
@@ -56,11 +55,9 @@ console.log("UserDetails",this.userdetails)
   } else {
     console.error('Invalid or missing Activity ID');
   }
- this.id=this.activityId;
 this.getLookupMaster(0);
 this.getActivityType(0);
 this.LoadActivity(1);
- this.ActivityDetail(this.id);
 }
 
 ngAfterViewInit(): void {
@@ -301,16 +298,9 @@ onFileChange(event: any) {
 
 EditActivity(id: string){
    debugger;
-  //  this.ActivityDetail(id);
+   this.ActivityDetail(id);
   
-    this.clsactivity = { ...this.ActivitiesDetail };
-     // Convert date_of_posting to 'YYYY-MM-DD' format
-     this.clsactivity.date_posting = this.ActivitiesDetail.date_of_posting.split('T')[0];
-     this.clsactivity.thumbnail_img=this.ActivitiesDetail.thumbnail_image;
-    this.getCities(this.ActivitiesDetail.state_id) ;
-    this.selectedCity = this.ActivitiesDetail.city_id; 
-    this.getvillages(this.ActivitiesDetail.city_id,this.ActivitiesDetail.state_id); 
-    this.selectedVillage = this.ActivitiesDetail.village_id; 
+    
 
 console.log(this.ActivitiesDetail);
 }
@@ -329,6 +319,14 @@ ActivityDetail(id :string){
       var parseresponse = JSON.parse(response.response); 
       if (response["errorCode"] === "200") {
         this.ActivitiesDetail = parseresponse.Table;
+        this.clsactivity = { ...this.ActivitiesDetail[0] };
+     // Convert date_of_posting to 'YYYY-MM-DD' format
+     this.clsactivity.date_posting = this.ActivitiesDetail[0].date_of_posting.split('T')[0];
+     this.clsactivity.thumbnail_img=this.ActivitiesDetail[0].thumbnail_image;
+    this.getCities(this.ActivitiesDetail[0].state_id) ;
+    this.selectedCity = this.ActivitiesDetail[0].city_id; 
+    this.getvillages(this.ActivitiesDetail[0].city_id,this.ActivitiesDetail[0].state_id); 
+    this.selectedVillage = this.ActivitiesDetail[0].village_id; 
       } else {
         console.error("API returned an error:", response.message); 
       }
