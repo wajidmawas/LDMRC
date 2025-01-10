@@ -1,0 +1,98 @@
+<div class="container-fluid">
+    <div class="block-header">
+           <div class="row">
+               <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
+                   <a href="javascript::(0)" (click)="Back()" >
+                   <i class="fa fa-arrow-left mr-2"></i></a>
+                   <h2 class="mb-0">Activity</h2> 
+               </div>
+              
+           </div>
+       </div>
+      
+<div class="row mt-5 mb-5">
+     
+    <div class="col-lg-5">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label for="my-input">Title</label>
+                    <input id="my-input" class="form-control" placeholder="Enter Title" [(ngModel)]="clsactivity.title" [ngModelOptions]="{standalone: true}" >
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label >Date</label>
+                    <input class="form-control" type="date" placeholder="Enter Date" [(ngModel)]="clsactivity.date_posting" [ngModelOptions]="{standalone: true}" >
+                </div>
+            </div>
+          
+            <div class="col-lg-12">
+                <div class="form-group" >
+                    <label >Type of Activity</label>
+                    <select class="form-control" (change)="onActvitytypeChange($event)" [(ngModel)]="clsactivity.activity_type" [ngModelOptions]="{standalone: true}">
+                        <option value="">Select Activity Type</option>
+                        <option *ngFor="let type of ActivityType" [value]="type.id">{{ type.name }}</option> 
+                        </select>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group"  >
+                    <label >No of Participant</label>
+                    <input id="my-input" class="form-control" type="number" placeholder="Enter Participant" [(ngModel)]="clsactivity.no_of_participants" [ngModelOptions]="{standalone: true}" >
+                </div>
+            </div>
+           
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label">State</label>
+                    <select class="form-control" (change)="onstateChange($event)" [(ngModel)]="clsactivity.state_id" [ngModelOptions]="{standalone: true}">
+                        <option value="">Select State</option>
+                        <option *ngFor="let state of states" [value]="state.STATEID">{{ state.STATENAME }}</option> 
+                        </select>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label">City</label>
+                    <select class="form-control" (change)="oncityChange($event)" [(ngModel)]="clsactivity.city_id" [ngModelOptions]="{standalone: true}">
+                        <option value="">Select City</option>
+                        <option *ngFor="let city of cities" [value]="city.DISTRICTID">{{ city.DISTRICTNAME }}</option> 
+                        </select>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label class="control-label">villages</label>
+                    <select class="form-control" (change)="onvillageChange($event)" [(ngModel)]="clsactivity.village_id" [ngModelOptions]="{standalone: true}">
+                        <option value="">Select villages</option>
+                        <option *ngFor="let village of villages" [value]="village.CityID">{{ village.CityName }}</option> 
+                        </select>
+                </div>
+            </div>
+          
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label >Description</label>
+                    <textarea class="form-control" placeholder="Enter Description" [(ngModel)]="clsactivity.description" [ngModelOptions]="{standalone: true}" ></textarea>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label >Short Description</label>
+                    <textarea class="form-control" placeholder="Enter Short Description" [(ngModel)]="clsactivity.short_desc" [ngModelOptions]="{standalone: true}"> </textarea>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label >Thumbnail Image</label>
+                    <input id="my-input" class="form-control" type="file" (change)="onFileChange($event)"  placeholder="Enter thumbnail_img" [(ngModel)]="clsactivity.thumbnail_img" [ngModelOptions]="{standalone: true}" >
+                </div>
+            </div>
+        </div>
+    </div>
+    </div> 
+        <button type="button"  class="btn btn-outline-primary" data-dismiss="modal" (click)="CancelActivity()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="SaveActivity()">Save</button>
+</div>   

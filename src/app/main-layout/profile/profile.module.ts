@@ -16,16 +16,29 @@ import {MatRadioModule} from '@angular/material/radio';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { ProfileComponent } from './profile.component';
 import { ProfileService } from './profile.service';
+import { AddactivityComponent } from './addactivity/addactivity.component';
+import { ActivitydetailComponent } from './activitydetail/activitydetail.component';
+
 const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
- 
-  }];
+  },
+ {
+    path: 'profile/addactivity/:id',
+    component: AddactivityComponent, 
+  },
+  {
+    path: 'profile/activitydetail/:id',
+    component: ActivitydetailComponent, 
+  },
+];
 
 @NgModule({
   declarations: [
-    ProfileComponent
+    ProfileComponent,
+    AddactivityComponent,
+    ActivitydetailComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +61,9 @@ const routes: Routes = [
     [NgxMatTimepickerModule]
   ],
   exports: [
-    ProfileComponent
+    ProfileComponent,
+    AddactivityComponent,
+    ActivitydetailComponent
    ],
   providers: [ProfileService],
   bootstrap: [ProfileComponent]

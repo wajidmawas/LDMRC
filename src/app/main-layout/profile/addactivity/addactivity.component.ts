@@ -1,32 +1,20 @@
+import { Router } from '@angular/router';
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import 'jquery';
 import { SharedService } from 'src/shared/Shared.Service';
 import { Title } from '@angular/platform-browser';
-import { ProfileService } from './profile.service';
+import { ProfileService } from '../profile.service';
 import { SnackbarService } from 'src/shared/snackbar-service';
 import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
-
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
-  selector: 'profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-addactivity',
+  templateUrl: './addactivity.component.html',
+  styleUrl: './addactivity.component.scss'
 })
-
-export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('activityModal') activityModal!: ElementRef;
-    // Activity model
-    activity = {
-      title: 'SamvidhanRakshak Abhiyan',
-      dateOfPosting: '2024-12-04',
-      typeOfActivity: 'SC Dept Activities',
-      noOfParticipants: 40,
-      expectedOutcome: 'Good',
-      state: 'Maharashtra',
-      city: 'Mumbai',
-      townVillage: 'Bandra',
-    };
+export class AddactivityComponent {
+  activityId: string | null = null;
+   id:any=''; 
   clsactivity:cls_addactivity=new cls_addactivity();
   selectedState:number | null = null;
   selectedCity:number | null = null;
@@ -39,8 +27,12 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   userDtail:any={};
   userdetails:any={};
   villages:any=[];
-constructor(private router: Router,private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
+constructor(private route: ActivatedRoute,private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
+      
     this.titleService.setTitle("AICC - Profile");
+   
+    
+    
 }
 
 ngOnDestroy(): void {
@@ -51,13 +43,24 @@ logout() {
   window.location.href = "/dashboard";
 }
 ngOnInit(): void { 
+  debugger;
   $(".page-loader-wrapper").fadeOut();  
   this.userDtail = localStorage.getItem("cl_user");
   this.userdetails = JSON.parse(this.userDtail)
 console.log("UserDetails",this.userdetails)
+  // Get the path parameter
+  this.activityId = this.route.snapshot.paramMap.get('id');
+  console.log('Add Activity ID:', this.activityId);
+  if (this.activityId && this.activityId.trim() !== '') {
+    this.EditActivity(this.activityId); // Call EditActivity if activityId is valid
+  } else {
+    console.error('Invalid or missing Activity ID');
+  }
+ this.id=this.activityId;
 this.getLookupMaster(0);
 this.getActivityType(0);
 this.LoadActivity(1);
+ this.ActivityDetail(this.id);
 }
 
 ngAfterViewInit(): void {
@@ -296,70 +299,50 @@ onFileChange(event: any) {
     }
 }
 
-EditActivity(Activity: any){
-  const modalElement = this.activityModal.nativeElement;
-  modalElement.classList.remove('show');
-  modalElement.setAttribute('aria-hidden', 'true');
-  modalElement.style.display = 'none';
-  document.body.classList.remove('modal-open');
-  const backdrop = document.querySelector('.modal-backdrop');
-  if (backdrop) {
-    backdrop.remove();
-  }
+EditActivity(id: string){
    debugger;
-    this.clsactivity = { ...Activity };
+  //  this.ActivityDetail(id);
+  
+    this.clsactivity = { ...this.ActivitiesDetail };
      // Convert date_of_posting to 'YYYY-MM-DD' format
-     this.clsactivity.date_posting = Activity.date_of_posting.split('T')[0];
-     this.clsactivity.thumbnail_img=Activity.thumbnail_image;
-    this.getCities(Activity.state_id) ;
-    this.selectedCity = Activity.city_id; 
-    this.getvillages(Activity.city_id,Activity.state_id); 
-    this.selectedVillage = Activity.village_id; 
+     this.clsactivity.date_posting = this.ActivitiesDetail.date_of_posting.split('T')[0];
+     this.clsactivity.thumbnail_img=this.ActivitiesDetail.thumbnail_image;
+    this.getCities(this.ActivitiesDetail.state_id) ;
+    this.selectedCity = this.ActivitiesDetail.city_id; 
+    this.getvillages(this.ActivitiesDetail.city_id,this.ActivitiesDetail.state_id); 
+    this.selectedVillage = this.ActivitiesDetail.village_id; 
 
-console.log(Activity);
+console.log(this.ActivitiesDetail);
 }
-// ActivityDetail(Activity: any){
-//   debugger;
-//   const activityId = encodeURIComponent(Activity.id); 
-//   window.location.href = `/profile/activitydetail/${activityId}`;
-//   // debugger;
-//   // const objRequest = {
-//   //   typeId: 7,
-//   //   userid: 0,
-//   //   filterId: Activity.id,
-//   //   filterText: "",
-//   //   filterText1: ""
-//   // };
-
-//   // this.service.getMasters(objRequest).subscribe({
-//   //   next: (response: any) => { 
-//   //     var parseresponse = JSON.parse(response.response); 
-//   //     if (response["errorCode"] === "200") {
-//   //       this.ActivitiesDetail = parseresponse.Table;
-//   //     } else {
-//   //       console.error("API returned an error:", response.message); 
-//   //     }
-//   //   },
-//   //   error: (error: any) => {
-//   //     console.error("API call failed:", error);
-//   //     // Handle the error appropriately
-//   //     // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
-//   //   },
-//   //   complete: () => {
-//   //     console.log("API call completed.");
-//   //   }
-//   // });
-// }
-ActivityDetail(Activity: any) {
+ActivityDetail(id :string){
   debugger;
-  console.log('Activity:', Activity);
-  if (Activity && Activity.id) {
-    this.router.navigate([`/profile/activitydetail`, Activity.id]);
-  } else {
-    console.error('Invalid Activity object or missing ID');
-  }
-}
+  const objRequest = {
+    typeId: 7,
+    userid: 0,
+    filterId: id,
+    filterText: "",
+    filterText1: ""
+  };
 
+  this.service.getMasters(objRequest).subscribe({
+    next: (response: any) => { 
+      var parseresponse = JSON.parse(response.response); 
+      if (response["errorCode"] === "200") {
+        this.ActivitiesDetail = parseresponse.Table;
+      } else {
+        console.error("API returned an error:", response.message); 
+      }
+    },
+    error: (error: any) => {
+      console.error("API call failed:", error);
+      // Handle the error appropriately
+      // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
+    },
+    complete: () => {
+      console.log("API call completed.");
+    }
+  });
+}
 CancelActivity()
 {
   this.clsactivity = new cls_addactivity(); // Reset form data
@@ -375,12 +358,10 @@ Back()
 
 // Action to save activity
 saveActivity() {
-  console.log('Saved Activity:', this.activity);
+
   alert('Activity saved successfully!');
 }
 }
-
-
 export class cls_addactivity {
   constructor(){
 
@@ -399,3 +380,4 @@ export class cls_addactivity {
   imagePath:string='';
   user_id:number=0;
 }
+
