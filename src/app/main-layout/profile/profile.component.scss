@@ -115,4 +115,62 @@
     border-radius: 4px;
     cursor: pointer;
   }
+  .activity-detail-container {
+    padding: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .header h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  
+  .content .card {
+    background: #f5f5f5;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .field {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .field label {
+    font-weight: bold;
+  }
+  
+  .actions {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .actions .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .actions .btn.delete {
+    background: #f44336;
+    color: white;
+  }
+  
+  .actions .btn.edit {
+    background: #ff9800;
+    color: white;
+  }
+  
+  .actions .btn.download {
+    background: #4caf50;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+  }
   
