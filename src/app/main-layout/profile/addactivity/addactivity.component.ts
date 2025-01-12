@@ -26,6 +26,7 @@ export class AddactivityComponent {
   userDtail:any={};
   userdetails:any={};
   villages:any=[];
+  responseid:any=[];
 constructor(private route: ActivatedRoute,private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
       
     this.titleService.setTitle("AICC - Profile");
@@ -46,15 +47,26 @@ ngOnInit(): void {
   $(".page-loader-wrapper").fadeOut();  
   this.userDtail = localStorage.getItem("cl_user");
   this.userdetails = JSON.parse(this.userDtail)
-console.log("UserDetails",this.userdetails)
-  // Get the path parameter
   this.activityId = this.route.snapshot.paramMap.get('id');
-  console.log('Add Activity ID:', this.activityId);
   if (this.activityId && this.activityId.trim() !== '') {
-    this.EditActivity(this.activityId); // Call EditActivity if activityId is valid
+    if (this.activityId === this.responseid) {
+      console.log('Activity ID matches Response ID, navigating to Dashboard');
+      window.location.href = "/profile";
+    } else {
+      console.log('Activity ID does not match Response ID, editing activity');
+      this.EditActivity(this.activityId);
+    }
   } else {
     console.error('Invalid or missing Activity ID');
   }
+
+
+  // this.activityId = this.route.snapshot.paramMap.get('id');
+  // if (this.activityId && this.activityId.trim() !== ''&& this.responseid {
+  //   this.EditActivity(this.activityId); 
+  // } else {
+  //   console.error('Invalid or missing Activity ID');
+  // }
 this.getLookupMaster(0);
 this.getActivityType(0);
 this.LoadActivity(1);
@@ -263,10 +275,10 @@ SaveActivity() {
       }
     if (this.clsactivity.id != 0) {
       formData.append('id', this.clsactivity.id.toString());
-      formData.delete('thumbnail_img'); // Remove it if previously appended
+      formData.delete('thumbnail_img'); 
   }
   
-    // this.clsactivity.id == 0 && formData.append('id','0');
+  
 
     
    
@@ -277,10 +289,19 @@ this.service.SaveActivity(formData).subscribe((res: any) => {
   }, 500);
   var response = res;
   if (response._body.errorCode == "200") {
-    this.snackbar.showSuccess(response._body.message, response._body.status);
+     this.snackbar.showSuccess(response._body.message, response._body.status);
     setTimeout(() => {
-      window.location.reload();
+      this.responseid=JSON.parse(response._body.response).Table[0].id;
+      this.activityId = this.route.snapshot.paramMap.get('id');
+      if (this.activityId && this.activityId.trim() !== '') {
+        if (this.activityId === this.responseid.toString()) {
+          console.log('Activity ID matches Response ID, navigating to Dashboard');
+          window.location.href = "/profile";
+        } 
+      }
+      this.clsactivity = new cls_addactivity(); // Reset form data
     }, 3000);
+   
   } else {
     this.snackbar.showInfo(response._body.message, "Error");
   }
@@ -354,11 +375,7 @@ Back()
   alert('Activity deleted!');
 }
 
-// Action to save activity
-saveActivity() {
 
-  alert('Activity saved successfully!');
-}
 }
 export class cls_addactivity {
   constructor(){

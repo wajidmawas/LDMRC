@@ -70,7 +70,35 @@ Back()
   window.location.href = "/profile";
 }
  // Action to delete activity
- deleteActivity() {
-  alert('Activity deleted!');
+ deleteActivity(activity: any) {
+  const objRequest = {
+    typeId: 22,
+    userid: 0,
+    filterId: activity.id,
+    filterText: "",
+    filterText1: ""
+  };
+
+  this.service.getMasters(objRequest).subscribe({
+    next: (response: any) => { 
+      var parseresponse = JSON.parse(response.response); 
+      if (response["errorCode"] === "200") {
+        this.snackbar.showSuccess("", response.status);
+            setTimeout(() => {
+              window.location.href = "/profile";
+            }, 2000);
+      } else {
+        console.error("API returned an error:", response.message); 
+      }
+    },
+    error: (error: any) => {
+      console.error("API call failed:", error);
+      // Handle the error appropriately
+      // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
+    },
+    complete: () => {
+      console.log("API call completed.");
+    }
+  });
 }
 }

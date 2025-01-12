@@ -16,6 +16,17 @@ import { Router } from '@angular/router';
 
 export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('activityModal') activityModal!: ElementRef;
+ 
+  activeTab = 0;
+   tabs: any = [];
+ 
+  get activeTabContent() {
+    return this.Activities.filter((activity: Activity) => activity.tab === this.activeTab);
+  }
+
+  setActiveTab(index: number) {
+    this.activeTab = index;
+  }
     // Activity model
     activity = {
       title: 'SamvidhanRakshak Abhiyan',
@@ -33,12 +44,13 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedActvity:number | null = null;
   selectedVillage:number | null = null;
   filename: any | null = null;
-  Activities: any = [];
+  Activities: Activity[] = [];
   ActivitiesDetail:any=[];
   states: any = []; cities: any = [];ActivityType: any = [];
   userDtail:any={};
   userdetails:any={};
   villages:any=[];
+  titlesearch:string='';
 constructor(private router: Router,private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
     this.titleService.setTitle("AICC - Profile");
 }
@@ -57,7 +69,7 @@ ngOnInit(): void {
 console.log("UserDetails",this.userdetails)
 this.getLookupMaster(0);
 this.getActivityType(0);
-this.LoadActivity(1);
+this.LoadActivity(this.userdetails.user_id,this.titlesearch);
 }
 
 ngAfterViewInit(): void {
@@ -65,6 +77,10 @@ ngAfterViewInit(): void {
 }
 addactivity(){
     this.router.navigate([`/profile/addactivity`, 0]);
+}
+searchactivity(){
+  debugger;
+  this.LoadActivity(1,this.titlesearch);
 }
 onstateChange(event: any): void {
   this.selectedState = event.target.value; 
@@ -196,12 +212,40 @@ getActivityType(id: any) {
     }
   });
 }
-LoadActivity(id: any) {
+LoadActivity(id: any,filterText:string) {
+  // const
+  //  objRequest = {
+  //   typeId: 4,
+  //   userid: 0,
+  //   filterId: id,
+  //   filterText: filterText,
+  //   filterText1: ""
+  // };
+
+  // this.service.getMasters(objRequest).subscribe({
+  //   next: (response: any) => { 
+  //     var parseresponse = JSON.parse(response.response); 
+  //     if (response["errorCode"] === "200") {
+  //       this.Activities = parseresponse.Table2;
+  //     } else {
+  //       console.error("API returned an error:", response.message); 
+  //     }
+  //   },
+  //   error: (error: any) => {
+  //     console.error("API call failed:", error);
+  //     // Handle the error appropriately
+  //     // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
+  //   },
+  //   complete: () => {
+  //     console.log("API call completed.");
+  //   }
+  // });
+
   const objRequest = {
-    typeId: 4,
+    typeId: 23,
     userid: 0,
     filterId: id,
-    filterText: "",
+    filterText: filterText,
     filterText1: ""
   };
 
@@ -209,7 +253,9 @@ LoadActivity(id: any) {
     next: (response: any) => { 
       var parseresponse = JSON.parse(response.response); 
       if (response["errorCode"] === "200") {
-        this.Activities = parseresponse.Table2;
+        debugger;
+        this.Activities = parseresponse.Table;
+         this.tabs=parseresponse.Table1;
       } else {
         console.error("API returned an error:", response.message); 
       }
@@ -398,4 +444,13 @@ export class cls_addactivity {
   id:number=0;
   imagePath:string='';
   user_id:number=0;
+}
+interface Activity {
+  title: string;
+  Date: string;
+  description: string;
+  thumbnail_image: string;
+  tab: number;
+  Author:string;
+
 }

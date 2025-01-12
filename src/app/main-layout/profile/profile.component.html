@@ -129,8 +129,8 @@
                                     <div class="activities-container">
                                         <div class="d-flex justify-content-end align-items-center mb-3">
                                             <div class="search "> 
-                                                <input type="text" class="form-control round search_txt" placeholder="Search">
-                                                <button class="srch_icon"><i class="fa fa-search"></i></button>
+                                                <input type="text" class="form-control round search_txt" [(ngModel)]="titlesearch" placeholder="Search">
+                                                <button class="srch_icon" ><i class="fa fa-search" (click)="searchactivity()"></i></button>
                                             </div>
                                             <button class="btn btn-primary" (click)="addactivity()"><i class="icon-plus mr-2"></i> Add New</button>
                                         </div> 
@@ -201,4 +201,32 @@
       </div>
   </div> 
 
+  <div class="container">
+    <h2>Activities Of SC, ST, OBC And Minority Depts</h2>
+    <p class="note">
+      Note: National/State Chairpersons of SC, ST, OBC, and Minority Depts are required to post the activities regularly, at least once a week, for generating month-wise, dept-wise activity reports for submission to Congress high command.
+    </p>
+  
+    <div class="tabs">
+      <button
+        class="tab"
+        *ngFor="let tab of tabs; let i = index"
+        [class.active]="activeTab === i"
+        (click)="setActiveTab(i)"
+      >
+        {{ tab.name }}
+      </button>
+    </div>
+  
+    <div *ngIf="activeTabContent.length > 0" class="activity-grid">
+      <div class="activity-card" *ngFor="let activity of Activities">
+        <img [src]="activity.thumbnail_image" alt="{{ activity.title }}" />
+        <h3>{{ activity.title }}</h3>
+        <p class="date">{{ activity.Date }}</p>
+        <p>{{ activity.description }}</p>
+      </div>
+    </div>
+  
+    <button class="add-activity">Add Activity</button>
+  </div>
   
