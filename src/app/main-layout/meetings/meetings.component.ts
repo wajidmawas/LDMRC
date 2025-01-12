@@ -25,6 +25,7 @@ export class MeetingsComponent {
     this.getupcomingmetting(0);
   }
   getupcomingmetting(id: any) {
+    debugger;
     const objRequest = {
       typeId: 19,
       userid: 0,
@@ -35,6 +36,7 @@ export class MeetingsComponent {
   
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
+        debugger;
          const parseresponse = JSON.parse(response.response); 
  const metting = parseresponse.Table;
  this.upcomingmeetings = metting;

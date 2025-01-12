@@ -19,6 +19,34 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
  
   activeTab = 0;
    tabs: any = [];
+   Activity: {
+    id: number;
+    name: string;
+    activities: {
+      id: number;
+      title: string;
+      Date:string;
+      date_of_posting:string;
+      no_of_participants: number;
+      short_desc: string;
+      thumbnail_image: string;
+      created_by: number;
+      activity_type: number;
+      Author: string;
+      state_id: number;
+      city_id: number;
+      village_id: number;
+      description: string;
+      StateName: string;
+      DistrictName: string;
+      CityName: string;
+      tab: number;
+      Activtytypeid: number;
+      Actvitytypename: string;
+      // Activityselected: boolean;
+    }[];
+    // selected: boolean;
+  }[] = [];
  
   get activeTabContent() {
     return this.Activities.filter((activity: Activity) => activity.tab === this.activeTab);
@@ -69,7 +97,61 @@ ngOnInit(): void {
 console.log("UserDetails",this.userdetails)
 this.getLookupMaster(0);
 this.getActivityType(0);
-this.LoadActivity(this.userdetails.user_id,this.titlesearch);
+// this.LoadActivity(this.userdetails.user_id,this.titlesearch);
+this.getloadactivity(this.userdetails.user_id,this.titlesearch);
+}
+getloadactivity(id: any,searchtext:string) {
+  const objRequest = {
+    typeId: 23,
+    userid: 0,
+    filterId: id,
+    filterText: searchtext,
+    filterText1: ""
+  };
+
+  this.service.getMasters(objRequest).subscribe({
+    next: (response: any) => { 
+      debugger;
+       const parseresponse = JSON.parse(response.response); 
+const categoriesWithActivities = parseresponse.Table;
+// Step 2: Process the parsed data into the desired format
+this.Activity = (categoriesWithActivities|| []).map((category: any) => ({
+id: category.id,
+name: category.name,
+activities: (JSON.parse(category.activities) || []).map((activity: any) => ({
+  id: activity.id,
+  title: activity.title,
+  Date:activity.Date,
+  date_of_posting:activity.date_of_posting,
+  activity_type: activity.activity_type.toString(),
+  no_of_participants: activity.no_of_participants.toString(),
+  short_desc: activity.short_desc.toString(),
+  thumbnail_image: activity.thumbnail_image,
+  created_by: activity.created_by.toString(),
+  Author: activity.Author.toString(),
+  state_id: activity.state_id.toString(),
+  city_id: activity.city_id.toString(),
+  village_id: activity.village_id.toString(),
+  description: activity.description.toString(),
+  StateName: activity.StateName.toString(),
+  DistrictName: activity.DistrictName.toString(),
+  CityName: activity.CityName.toString(),
+  tab: activity.tab.toString(),
+  Activtytypeid: activity.Activtytypeid.toString(),
+  Actvitytypename: activity.Actvitytypename.toString(),
+ 
+  // Activityselected: false  // Initialize Activityselected as false for all activities
+}))
+}));
+       console.log(this.Activity);
+    },
+    error: (error: any) => {
+      console.error("API call failed:", error);
+    },
+    complete: () => {
+      console.log("API call completed.");
+    }
+  });
 }
 
 ngAfterViewInit(): void {
@@ -80,7 +162,7 @@ addactivity(){
 }
 searchactivity(){
   debugger;
-  this.LoadActivity(1,this.titlesearch);
+  this.getloadactivity(this.userdetails.user_id,this.titlesearch);
 }
 onstateChange(event: any): void {
   this.selectedState = event.target.value; 
@@ -212,64 +294,64 @@ getActivityType(id: any) {
     }
   });
 }
-LoadActivity(id: any,filterText:string) {
-  // const
-  //  objRequest = {
-  //   typeId: 4,
-  //   userid: 0,
-  //   filterId: id,
-  //   filterText: filterText,
-  //   filterText1: ""
-  // };
+// LoadActivity(id: any,filterText:string) {
+//   // const
+//   //  objRequest = {
+//   //   typeId: 4,
+//   //   userid: 0,
+//   //   filterId: id,
+//   //   filterText: filterText,
+//   //   filterText1: ""
+//   // };
 
-  // this.service.getMasters(objRequest).subscribe({
-  //   next: (response: any) => { 
-  //     var parseresponse = JSON.parse(response.response); 
-  //     if (response["errorCode"] === "200") {
-  //       this.Activities = parseresponse.Table2;
-  //     } else {
-  //       console.error("API returned an error:", response.message); 
-  //     }
-  //   },
-  //   error: (error: any) => {
-  //     console.error("API call failed:", error);
-  //     // Handle the error appropriately
-  //     // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
-  //   },
-  //   complete: () => {
-  //     console.log("API call completed.");
-  //   }
-  // });
+//   // this.service.getMasters(objRequest).subscribe({
+//   //   next: (response: any) => { 
+//   //     var parseresponse = JSON.parse(response.response); 
+//   //     if (response["errorCode"] === "200") {
+//   //       this.Activities = parseresponse.Table2;
+//   //     } else {
+//   //       console.error("API returned an error:", response.message); 
+//   //     }
+//   //   },
+//   //   error: (error: any) => {
+//   //     console.error("API call failed:", error);
+//   //     // Handle the error appropriately
+//   //     // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
+//   //   },
+//   //   complete: () => {
+//   //     console.log("API call completed.");
+//   //   }
+//   // });
 
-  const objRequest = {
-    typeId: 23,
-    userid: 0,
-    filterId: id,
-    filterText: filterText,
-    filterText1: ""
-  };
+//   const objRequest = {
+//     typeId: 23,
+//     userid: 0,
+//     filterId: id,
+//     filterText: filterText,
+//     filterText1: ""
+//   };
 
-  this.service.getMasters(objRequest).subscribe({
-    next: (response: any) => { 
-      var parseresponse = JSON.parse(response.response); 
-      if (response["errorCode"] === "200") {
-        debugger;
-        this.Activities = parseresponse.Table;
-         this.tabs=parseresponse.Table1;
-      } else {
-        console.error("API returned an error:", response.message); 
-      }
-    },
-    error: (error: any) => {
-      console.error("API call failed:", error);
-      // Handle the error appropriately
-      // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
-    },
-    complete: () => {
-      console.log("API call completed.");
-    }
-  });
-}
+//   this.service.getMasters(objRequest).subscribe({
+//     next: (response: any) => { 
+//       var parseresponse = JSON.parse(response.response); 
+//       if (response["errorCode"] === "200") {
+//         debugger;
+//         this.Activities = parseresponse.Table;
+//          this.tabs=parseresponse.Table1;
+//       } else {
+//         console.error("API returned an error:", response.message); 
+//       }
+//     },
+//     error: (error: any) => {
+//       console.error("API call failed:", error);
+//       // Handle the error appropriately
+//       // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
+//     },
+//     complete: () => {
+//       console.log("API call completed.");
+//     }
+//   });
+// }
 SaveActivity() {
   debugger;
   var validate:boolean=false;

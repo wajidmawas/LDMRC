@@ -21,6 +21,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   images: any[] = [];
   title = 'dashboard';
   Activities: any = [];
+  PhysicalMetting: any = [];
+  meetings: any = [];
+
+
+
   userdetails:any={};
   @ViewChild('tableExport', { static: false }) table: any; // Reference to the HTML table element
 
@@ -55,6 +60,8 @@ constructor(public sharedService: SharedService,private service:dashboardService
     this.userdetails = JSON.parse(this.isLoggedIn)
     this.LoadSlider(0);
     this.LoadActivity(this.userdetails.user_id,'');
+    this.LoadScheduler(this.userdetails.user_id);
+
   }
   LoadActivity(id: any,filterText:string) {
     const objRequest = {
@@ -70,6 +77,35 @@ constructor(public sharedService: SharedService,private service:dashboardService
         var parseresponse = JSON.parse(response.response); 
         if (response["errorCode"] === "200") {
           this.Activities = parseresponse.Table2;
+        } else {
+          console.error("API returned an error:", response.message); 
+        }
+      },
+      error: (error: any) => {
+        console.error("API call failed:", error);
+        // Handle the error appropriately
+        // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
+      },
+      complete: () => {
+        console.log("API call completed.");
+      }
+    });
+  }
+  LoadScheduler(id: any) {
+    const objRequest = {
+      typeId: 24,
+      userid: 0,
+      filterId: id,
+      filterText: "",
+      filterText1: ""
+    };
+  
+    this.service.getMasters(objRequest).subscribe({
+      next: (response: any) => { 
+        var parseresponse = JSON.parse(response.response); 
+        if (response["errorCode"] === "200") {
+          this.meetings=parseresponse.Table;
+          this.PhysicalMetting = parseresponse.Table1;
         } else {
           console.error("API returned an error:", response.message); 
         }

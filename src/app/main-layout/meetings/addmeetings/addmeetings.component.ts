@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AddmeetingsComponent implements OnInit {
   meetingId: number | null = null;
   OrganisersList: any = [];
-  
+  responseid:any=[];
    designationsList: { id: string,name : string, selected: boolean }[] = [];
   categories1: {
     id: number;
@@ -52,7 +52,17 @@ export class AddmeetingsComponent implements OnInit {
      // Retrieve 'id' from query parameters (e.g., ?id=4)
      this.route.queryParams.subscribe(params => {
       this.meetingId = params['id']; // Get the 'id' query parameter
-      this.loadMeetingData(this.meetingId); // Call method to load data using the 'id'
+      // this.loadMeetingData(this.meetingId); // Call method to load data using the 'id'
+      if (this.meetingId && this.meetingId !== 0) {
+        if (this.meetingId === this.responseid) {
+          window.location.href = "/profile";
+        } else {
+          this.loadMeetingData(this.meetingId); // Call method to load data using the 'id'
+        }
+      } else {
+        console.error('Invalid or missing Activity ID');
+      }
+    
     });
 
     // Alternatively, if the 'id' is part of the route path (e.g., /meetings/:id)
@@ -214,12 +224,26 @@ clearParticipants() {
       setTimeout(() => {
         $(".page-loader-wrapper-review").hide();
       }, 500);
+      debugger;
       var response = res;
       if (response["errorCode"] == "200") {
+        debugger;
         this.snackbar.showSuccess(response.message,response.status);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 3000);
+
         setTimeout(() => {
-          window.location.reload();
+          this.responseid=JSON.parse(response.response).Table[0].id;
+          // this.meetingId = this.route.snapshot.paramMap.get('id');
+          if (this.meetingId && this.meetingId!== 0) {
+            if (this.meetingId === this.responseid.toString()) {
+              window.location.href = "/meetings";
+            } 
+          }
+          this.clsinvite=new cls_addmeeting();// Reset form data
         }, 3000);
+
       }
       else {
         // console.error("API returned an error:", response.message); 

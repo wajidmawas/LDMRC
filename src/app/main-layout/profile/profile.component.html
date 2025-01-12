@@ -107,22 +107,13 @@
                                <img src="assets/images/loader.png" class="loader_img"/>
                                <button class="btn btn-primary" data-toggle="modal" data-target="#expdetails">Add Professional Details</button>
                             </div>
-        
-                           
-        
-                            
                         </div>
-        
-                        
-        
-                         
-        
                     </div>
                     <div class="col-lg-12 mt-4">
                         <h4>Activity</h4>
                         <div class="card"> 
                 
-                                    <div class="body text-center d-flex justify-content-center flex-column" *ngIf="(Activities ?? []).length === 0">
+                                    <div class="body text-center d-flex justify-content-center flex-column" *ngIf="(Activity ?? []).length === 0">
                                        <img src="assets/images/loader.png" class="loader_img"/>
                                        <button class="btn btn-primary" data-toggle="modal" data-target="#addactivity">Add Activity</button>
                                     </div>
@@ -135,7 +126,7 @@
                                             <button class="btn btn-primary" (click)="addactivity()"><i class="icon-plus mr-2"></i> Add New</button>
                                         </div> 
                                         
-                                        <div class="row">
+                                        <!-- <div class="row">
                                           <div class="col-lg-3 mb-3" *ngFor="let activity of Activities">
                                             <div class="card no-bdr">
                                             <div class="activity-image">
@@ -152,10 +143,37 @@
                                             <button class="edit-button" (click)="ActivityDetail(activity)" ><i class="icon-pencil"></i></button>
                                           </div>
                                         </div>
+                                      </div> -->
+                                      
+                                      <div class="row">
+                                        <h2>Activities Of SC, ST, OBC And Minority Depts</h2>
+    <p class="note">
+      Note: National/State Chairpersons of SC, ST, OBC, and Minority Depts are required to post the activities regularly, at least once a week, for generating month-wise, dept-wise activity reports for submission to Congress high command.
+    </p>
+                                      <div class="tabs">
+                                        <button
+                                          class="tab"
+                                          *ngFor="let tab of Activity; let i = index"
+                                          [class.active]="activeTab === i"
+                                          (click)="setActiveTab(i)">
+                                          {{ tab.name }}
+                                        </button>
                                       </div>
                                       
-
-
+                                      <div class="card-body ht-200">
+                                        <div *ngFor="let activity of Activity[activeTab]?.activities">
+                                          <img [src]="activity.thumbnail_image" alt="{{ activity.title }}" />
+                                          <h3>{{ activity.title }}</h3>
+                                          <p class="date">{{ activity.Date }}</p>
+                                          <p>{{ activity.description }}</p>
+                                          <button  (click)="ActivityDetail(activity)" ><i class="icon-pencil"></i></button>
+                                        </div>
+                                       
+                                        <div *ngIf="!(Activity[activeTab]?.activities?.length)">
+                                          <p>No Activities are available</p>
+                                        </div>
+                                      </div>
+                                    </div>
                                 </div>
                             </div>
         </div>
@@ -201,32 +219,4 @@
       </div>
   </div> 
 
-  <div class="container">
-    <h2>Activities Of SC, ST, OBC And Minority Depts</h2>
-    <p class="note">
-      Note: National/State Chairpersons of SC, ST, OBC, and Minority Depts are required to post the activities regularly, at least once a week, for generating month-wise, dept-wise activity reports for submission to Congress high command.
-    </p>
-  
-    <div class="tabs">
-      <button
-        class="tab"
-        *ngFor="let tab of tabs; let i = index"
-        [class.active]="activeTab === i"
-        (click)="setActiveTab(i)"
-      >
-        {{ tab.name }}
-      </button>
-    </div>
-  
-    <div *ngIf="activeTabContent.length > 0" class="activity-grid">
-      <div class="activity-card" *ngFor="let activity of Activities">
-        <img [src]="activity.thumbnail_image" alt="{{ activity.title }}" />
-        <h3>{{ activity.title }}</h3>
-        <p class="date">{{ activity.Date }}</p>
-        <p>{{ activity.description }}</p>
-      </div>
-    </div>
-  
-    <button class="add-activity">Add Activity</button>
-  </div>
   
