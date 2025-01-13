@@ -4234,8 +4234,8 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .modal-content {
-    background-color: var(--card-color);
-    border-color: var(--border-color)
+    background-color: #fff;
+    border-color: #fff
 }
 
 .modal-content .modal-header,.modal-content .modal-footer {
@@ -11413,16 +11413,21 @@ video{
 
 .close{
     position: absolute;
-    right: 0;
-    top: 0;
-    background-color: #000 !important;
+    right: 2%;
+    top: 4%;
+    background-color: #D5D5D5 !important;
     margin: 0 !important;
-    color: #fff;
+    color: #000;
     opacity: 1;
-    font-size: 16px;
-    padding: 3px 5px !important;
+    font-size: 24px;
     font-weight: normal;
     z-index: 99;
+    border-radius: 25px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .table{
@@ -11480,7 +11485,7 @@ app-footer{
     justify-content: center !important;
 }
 .modal-content{
-    border-radius: 0 !important;
+    border-radius: 20px !important;
 } 
 
 .btn_arrow{
@@ -11497,4 +11502,16 @@ app-footer{
 
 .no-bdr{
     border: 0px !important;
+}
+
+.btn-dark{
+    background-color: #D5D5D5;
+    border-color: #D5D5D5;
+    color: #000;
+}
+
+.btn-dark:hover{
+    background-color: #cbc8c8;
+    border-color: #cbc8c8;
+    color: #000;
 }
