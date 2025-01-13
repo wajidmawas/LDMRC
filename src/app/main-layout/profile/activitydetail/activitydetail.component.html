@@ -1,0 +1,92 @@
+
+            <div class="container-fluid">
+                <div class="block-header">
+                       <div class="row">
+                           <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
+                               <a href="javascript::(0)" (click)="Back()" >
+                               <i class="fa fa-arrow-left mr-2"></i></a>
+                               <h2 class="mb-0">Activity Detail</h2> 
+                           </div>
+                          
+                       </div>
+                   </div>
+                  
+            <div class="row mb-5">
+                 
+                <div class="col-lg-5">
+                    <div class="row">
+                      
+                      
+                        <div class="activity-detail-container" *ngFor="let activity of ActivitiesDetail">
+                            <div class="content">
+                              <div class="card">
+                                <div class="field">
+                                  <label>Title:</label>
+                                 
+                                  <span>
+                                    {{ activity.title }}
+                                  </span>
+                                </div>
+                                <div class="field">
+                                  <label>Date of Posting:</label>
+                                  <span>
+                                   {{ activity.Date }}
+                                  </span>
+                                </div>
+                                <div class="field">
+                                  <label>Type of Activity:</label>
+                                  <span>
+                                    {{ activity.name }}
+                                  </span>
+                                </div>
+                                <div class="field">
+                                  <label>No of Participants:</label>
+                                  <span>
+                                   {{ activity.no_of_participants }}
+                                  </span>
+                                </div>
+                                <div class="field">
+                                  <label>Expected Outcome:</label>
+                                  <span>
+                                    {{ activity.outcome }}
+                                  </span>
+                                </div>
+                                <div class="field">
+                                  <label>State:</label>
+                                  <span>
+                                    {{ activity.StateName }}
+                                  </span>
+                                </div>
+                                <div class="field">
+                                  <label>City:</label>
+                                  <span>
+                                     {{ activity.DistrictName }}
+                                  </span>
+                                </div>
+                                <div class="field">
+                                  <label>Town/Village:</label>
+                                  <span>
+                                    {{ activity.CityName }}
+                                  </span>
+                                </div>
+                              </div>
+                          
+                              <div class="actions">
+                                <button class="btn delete" (click)="deleteActivity(activity)">Delete</button>
+                                <button class="btn edit"  (click)="EditActivity(activity)">Edit</button>
+                                <a href="#" class="btn download">Download Report</a>
+                              </div>
+                            </div>
+                          </div>
+                           
+                      
+                          
+                       
+
+                       
+                    </div>
+                </div>
+                </div> 
+                   
+                
+           
