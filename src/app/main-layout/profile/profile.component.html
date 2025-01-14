@@ -112,25 +112,25 @@
                         </div>
                     </div>
                     <div class="col-lg-12 mt-4">
-                        <h4>Activity</h4>
                         <div class="card"> 
                 
-                                    <div class="body text-center d-flex justify-content-center flex-column" *ngIf="(Activity ?? []).length === 0">
+                           
+                                    <div class="body text-center d-flex justify-content-center flex-column" *ngIf="(Activities ?? []).length === 0">
                                        <img src="assets/images/loader.png" class="loader_img"/>
                                        <button class="btn btn-primary" data-toggle="modal" data-target="#addactivity">Add Activity</button>
                                     </div>
                                     <div class="activities-container">
                                         <div class="d-flex justify-content-between align-items-center mb-3">
-                                          <h2>Activities Of SC, ST, OBC And Minority Depts</h2>
+                                          <h2>Activities</h2>
                                           <div class="d-flex align-items-center">
                                             <div class="search"> 
                                                 <input type="text" class="form-control round search_txt" [(ngModel)]="titlesearch" placeholder="Search">
-                                                <button class="srch_icon" ><i class="fa fa-search" (click)="searchactivity()"></i></button>
+                                                <button class="srch_icon" (click)="searchactivity()" ><i class="fa fa-search" ></i></button>
                                             </div>
-                                            <button class="btn btn-primary" (click)="addactivity()"><i class="icon-plus mr-2"></i> Add New</button>
+                                            <button class="btn btn-primary"  data-toggle="modal" data-target="#addactivity" ><i class="icon-plus mr-2"></i> Add New</button>
                                         </div> </div>
                                         
-                                        <!-- <div class="row">
+                                        <div class="row">
                                           <div class="col-lg-3 mb-3" *ngFor="let activity of Activities">
                                             <div class="card no-bdr">
                                             <div class="activity-image">
@@ -147,9 +147,9 @@
                                             <button class="edit-button" (click)="ActivityDetail(activity)" ><i class="icon-pencil"></i></button>
                                           </div>
                                         </div>
-                                      </div> -->
+                                      </div>
                                       
-                                      <div class="row">
+                                      <!-- <div class="row">
                                         <div class="col-lg-12">
                                        
     <p class="note">
@@ -181,7 +181,7 @@
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
+                                  </div> -->
                                 </div>
                             </div>
         </div>
@@ -227,4 +227,128 @@
       </div>
   </div> 
 
+  <div class="modal fade" id="addactivity" tabindex="-1" role="dialog" aria-labelledby="addactivity" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Activity</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+                <!-- <div class="block-header">
+                       <div class="row">
+                           <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
+                               <a href="javascript::(0)" (click)="Back()" >
+                               <i class="fa fa-arrow-left mr-2"></i></a>
+                               <h2 class="mb-0">Activity</h2> 
+                           </div>
+                          
+                       </div>
+                   </div> -->
+                  
+            <div class="row mt-5 mb-5">
+                 
+                <div class="col-lg-5">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="my-input">Title</label>
+                                <input id="my-input" class="form-control" placeholder="Enter Title" [(ngModel)]="clsactivity.title" [ngModelOptions]="{standalone: true}" >
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label >Date</label>
+                                <input class="form-control" type="date" placeholder="Enter Date" [(ngModel)]="clsactivity.date_posting" [ngModelOptions]="{standalone: true}" >
+                            </div>
+                        </div>
+                      
+                        <div class="col-lg-12">
+                            <div class="form-group" >
+                                <label >Type of Activity</label>
+                                <select class="form-control" (change)="onActvitytypeChange($event)" [(ngModel)]="clsactivity.activity_type" [ngModelOptions]="{standalone: true}">
+                                    <option value="">Select Activity Type</option>
+                                    <option *ngFor="let type of ActivityType" [value]="type.id">{{ type.name }}</option> 
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group"  >
+                                <label >No of Participant</label>
+                                <input id="my-input" class="form-control" type="number" placeholder="Enter Participant" [(ngModel)]="clsactivity.no_of_participants" [ngModelOptions]="{standalone: true}" >
+                            </div>
+                        </div>
+                       
+            
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">State</label>
+                                <select class="form-control" (change)="onstateChange($event)" [(ngModel)]="clsactivity.state_id" [ngModelOptions]="{standalone: true}">
+                                    <option value="">Select State</option>
+                                    <option *ngFor="let state of states" [value]="state.STATEID">{{ state.STATENAME }}</option> 
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">City</label>
+                                <select class="form-control" (change)="oncityChange($event)" [(ngModel)]="clsactivity.city_id" [ngModelOptions]="{standalone: true}">
+                                    <option value="">Select City</option>
+                                    <option *ngFor="let city of cities" [value]="city.DISTRICTID">{{ city.DISTRICTNAME }}</option> 
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label class="control-label">villages</label>
+                                <select class="form-control" (change)="onvillageChange($event)" [(ngModel)]="clsactivity.village_id" [ngModelOptions]="{standalone: true}">
+                                    <option value="">Select villages</option>
+                                    <option *ngFor="let village of villages" [value]="village.CityID">{{ village.CityName }}</option> 
+                                    </select>
+                            </div>
+                        </div>
+                      
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label >Description</label>
+                                <textarea class="form-control" placeholder="Enter Description" [(ngModel)]="clsactivity.description" [ngModelOptions]="{standalone: true}" ></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label >Short Description</label>
+                                <textarea class="form-control" placeholder="Enter Short Description" [(ngModel)]="clsactivity.short_desc" [ngModelOptions]="{standalone: true}"> </textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label >Friendly url</label>
+                                <textarea class="form-control" placeholder="Enter Frienedly Url" [(ngModel)]="clsactivity.friendlyurl" [ngModelOptions]="{standalone: true}"> </textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label >Thumbnail Image</label>
+                                <input id="my-input" class="form-control" type="file" (change)="onFileChange($event)"  placeholder="Enter thumbnail_img" [(ngModel)]="clsactivity.thumbnail_img" [ngModelOptions]="{standalone: true}" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div> 
+                    
+            </div>   
+
+            
+
+          </div>
+          <div class="modal-footer">
+            <button type="button"  class="btn btn-outline-primary" data-dismiss="modal" (click)="CancelActivity()">Cancel</button>
+                    <button type="button" class="btn btn-primary" (click)="SaveActivity()">Save</button>
+          </div>
+        </div>
+      </div>
+  </div> 
   

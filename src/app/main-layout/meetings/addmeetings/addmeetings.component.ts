@@ -103,9 +103,10 @@ export class AddmeetingsComponent implements OnInit {
           this.clsinvite.meeting_link= parseresponse.Table[0].meeting_link;
           this.clsinvite.meeting_location= parseresponse.Table[0].meeting_location;
           this.clsinvite.short_desc= parseresponse.Table[0].short_desc;
-          this.clsinvite.isonline= parseresponse.Table[0].isonline;
-          this.selectedOption = this.clsinvite.isonline; // Bind to the selectedOption model
-          
+          // this.clsinvite.isonline= parseresponse.Table[0].isonline;
+          // this.selectedOption = this.clsinvite.isonline; // Bind to the selectedOption model
+          this.clsinvite.isonline= 0;
+          this.selectedOption = 0; // Bind to the selectedOption model
  
            // Update the designations based on the API response
           this.updateDesignationsList(parseresponse.Table2); 
@@ -127,7 +128,9 @@ export class AddmeetingsComponent implements OnInit {
     window.location.href = "/meetings";
   }
   onOptionChange() {
-     this.clsinvite.isonline = this.selectedOption === 0 ? 0 : 1;
+    debugger;
+     this.clsinvite.isonline = Number(this.selectedOption) === 0 ? 0 : 1;
+    // this.clsinvite.isonline = this.selectedOption; // Sync with selectedOption
   }
   cancel() {
     this.clsinvite.title='';
@@ -168,7 +171,7 @@ clearParticipants() {
 }
   invite() {
      var validate:boolean=false;
-    if (this.clsinvite.isonline == null  || this.clsinvite.isonline === 0) {
+    if (this.clsinvite.isonline == null) {
       this.snackbar.showInfo("Please select Meeting", "Error");
       validate = true;
     }
@@ -242,7 +245,8 @@ clearParticipants() {
             } 
           }
           this.clsinvite=new cls_addmeeting();// Reset form data
-        }, 3000);
+          this.cancel();
+        }, 1000);
 
       }
       else {

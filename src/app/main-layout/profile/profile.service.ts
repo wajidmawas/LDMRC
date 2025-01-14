@@ -10,6 +10,7 @@ export class ProfileService {
   }
 
   getMasters(clsobj:object) {
+    debugger;
     return this.http.post(this.sharedService._baseUrl + this.UserProfileManagementUrl + "/_GetMasters", clsobj,{ headers: this.sharedService.returnHttpHeaders()});
   }
   uploadprofileimg(clsobj:FormData) {

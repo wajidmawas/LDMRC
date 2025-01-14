@@ -12,7 +12,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class MeetingsComponent {
   upcomingmeetings: Meeting[] = [];
+  Mymetting: Meeting[] = [];
   isLoggedIn:any ='';
+  userdetails:any={};
   constructor(private service:Meetingsservice, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
       $(".page-loader-wrapper-review").fadeOut();
@@ -22,7 +24,9 @@ export class MeetingsComponent {
   ngOnInit() {  
     $(".page-loader-wrapper").fadeOut();  
     this.isLoggedIn = localStorage.getItem("cl_user");
+    this.userdetails = JSON.parse(this.isLoggedIn)
     this.getupcomingmetting(0);
+    this.getmymetting(this.userdetails.user_id)
   }
   getupcomingmetting(id: any) {
     debugger;
@@ -40,6 +44,33 @@ export class MeetingsComponent {
          const parseresponse = JSON.parse(response.response); 
  const metting = parseresponse.Table;
  this.upcomingmeetings = metting;
+  console.log(metting);
+      },
+      error: (error: any) => {
+        console.error("API call failed:", error);
+      },
+      complete: () => {
+        console.log("API call completed.");
+      }
+    });
+  }
+
+  getmymetting(id: number) {
+    debugger;
+    const objRequest = {
+      typeId: 27,
+      userid: id,
+      filterId: 0,
+      filterText: "",
+      filterText1: ""
+    };
+  
+    this.service.getMasters(objRequest).subscribe({
+      next: (response: any) => { 
+        debugger;
+         const parseresponse = JSON.parse(response.response); 
+ const metting = parseresponse.Table;
+ this.Mymetting = metting;
   console.log(metting);
       },
       error: (error: any) => {
@@ -100,4 +131,6 @@ export interface Meeting {
   time: string;
   Meeting: string;
   organizer: string;
+  DurationInNightsAndDays: string;
+
 }

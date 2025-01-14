@@ -19,7 +19,15 @@
                       
                         <div class="activity-detail-container" *ngFor="let activity of ActivitiesDetail">
                             <div class="content">
+                              <div class="col-lg-7">
+                                <img
+                                  src="{{ activity.thumbnail_image }}"
+                                  alt="Activity Image"
+                                  class="img-fluid"
+                                />
+                              </div>
                               <div class="card">
+                                  
                                 <div class="field">
                                   <label>Title:</label>
                                  
@@ -72,8 +80,8 @@
                               </div>
                           
                               <div class="actions">
-                                <button class="btn delete" (click)="deleteActivity(activity)">Delete</button>
-                                <button class="btn edit"  (click)="EditActivity(activity)">Edit</button>
+                                <button class="btn delete" data-toggle="modal" data-target="#delaccount" >Delete</button>
+                                <button class="btn edit" data-toggle="modal" data-target="#addactivity" (click)="EditActivity(activity)">Edit</button>
                                 <a href="#" class="btn download">Download Report</a>
                               </div>
                             </div>
@@ -90,3 +98,147 @@
                    
                 
            
+                <div class="modal fade" id="addactivity" tabindex="-1" role="dialog" aria-labelledby="addactivity" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Edit Activity</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="container-fluid">
+                              <!-- <div class="block-header">
+                                     <div class="row">
+                                         <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
+                                             <a href="javascript::(0)" (click)="Back()" >
+                                             <i class="fa fa-arrow-left mr-2"></i></a>
+                                             <h2 class="mb-0">Activity</h2> 
+                                         </div>
+                                        
+                                     </div>
+                                 </div> -->
+                                
+                          <div class="row mt-5 mb-5">
+                               
+                              <div class="col-lg-5">
+                                  <div class="row">
+                                      <div class="col-lg-12">
+                                          <div class="form-group">
+                                              <label for="my-input">Title</label>
+                                              <input id="my-input" class="form-control" placeholder="Enter Title" [(ngModel)]="clsactivity.title" [ngModelOptions]="{standalone: true}" >
+                                          </div>
+                                      </div>
+                                      <div class="col-lg-12">
+                                          <div class="form-group">
+                                              <label >Date</label>
+                                              <input class="form-control" type="date" placeholder="Enter Date" [(ngModel)]="clsactivity.date_posting" [ngModelOptions]="{standalone: true}" >
+                                          </div>
+                                      </div>
+                                    
+                                      <div class="col-lg-12">
+                                          <div class="form-group" >
+                                              <label >Type of Activity</label>
+                                              <select class="form-control" (change)="onActvitytypeChange($event)" [(ngModel)]="clsactivity.activity_type" [ngModelOptions]="{standalone: true}">
+                                                  <option value="">Select Activity Type</option>
+                                                  <option *ngFor="let type of ActivityType" [value]="type.id">{{ type.name }}</option> 
+                                                  </select>
+                                          </div>
+                                      </div>
+                                      <div class="col-lg-12">
+                                          <div class="form-group"  >
+                                              <label >No of Participant</label>
+                                              <input id="my-input" class="form-control" type="number" placeholder="Enter Participant" [(ngModel)]="clsactivity.no_of_participants" [ngModelOptions]="{standalone: true}" >
+                                          </div>
+                                      </div>
+                                     
+                          
+                                      <div class="col-md-12">
+                                          <div class="form-group">
+                                              <label class="control-label">State</label>
+                                              <select class="form-control" (change)="onstateChange($event)" [(ngModel)]="clsactivity.state_id" [ngModelOptions]="{standalone: true}">
+                                                  <option value="">Select State</option>
+                                                  <option *ngFor="let state of states" [value]="state.STATEID">{{ state.STATENAME }}</option> 
+                                                  </select>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-12">
+                                          <div class="form-group">
+                                              <label class="control-label">City</label>
+                                              <select class="form-control" (change)="oncityChange($event)" [(ngModel)]="clsactivity.city_id" [ngModelOptions]="{standalone: true}">
+                                                  <option value="">Select City</option>
+                                                  <option *ngFor="let city of cities" [value]="city.DISTRICTID">{{ city.DISTRICTNAME }}</option> 
+                                                  </select>
+                                          </div>
+                                      </div>
+                                      <div class="col-lg-12">
+                                          <div class="form-group">
+                                              <label class="control-label">villages</label>
+                                              <select class="form-control" (change)="onvillageChange($event)" [(ngModel)]="clsactivity.village_id" [ngModelOptions]="{standalone: true}">
+                                                  <option value="">Select villages</option>
+                                                  <option *ngFor="let village of villages" [value]="village.CityID">{{ village.CityName }}</option> 
+                                                  </select>
+                                          </div>
+                                      </div>
+                                    
+                                      <div class="col-lg-12">
+                                          <div class="form-group">
+                                              <label >Description</label>
+                                              <textarea class="form-control" placeholder="Enter Description" [(ngModel)]="clsactivity.description" [ngModelOptions]="{standalone: true}" ></textarea>
+                                          </div>
+                                      </div>
+                                      <div class="col-lg-12">
+                                          <div class="form-group">
+                                              <label >Short Description</label>
+                                              <textarea class="form-control" placeholder="Enter Short Description" [(ngModel)]="clsactivity.short_desc" [ngModelOptions]="{standalone: true}"> </textarea>
+                                          </div>
+                                      </div>
+                                      <div class="col-lg-12">
+                                          <div class="form-group">
+                                              <label >Friendly url</label>
+                                              <textarea class="form-control" placeholder="Enter Frienedly Url" [(ngModel)]="clsactivity.friendlyurl" [ngModelOptions]="{standalone: true}"> </textarea>
+                                          </div>
+                                      </div>
+                                      <div class="col-lg-12">
+                                          <div class="form-group">
+                                              <label >Thumbnail Image</label>
+                                              <input id="my-input" class="form-control" type="file" (change)="onFileChange($event)"  placeholder="Enter thumbnail_img" [(ngModel)]="clsactivity.thumbnail_img" [ngModelOptions]="{standalone: true}" >
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              </div> 
+                                  
+                          </div>   
+              
+                          
+              
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button"  class="btn btn-outline-primary" data-dismiss="modal" (click)="CancelActivity()">Cancel</button>
+                                  <button type="button" class="btn btn-primary" (click)="SaveActivity()">Save</button>
+                        </div>
+                      </div>
+                    </div>
+                </div> 
+
+                <div class="modal fade" id="delaccount" tabindex="-1" role="dialog" aria-labelledby="delaccount" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="modal-body mt-5 d-flex align-items-center flex-column justify-content-center alertbox">
+                          <img src="assets/images/loader.png" width="32" class="mb-2"/>
+                          <h2>Are you sure?</h2>
+                          <p>Do you really want to delete the account?</p>
+                         </div>
+                         <div class="modal-footer text-center">
+                          <button type="button" class="btn btn-lg btn-dark" data-dismiss="modal">No, Keep It.</button>
+                          <button type="button" class="btn btn-lg btn-danger" (click)="deleteActivity()">Yes, Delete!</button>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                
