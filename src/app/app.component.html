@@ -1,3 +1,8 @@
+<!-- <register-login *ngIf="!login && !location.path().includes('/preview') && !location.path().includes('/screenpreview') && !location.path().includes('/livepreview')"></register-login>
+
+<main-layout *ngIf="login && !location.path().includes('/preview') && !location.path().includes('/screenpreview') && !location.path().includes('/livepreview')"></main-layout> -->
+
 <register-login *ngIf="!login && !location.path().includes('/preview') && !location.path().includes('/screenpreview') && !location.path().includes('/livepreview')"></register-login>
 
 <main-layout *ngIf="login && !location.path().includes('/preview') && !location.path().includes('/screenpreview') && !location.path().includes('/livepreview')"></main-layout>
+<router-outlet></router-outlet>
