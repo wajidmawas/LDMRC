@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   Activities: any = [];
   PhysicalMetting: any = [];
   meetings: any = [];
-
+  Mymetting: Meeting[] = [];
 
 
   userdetails:any={};
@@ -62,6 +62,33 @@ constructor(public sharedService: SharedService,private service:dashboardService
     this.LoadActivity(this.userdetails.user_id,'');
     this.LoadScheduler(this.userdetails.user_id);
 
+    this.getmymetting(this.userdetails.user_id)
+  }
+  getmymetting(id: number) {
+    debugger;
+    const objRequest = {
+      typeId: 28,
+      userid: id,
+      filterId: 0,
+      filterText: "",
+      filterText1: ""
+    };
+  
+    this.service.getMasters(objRequest).subscribe({
+      next: (response: any) => { 
+        debugger;
+         const parseresponse = JSON.parse(response.response); 
+ const metting = parseresponse.Table;
+ this.Mymetting = metting;
+  console.log(metting);
+      },
+      error: (error: any) => {
+        console.error("API call failed:", error);
+      },
+      complete: () => {
+        console.log("API call completed.");
+      }
+    });
   }
   LoadActivity(id: any,filterText:string) {
     const objRequest = {
@@ -103,9 +130,10 @@ constructor(public sharedService: SharedService,private service:dashboardService
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
         var parseresponse = JSON.parse(response.response); 
+        debugger;
         if (response["errorCode"] === "200") {
-          this.meetings=parseresponse.Table;
-          this.PhysicalMetting = parseresponse.Table1;
+          this.meetings=parseresponse.Table1;
+          this.PhysicalMetting = parseresponse.Table;
         } else {
           console.error("API returned an error:", response.message); 
         }
@@ -211,4 +239,14 @@ LoadSlider(id:any) {
 
 }
 
+export interface Meeting {
+  title: string;
+  Day: string;
+  Date: string;
+  time: string;
+  Meeting: string;
+  organizer: string;
+  DurationInNightsAndDays: string;
+
+}
  

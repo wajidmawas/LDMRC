@@ -31,8 +31,11 @@ export class AddmeetingsComponent implements OnInit {
   }[] = [];
   todayDate: string='';
   isLoggedIn:any='';
-  selectedOption: number = 1;
-  isonline: number = 0;
+  // selectedOption: number = 1;
+  // isonline: number = 0;
+  isonline: string = '';
+  selectedOption: string = '';
+
   expandedPanels: { [key: string]: boolean } = {};
   clsinvite:cls_addmeeting=new cls_addmeeting();
   constructor(private route: ActivatedRoute,private service:Meetingsservice, private snackbar:SnackbarService, private translate:TranslateService) {
@@ -103,11 +106,8 @@ export class AddmeetingsComponent implements OnInit {
           this.clsinvite.meeting_link= parseresponse.Table[0].meeting_link;
           this.clsinvite.meeting_location= parseresponse.Table[0].meeting_location;
           this.clsinvite.short_desc= parseresponse.Table[0].short_desc;
-          // this.clsinvite.isonline= parseresponse.Table[0].isonline;
-          // this.selectedOption = this.clsinvite.isonline; // Bind to the selectedOption model
-          this.clsinvite.isonline= 0;
-          this.selectedOption = 0; // Bind to the selectedOption model
- 
+          this.clsinvite.isonline= parseresponse.Table[0].isonline;
+          this.selectedOption = this.clsinvite.isonline; // Bind to the selectedOption model
            // Update the designations based on the API response
           this.updateDesignationsList(parseresponse.Table2); 
 // Update the organisation based on the API response
@@ -129,8 +129,9 @@ export class AddmeetingsComponent implements OnInit {
   }
   onOptionChange() {
     debugger;
-     this.clsinvite.isonline = Number(this.selectedOption) === 0 ? 0 : 1;
-    // this.clsinvite.isonline = this.selectedOption; // Sync with selectedOption
+    this.clsinvite.isonline = this.selectedOption === '0' ? '0' : '1';
+    //  this.clsinvite.isonline = Number(this.selectedOption) === 0 ? 0 : 1;
+    
   }
   cancel() {
     this.clsinvite.title='';
@@ -139,7 +140,7 @@ export class AddmeetingsComponent implements OnInit {
     this.clsinvite.notification_type=0;
     this.clsinvite.duration = 0;
     this.clsinvite.description = '';
-    this.clsinvite.isonline=0;
+    // this.clsinvite.isonline=0;
     this.clsinvite.meeting_location='';
     this.clsinvite.meeting_link='';
     this.clsinvite.short_desc='';
@@ -395,7 +396,7 @@ updateOrganisationList(apiResponse: any[]): void {
       organisation.activities = JSON.parse(organisation.activities);
     }
     const Editactivities: { id: number, title: string, activity_type: number }[] = JSON.parse(apiResponse[0].activities);
-
+debugger;
      organisation.activities.forEach(activity => {
     // Set Activityselected to true if the activity ID exists in the parsed activities
     activity.Activityselected = Editactivities.some((apiActivity: { id: number }) => apiActivity.id === activity.id);
@@ -446,7 +447,9 @@ export class cls_addmeeting {
   notification_type:number=0;
   duration:number = 0;
   description: string = '';
-  isonline:number=0;
+  // isonline:number=0;
+  isonline:string='';
+
   meeting_location:string='';
   meeting_link:string='';
   short_desc:string='';
