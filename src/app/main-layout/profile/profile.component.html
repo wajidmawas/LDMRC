@@ -134,17 +134,22 @@
                                           <div class="col-lg-3 mb-3" *ngFor="let activity of Activities">
                                             <div class="card no-bdr">
                                             <div class="activity-image">
-                                           <img [src]="activity.thumbnail_image || '../../../assets/images/login_bg.png'" alt="Activity Image" />
+                                              <button class="delete-icon" data-toggle="modal" data-target="#delaccount" (click)="DeleteActivity(activity)">
+                                                <i class="fa fa-trash"></i>
+                                              </button>
+                                           <img [src]="activity.thumbnail_image || '../../../assets/images/login_bg.png'" (click)="ActivityDetail(activity)" alt="Activity Image" />
                                             </div>
-                                            <div class="card-body drop_shadow">
+                                            <div class="card-body drop_shadow" (click)="ActivityDetail(activity)">
                                               <h3 class="active_title mb-0">{{ activity.Author }}</h3>
                                               <span class="active_timespan">{{ activity.Date }}</span>
                                               <div class="activity-meta mt-3">
                                                 <span> {{ activity.title }} 
                                                 </span> 
                                               </div>
+                                             
                                             </div>
-                                            <button class="edit-button" (click)="ActivityDetail(activity)" ><i class="icon-pencil"></i></button>
+                                           
+                                            <button class="edit-button" data-toggle="modal" data-target="#addactivity" (click)="EditActivity(activity)" ><i class="icon-pencil"></i></button>
                                           </div>
                                         </div>
                                       </div>
@@ -201,7 +206,7 @@
            </div>
            <div class="modal-footer text-center">
             <button type="button" class="btn btn-lg btn-dark" data-dismiss="modal">No, Keep It.</button>
-            <button type="button" class="btn btn-lg btn-danger">Yes, Delete!</button>
+            <button type="button" class="btn btn-lg btn-danger" (click)="DeleteActivity(1)">Yes, Delete!</button>
           </div>
       </div>
     </div>

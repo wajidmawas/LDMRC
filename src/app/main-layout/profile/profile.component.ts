@@ -395,15 +395,6 @@ onFileChange(event: any) {
 }
 
 EditActivity(Activity: any){
-  const modalElement = this.activityModal.nativeElement;
-  modalElement.classList.remove('show');
-  modalElement.setAttribute('aria-hidden', 'true');
-  modalElement.style.display = 'none';
-  document.body.classList.remove('modal-open');
-  const backdrop = document.querySelector('.modal-backdrop');
-  if (backdrop) {
-    backdrop.remove();
-  }
    debugger;
     this.clsactivity = { ...Activity };
      // Convert date_of_posting to 'YYYY-MM-DD' format
@@ -457,6 +448,41 @@ ActivityDetail(Activity: any) {
     console.error('Invalid Activity object or missing ID');
   }
 }
+DeleteActivity(Activity: any) {
+  debugger;
+  const objRequest = {
+    typeId: 22,
+    userid: 0,
+    filterId: 0,
+    filterText: Activity.code,
+    filterText1: ""
+  };
+
+  this.service.getMasters(objRequest).subscribe({
+    next: (response: any) => { 
+      var parseresponse = JSON.parse(response.response); 
+      debugger;
+      if (response["errorCode"] === "200") {
+        this.snackbar.showSuccess("", response.status);
+            setTimeout(() => {
+              window.location.href = "/profile";
+            }, 2000);
+      } else {
+        console.error("API returned an error:", response.message); 
+      }
+    },
+    error: (error: any) => {
+      console.error("API call failed:", error);
+      // Handle the error appropriately
+      // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
+    },
+    complete: () => {
+      console.log("API call completed.");
+    }
+  });
+}
+
+
 
 CancelActivity()
 {
