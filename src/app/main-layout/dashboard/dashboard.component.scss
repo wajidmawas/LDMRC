@@ -229,9 +229,14 @@
     width: 20px;
 }
 
+ 
+
 .training_img{
-    width: 40%;
+    width: 140px;
     position: relative;
+}
+.training_img img{
+    width: 100%;
 }
 .tim_details{
 position: absolute;

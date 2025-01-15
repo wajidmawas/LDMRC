@@ -33,7 +33,18 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   userDetail:any={};
       
   isLoggedIn:any='';
-    
+  customOptions = {
+    loop: false,
+    margin: 20,
+    center:true,
+    nav: true,
+    dots: false,
+    responsive: {
+      0: { items: 1 },
+      600: { items: 2 },
+      1000: { items: 4 }
+    }
+  };
   currentDateTime:string ='';
   private _onDestroy = new Subject<void>(); 
 constructor(public sharedService: SharedService,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
@@ -180,15 +191,13 @@ constructor(public sharedService: SharedService,private service:dashboardService
           }
       }
     });
-    $('.loop1').owlCarousel({
+    $('.loop2').owlCarousel({
       loop:false,
       center: true,
       margin:20,
       responsiveClass:true,
       nav:true,
-      autoplay:false,
-    autoplayTimeout:2000,
-    autoplayHoverPause:true,
+      autoplay:false, 
       responsive:{
           0:{
               items:2,

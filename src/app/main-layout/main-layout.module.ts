@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MeetingModule } from './meetings/meetings.module'; 
 import { FooterComponent } from './footer/footer.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 @NgModule({
   declarations: [
     MainLayoutComponent,
@@ -39,7 +40,7 @@ import { FooterComponent } from './footer/footer.component';
     ProfileModule,
     OwlNativeDateTimeModule,
     OwlDateTimeModule, 
-    MeetingModule,
+    MeetingModule,CarouselModule
   ],
   exports: [
     MainLayoutComponent,
