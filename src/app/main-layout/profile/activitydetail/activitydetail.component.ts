@@ -248,8 +248,8 @@ CancelActivity()
 {
   this.clsactivity = new cls_addactivity(); // Reset form data
 }
-EditActivity(activity: any){ 
-  this.ActivityDetail(activity.id);
+EditActivity(){ 
+  this.ActivityDetail();
  
    
 
@@ -258,12 +258,12 @@ console.log(this.ActivitiesDetail);
 setSelectedActivity(activity: any): void {
   this.selectedActivity = activity; ;
 }
-ActivityDetail(id :string){ 
+ActivityDetail(){ 
  const objRequest = {
    typeId: 25,
    userid: 0,
-   filterId: id,
-   filterText: "",
+   filterId: 0,
+   filterText: this.activityId?.toString(),
    filterText1: ""
  };
 

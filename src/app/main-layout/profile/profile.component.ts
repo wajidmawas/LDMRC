@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 
 export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('activityModal') activityModal!: ElementRef;
- 
+  selectedActivity: any = null;
   // activeTab = 0;
   //  tabs: any = [];
   Activities:any=[];
@@ -341,7 +341,7 @@ SaveActivity() {
     this.snackbar.showInfo("Please select an image", "Error");
     validate = true;
   }
-
+debugger;
   if (!validate) {
     $(".page-loader-wrapper-review").show();
     const formData = new FormData();
@@ -357,6 +357,7 @@ SaveActivity() {
     formData.append('description', this.clsactivity.description);
     formData.append('user_id', this.userdetails.user_id.toString());
     formData.append('friendly_url',this.clsactivity.friendlyurl.toString());
+    formData.append('id',this.clsactivity.id.toString());
 
        // Append file only if it exists
        if (this.clsactivity.thumbnail_img && this.clsactivity.thumbnail_img instanceof File) {
@@ -371,7 +372,13 @@ this.service.SaveActivity(formData).subscribe((res: any) => {
      this.snackbar.showSuccess(response._body.message, response._body.status);
     setTimeout(() => {
       this.responseid=JSON.parse(response._body.response).Table[0].id;
+      if(this.responseid==this.clsactivity.id)
+      {
+        this.clsactivity = new cls_addactivity(); // Reset form data
+        window.location.href = "/profile";
+      }
       this.clsactivity = new cls_addactivity(); // Reset form data
+
     }, 3000);
    
   } else {
@@ -391,8 +398,10 @@ onFileChange(event: any) {
 
 EditActivity(Activity: any){ 
     this.clsactivity = { ...Activity };
+    debugger;
      // Convert date_of_posting to 'YYYY-MM-DD' format
      this.clsactivity.date_posting = Activity.date_of_posting.split('T')[0];
+     this.clsactivity.friendlyurl = Activity.friendly_url;
      this.clsactivity.thumbnail_img=Activity.thumbnail_image;
     this.getCities(Activity.state_id) ;
     this.selectedCity = Activity.city_id; 
@@ -441,6 +450,9 @@ ActivityDetail(Activity: any) {
     console.error('Invalid Activity object or missing ID');
   }
 }
+setSelectedActivity(activity: any): void {
+  this.selectedActivity = activity;
+}
 DeleteActivity(Activity: any) { 
   const objRequest = {
     typeId: 22,
@@ -483,10 +495,7 @@ Back()
 {
   window.location.href = "/profile";
 }
- // Action to delete activity
- deleteActivity() {
-  alert('Activity deleted!');
-}
+
 }
 
 
