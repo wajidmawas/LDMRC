@@ -128,6 +128,11 @@ position: absolute;
     padding: 5px 10px;
     border-radius: 50px;
     cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .edit-button1 {
     position: absolute;
@@ -352,10 +357,71 @@ position: absolute;
   border-radius: 4px;
   cursor: pointer;
 }
-.delete-icon {
-  background: rgba(255, 255, 255, 0.8);
+.delete-icon { 
+  position: absolute;
+  top: 10px;
+  left: 10px; 
+  color: white;
   border: none;
-  padding: 5px;
-  border-radius: 50%;
+  padding: 5px 10px;
+  border-radius: 50px;
   cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cursor{
+  cursor: pointer;
+}
+
+.close1{
+  top: 0 !important;
+  position: relative; 
+  right: 2%;
+  top: 4%;
+  background-color: #D5D5D5 !important;
+  margin: 0 !important;
+  color: #000;
+  opacity: 1;
+  font-size: 24px;
+  font-weight: normal;
+  z-index: 99;
+  border-radius: 25px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.modal-footer {
+  justify-content: flex-end !important;
+}
+
+
+.photo_div{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px dashed #9B9B9B;
+  border-radius: 10px;
+  padding: 10px;
+}
+.up_div{
+  margin-left: 10px;
+  align-items: flex-start;
+}
+.up_div h4{
+  font-size: 14px;
+  margin: 0;
+}
+
+.up_div span{
+  font-size: 10px;
+  font-style: italic;
+  color: #9B9B9B;
 }

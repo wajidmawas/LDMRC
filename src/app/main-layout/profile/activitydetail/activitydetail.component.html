@@ -1,40 +1,48 @@
 
             <div class="container-fluid">
                 <div class="block-header">
+                  <div class="row mb-2">
+                    <div class="col-lg-12">
+                    <ul class="breadcrumb">                          
+                      <li class="breadcrumb-item">Dashboard</li>
+                      <li class="breadcrumb-item">Profile</li>
+                      <li class="breadcrumb-item active">Activity Detail</li>
+                  </ul>
+                </div>
+                  </div>
                        <div class="row">
                            <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
                                <a href="javascript::(0)" (click)="Back()" >
                                <i class="fa fa-arrow-left mr-2"></i></a>
                                <h2 class="mb-0">Activity Detail</h2> 
                            </div>
-                          
+                           <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="d-flex flex-row-reverse">
+                                <div class="page_action">
+                
+                                </div>
+                                <div class="p-2 d-flex"> 
+                                  <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#addactivity" (click)="EditActivity(activityId)"><i class="fa fa-pencil mr-2"></i> Edit</button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delaccount"><i class="fa fa-trash mr-2"></i>Delete </button>
+                                </div>
+                            </div>
+                        </div>
                        </div>
                    </div>
                   
-            <div class="row mb-5">
-                 
-                <div class="col-lg-5">
-                    <div class="row">
-                      
-                      
+            <div class="row mb-5"> 
+                <div class="col-lg-12"> 
                         <div class="activity-detail-container" *ngFor="let activity of ActivitiesDetail">
-                            <div class="content">
-                              <div class="col-lg-7">
+                            <div class="content"> 
                                 <img
                                   src="{{ activity.thumbnail_image }}"
                                   alt="Activity Image"
                                   class="img-fluid"
                                 />
-                              </div>
-                              <div class="card">
-                                  
-                                <div class="field">
-                                  <label>Title:</label>
-                                 
-                                  <span>
-                                    {{ activity.title }}
-                                  </span>
-                                </div>
+                              </div> 
+                              <div class="card mt-3 card-details"> 
+                                <h3 class="activitytitle">{{activity.title}}</h3> 
+                                <div class="details_cards">
                                 <div class="field">
                                   <label>Date of Posting:</label>
                                   <span>
@@ -78,14 +86,10 @@
                                   </span>
                                 </div>
                               </div>
-                          
-                              <div class="actions">
-                                <button class="btn delete" data-toggle="modal" data-target="#delaccount" >Delete</button>
-                                <button class="btn edit" data-toggle="modal" data-target="#addactivity" (click)="EditActivity(activity)">Edit</button>
-                                <a href="#" class="btn download">Download Report</a>
-                              </div>
+                             
                             </div>
-                          </div>
+                            <p class="acti_para">LoremIpsum </p>
+                              
                            
                       
                           

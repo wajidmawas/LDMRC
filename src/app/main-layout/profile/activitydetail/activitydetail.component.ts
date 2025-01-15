@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ActivitydetailComponent implements OnInit  {
   activityId: string | null = null;
+  selectedActivity: any = null;
   ActivitiesDetail:any=[];
  clsactivity:cls_addactivity=new cls_addactivity();
   selectedState:number | null = null;
@@ -36,8 +37,7 @@ export class ActivitydetailComponent implements OnInit  {
   constructor(private route: ActivatedRoute,private router: Router,private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
     this.titleService.setTitle("AICC - Profile");
 }
-ngOnInit(): void {
-  debugger;
+ngOnInit(): void { 
   // Get the path parameter
   this.activityId = this.route.snapshot.paramMap.get('id');
   console.log('Activity ID:', this.activityId);
@@ -93,8 +93,7 @@ getCities(id: any) {
     }
   });
 }
-getvillages(id: any,state :any) {
-  debugger;
+getvillages(id: any,state :any) { 
   const objRequest = {
     typeId: 5,
     userid: 0,
@@ -104,8 +103,7 @@ getvillages(id: any,state :any) {
   };
   console.log(JSON.stringify(objRequest));
   this.service.getMasters(objRequest).subscribe({
-    next: (response: any) => { 
-      debugger;
+    next: (response: any) => {  
       var parseresponse = JSON.parse(response.response); 
      
       if (response["errorCode"] === "200") { 
@@ -180,8 +178,7 @@ getActivityType(id: any) {
     }
   });
 }
-SaveActivity() {
-  debugger;
+SaveActivity() { 
   var validate:boolean=false;
 
   // Perform client-side validation
@@ -251,16 +248,17 @@ CancelActivity()
 {
   this.clsactivity = new cls_addactivity(); // Reset form data
 }
-EditActivity(activity: any){
-  debugger;
+EditActivity(activity: any){ 
   this.ActivityDetail(activity.id);
  
    
 
 console.log(this.ActivitiesDetail);
 }
-ActivityDetail(id :string){
- debugger;
+setSelectedActivity(activity: any): void {
+  this.selectedActivity = activity; ;
+}
+ActivityDetail(id :string){ 
  const objRequest = {
    typeId: 25,
    userid: 0,
@@ -298,8 +296,7 @@ ActivityDetail(id :string){
    }
  });
 }
-fetchActivitiesDetail(id: string|null):void{
-  debugger;
+fetchActivitiesDetail(id: string|null):void{ 
   const objRequest = {
     typeId: 7,
     userid: 0,

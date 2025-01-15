@@ -160,8 +160,7 @@ ngAfterViewInit(): void {
 addactivity(){
     this.router.navigate([`/profile/addactivity`, 0]);
 }
-searchactivity(){
-  debugger;
+searchactivity(){ 
   // this.getloadactivity(this.userdetails.user_id,this.titlesearch);
   this.LoadActivity(this.userdetails.user_id,this.titlesearch);
 
@@ -209,8 +208,7 @@ getCities(id: any) {
     }
   });
 }
-getvillages(id: any,state :any) {
-  debugger;
+getvillages(id: any,state :any) { 
   const objRequest = {
     typeId: 5,
     userid: 0,
@@ -220,8 +218,7 @@ getvillages(id: any,state :any) {
   };
   console.log(JSON.stringify(objRequest));
   this.service.getMasters(objRequest).subscribe({
-    next: (response: any) => { 
-      debugger;
+    next: (response: any) => {  
       var parseresponse = JSON.parse(response.response); 
      
       if (response["errorCode"] === "200") { 
@@ -307,8 +304,7 @@ LoadActivity(id: any,filterText:string) {
   };
 
   this.service.getMasters(objRequest).subscribe({
-    next: (response: any) => { 
-      debugger;
+    next: (response: any) => {  
       var parseresponse = JSON.parse(response.response); 
       if (response["errorCode"] === "200") {
         this.Activities = parseresponse.Table2;
@@ -328,8 +324,7 @@ LoadActivity(id: any,filterText:string) {
 
 
 }
-SaveActivity() {
-  debugger;
+SaveActivity() { 
   var validate:boolean=false;
 
   // Perform client-side validation
@@ -394,8 +389,7 @@ onFileChange(event: any) {
     }
 }
 
-EditActivity(Activity: any){
-   debugger;
+EditActivity(Activity: any){ 
     this.clsactivity = { ...Activity };
      // Convert date_of_posting to 'YYYY-MM-DD' format
      this.clsactivity.date_posting = Activity.date_of_posting.split('T')[0];
@@ -439,8 +433,7 @@ console.log(Activity);
 //   //   }
 //   // });
 // }
-ActivityDetail(Activity: any) {
-  debugger;
+ActivityDetail(Activity: any) { 
   console.log('Activity:', Activity);
   if (Activity && Activity.code) {
     this.router.navigate([`/profile/activitydetail`, Activity.code]);
@@ -448,8 +441,7 @@ ActivityDetail(Activity: any) {
     console.error('Invalid Activity object or missing ID');
   }
 }
-DeleteActivity(Activity: any) {
-  debugger;
+DeleteActivity(Activity: any) { 
   const objRequest = {
     typeId: 22,
     userid: 0,
@@ -460,8 +452,7 @@ DeleteActivity(Activity: any) {
 
   this.service.getMasters(objRequest).subscribe({
     next: (response: any) => { 
-      var parseresponse = JSON.parse(response.response); 
-      debugger;
+      var parseresponse = JSON.parse(response.response);  
       if (response["errorCode"] === "200") {
         this.snackbar.showSuccess("", response.status);
             setTimeout(() => {
