@@ -179,12 +179,58 @@
                                                     </mat-checkbox>
                                                   
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="search">Name</label>
+                                                    <div class="input-group">
+                                                      <input
+                                                        type="text"
+                                                        id="search"
+                                                        class="form-control"
+                                                        placeholder="Add People"
+                                                        [(ngModel)]="searchQuery"
+                                                        (input)="filterUsers()" 
+                                                      />
+                                                      
+                                                    </div>
+                                                  
+                                                    <!-- Filtered List of Users -->
+                                                    <ul class="list-group mt-2" *ngIf="filteredUsers.length > 0">
+                                                      <li
+                                                        class="list-group-item"
+                                                        *ngFor="let user of filteredUsers"
+                                                        (click)="addUser(user)"
+                                                      >
+                                                        {{ user.name }}
+                                                      </li>
+                                                    </ul>
+                                                  
+                                                    <!-- Selected Users -->
+                                                    <div class="selected-users mt-3" *ngIf="selectedUsers.length > 0">
+                                                      <h5>Selected Name:</h5>
+                                                      <ul class="list-group">
+                                                        <li
+                                                          class="list-group-item d-flex justify-content-between align-items-center"
+                                                          *ngFor="let user of selectedUsers"
+                                                        >
+                                                          {{ user.name }}
+                                                          <button class="btn btn-danger btn-sm" (click)="removeUser(user)">
+                                                            Remove
+                                                          </button>
+                                                        </li>
+                                                      </ul>
+                                                    </div>
+                                                  </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2"></div>
+        <div class="col-lg-2">
+           
+              
+              
+              
+        </div>
 
         <div class="col-lg-12 mt-4 mb-4 text-center">
             <button class="btn btn-lg btn-outline-white mr-2" (click)="cancel()">Cancel</button>

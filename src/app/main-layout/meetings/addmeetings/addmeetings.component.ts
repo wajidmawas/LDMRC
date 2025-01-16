@@ -14,6 +14,18 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './addmeetings.component.scss'
 })
 export class AddmeetingsComponent implements OnInit {
+  searchQuery: string = ''; // Input query for searching
+  allUsers: { id: number; name: string }[] = []; // Filtered user list
+  // allUsers: { id: number; name: string }[] = [
+  //   { id: 1, name: 'John Doe' },
+  //   { id: 2, name: 'Jane Smith' },
+  //   { id: 3, name: 'Alice Johnson' },
+  //   { id: 4, name: 'Bob Brown' },
+  // ]; // Full list of users
+  filteredUsers: { id: number; name: string }[] = []; // Filtered user list
+  selectedUsers: { id: number; name: string }[] = []; // Selected users
+
+
   meetingId: number | null = null;
   OrganisersList: any = [];
   responseid:any=[];
@@ -52,6 +64,7 @@ export class AddmeetingsComponent implements OnInit {
     this.getLookupMaster(0);
     this.getActivityMaster(0);
     this.getOrganizer(0);
+    this.getAllUsers(0);
      // Retrieve 'id' from query parameters (e.g., ?id=4)
      this.route.queryParams.subscribe(params => {
       this.meetingId = params['id']; // Get the 'id' query parameter
@@ -71,6 +84,38 @@ export class AddmeetingsComponent implements OnInit {
     // Alternatively, if the 'id' is part of the route path (e.g., /meetings/:id)
     // this.route.snapshot.paramMap.get('id'); // For route parameters
   }
+  // Filter users based on the search query
+  filterUsers() {
+    const query = this.searchQuery.trim().toLowerCase();
+    if (query === '') {
+      this.filteredUsers = [];
+      return;
+    }
+    this.filteredUsers = this.allUsers.filter((user) =>
+      user.name.toLowerCase().includes(query)
+    );
+  }
+
+  // Add a user to the selected list
+  addUser(user: { id: number; name: string }) {
+    debugger;
+    if (!this.selectedUsers.some((u) => u.id === user.id)) {
+      this.selectedUsers.push(user);
+    }
+    this.searchQuery = ''; // Clear search input
+    this.filteredUsers = []; // Clear filtered list
+  }
+
+  // Remove a user from the selected list
+  removeUser(user: { id: number; name: string }) {
+    this.selectedUsers = this.selectedUsers.filter((u) => u.id !== user.id);
+  }
+  // Get all selected user IDs (for further processing)
+  getSelectedUserIds(): number[] {
+    return this.selectedUsers.map((user) => user.id);
+  }
+
+  
   isExpanded(panelName: string): boolean {
     return !!this.expandedPanels[panelName];
   }
@@ -112,6 +157,7 @@ export class AddmeetingsComponent implements OnInit {
           this.updateDesignationsList(parseresponse.Table2); 
 // Update the organisation based on the API response
  this.updateOrganisationList(parseresponse.Table3);
+ 
 
         },
         error: (error: any) => {
@@ -172,6 +218,22 @@ clearParticipants() {
 }
   invite() {
      var validate:boolean=false;
+     const userIds = this.getSelectedUserIds();
+      // Check if userids has values
+      if (userIds.length > 0) {
+        // Convert userids to an array of objects with the same structure as participant
+        const newParticipants = userIds.map(id => ({ id }));
+    
+        // Add only new unique participants
+        newParticipants.forEach(newParticipant => {
+          if (!this.clsinvite.participants.some(p => p.id === newParticipant.id)) {
+          if (!this.clsinvite.participants.some(p => p.id === newParticipant.id)) {
+            this.clsinvite.participants.push(newParticipant);
+          }
+        }
+        });
+      }
+      console.log('Updated Participants:', this.clsinvite.participants);
     if (this.clsinvite.isonline == null) {
       this.snackbar.showInfo("Please select Meeting", "Error");
       validate = true;
@@ -224,6 +286,7 @@ clearParticipants() {
     }
    if(!validate) {
     $(".page-loader-wrapper-review").show(); 
+   
     this.service.InviteClient(this.clsinvite).subscribe((res: any) => {
       setTimeout(() => {
         $(".page-loader-wrapper-review").hide();
@@ -246,6 +309,7 @@ clearParticipants() {
             } 
           }
           this.clsinvite=new cls_addmeeting();// Reset form data
+         this.selectedUsers=[];
           this.cancel();
         }, 1000);
 
@@ -272,6 +336,28 @@ clearParticipants() {
       next: (response: any) => { 
         const parseresponse = JSON.parse(response.response); 
         this.designationsList = parseresponse.Table2;
+      },
+      error: (error: any) => {
+        console.error("API call failed:", error);
+      },
+      complete: () => {
+        console.log("API call completed.");
+      }
+    });
+  }
+  getAllUsers(id: any) {
+    const objRequest = {
+      typeId: 29,
+      userid: 0,
+      filterId: id,
+      filterText: "",
+      filterText1: ""
+    };
+  
+    this.service.getMasters(objRequest).subscribe({
+      next: (response: any) => { 
+        const parseresponse = JSON.parse(response.response); 
+        this.allUsers = parseresponse.Table;
       },
       error: (error: any) => {
         console.error("API call failed:", error);

@@ -155,9 +155,22 @@
               </div>
               </div>
               <div class="col-lg-1 p-0 d-flex align-items-center flex-column ml-lg-auto"> 
-              <button class="btn btn-primary mr-4 w-100" (click)="joinZoomMeeting(meeting)">Join</button>
-                <button class="btn btn-danger mr-4 mb-2 w-100" (click)="ReSchedule(meeting)">Re-Schedule</button> 
-              <button class="btn btn-dark mr-4 mb-2 w-100" data-toggle="modal" data-target="#cancelalert" (click)="Cancel(meeting)">Cancel</button> 
+
+              <!-- <button class="btn btn-primary mr-4 w-100" (click)="joinZoomMeeting(meeting)">Join</button>
+              <button class="btn btn-danger mr-4 mb-2 w-100" (click)="ReSchedule(meeting)">Re-Schedule</button> 
+              <button class="btn btn-dark mr-4 mb-2 w-100" data-toggle="modal" data-target="#cancelalert" (click)="setSelectedmeeting(meeting)">{{this.cancledtext}}</button>  -->
+              <ng-container *ngIf="meeting.Meetingstatus === 1">
+                <button class="btn btn-primary mr-4 w-100" (click)="joinZoomMeeting(meeting)">Join</button>
+                <button class="btn btn-danger mr-4 mb-2 w-100" (click)="ReSchedule(meeting)">Re-Schedule</button>
+                <button class="btn btn-dark mr-4 mb-2 w-100" data-toggle="modal" data-target="#cancelalert" (click)="setSelectedmeeting(meeting)">Cancel</button>
+              </ng-container>
+      
+              <!-- Show disabled 'Canceled' button if Meetingstatus is 0 -->
+              <ng-container *ngIf="meeting.Meetingstatus === 0">
+                <button class="btn btn-secondary mr-4 mb-2 w-100" disabled>Canceled</button>
+              </ng-container>
+             
+              
               </div> 
             </div>
             </div>
@@ -231,7 +244,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-lg btn-outline-primary" data-dismiss="modal">NO</button>
-              <button type="button" class="btn btn-lg btn-primary">YES</button>
+              <button type="button" class="btn btn-lg btn-primary" (click)="Cancelmeeting(selectedmeeting)">YES</button>
             </div>
           </div>
         </div>

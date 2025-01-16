@@ -11,10 +11,12 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './meetings.component.scss'
 })
 export class MeetingsComponent {
+
   upcomingmeetings: Meeting[] = [];
   Mymetting: Meeting[] = [];
   isLoggedIn:any ='';
   userdetails:any={};
+  selectedmeeting: any = null;
   constructor(private service:Meetingsservice, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
       $(".page-loader-wrapper-review").fadeOut();
@@ -93,7 +95,10 @@ export class MeetingsComponent {
   ReSchedule(meeting:any) {
     window.location.href = "/meetings/addmeetings?id="+meeting.id;
   }
-  Cancel(meeting:any) {
+  setSelectedmeeting(meeting: any): void {
+    this.selectedmeeting = meeting;
+  }
+  Cancelmeeting(meeting:any) {
     debugger;
     const objRequest = {
       typeId: 20,
@@ -107,6 +112,7 @@ export class MeetingsComponent {
       next: (response: any) => { 
         debugger;
          const parseresponse = JSON.parse(response.response); 
+         window.location.reload();
       },
       error: (error: any) => {
         console.error("API call failed:", error);
@@ -132,5 +138,6 @@ export interface Meeting {
   Meeting: string;
   organizer: string;
   DurationInNightsAndDays: string;
+  Meetingstatus:number;
 
 }
