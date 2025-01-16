@@ -155,10 +155,6 @@
               </div>
               </div>
               <div class="col-lg-1 p-0 d-flex align-items-center flex-column ml-lg-auto"> 
-
-              <!-- <button class="btn btn-primary mr-4 w-100" (click)="joinZoomMeeting(meeting)">Join</button>
-              <button class="btn btn-danger mr-4 mb-2 w-100" (click)="ReSchedule(meeting)">Re-Schedule</button> 
-              <button class="btn btn-dark mr-4 mb-2 w-100" data-toggle="modal" data-target="#cancelalert" (click)="setSelectedmeeting(meeting)">{{this.cancledtext}}</button>  -->
               <ng-container *ngIf="meeting.Meetingstatus === 1">
                 <button class="btn btn-primary mr-4 w-100" (click)="joinZoomMeeting(meeting)">Join</button>
                 <button class="btn btn-danger mr-4 mb-2 w-100" (click)="ReSchedule(meeting)">Re-Schedule</button>
