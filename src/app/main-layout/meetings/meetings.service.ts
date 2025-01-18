@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SharedService } from '../../../shared/Shared.Service';
 import { Observable } from 'rxjs';
-
+import { from } from 'rxjs';
 
 @Injectable()
 export class Meetingsservice {
@@ -45,6 +45,9 @@ export class Meetingsservice {
   InviteClient(AddMeeting: object) { 
     debugger;
     return this.http.post(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/save_meeting", AddMeeting,{ headers: this.sharedService.returnHttpHeaders()});
+  }
+  SaveMessage(addmessage: FormData) {
+      return from(this.sharedService.postForFormData(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/save_message", addmessage));
   }
   getMasters(clsobj:object) {
     return this.http.post(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/_GetMasters", clsobj,{ headers: this.sharedService.returnHttpHeaders()});

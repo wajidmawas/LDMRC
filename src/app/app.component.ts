@@ -10,31 +10,35 @@ import { CryptoService } from 'src/shared/crypto.service';
 })
 export class AppComponent {
  
-  login:boolean=false;
+  login:boolean=false;// Set this based on your application logic
   userDetails: any = {};
   title = 'ldmrc';
   ulang:any='';
+
+ 
+ 
   constructor(public location: Location,private router: Router, private sharedService: SharedService,
      
     private crypto:CryptoService) { 
 
     // Set the navigation translations  
-    
+ 
     debugger;
     
     if (localStorage.getItem("cl_user") !== undefined && localStorage.getItem("cl_user") !== "" && localStorage.getItem("cl_user") !== null && !location.path().includes("auth")) {
       this.userDetails = localStorage.getItem("cl_user");
       console.log(this.userDetails);
-      this.login = true;
+      this.login = false;
       if (location.path() == "" || location.path().includes("login")) {
-        window.location.href = "/dashboard";
+        debugger;
+        // window.location.href = "/dashboard";
       }
     }
     else { 
       if (location.path() == "" || location.path().includes("maindashboard")) {
         debugger;
           //  window.location.href='/auth/login';
-          window.location.href='/dashboard';
+          // window.location.href='/main-dashboard';
 
         //  window.location.href='http://localhost:4200/dashboard';
         // this.router.navigate(['/dashboard']);
@@ -42,5 +46,5 @@ export class AppComponent {
     }
   }
 
- 
+
 }

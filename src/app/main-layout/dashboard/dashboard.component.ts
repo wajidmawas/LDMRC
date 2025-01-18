@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   PhysicalMetting: any = [];
   meetings: any = [];
   Mymetting: Meeting[] = [];
-
+  userid: string | null = ''; // Replace with actual logic to fetch user ID
 
   userdetails:any={};
   @ViewChild('tableExport', { static: false }) table: any; // Reference to the HTML table element
@@ -66,14 +66,21 @@ constructor(public sharedService: SharedService,private service:dashboardService
  
  
   ngOnInit() {  
+    debugger;
     $(".page-loader-wrapper").fadeOut();  
     this.isLoggedIn = localStorage.getItem("cl_user");
-    this.userdetails = JSON.parse(this.isLoggedIn)
+    if(this.isLoggedIn!=null)
+    {
+      this.userdetails = JSON.parse(this.isLoggedIn)
+      this.userid=this.userdetails.user_id;
+      
+      this.LoadActivity(this.userdetails.user_id,'');
+      this.LoadScheduler(this.userdetails.user_id);
+  
+      this.getmymetting(this.userdetails.user_id)
+    }
     this.LoadSlider(0);
-    this.LoadActivity(this.userdetails.user_id,'');
-    this.LoadScheduler(this.userdetails.user_id);
-
-    this.getmymetting(this.userdetails.user_id)
+   
   }
   getmymetting(id: number) {
     debugger;

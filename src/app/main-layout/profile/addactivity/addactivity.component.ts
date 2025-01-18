@@ -277,12 +277,6 @@ SaveActivity() {
       formData.append('id', this.clsactivity.id.toString());
       formData.delete('thumbnail_img'); 
   }
-  
-  
-
-    
-   
- 
 this.service.SaveActivity(formData).subscribe((res: any) => {
   setTimeout(() => {
     $(".page-loader-wrapper-review").hide();

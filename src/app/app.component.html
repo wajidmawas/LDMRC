@@ -1,8 +1,20 @@
 <!-- <register-login *ngIf="!login && !location.path().includes('/preview') && !location.path().includes('/screenpreview') && !location.path().includes('/livepreview')"></register-login>
 
 <main-layout *ngIf="login && !location.path().includes('/preview') && !location.path().includes('/screenpreview') && !location.path().includes('/livepreview')"></main-layout> -->
+<!-- <main-dashboard *ngIf="!login && !location.path().includes('/preview') && !location.path().includes('/screenpreview') && !location.path().includes('/livepreview')"></main-dashboard> -->
 
-<register-login *ngIf="!login && !location.path().includes('/preview') && !location.path().includes('/screenpreview') && !location.path().includes('/livepreview')"></register-login>
 
+<!-- <register-login *ngIf="!login && !location.path().includes('/preview') && !location.path().includes('/screenpreview') && !location.path().includes('/livepreview')"></register-login>
 <main-layout *ngIf="login && !location.path().includes('/preview') && !location.path().includes('/screenpreview') && !location.path().includes('/livepreview')"></main-layout>
+<router-outlet></router-outlet> -->
+
+<!-- app.component.html -->
+<register-login 
+  *ngIf="login"
+></register-login>
+
+<main-layout 
+  *ngIf="!login"
+></main-layout>
 <router-outlet></router-outlet>
+  

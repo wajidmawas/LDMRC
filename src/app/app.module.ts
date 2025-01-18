@@ -11,6 +11,7 @@ import { CryptoService } from 'src/shared/crypto.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';  
+
 @NgModule({
   declarations: [
     AppComponent
@@ -23,9 +24,12 @@ import { FormsModule } from '@angular/forms';
     MainLayoutModule,
     RegisterLoginModule,
     FormsModule
+   
+
     
   ],
   providers: [SharedService, SnackbarService, CryptoService],
+  // schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add this line
   bootstrap: [AppComponent]
 })
 export class AppModule { }

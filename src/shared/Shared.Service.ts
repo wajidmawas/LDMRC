@@ -1,5 +1,9 @@
-import { HttpResponse, HttpParams } from '@angular/common/http';
-import { Response, ResponseOptions } from '@angular/http';
+import { HttpResponse, HttpParams, } from '@angular/common/http';
+// import { Response, ResponseOptions } from '@angular/http';
+
+
+
+
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -26,13 +30,15 @@ export class SharedService {
   constructor(private router: Router, private http: HttpClient, private crypto:CryptoService) {
     this._baseUrl = environment._baseUrl; 
   }
-  extractData(res: Object) {
-    let body = res;
-    var option = new ResponseOptions();
-    option.body = body;
-    return new Response(option);
-  }
-
+  // extractData(res: Object) {
+  //   let body = res;
+  //    var option = new ResponseOptions();
+  //   option.body = body;
+  //   return new Response(option);
+  // }
+  extractData<T>(res: T): T {
+    return res;
+}
   setCurrentUserName(userName: string) {
     this.currentUserNameSource.next(userName);
   }

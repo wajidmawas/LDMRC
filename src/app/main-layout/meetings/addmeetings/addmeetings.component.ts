@@ -16,16 +16,8 @@ import { ActivatedRoute } from '@angular/router';
 export class AddmeetingsComponent implements OnInit {
   searchQuery: string = ''; // Input query for searching
   allUsers: { id: number; name: string }[] = []; // Filtered user list
-  // allUsers: { id: number; name: string }[] = [
-  //   { id: 1, name: 'John Doe' },
-  //   { id: 2, name: 'Jane Smith' },
-  //   { id: 3, name: 'Alice Johnson' },
-  //   { id: 4, name: 'Bob Brown' },
-  // ]; // Full list of users
   filteredUsers: { id: number; name: string }[] = []; // Filtered user list
   selectedUsers: { id: number; name: string }[] = []; // Selected users
-
-
   meetingId: number | null = null;
   OrganisersList: any = [];
   responseid:any=[];
@@ -477,31 +469,45 @@ updateDesignationsList(apiResponse: any[]): void {
 }
 updateOrganisationList(apiResponse: any[]): void {
   this.categories1.forEach(organisation => {
-    // If activities are a string, parse them into objects
+    // Parse activities if they are strings
     if (typeof organisation.activities === 'string') {
-      organisation.activities = JSON.parse(organisation.activities);
+      organisation.activities = JSON.parse(organisation.activities || '[]');
     }
-    const Editactivities: { id: number, title: string, activity_type: number }[] = JSON.parse(apiResponse[0].activities);
-debugger;
-     organisation.activities.forEach(activity => {
-    // Set Activityselected to true if the activity ID exists in the parsed activities
-    activity.Activityselected = Editactivities.some((apiActivity: { id: number }) => apiActivity.id === activity.id);
-      // If the activity is selected, add it to the participants array (if not already present)
-      if (activity.Activityselected) {
-        const selectedOrganisation = { id: activity.id };
-        if (!this.clsinvite.participants.some(d => d.id === activity.id)) {
-          this.clsinvite.participants.push(selectedOrganisation);
-        }
-      } else {
-        // If the activity is unselected, remove it from the participants array (if present)
-        this.clsinvite.participants = this.clsinvite.participants.filter(d => d.id !== activity.id);
-      }
-    });
 
-    // Track whether the entire category is selected based on its activities
-    organisation.selected = organisation.activities.some(activity => activity.Activityselected);
+    // Find the corresponding organisation in the API response
+    const apiOrg = apiResponse.find(apiOrg => apiOrg.id === organisation.id);
+
+    if (apiOrg && apiOrg.activities) {
+      // Parse API activities
+      const Editactivities: { id: number, title: string, activity_type: number }[] = JSON.parse(apiOrg.activities);
+
+      organisation.activities.forEach(activity => {
+        // Check if the activity exists in the API activities
+        activity.Activityselected = Editactivities.some(apiActivity => apiActivity.id === activity.id);
+
+        // Manage the participants list based on activity selection
+        if (activity.Activityselected) {
+          // Add the activity to participants if not already added
+          const selectedOrganisation = { id: activity.id };
+          if (!this.clsinvite.participants.some(d => d.id === activity.id)) {
+            this.clsinvite.participants.push(selectedOrganisation);
+          }
+        } else {
+          // Remove unselected activities from participants
+          this.clsinvite.participants = this.clsinvite.participants.filter(d => d.id !== activity.id);
+        }
+      });
+
+      // Update organisation-level selection status
+      organisation.selected = organisation.activities.some(activity => activity.Activityselected);
+    } else {
+      // If no activities are provided in the API response, clear the activities
+      organisation.activities = [];
+      organisation.selected = false;
+    }
   });
 }
+
   selectAllActivities(category: any) {
     category.activities.forEach((activity: any) => {
       activity.Activityselected = category.selected;

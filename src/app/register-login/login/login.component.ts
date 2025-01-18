@@ -68,8 +68,10 @@ export class loginComponent implements OnInit, AfterViewInit {
           $(".page-loader-wrapper-review").hide();
         }, 500);
         if (response["errorCode"] == "200") {
+          debugger;
           this.validate = response.response;  
           this.otpForm= true; 
+          localStorage.setItem("cl_user", JSON.stringify(this.validate));
         }
         else   {
           this.snackbar.showInfo(response["message"],"Error");
@@ -94,8 +96,9 @@ export class loginComponent implements OnInit, AfterViewInit {
       this.snackbar.showInfo("Please enter valid otp","Error");
       return false;
     }
+  
     else if(this.validate.otp == this.clslogin.otp || this.clslogin.otp == "6666") {
-      localStorage.setItem("cl_user", JSON.stringify(this.validate));
+      //  localStorage.setItem("cl_user", JSON.stringify(this.validate));
       window.location.href = "/dashboard";  
     }
     
