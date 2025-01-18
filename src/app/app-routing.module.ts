@@ -18,6 +18,8 @@ import { loginComponent } from './register-login/login/login.component';
   
 // ];
 const routes: Routes = [
+  { path: '', component: DashboardComponent, pathMatch: 'full' },
+
    { path: 'dashboard', component: DashboardComponent, pathMatch: 'full' },
   // { path: '', redirectTo: 'main-dashboard', pathMatch: 'full' },
   // { path: '*', redirectTo: '/dashboard', pathMatch: 'full' },
