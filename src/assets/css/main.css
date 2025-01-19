@@ -2079,8 +2079,27 @@ footer {
 .owl-nav button:hover span{
     color: #ffff !important;
 }
+.flt_mb{
+    display: none;
+}
+.flt_web{
+    display: block ;
+}
 @media only screen and (max-width: 767px) {
-    
+    .acc_filter{ 
+        display:none;
+        margin-bottom: 20px;
+    }
+    .flt_web{
+        display: none;
+    }
+    .flt_mb{
+        display: block;
+    }
+    .search{
+        margin-right: 0 !important;
+        width: 90% !important;
+    }
    
     .page_action{
         margin-top: 10px;
@@ -4411,7 +4430,7 @@ select.form-control:not([size]):not([multiple]) {
 .block-header h2 {
     color: #000;
     font-size: 24px; 
-    font-weight: bold;
+    font-weight: 500;
 }
 .block-header a{
     font-size: 20px;
@@ -4424,7 +4443,8 @@ select.form-control:not([size]):not([multiple]) {
 }
 .block-header .breadcrumb {
     background: transparent;
-    font-size: 13px
+    font-size: 13px;
+    margin-bottom: 15px;
 }
 
 .block-header .breadcrumb a {
@@ -8257,7 +8277,7 @@ background-color: transparent !important;
 
 .table tbody tr td,.table tbody th td {
     vertical-align: middle;
-    white-space: nowrap
+    
 }
 
 .table tbody tr:hover {
@@ -11514,4 +11534,99 @@ app-footer{
     background-color: #cbc8c8;
     border-color: #cbc8c8;
     color: #000;
+}
+
+.filter_main{
+    height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.filter_title_div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.dash{
+    width: 15px;
+    height: 3px;
+    background-color: #000000;
+    margin-right: 5px;
+}
+
+.filter_title{
+    font-size: 10px;
+    color: #000;
+    margin-bottom: 0;
+    font-weight: 500 !important; 
+    background-color: transparent !important;
+    border: 0 !important;
+}
+
+.fil-sm{
+    background-color: #000;
+    border-color: #000;
+    padding: 3px 10px !important;
+    font-size: 8px;
+    color: #fff !important;
+}
+
+.fil-sm:hover{
+    background-color: #000;
+    color: #000;
+}
+
+.filter{
+    font-size: 16px;
+    color: #000;
+    padding: 15px;
+}
+
+.tab-content{
+    border-radius: 0 20px 20px 20px;
+    border: 1px solid #ddd;
+}
+.nav-tabs{
+    border-bottom: 0 !important;
+}
+
+.nav-tabs .nav-link{
+    background-color: #f1f1f1;
+    border-radius: 0;
+}
+
+.nav-tabs:first-child{
+    border-top-left-radius:0.25rem
+}
+.nav-tabs:last-child{
+    border-top-right-radius:0.25rem
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
+    background-color: #19AAED;
+    color: #fff;
+}
+
+.round{
+    border-radius: 50px !important;
+}
+.tabseachBar{
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tab_search input{
+    padding-left: 40px;
+}
+
+.tab_search i{
+    position: absolute;
+    left: 15px;
+    top: 16px;
 }

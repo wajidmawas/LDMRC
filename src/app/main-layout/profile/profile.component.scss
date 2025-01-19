@@ -425,3 +425,26 @@ position: absolute;
   font-style: italic;
   color: #9B9B9B;
 }
+
+@media only screen and (max-width: 767px) {
+  .media{
+    position: relative;
+    justify-content: center;
+    top:-12%;
+  }
+  .media-left{
+    text-align: center;
+    margin-right: 0;
+  }
+  .mb-flex{
+    flex-direction: column !important;
+
+  }
+  .yop_btns{
+    flex-direction: column !important;
+    margin-top: -25%;
+  }
+  .yop_btns .btn{
+    width: 100%;
+  }
+}

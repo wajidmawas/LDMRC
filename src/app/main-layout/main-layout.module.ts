@@ -18,13 +18,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MeetingModule } from './meetings/meetings.module'; 
-import { FooterComponent } from './footer/footer.component';
+import { FooterComponent } from './footer/footer.component'; 
+import { CongressOrganizationModule } from './congress-organization/congress-organization.module';
 // import { CarouselModule } from 'ngx-owl-carousel-o';
+
 @NgModule({
   declarations: [
     MainLayoutComponent,
     DashboardComponent, 
-    FooterComponent
+    FooterComponent,
+    
     
   ],
   imports: [
@@ -40,12 +43,14 @@ import { FooterComponent } from './footer/footer.component';
     ProfileModule,
     OwlNativeDateTimeModule,
     OwlDateTimeModule, 
-    MeetingModule
+    MeetingModule,
+    CongressOrganizationModule
     // ,CarouselModule
+    
   ],
   exports: [
     MainLayoutComponent,
-    FooterComponent
+    FooterComponent,
     
   ],
   providers: [dashboardService],

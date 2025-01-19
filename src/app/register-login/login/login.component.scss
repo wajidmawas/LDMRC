@@ -142,8 +142,10 @@ a:hover{
     bottom: 30px;
     left: 0;
 }
+.h_menu header{
+    display: none !important;
+}
 
-    
 @media screen and (max-width: 767px) {
     .lead{
         font-size: 30px;
