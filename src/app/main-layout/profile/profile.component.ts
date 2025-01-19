@@ -368,10 +368,10 @@ this.service.SaveActivity(formData).subscribe((res: any) => {
     $(".page-loader-wrapper-review").hide();
   }, 500);
   var response = res;
-  if (response._body.errorCode == "200") {
-     this.snackbar.showSuccess(response._body.message, response._body.status);
+  if (response.errorCode == "200") {
+     this.snackbar.showSuccess(response.message, response.status);
     setTimeout(() => {
-      this.responseid=JSON.parse(response._body.response).Table[0].id;
+      this.responseid=JSON.parse(response.response).Table[0].id;
       if(this.responseid==this.clsactivity.id)
       {
         this.clsactivity = new cls_addactivity(); // Reset form data

@@ -282,10 +282,10 @@ this.service.SaveActivity(formData).subscribe((res: any) => {
     $(".page-loader-wrapper-review").hide();
   }, 500);
   var response = res;
-  if (response._body.errorCode == "200") {
-     this.snackbar.showSuccess(response._body.message, response._body.status);
+  if (response.errorCode == "200") {
+     this.snackbar.showSuccess(response.message, response.status);
     setTimeout(() => {
-      this.responseid=JSON.parse(response._body.response).Table[0].id;
+      this.responseid=JSON.parse(response.response).Table[0].id;
       this.activityId = this.route.snapshot.paramMap.get('id');
       if (this.activityId && this.activityId.trim() !== '') {
         if (this.activityId === this.responseid.toString()) {

@@ -187,9 +187,12 @@ constructor(public sharedService: SharedService,private service:dashboardService
       filterText: "",
       filterText1: ""
     };
-  
+  console.log('Scheduler1');
+  console.log(this.userdetails.user_id);
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
+  console.log('Scheduler2');
+
         var parseresponse = JSON.parse(response.response); 
         debugger;
         if (response["errorCode"] === "200") {
