@@ -37,8 +37,8 @@ export class AddmeetingsComponent implements OnInit {
   isLoggedIn:any='';
   // selectedOption: number = 1;
   // isonline: number = 0;
-  isonline: string = '';
-  selectedOption: string = '';
+  isonline: string = '0';
+  selectedOption: string = '0';
 
   expandedPanels: { [key: string]: boolean } = {};
   clsinvite:cls_addmeeting=new cls_addmeeting();
@@ -48,11 +48,12 @@ export class AddmeetingsComponent implements OnInit {
     }, 300);
     const today = new Date();
     this.todayDate = today.toISOString().split('T')[0]; // Extracts the date part
+    this.clsinvite.isonline='0';
+    this.selectedOption = '0';
   }
-  ngOnInit() {  
-    debugger;
+  ngOnInit() {   
     $(".page-loader-wrapper").fadeOut();  
-    this.isLoggedIn = localStorage.getItem("cl_user");
+    this.isLoggedIn = localStorage.getItem("cl_user"); 
     this.getLookupMaster(0);
     this.getActivityMaster(0);
     this.getOrganizer(0);
@@ -89,8 +90,7 @@ export class AddmeetingsComponent implements OnInit {
   }
 
   // Add a user to the selected list
-  addUser(user: { id: number; name: string }) {
-    debugger;
+  addUser(user: { id: number; name: string }) { 
     if (!this.selectedUsers.some((u) => u.id === user.id)) {
       this.selectedUsers.push(user);
     }
@@ -128,9 +128,6 @@ export class AddmeetingsComponent implements OnInit {
       this.service.getMasters(objRequest).subscribe({
         next: (response: any) => { 
           const parseresponse = JSON.parse(response.response); 
-          console.log(parseresponse);
-
-          debugger;
           this.clsinvite.is_reschdule= id;
           this.clsinvite.title= parseresponse.Table[0].title;
           this.clsinvite. date= parseresponse.Table[0].date.split('T')[0]; // Format to YYYY-MM-DD
@@ -165,8 +162,7 @@ export class AddmeetingsComponent implements OnInit {
   backtohome(){
     window.location.href = "/meetings";
   }
-  onOptionChange() {
-    debugger;
+  onOptionChange() {  
     this.clsinvite.isonline = this.selectedOption === '0' ? '0' : '1';
     //  this.clsinvite.isonline = Number(this.selectedOption) === 0 ? 0 : 1;
     
@@ -178,7 +174,8 @@ export class AddmeetingsComponent implements OnInit {
     this.clsinvite.notification_type=0;
     this.clsinvite.duration = 0;
     this.clsinvite.description = '';
-    // this.clsinvite.isonline=0;
+    this.clsinvite.isonline='0';
+    this.selectedOption ='0';
     this.clsinvite.meeting_location='';
     this.clsinvite.meeting_link='';
     this.clsinvite.short_desc='';
@@ -540,7 +537,7 @@ export class cls_addmeeting {
   duration:number = 0;
   description: string = '';
   // isonline:number=0;
-  isonline:string='';
+  isonline:string='0';
 
   meeting_location:string='';
   meeting_link:string='';

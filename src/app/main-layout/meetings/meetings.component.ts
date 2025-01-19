@@ -19,7 +19,7 @@ export class MeetingsComponent {
   selectedmeeting: any = null;
   constructor(private service:Meetingsservice, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
-      $(".page-loader-wrapper-review").fadeOut();
+      $(".page-loader-wrapper").fadeOut();
     }, 300);
     const today = new Date();
   }
@@ -30,8 +30,7 @@ export class MeetingsComponent {
     this.getupcomingmetting(0);
     this.getmymetting(this.userdetails.user_id)
   }
-  getupcomingmetting(id: any) {
-    debugger;
+  getupcomingmetting(id: any) { 
     const objRequest = {
       typeId: 19,
       userid: 0,
@@ -41,12 +40,10 @@ export class MeetingsComponent {
     };
   
     this.service.getMasters(objRequest).subscribe({
-      next: (response: any) => { 
-        debugger;
+      next: (response: any) => {  
          const parseresponse = JSON.parse(response.response); 
  const metting = parseresponse.Table;
- this.upcomingmeetings = metting;
-  console.log(metting);
+ this.upcomingmeetings = metting; 
       },
       error: (error: any) => {
         console.error("API call failed:", error);
@@ -57,8 +54,7 @@ export class MeetingsComponent {
     });
   }
 
-  getmymetting(id: number) {
-    debugger;
+  getmymetting(id: number) { 
     const objRequest = {
       typeId: 27,
       userid: id,
@@ -68,8 +64,7 @@ export class MeetingsComponent {
     };
   
     this.service.getMasters(objRequest).subscribe({
-      next: (response: any) => { 
-        debugger;
+      next: (response: any) => {  
          const parseresponse = JSON.parse(response.response); 
  const metting = parseresponse.Table;
  this.Mymetting = metting;
@@ -98,8 +93,7 @@ export class MeetingsComponent {
   setSelectedmeeting(meeting: any): void {
     this.selectedmeeting = meeting;
   }
-  Cancelmeeting(meeting:any) {
-    debugger;
+  Cancelmeeting(meeting:any) { 
     const objRequest = {
       typeId: 20,
       userid: 0,
@@ -109,8 +103,7 @@ export class MeetingsComponent {
     };
   
     this.service.getMasters(objRequest).subscribe({
-      next: (response: any) => { 
-        debugger;
+      next: (response: any) => {  
          const parseresponse = JSON.parse(response.response); 
          window.location.reload();
       },
