@@ -23,7 +23,7 @@
                                 <a href="#">Congress <br>Leaders</a> 
                             </li>
                             <li class="menu-item">
-                                <a href="#">Leaders Development<br> Mission</a> 
+                                <a href="#">Leaders Development<br> Mission (LDM)</a> 
                             </li>
                             <li class="menu-item">
                                 <a href="#">Elections, Elected <br>Members Data</a> 
@@ -32,13 +32,17 @@
                                 <a href="#">Activities of the SC, ST, <br>OBC & Minority Depts</a> 
                             </li>
                             <li class="menu-item">
-                                <a href="#">Trainings/<br>Online Trainings</a> 
+                                <a href="#">Meetings</a> 
                             </li>
                             <li class="menu-item">
-                                <a href="#">Knowledge Base<br> (Repositiry or<br> Documents/Videos)</a> 
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">Meetings & <br>Communications</a> 
+                                <a href="#">Trainings/<br>Trainings</a> 
+                            </li> 
+                            <li class="menu-item menu-item-has-children">
+                                <a href="#">More</a> 
+                                <ul class="sub-menu">
+                                    <li class="menu-item active"><a href="#">Analytical</a></li>
+                                    <li class="menu-item"><a href="#">IoT Dashboard</a></li> 
+                                <li class="back"><a href="#">Back</a></li></ul>
                             </li>
                             <li *ngIf="isLoggedIn" class="pr_btn">
                                 <button class="btn dropdown-toggle" type="button"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,7 +54,7 @@
                                   </div>
                             </li>
                             <li *ngIf="!isLoggedIn"  class="menu-item">
-                                <a href="javascript::(0)" (click)="login()">Login</a>
+                                <a href="javascript::(0)" class="btn btn-white" (click)="login()">Sign In / Sign Up</a>
                               </li>
                             <li class="line"></li>
                         </ul>

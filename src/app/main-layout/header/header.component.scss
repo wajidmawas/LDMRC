@@ -20,6 +20,14 @@
 .pr_btn .dropdown-toggle::after{
     color: #000 !important;
 }
+.btn-white{
+    background-color: #fff;
+    border: #fff;
+    padding: 10px 15px !important;
+}
+.btn-white:hover{
+    color: #000;
+}
 @media only screen and (max-width: 767px) {
     .lang{
         margin-bottom: 0 !important;

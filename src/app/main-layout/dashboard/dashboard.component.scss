@@ -143,6 +143,12 @@
     line-height: 20px;
 
 }
+.card-title1{
+    font-size: 14px;  
+    display: block;
+    color: #000; 
+    line-height: 20px;   
+}
 .item .cards .card-body img{
     width: 72px;
 }
@@ -385,4 +391,22 @@ position: absolute;
   .active_title{
     font-size: 15px;
     color: #000;
+  }
+
+  .Video{
+    width: 100%;
+  }
+
+  .carousel-indicators li{
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 20px;
+    border: 0 !important;
+  }
+
+  .carousel-indicators .active{
+    background-color: #2699fb !important;
+  }
+  .carousel-indicators li{
+    background-color: #acafb1 !important;
   }
