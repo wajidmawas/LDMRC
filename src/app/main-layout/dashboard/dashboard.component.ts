@@ -18,6 +18,49 @@ declare var $: any;
 })
 
 export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
+  videos = [
+    {
+      thumbnail: '../../../assets/images/communcation/image4.png',
+      title: 'Shri KC Venugopal | Press Conference | Kerala',
+      date: '23 Dec 2024',
+      description: 'Press Conference by Shri KC Venugopal',
+      link: 'https://example.com/video1'
+    },
+    {
+      thumbnail: '../../../assets/images/communcation/image5.png',
+      title: 'Congress party briefing by Shri Pawan Khera at AIC',
+      date: '23 Dec 2024',
+      description: 'Briefing on major events by Pawan Khera',
+      link: 'https://example.com/video2'
+    },
+    {
+      thumbnail: '../../../assets/images/communcation/image6.png',
+      title: 'Press Conference | AICC HQ | Rahul Gandhi',
+      date: '23 Dec 2024',
+      description: 'Special conference by Rahul Gandhi',
+      link: 'https://example.com/video3'
+    },
+    {
+      thumbnail: '../../../assets/images/communcation/image7.png',
+      title: 'Press Conference | AICC HQ | Rahul Gandhi',
+      date: '23 Dec 2024',
+      description: 'Special conference by Rahul Gandhi',
+      link: 'https://example.com/video3'
+    },  {
+      thumbnail: '../../../assets/images/communcation/image8.png',
+      title: 'Press Conference | AICC HQ | Rahul Gandhi',
+      date: '23 Dec 2024',
+      description: 'Special conference by Rahul Gandhi',
+      link: 'https://example.com/video3'
+    },  {
+      thumbnail: '../../../assets/images/communcation/image9.png',
+      title: 'Press Conference | AICC HQ | Rahul Gandhi',
+      date: '23 Dec 2024',
+      description: 'Special conference by Rahul Gandhi',
+      link: 'https://example.com/video3'
+    },
+    // Add more video objects as needed
+  ];
   images: any[] = [];
   title = 'dashboard';
   Activities: any = [];
