@@ -51,7 +51,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   .collapse-container.open {
     max-height: 1000px; /* Set a sufficiently large value */
   }
-
+.pd_top {
+  margin-top: 2%;
+}
   .add_bg{
     background-color: #F3F5F6;
   }
