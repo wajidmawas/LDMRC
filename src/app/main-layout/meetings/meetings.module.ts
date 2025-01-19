@@ -24,11 +24,11 @@ const routes: Routes = [
     component: MeetingsComponent
   },
  {
-    path: 'meetings/addmeetings',
+    path: 'addmeetings',
     component: AddmeetingsComponent, 
   },
   {
-    path: 'meetings/addmessage',
+    path: 'addmessage',
     component: AddmessageComponent, 
   },
 ];

@@ -41,12 +41,12 @@ export class loginComponent implements OnInit, AfterViewInit {
                 })
   }
   ngOnInit() {
-    this.titleService.setTitle("AICC - Login");
+    this.titleService.setTitle("Leaders Development Mission - Login");
   }
   
   ngAfterViewInit() {
     setTimeout(() => {
-      $(".page-loader-wrapper-review").fadeOut();
+      $(".page-loader-wrapper").fadeOut();
     }, 300);
     $('input[name^="number"]').on('keypress keyup blur', function (event: any) {
       $(this).val(($(this) as any).val().replace(/[^\d].+/, ""));
@@ -61,20 +61,22 @@ export class loginComponent implements OnInit, AfterViewInit {
       this.snackbar.showInfo("Please enter emailaddress","Error");
       return false;
     }  
-    $(".page-loader-wrapper-review").show();
+    $(".page-loader-wrapper").show();
     this.loginService.UserLogin(this.clslogin).subscribe((res: any) => {
         var response = res;
         setTimeout(() => {
-          $(".page-loader-wrapper-review").hide();
+          $(".page-loader-wrapper").hide();
         }, 500);
-        if (response["errorCode"] == "200") {
-          debugger;
+        if (response["errorCode"] == "200") { 
           this.validate = response.response;  
           this.otpForm= true; 
           localStorage.setItem("cl_user", JSON.stringify(this.validate));
         }
+        else if (response["errorCode"] == "-100") {
+          this.snackbar.showInfo("Invalid mobile no","Error");
+        }
         else   {
-          this.snackbar.showInfo(response["message"],"Error");
+          this.snackbar.showInfo(response["response"],"Error");
         }
         // this.loaderService.toggleLoader(false);
       }, error => {
@@ -85,7 +87,7 @@ export class loginComponent implements OnInit, AfterViewInit {
     this.otpForm=false;
   }
   back1(){
-    window.location.href = "/dashboard"; 
+    window.location.href = "/"; 
   }
   validateOTP() { 
     if(this.clslogin.otp == undefined || this.clslogin.otp == null || this.clslogin.otp == "") {

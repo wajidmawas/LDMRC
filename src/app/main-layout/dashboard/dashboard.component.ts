@@ -108,8 +108,7 @@ constructor(public sharedService: SharedService,private service:dashboardService
 }
  
  
-  ngOnInit() {  
-    debugger;
+  ngOnInit() {   
     $(".page-loader-wrapper").fadeOut();  
     this.isLoggedIn = localStorage.getItem("cl_user");
     if(this.isLoggedIn!=null)
@@ -136,8 +135,7 @@ constructor(public sharedService: SharedService,private service:dashboardService
     };
   
     this.service.getMasters(objRequest).subscribe({
-      next: (response: any) => { 
-        debugger;
+      next: (response: any) => {  
          const parseresponse = JSON.parse(response.response); 
  const metting = parseresponse.Table;
  this.Mymetting = metting;
@@ -186,15 +184,11 @@ constructor(public sharedService: SharedService,private service:dashboardService
       filterId: id,
       filterText: "",
       filterText1: ""
-    };
-  console.log('Scheduler1');
-  console.log(this.userdetails.user_id);
+    };  
     this.service.getMasters(objRequest).subscribe({
-      next: (response: any) => { 
-  console.log('Scheduler2');
+      next: (response: any) => {  
 
-        var parseresponse = JSON.parse(response.response); 
-        debugger;
+        var parseresponse = JSON.parse(response.response);  
         if (response["errorCode"] === "200") {
           this.meetings=parseresponse.Table1;
           this.PhysicalMetting = parseresponse.Table;
@@ -213,10 +207,22 @@ constructor(public sharedService: SharedService,private service:dashboardService
     });
   }
   gotoMeetings(){
+    if(this.isLoggedIn!=null)
+    {
     window.location.href = "/meetings";
+    }
+    else{
+      window.location.href = "/auth/login";
+    }
   }
-  addmeeting(){
-    window.location.href = "/meetings/addmeetings";
+  addmeeting(){ 
+    if(this.isLoggedIn!=null)
+    {
+    window.location.href = "/addmeetings";
+    }
+    else{
+      window.location.href = "/auth/login";
+    }
   }
 
 
@@ -274,8 +280,7 @@ ngOnDestroy() {
   this._onDestroy.complete();
 }
 
-LoadSlider(id:any) {
-  debugger;
+LoadSlider(id:any) { 
   const objRequest = {
     typeId: 21,
     userid: 0,
@@ -285,8 +290,7 @@ LoadSlider(id:any) {
   };
 
   this.service.getMasters(objRequest).subscribe({
-    next: (response: any) => { 
-      debugger;
+    next: (response: any) => {  
        const parseresponse = JSON.parse(response.response); 
        this.images = parseresponse.Table;
     },

@@ -24,7 +24,7 @@ export class registerComponent implements OnInit, AfterViewInit {
   selectedGender:string=""
   constructor(private service:RegisterService, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
-      $(".page-loader-wrapper-review").fadeOut();
+      $(".page-loader-wrapper").fadeOut();
     }, 300);
   }
 
@@ -169,10 +169,10 @@ export class registerComponent implements OnInit, AfterViewInit {
     }
     
    if(!validate) {
-    $(".page-loader-wrapper-review").show(); 
+    $(".page-loader-wrapper").show(); 
     this.service.RegisterClient(this.clsuser).subscribe((res: any) => {
       setTimeout(() => {
-        $(".page-loader-wrapper-review").hide();
+        $(".page-loader-wrapper").hide();
       }, 500);
       var response = res;
       if (response["errorCode"] == "200") {

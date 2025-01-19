@@ -19,7 +19,7 @@ export class registerLoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleService.setTitle("AICC - Register");
+    this.titleService.setTitle("Leaders Development Mission - Register");
   }
 
 }

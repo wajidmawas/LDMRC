@@ -22,21 +22,17 @@ export class AppComponent {
     private crypto:CryptoService) { 
 
     // Set the navigation translations  
- 
-    debugger;
+  
     
     if (localStorage.getItem("cl_user") !== undefined && localStorage.getItem("cl_user") !== "" && localStorage.getItem("cl_user") !== null && !location.path().includes("auth")) {
-      this.userDetails = localStorage.getItem("cl_user");
-      console.log(this.userDetails);
+      this.userDetails = localStorage.getItem("cl_user"); 
       this.login = false;
-      if (location.path() == "" || location.path().includes("login")) {
-        debugger;
+      if (location.path() == "" || location.path().includes("login")) { 
         // window.location.href = "/dashboard";
       }
     }
     else { 
-      if (location.path() == "" || location.path().includes("maindashboard")) {
-        debugger;
+      if (location.path() == "" || location.path().includes("maindashboard")) { 
           //  window.location.href='/auth/login';
           // window.location.href='/main-dashboard';
 

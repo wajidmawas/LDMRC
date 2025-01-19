@@ -22,7 +22,7 @@
                                 <label class="w-100 text-left">Mobile Number</label>
                                 <input type="text" class="form-control" maxlength="10" [(ngModel)]="clslogin.mobile_no"  [ngModelOptions]="{ standalone: true }" placeholder="Enter Mobile Number">
                             </div> 
-                            <button type="submit" class="btn btn-primary btn-block btn-lg btn_login" (click)="login()">Get OTP</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="clslogin.mobile_no.length < 10"  (click)="login()">Get OTP</button>
                            
                             <div class="bottom text-center w-100">  
                                 <span class="text-center">Don't have an account? <a href="/auth/register">Register</a></span>
@@ -47,7 +47,7 @@
                                 <span class="helper-text m-b-10"><a href="javascript::" (click)="login()" >Didn't Receive OTP?</a></span>
                             </div>
                             <div class="w-100 text-center mt-5">
-                            <button type="submit" class="btn btn-primary btn-lg btn_login" (click)="validateOTP()">VERIFY OTP</button>
+                            <button type="submit" class="btn btn-primary btn-lg" (click)="validateOTP()">VERIFY OTP</button>
                         </div>
                             <div class="bottom text-center w-100">
                                

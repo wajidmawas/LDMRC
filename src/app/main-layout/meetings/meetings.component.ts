@@ -93,7 +93,7 @@ export class MeetingsComponent {
     window.open(meeting.meeting_link, '_blank');
   }
   ReSchedule(meeting:any) {
-    window.location.href = "/meetings/addmeetings?id="+meeting.id;
+    window.location.href = "/addmeetings?id="+meeting.id;
   }
   setSelectedmeeting(meeting: any): void {
     this.selectedmeeting = meeting;
@@ -124,10 +124,10 @@ export class MeetingsComponent {
   }
 
   addmeeting(){
-    window.location.href = "/meetings/addmeetings";
+    window.location.href = "/addmeetings";
   }
   addmessage(){
-    window.location.href = "/meetings/addmessage";
+    window.location.href = "/addmessage";
   }
 }
 export interface Meeting {
