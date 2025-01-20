@@ -327,7 +327,7 @@ fetchActivitiesDetail(id: string|null):void{
 
 Back()
 {
-  window.location.href = "/profile";
+  window.location.href = "/activity_list";
 }
  // Action to delete activity
  deleteActivity() {

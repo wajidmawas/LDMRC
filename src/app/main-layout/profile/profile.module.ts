@@ -29,7 +29,7 @@ const routes: Routes = [
     component: AddactivityComponent, 
   },
   {
-    path: 'profile/activitydetail/:id',
+    path: 'activity_detail/:id',
     component: ActivitydetailComponent, 
   },
 ];

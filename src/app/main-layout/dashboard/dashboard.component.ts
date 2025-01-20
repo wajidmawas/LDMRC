@@ -8,6 +8,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import { DatePipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { map, startWith, Subject, takeUntil } from 'rxjs';
 
 declare var $: any;
@@ -90,7 +91,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   };
   currentDateTime:string ='';
   private _onDestroy = new Subject<void>(); 
-constructor(public sharedService: SharedService,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
+constructor(public sharedService: SharedService,private router: Router,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
   setTimeout(() => {
     $(".page-loader-wrapper-review").fadeOut();
   }, 300);
@@ -116,16 +117,32 @@ constructor(public sharedService: SharedService,private service:dashboardService
       this.userdetails = JSON.parse(this.isLoggedIn)
       this.userid=this.userdetails.user_id;
       
-      this.LoadActivity(this.userdetails.user_id,'');
+      //this.LoadActivity(this.userdetails.user_id,'');
       this.LoadScheduler(this.userdetails.user_id);
   
       this.getmymetting(this.userdetails.user_id)
     }
+    this.LoadActivity(0,'');
     this.LoadSlider(0);
    
   }
-  getmymetting(id: number) {
-    debugger;
+  redirect_page(_pageTye:any){
+    if(this.isLoggedIn==null)
+      window.location.href = "/auth/login";
+    else if(_pageTye=='CO')
+    window.location.href = "/congress_organization";
+    else if(_pageTye=='CL')
+    window.location.href = "/congress_leaders";
+    else if(_pageTye=='Activities')
+    window.location.href = "/activity_list";
+  else if(_pageTye=='profile')
+    window.location.href = "/profile";
+    else if(_pageTye=='Meetings')
+    window.location.href = "/meetings";
+    else if(_pageTye=='Trainings')
+    window.location.href = "/meetings";
+   }
+  getmymetting(id: number) { 
     const objRequest = {
       typeId: 28,
       userid: id,
@@ -151,7 +168,7 @@ constructor(public sharedService: SharedService,private service:dashboardService
   }
   LoadActivity(id: any,filterText:string) {
     const objRequest = {
-      typeId: 4,
+      typeId: 30,
       userid: 0,
       filterId: id,
       filterText: filterText,
@@ -162,7 +179,7 @@ constructor(public sharedService: SharedService,private service:dashboardService
       next: (response: any) => { 
         var parseresponse = JSON.parse(response.response); 
         if (response["errorCode"] === "200") {
-          this.Activities = parseresponse.Table2;
+          this.Activities = parseresponse.Table;
         } else {
           console.error("API returned an error:", response.message); 
         }
@@ -176,6 +193,14 @@ constructor(public sharedService: SharedService,private service:dashboardService
         console.log("API call completed.");
       }
     });
+  }
+  ActivityDetail(Activity: any) { 
+    console.log('Activity:', Activity);
+    if (Activity && Activity.code) {
+      this.router.navigate([`activity_detail`, Activity.code]);
+    } else {
+      console.error('Invalid Activity object or missing ID');
+    }
   }
   LoadScheduler(id: any) {
     const objRequest = {

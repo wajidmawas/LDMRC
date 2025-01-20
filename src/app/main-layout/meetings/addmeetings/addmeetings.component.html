@@ -64,6 +64,23 @@
                     </select>
                 </div>
             </div>
+           
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label >Duration</label>
+                    <input class="form-control" type="number" placeholder="Enter Duration" [(ngModel)]="clsinvite.duration" [ngModelOptions]="{standalone: true}">
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label >Type</label>
+                    <select class="form-control"  [(ngModel)]="clsinvite.duration_type" [ngModelOptions]="{standalone: true}">
+                        <option>Seconds</option>
+                        <option>Minutes</option>
+                        <option>Hour[s]</option>
+                    </select>
+                </div>
+            </div>
             <div class="col-lg-1">
                 <div class="form-group"  >
                     <label >Notification</label>
@@ -74,36 +91,20 @@
                     </select>
                 </div>
             </div>
-            <div class="col-lg-1">
-                <div class="form-group">
-                    <label >&nbsp;</label>
-                    <input class="form-control" type="number" placeholder="Enter Duration" [(ngModel)]="clsinvite.duration" [ngModelOptions]="{standalone: true}">
-                </div>
-            </div>
-            <div class="col-lg-1">
-                <div class="form-group">
-                    <label >&nbsp;</label>
-                    <select class="form-control"  [(ngModel)]="clsinvite.duration_type" [ngModelOptions]="{standalone: true}">
-                        <option>Seconds</option>
-                        <option>Minutes</option>
-                        <option>Hour[s]</option>
-                    </select>
-                </div>
-            </div>
             <div class="col-lg-12">
                 <div class="form-group">
-                    <label >Description</label>
-                    <textarea class="form-control" placeholder="Enter Description" [(ngModel)]="clsinvite.description" [ngModelOptions]="{standalone: true}"></textarea>
+                    <label >Short Description</label>
+                    <textarea class="form-control" placeholder="Enter Short Description" [(ngModel)]="clsinvite.short_desc" [ngModelOptions]="{standalone: true}"></textarea>
                 </div>
             </div>
             <div class="row col-lg-12" *ngIf="selectedOption=='1'">
                 <div class="form-group col-lg-8">
                     <label >Meeting Link</label>
-                    <input class="form-control" placeholder="Enter Meeting Link" [(ngModel)]="clsinvite.meeting_link" [ngModelOptions]="{standalone: true}"/>
+                    <input class="form-control" placeholder="Enter Meeting Link"    [(ngModel)]="clsinvite.meeting_link" [ngModelOptions]="{standalone: true}"/>
                 </div>
                 <div class="form-group col-lg-4 pd_top">
                     <label ></label>
-                    <button class="btn btn-lg btn-primary" (click)="cancel()">Create Zoom Meeting</button>
+                    <button class="btn btn-lg btn-primary" (click)="createmeeting()">Create Zoom Meeting</button>
                 </div>
             </div>
             <div class="col-lg-12">
@@ -114,10 +115,11 @@
             </div>
             <div class="col-lg-12">
                 <div class="form-group">
-                    <label >Short Description</label>
-                    <textarea class="form-control" placeholder="Enter Short Description" [(ngModel)]="clsinvite.short_desc" [ngModelOptions]="{standalone: true}"></textarea>
+                    <label >Description</label>
+                    <textarea class="form-control" placeholder="Enter Description" [(ngModel)]="clsinvite.description" [ngModelOptions]="{standalone: true}"></textarea>
                 </div>
             </div>
+           
         </div>
         
     </div>

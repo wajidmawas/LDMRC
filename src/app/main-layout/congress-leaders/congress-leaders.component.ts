@@ -14,21 +14,24 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, startWith, Subject, takeUntil } from 'rxjs'; 
 @Component({
-  selector: 'app-congress-organization',
+  selector: 'app-congress-leaders',
   standalone: true,
   imports: [CommonModule, MatCheckboxModule], 
-  templateUrl: './congress-organization.component.html',
-  styleUrl: './congress-organization.component.scss'
+  templateUrl: './congress-leaders.component.html',
+  styleUrl: './congress-leaders.component.scss'
 })
-export class CongressOrganizationComponent {
+export class CongressLeadersComponent {
   isLoggedIn:any='';
   userdetails:any={};
   DesignationLimit:number=5;
+  CasteLimit:number=5;
   StatesLimit:number=5;
   userDetail:any={};
   Designations: any = [];
+  CasteList: any = [];
   Users: any = [];
   UsersList: any = [];
+  UsersProfessions: any = [];
   States: any = [];
   Districts: any = [];
   constructor(public sharedService: SharedService,private router: Router,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
@@ -90,6 +93,7 @@ export class CongressOrganizationComponent {
         if (response["errorCode"] === "200") {
           this.Designations = parseresponse.Table2;
           this.States = parseresponse.Table1; 
+            this.CasteList = parseresponse.Table;
         } else {
           console.error("API returned an error:", response.message); 
         }
@@ -119,6 +123,7 @@ export class CongressOrganizationComponent {
         if (response["errorCode"] === "200") {
           this.Users = parseresponse.Table; 
           this.UsersList = parseresponse.Table; 
+          this.UsersProfessions = parseresponse.Table1; 
         } else {
           console.error("API returned an error:", response.message); 
         }
@@ -140,13 +145,22 @@ if(type=='states'){
 else if(type=='designation'){
   this.DesignationLimit=this.Designations.length;
 }
-  }
+else if(type=='caste'){
+  this.CasteLimit=this.CasteList.length;
+}
+}
+FilterProfessions(uid:number){
+  return this.UsersProfessions.filter((item: any) =>item.uid=== uid);
+}
   showless(type:any){
     if(type=='states'){
       this.StatesLimit=5;
     }
     else if(type=='designation'){
       this.DesignationLimit=5;
+    }
+     else if(type=='caste'){
+      this.CasteLimit=5;
     }
       }
   filter(){  

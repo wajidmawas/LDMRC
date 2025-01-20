@@ -129,7 +129,8 @@ export interface Meeting {
   Date: string;
   time: string;
   Meeting: string;
-  organizer: string;
+  organizer: string; 
+  stateNm: string;
   DurationInNightsAndDays: string;
   Meetingstatus:number;
 

@@ -17,32 +17,32 @@
                     <div class="menu-header-container">
                         <ul id="cd-primary-nav" class="menu">
                             <li class="menu-item">
-                                <a href="./congress_organization">Congress <br>Organisation</a> 
+                                <a href="javascript::" (click)="redirect_page('CO')">Congress <br>Organisation</a> 
                             </li>
                             <li class="menu-item">
-                                <a href="#">Congress <br>Leaders</a> 
+                                <a href="javascript::" (click)="redirect_page('CL')">Congress <br>Leaders</a> 
+                            </li>
+                            <li class="menu-item" (click)="redirect_page('CO')">
+                                <a href="javascript::">Leaders Development<br> Mission (LDM)</a> 
+                            </li>
+                            <li class="menu-item" (click)="redirect_page('CL')">
+                                <a href="javascript::">Elections, Elected <br>Members Data</a> 
                             </li>
                             <li class="menu-item">
-                                <a href="#">Leaders Development<br> Mission (LDM)</a> 
+                                <a href="javascript::" (click)="redirect_page('Activities')">Activities of the SC, ST, <br>OBC & Minority Depts</a> 
                             </li>
                             <li class="menu-item">
-                                <a href="#">Elections, Elected <br>Members Data</a> 
+                                <a href="javascript::" (click)="redirect_page('Meetings')">Meetings</a> 
                             </li>
                             <li class="menu-item">
-                                <a href="#">Activities of the SC, ST, <br>OBC & Minority Depts</a> 
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">Meetings</a> 
-                            </li>
-                            <li class="menu-item">
-                                <a href="#">Trainings/<br>Trainings</a> 
+                                <a href="javascript::" (click)="redirect_page('Trainings')">Trainings</a> 
                             </li> 
                             <li class="menu-item menu-item-has-children">
-                                <a href="#">More</a> 
+                                <a href="javascript::">More</a> 
                                 <ul class="sub-menu">
-                                    <li class="menu-item active"><a href="#">Analytical</a></li>
-                                    <li class="menu-item"><a href="#">IoT Dashboard</a></li> 
-                                <li class="back"><a href="#">Back</a></li></ul>
+                                    <li class="menu-item active"><a href="javascript::" (click)="redirect_page('CO')">Analytical</a></li>
+                                    <li class="menu-item"><a href="javascript::" (click)="redirect_page('CO')">IoT Dashboard</a></li> 
+                                <li class="back"><a href="javascript::">Back</a></li></ul>
                             </li>
                             <li *ngIf="isLoggedIn" class="pr_btn">
                                 <button class="btn dropdown-toggle" type="button"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

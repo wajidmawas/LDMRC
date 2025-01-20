@@ -80,7 +80,7 @@ responseid:any=[];
 
 
 constructor(private router: Router,private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
-    this.titleService.setTitle("AICC - Profile");
+    this.titleService.setTitle("Leaders Development Mission - Profile");
 }
 
 ngOnDestroy(): void {
@@ -413,7 +413,7 @@ console.log(Activity);
 // ActivityDetail(Activity: any){
 //   debugger;
 //   const activityId = encodeURIComponent(Activity.id); 
-//   window.location.href = `/profile/activitydetail/${activityId}`;
+//   window.location.href = `activity_detail/${activityId}`;
 //   // debugger;
 //   // const objRequest = {
 //   //   typeId: 7,
@@ -445,7 +445,7 @@ console.log(Activity);
 ActivityDetail(Activity: any) { 
   console.log('Activity:', Activity);
   if (Activity && Activity.code) {
-    this.router.navigate([`/profile/activitydetail`, Activity.code]);
+    this.router.navigate([`activity_detail`, Activity.code]);
   } else {
     console.error('Invalid Activity object or missing ID');
   }

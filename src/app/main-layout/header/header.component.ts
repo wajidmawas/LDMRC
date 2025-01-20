@@ -39,6 +39,20 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
    profile(){
     window.location.href = "profile";
    }
+   redirect_page(_pageTye:any){
+    if(this.isLoggedIn==null)
+      window.location.href = "/auth/login";
+    else if(_pageTye=='CO')
+    window.location.href = "/congress_organization";
+    else if(_pageTye=='CL')
+    window.location.href = "/congress_leaders";
+    else if(_pageTye=='Activities')
+    window.location.href = "/activity_list";
+    else if(_pageTye=='Meetings')
+    window.location.href = "/meetings";
+    else if(_pageTye=='Trainings')
+    window.location.href = "/meetings";
+   }
  ngAfterViewInit(): void {
     
 $('.hamburger-menu').on('click', function() {

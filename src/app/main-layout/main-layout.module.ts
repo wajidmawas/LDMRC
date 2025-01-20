@@ -19,7 +19,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MeetingModule } from './meetings/meetings.module'; 
 import { FooterComponent } from './footer/footer.component'; 
-import { CongressOrganizationModule } from './congress-organization/congress-organization.module';
+import { CongressOrganizationModule } from './congress-organization/congress-organization.module'; 
+import { CongressLeadersModule } from './congress-leaders/congress-leaders.module';
+import { ActivityListModule } from './activity-list/activity-list.module';
 // import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
@@ -44,7 +46,9 @@ import { CongressOrganizationModule } from './congress-organization/congress-org
     OwlNativeDateTimeModule,
     OwlDateTimeModule, 
     MeetingModule,
-    CongressOrganizationModule
+    CongressOrganizationModule,
+    ActivityListModule,
+    CongressLeadersModule
     // ,CarouselModule
     
   ],

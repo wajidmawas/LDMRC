@@ -42,11 +42,11 @@
                                       data-target="#collapseOne"
                                       aria-expanded="true"
                                       aria-controls="collapseOne"
-                                    > <span class="icon">+</span>
-                                      Organization
+                                    > <span class="icon">-</span>
+                                      Designations
                                      
                                     </button>
-                                    <button class="btn fil-sm btn-dark">Clear All</button>
+                                    <button class="btn fil-sm btn-dark"  >Clear All</button>
                                  
                                 
                             </div>
@@ -56,12 +56,53 @@
                         class="collapse show"
                         aria-labelledby="headingOne"
                         data-parent="#accordion">
-                                <div class="inputcheck">
+                                <div class="inputcheck" >
                                   <mat-checkbox color="#000">All</mat-checkbox>
                                 </div>
+                                <div class="inputcheck" *ngFor="let meeting of Designations.slice(0,DesignationLimit)" >
+                                  <mat-checkbox color="#000">{{ meeting.name }}</mat-checkbox>
+                                </div>
+                                <a class="btn fil-sm"  *ngIf="DesignationLimit < Designations.length" (click)="showmore('designation')" >More</a>
+                                <a class="btn fil-sm"  *ngIf="DesignationLimit == Designations.length" (click)="showless('designation')" >Less</a>
                         </div>
                     </div>
                 </div>
+                <div class="card mb-2">
+                  <div class="card-body">
+                      <div class="filter_title_div">
+                          <div class="d-flex w-100 align-items-center justify-content-between" id="headingOne">
+                              
+                                  <button
+                                    class="filter_title accordion-toggle"
+                                    data-toggle="collapse"
+                                    data-target="#collapseOne"
+                                    aria-expanded="true"
+                                    aria-controls="collapseOne"
+                                  > <span class="icon">-</span>
+                                    States
+                                   
+                                  </button>
+                                  <button class="btn fil-sm btn-dark"  >Clear All</button>
+                               
+                              
+                          </div>
+                          
+                      </div>
+                      <div class="filter_main"  id="collapseOne"
+                      class="collapse show"
+                      aria-labelledby="headingOne"
+                      data-parent="#accordion">
+                              <div class="inputcheck" >
+                                <mat-checkbox color="#000">All</mat-checkbox>
+                              </div>
+                              <div class="inputcheck" *ngFor="let meeting of States.slice(0,StatesLimit)" >
+                                <mat-checkbox color="#000">{{ meeting.STATENAME }}</mat-checkbox>
+                              </div>
+                              <a class="btn fil-sm" *ngIf="StatesLimit < States.length" (click)="showmore('states')" >More</a>
+                              <a class="btn fil-sm"  *ngIf="StatesLimit == States.length" (click)="showless('states')" >Less</a>
+                      </div>
+                  </div>
+              </div>
                 <div class="card mb-2">
                     <div class="card-body">
                         <div class="filter_title_div">
@@ -103,17 +144,26 @@
                 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                      <a class="nav-link active" id="AICC-tab" data-toggle="tab" href="#AICC" (click)="showTab('AICC')" role="tab" aria-controls="home" aria-selected="true">AICC</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                      <a class="nav-link" id="PCC-tab" data-toggle="tab" href="#AICC" (click)="showTab('PCC')" role="tab" aria-controls="profile" aria-selected="false">PCC's</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                      <a class="nav-link" id="SC-tab" data-toggle="tab" href="#AICC" (click)="showTab('SC')" role="tab" aria-controls="contact" aria-selected="false">SC Dept</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="ST-tab" data-toggle="tab" href="#AICC" (click)="showTab('ST')" role="tab" aria-controls="contact" aria-selected="false">ST Dept</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="OBC-tab" data-toggle="tab" href="#AICC" (click)="showTab('OBC')" role="tab" aria-controls="contact" aria-selected="false">OBC Dept</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="Minority-tab" data-toggle="tab" href="#AICC" (click)="showTab('Minority')" role="tab" aria-controls="contact" aria-selected="false">Minority Dept</a>
                     </li>
                   </ul>
                   <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane fade show active" id="AICC" role="tabpanel" aria-labelledby="home-tab">
                         <div class="tabseachBar">
                             <div class="search tab_search">
                                 <i class="fa fa-search"></i> 
@@ -129,39 +179,40 @@
                           <thead>
                               <tr>
                                 <th>Sr. No</th>
-                                <th>Image, Video, Audio</th>
-                                <th>Content</th>
-                                <th>Sender</th>
-                                <th>Date & Time</th>
-                                <th>Receipents</th>
-                                <th>Status</th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Phone Number</th>
+                                <th>Email Id</th>
+                                <th>Designation</th>
+                                <th>Charge Area</th>
+                                <th>Year</th>
+                                <th>Native City/ <br/>Village</th>
+                                <th>State</th>
+                                <th>#</th>
                           </tr>
                           </thead>
                           <tbody>
-                              <tr>
-                                  <td>01.</td>
-                                  <td><img src="../../../assets/images/logo.png" width="32" height="32"></td>
-                                  <td class="wp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis iaculis ultrices. Aliquam ipsum ante, dictum quis eros non, vestibulum auctor justo. Duis egestas elementum</td>
-                                  <td class="wp">Shri Mallikarjun Kharge</td>
-                                  <td class="wp">02 DEC 2024 11:00 AM</td>
-                                  <td class="wp">Shri Sanjay Neeraj, Shri Hitendra Pithadiya, Shri Devender Yadav, Shri Shaktisinh Gohil, Shri Rahul Gandhi, Shri K Raju, more</td>
-                                  <td>Successful</td>
-                              </tr>
-                              <tr>
-                                  <td>01.</td>
-                                  <td><img src="../../../assets/images/logo.png" width="32" height="32"></td>
-                                  <td class="wp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean facilisis iaculis ultrices. Aliquam ipsum ante, dictum quis eros non, vestibulum auctor justo. Duis egestas elementum</td>
-                                  <td class="wp">Shri Mallikarjun Kharge</td>
-                                  <td class="wp">02 DEC 2024 11:00 AM</td>
-                                  <td class="wp">Shri Sanjay Neeraj, Shri Hitendra Pithadiya, Shri Devender Yadav, Shri Shaktisinh Gohil, Shri Rahul Gandhi, Shri K Raju, more</td>
-                                  <td>Successful</td>
-                              </tr>
+                              <tr *ngFor="let meeting of Users; let i = index">
+                                  <td>{{i+1}}</td>
+                                  <td><img [src]="meeting.image_path || '../../../assets/images/logo.png'" 
+                                      width="32" height="32"></td>
+                                  <td class="wp">{{meeting.first_name + ' ' + meeting.last_name}}</td>
+                                  <td class="wp">{{meeting.mobile_no}}</td> 
+                                  <td class="wp">{{meeting.email_id}}</td>
+                                  <td class="wp">{{meeting.designation}}</td>
+                                  <td class="wp">{{meeting.chargearea}}</td>
+                                  <td class="wp">{{meeting.current_year}}</td>
+                                  <td class="wp">{{meeting.city_name}}</td>
+                                  <td class="wp">{{meeting.state_name}}</td>
+                                  <td><a href='javascript::' (click)="viewDetails(meeting.access_token)">
+                                    <i class="fa fa-eye"></i> 
+                                  </a></td>
+                              </tr> 
                           </tbody>
                       </table>
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                     
                   </div>
                  
             </div>

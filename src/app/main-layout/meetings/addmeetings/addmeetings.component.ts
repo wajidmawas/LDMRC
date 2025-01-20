@@ -274,16 +274,14 @@ clearParticipants() {
       validate = true;
     }
    if(!validate) {
-    $(".page-loader-wrapper-review").show(); 
+    $(".page-loader-wrapper").show(); 
    
     this.service.InviteClient(this.clsinvite).subscribe((res: any) => {
       setTimeout(() => {
-        $(".page-loader-wrapper-review").hide();
-      }, 500);
-      debugger;
+        $(".page-loader-wrapper").hide();
+      }, 500); 
       var response = res;
-      if (response["errorCode"] == "200") {
-        debugger;
+      if (response["errorCode"] == "200") { 
         this.snackbar.showSuccess(response.message,response.status);
         // setTimeout(() => {
         //   window.location.reload();
@@ -312,6 +310,55 @@ clearParticipants() {
    }
     
   }
+  createmeeting() {
+    var validate:boolean=false; 
+    if(this.clsinvite.title == undefined || this.clsinvite.title == null || this.clsinvite.title == '') {
+     this.snackbar.showInfo("Please enter title","Error");
+     validate=true;
+   }
+   else if(this.clsinvite.time == undefined || this.clsinvite.time == null || this.clsinvite.time == '') {
+     this.snackbar.showInfo("Please enter time","Error");
+     validate=true;
+   }
+   else if(this.clsinvite.date == undefined || this.clsinvite.date == null || this.clsinvite.date == '') {
+     this.snackbar.showInfo("Please select date ","Error");
+     validate=true;
+   } 
+   else if(this.clsinvite.duration == undefined || this.clsinvite.duration == null || this.clsinvite.duration == 0) {
+     this.snackbar.showInfo("Please enter your duration","Error");
+     validate=true;
+   }
+   else if(this.clsinvite.duration_type == undefined || this.clsinvite.duration_type == null || this.clsinvite.duration_type == '') {
+     this.snackbar.showInfo("Please select  your duration type","Error");
+     validate=true;
+   } 
+   else if(this.clsinvite.short_desc == undefined || this.clsinvite.short_desc == null || this.clsinvite.short_desc == '') {
+     this.snackbar.showInfo("Please enter your Shot description","Error");
+     validate=true;
+   }  
+  if(!validate) {
+   $(".page-loader-wrapper").show(); 
+  this.clsinvite.organizer_id=JSON.parse(this.isLoggedIn).user_id; 
+   this.service.CreateMeeting(this.clsinvite).subscribe((res: any) => {
+     setTimeout(() => {
+       $(".page-loader-wrapper").hide();
+     }, 500); 
+     var response = res;
+     if (response["errorCode"] == "200") {  
+       this.snackbar.showSuccess("Meeting link successfully created","Success");
+      this.clsinvite.meeting_link=response.response;
+ 
+
+     }
+     else {
+       // console.error("API returned an error:", response.message); 
+       this.snackbar.showInfo(response["message"],"Error");
+     }
+   });
+   
+  }
+   
+ }
   getLookupMaster(id: any) {
     const objRequest = {
       typeId: 1,

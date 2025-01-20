@@ -1,0 +1,212 @@
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row mb-2">
+          <div class="col-lg-12">
+          <ul class="breadcrumb">                          
+            <li class="breadcrumb-item">Home</li>
+            <li class="breadcrumb-item active">Activities of SC,ST,OBC And Minority Depts</li>
+        </ul>
+      </div>
+        </div>
+              <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
+                      <a href="/">
+                      <i class="fa fa-arrow-left mr-2"></i></a>
+                      <h2 class="mb-0">Activities of SC,ST,OBC And Minority Depts</h2> 
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                      <div class="d-flex flex-row-reverse">
+                          <div class="page_action">
+          
+                          </div>
+                          
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+          <div class="row"> 
+            <div class="col-lg-12">
+                
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">SC Dept</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">ST Dept</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">OBC Dept</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="minority-tab" data-toggle="tab" href="#minority" role="tab" aria-controls="contact" aria-selected="false">Minority Dept</a>
+                    </li>
+                    <li class="nav-item" role="presentation" *ngIf="isLoggedIn !== null && isLoggedIn !== ''">
+                      <a class="nav-link" id="myactivities-tab" data-toggle="tab" href="#myactivities" role="tab" aria-controls="contact" aria-selected="false">My Activities</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                      <div class="card"> 
+                
+                           
+                        <div class="body text-center d-flex justify-content-center flex-column " *ngIf="(Activities ?? []).length === 0">
+                           <img src="assets/images/loader.png" class="loader_img"/>
+                           <button class="btn btn-primary" data-toggle="modal" data-target="#addactivity">Activity</button>
+                        </div>
+                       
+                            <div class="row">
+                              <div class="col-lg-3 mb-3" *ngFor="let activity of filterActivities(3)">
+                                <div class="card no-bdr cursor">
+                                <div class="activity-image"> 
+                               <img [src]="activity.thumbnail_image || '../../../assets/images/login_bg.png'" (click)="ActivityDetail(activity)" alt="Activity Image" />
+                                </div>
+                                <div class="card-body drop_shadow" (click)="ActivityDetail(activity)">
+                                  <h3 class="active_title mb-0">{{ activity.Author }}</h3>
+                                  <span class="active_timespan">{{ activity.Date }}</span>
+                                  <div class="activity-meta mt-3">
+                                    <span> {{ activity.title }} 
+                                    </span> 
+                                  </div>
+                                 
+                                </div>
+                                
+                              </div>
+                            </div>
+                          </div> 
+                   
+                </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      <div class="card"> 
+                
+                           
+                        <div class="body text-center d-flex justify-content-center flex-column " *ngIf="(Activities ?? []).length === 0">
+                           <img src="assets/images/loader.png" class="loader_img"/>
+                           <button class="btn btn-primary" data-toggle="modal" data-target="#addactivity">Activity</button>
+                        </div>
+                       
+                            <div class="row">
+                              <div class="col-lg-3 mb-3" *ngFor="let activity of filterActivities(4)">
+                                <div class="card no-bdr cursor">
+                                <div class="activity-image"> 
+                               <img [src]="activity.thumbnail_image || '../../../assets/images/login_bg.png'" (click)="ActivityDetail(activity)" alt="Activity Image" />
+                                </div>
+                                <div class="card-body drop_shadow" (click)="ActivityDetail(activity)">
+                                  <h3 class="active_title mb-0">{{ activity.Author }}</h3>
+                                  <span class="active_timespan">{{ activity.Date }}</span>
+                                  <div class="activity-meta mt-3">
+                                    <span> {{ activity.title }} 
+                                    </span> 
+                                  </div>
+                                 
+                                </div>
+                                
+                              </div>
+                            </div>
+                          </div> 
+                   
+                </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                      <div class="card"> 
+                
+                           
+                        <div class="body text-center d-flex justify-content-center flex-column " *ngIf="(Activities ?? []).length === 0">
+                           <img src="assets/images/loader.png" class="loader_img"/>
+                           <button class="btn btn-primary" data-toggle="modal" data-target="#addactivity">Activity</button>
+                        </div>
+                       
+                            <div class="row">
+                              <div class="col-lg-3 mb-3" *ngFor="let activity of filterActivities(5)">
+                                <div class="card no-bdr cursor">
+                                <div class="activity-image"> 
+                               <img [src]="activity.thumbnail_image || '../../../assets/images/login_bg.png'" (click)="ActivityDetail(activity)" alt="Activity Image" />
+                                </div>
+                                <div class="card-body drop_shadow" (click)="ActivityDetail(activity)">
+                                  <h3 class="active_title mb-0">{{ activity.Author }}</h3>
+                                  <span class="active_timespan">{{ activity.Date }}</span>
+                                  <div class="activity-meta mt-3">
+                                    <span> {{ activity.title }} 
+                                    </span> 
+                                  </div>
+                                 
+                                </div>
+                                
+                              </div>
+                            </div>
+                          </div> 
+                   
+                </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="minority" role="tabpanel" aria-labelledby="contact-tab">
+                      <div class="card"> 
+                
+                           
+                        <div class="body text-center d-flex justify-content-center flex-column " *ngIf="(Activities ?? []).length === 0">
+                           <img src="assets/images/loader.png" class="loader_img"/>
+                           <button class="btn btn-primary" data-toggle="modal" data-target="#addactivity">Activity</button>
+                        </div>
+                       
+                            <div class="row">
+                              <div class="col-lg-3 mb-3" *ngFor="let activity of filterActivities(6)">
+                                <div class="card no-bdr cursor">
+                                <div class="activity-image"> 
+                               <img [src]="activity.thumbnail_image || '../../../assets/images/login_bg.png'" (click)="ActivityDetail(activity)" alt="Activity Image" />
+                                </div>
+                                <div class="card-body drop_shadow" (click)="ActivityDetail(activity)">
+                                  <h3 class="active_title mb-0">{{ activity.Author }}</h3>
+                                  <span class="active_timespan">{{ activity.Date }}</span>
+                                  <div class="activity-meta mt-3">
+                                    <span> {{ activity.title }} 
+                                    </span> 
+                                  </div>
+                                 
+                                </div>
+                                
+                              </div>
+                            </div>
+                          </div> 
+                   
+                </div>
+                    </div>
+                    <div class="tab-pane fade" id="myactivities" role="tabpanel" aria-labelledby="contact-tab">
+                      <div class="card"> 
+                
+                           
+                        <div class="body text-center d-flex justify-content-center flex-column " *ngIf="(Activities ?? []).length === 0">
+                           <img src="assets/images/loader.png" class="loader_img"/>
+                           <button class="btn btn-primary" data-toggle="modal" data-target="#addactivity">Activity</button>
+                        </div>
+                       
+                            <div class="row">
+                              <div class="col-lg-3 mb-3" *ngFor="let activity of filtermyActivities(5)">
+                                <div class="card no-bdr cursor">
+                                <div class="activity-image"> 
+                               <img [src]="activity.thumbnail_image || '../../../assets/images/login_bg.png'" (click)="ActivityDetail(activity)" alt="Activity Image" />
+                                </div>
+                                <div class="card-body drop_shadow" (click)="ActivityDetail(activity)">
+                                  <h3 class="active_title mb-0">{{ activity.Author }}</h3>
+                                  <span class="active_timespan">{{ activity.Date }}</span>
+                                  <div class="activity-meta mt-3">
+                                    <span> {{ activity.title }} 
+                                    </span> 
+                                  </div>
+                                 
+                                </div>
+                                
+                              </div>
+                            </div>
+                          </div> 
+                   
+                </div>
+                    </div>
+
+                  </div>
+                 
+            </div>
+          </div>
+   </div>

@@ -1,0 +1,304 @@
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row mb-2">
+          <div class="col-lg-12">
+          <ul class="breadcrumb">                          
+            <li class="breadcrumb-item">Dashboard</li>
+            <li class="breadcrumb-item active">Congress Leaders</li>
+        </ul>
+      </div>
+        </div>
+              <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
+                      <a href="javascript::(0)" (click)="backtohome()">
+                      <i class="fa fa-arrow-left mr-2"></i></a>
+                      <h2 class="mb-0">Congress Leaders</h2> 
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                      <div class="d-flex flex-row-reverse">
+                          <div class="page_action">
+          
+                          </div>
+                          
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-lg-3">
+                <h2 class="filter flt_mb" (click)="filter()">Filters</h2>
+                <h2 class="filter flt_web">Filters</h2>
+                <div id="accordion" class="acc_filter">
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <div class="filter_title_div">
+                            <div class="d-flex w-100 align-items-center justify-content-between" id="headingOne"> 
+                                    <button  class="filter_title accordion-toggle"      data-toggle="collapse"  data-target="#collapseOne"
+                                      aria-expanded="true"    aria-controls="collapseOne" > <span class="icon">-</span>    Designations</button>
+                                    <button class="btn fil-sm btn-dark"  >Clear All</button> 
+                            </div>
+                            
+                        </div>
+                        <div class="filter_main"  id="collapseOne"
+                        class="collapse show"
+                        aria-labelledby="headingOne"
+                        data-parent="#accordion">
+                                <div class="inputcheck" >
+                                  <mat-checkbox color="#000">All</mat-checkbox>
+                                </div>
+                                <div class="inputcheck" *ngFor="let meeting of Designations.slice(0,DesignationLimit)" >
+                                  <mat-checkbox color="#000">{{ meeting.name }}</mat-checkbox>
+                                </div>
+                                <a class="btn fil-sm"  *ngIf="DesignationLimit < Designations.length" (click)="showmore('designation')" >More</a>
+                                <a class="btn fil-sm"  *ngIf="DesignationLimit == Designations.length" (click)="showless('designation')" >Less</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-2">
+                  <div class="card-body">
+                      <div class="filter_title_div">
+                          <div class="d-flex w-100 align-items-center justify-content-between" id="headingTwo">
+                              
+                                  <button
+                                    class="filter_title accordion-toggle"
+                                    data-toggle="collapse"
+                                    data-target="#collapseTwo"
+                                    aria-expanded="true"
+                                    aria-controls="collapseTwo"
+                                  > <span class="icon">-</span>
+                                    States
+                                   
+                                  </button>
+                                  <button class="btn fil-sm btn-dark"  >Clear All</button>
+                               
+                              
+                          </div>
+                          
+                      </div>
+                      <div class="filter_main"  id="collapseTwo"
+                      class="collapse show"
+                      aria-labelledby="headingTwo"
+                      data-parent="#accordion">
+                              <div class="inputcheck" >
+                                <mat-checkbox color="#000">All</mat-checkbox>
+                              </div>
+                              <div class="inputcheck" *ngFor="let meeting of States.slice(0,StatesLimit)" >
+                                <mat-checkbox color="#000">{{ meeting.STATENAME }}</mat-checkbox>
+                              </div>
+                              <a class="btn fil-sm" *ngIf="StatesLimit < States.length" (click)="showmore('states')" >More</a>
+                              <a class="btn fil-sm"  *ngIf="StatesLimit == States.length" (click)="showless('states')" >Less</a>
+                      </div>
+                  </div>
+              </div>
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <div class="filter_title_div">
+                            <div class="d-flex w-100 align-items-center justify-content-between" id="headingThree">
+                                
+                                    <button
+                                      class="filter_title accordion-toggle"
+                                      data-toggle="collapse"
+                                      data-target="#collapseThree"
+                                      aria-expanded="false"
+                                      aria-controls="collapseThree"
+                                    > <span class="icon">+</span>
+                                    Gender
+                                     
+                                    </button>
+                                    <button class="btn fil-sm btn-dark">Clear All</button>
+                                 
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="filter_main"  id="collapseThree"
+                        class="collapse"
+                        aria-labelledby="headingThree"
+                        data-parent="#accordion">
+                                <div class="inputcheck">
+                                  <mat-checkbox color="#000">All</mat-checkbox>
+                                </div>
+                                <div class="inputcheck">
+                                  <mat-checkbox color="#000">Male</mat-checkbox>
+                                </div>
+                                <div class="inputcheck">
+                                  <mat-checkbox color="#000">Female</mat-checkbox>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-2">
+                  <div class="card-body">
+                      <div class="filter_title_div">
+                          <div class="d-flex w-100 align-items-center justify-content-between" id="headingFour">
+                              
+                                  <button
+                                    class="filter_title accordion-toggle"
+                                    data-toggle="collapse"
+                                    data-target="#collapseFour"
+                                    aria-expanded="false"
+                                    aria-controls="collapseFour"
+                                  > <span class="icon">+</span>
+                                  Age
+                                   
+                                  </button>
+                                  <button class="btn fil-sm btn-dark">Clear All</button>
+                               
+                              
+                          </div>
+                          
+                      </div>
+                      <div class="filter_main"  id="collapseFour"
+                      class="collapse"
+                      aria-labelledby="headingFour"
+                      data-parent="#accordion">
+                              <div class="inputcheck">
+                                <mat-checkbox color="#000">All</mat-checkbox>
+                              </div>
+                              <div class="inputcheck">
+                                <mat-checkbox color="#000">25 to 40</mat-checkbox>
+                              </div>
+                              <div class="inputcheck">
+                                <mat-checkbox color="#000">40 to 50</mat-checkbox>
+                              </div>
+                              <div class="inputcheck">
+                                <mat-checkbox color="#000">50 to 60</mat-checkbox>
+                              </div>
+                              <div class="inputcheck">
+                                <mat-checkbox color="#000">60 and above</mat-checkbox>
+                              </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="card mb-2">
+                <div class="card-body">
+                    <div class="filter_title_div">
+                        <div class="d-flex w-100 align-items-center justify-content-between" id="headingFive"> 
+                                <button  class="filter_title accordion-toggle"      data-toggle="collapse"  data-target="#collapseFive"
+                                  aria-expanded="true"    aria-controls="collapseFive" > <span class="icon">-</span> 
+                                     Community</button>
+                                <button class="btn fil-sm btn-dark"  >Clear All</button> 
+                        </div>
+                        
+                    </div>
+                    <div class="filter_main"  id="collapseFive"
+                    class="collapse show"
+                    aria-labelledby="headingFive"
+                    data-parent="#accordion">
+                            <div class="inputcheck" >
+                              <mat-checkbox color="#000">All</mat-checkbox>
+                            </div>
+                            <div class="inputcheck" *ngFor="let meeting of CasteList.slice(0,DesignationLimit)" >
+                              <mat-checkbox color="#000">{{ meeting.name }}</mat-checkbox>
+                            </div>
+                            <a class="btn fil-sm"  *ngIf="CasteLimit < CasteList.length" (click)="showmore('caste')" >More</a>
+                            <a class="btn fil-sm"  *ngIf="CasteLimit == CasteList.length" (click)="showless('caste')" >Less</a>
+                    </div>
+                </div>
+            </div>
+                <div class="d-flex align-items-center justify-content-center mt-3 mb-3">
+                    <button class="btn btn-outline-white mr-2">Clear</button>
+                    <button class="btn btn-primary">Apply</button>
+                </div>
+                </div>
+            </div>
+            <div class="col-lg-9"> 
+                
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="AICC" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="tabseachBar">
+                            <div class="search tab_search">
+                                <i class="fa fa-search"></i> 
+                                <input type="text" class="form-control round"> 
+                            </div>
+                            <div class="btns">
+                              <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
+                              <button class="btn btn-secondary"><i class="fa fa-cloud-download mr-2"></i>Download</button>
+                            </div> 
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table table-striped">
+                          <thead>
+                              <tr>
+                                <th>Sr. No</th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>DOB</th>
+                                <th>Age</th>
+                                <th>Gender</th>
+                                <th>Community</th>
+                                <th>Phone No</th> 
+                                <th>Native State</th>
+                                <th>Designation</th>
+                                <th>Exp.Years</th>
+                                <th>No. Of Year <br/>in the position</th>
+                                <th>Org exp level</th>
+                                <th>Election Contested</th>
+                                <th>Year Of Election</th>
+                                <th>Election Result <br/> (Won/Lost)</th>
+                                <th>#</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let meeting of Users; let i = index">
+                                <td colspan="17">
+                                  <table width="100%">
+                                  <tr>
+                                    <td>{{i+1}}</td>
+                                  <td><img [src]="meeting.image_path || '../../../assets/images/logo.png'" 
+                                      width="32" height="32"></td>
+                                  <td class="wp">{{meeting.first_name + ' ' + meeting.last_name}}</td>
+                                  <td class="wp">{{meeting.dob}}</td> 
+                                  <td class="wp">{{meeting.age}}</td> 
+                                  <td class="wp">{{meeting.gender}}</td> 
+                                  <td class="wp">{{meeting.ENGLISH}}</td>
+                                  <td class="wp">{{meeting.mobile_no}}</td> 
+                                  <td class="wp">{{meeting.state_name}}</td> 
+                                  <td class="wp">{{meeting.designation}}</td>
+                                  <td class="wp">{{meeting.year_of_exp}}</td>
+                                  <td class="wp">{{meeting.no_of_year_position}}</td>  
+                                  <td>-</td>
+                                  <td>-</td>
+                                  <td>-</td>
+                                  <td>-</td>
+                                  <td><a href='javascript::' (click)="viewDetails(meeting.access_token)">
+                                    <i class="fa fa-eye"></i> 
+                                  </a></td>
+
+                                  </tr>
+                                  <tr *ngFor="let child of FilterProfessions(meeting.id);">
+                                    <td></td>
+                                    <td></td>
+                                    <td class="wp"></td>
+                                    <td class="wp"></td> 
+                                    <td class="wp"></td> 
+                                    <td class="wp"></td> 
+                                    <td class="wp"></td>
+                                    <td class="wp"></td> 
+                                    <td class="wp"></td> 
+                                    <td class="wp"></td>
+                                    <td class="wp"></td>
+                                    <td class="wp"></td>  
+                                    <td class="wp">{{child.designation_name}}</td>  
+                                    <td class="wp">{{child.election_contest}}</td>  
+                                    <td class="wp">{{child.from_year}}</td>  
+                                    <td class="wp">{{child.election_result}}</td>  
+    
+                                    <td> </td>
+                                  </tr>
+                                </table></td>
+                                  
+                              </tr> 
+                             
+                          </tbody>
+                      </table>
+                      </div>
+                    </div>
+                     
+                  </div>
+                 
+            </div>
+          </div>
+   </div>

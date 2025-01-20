@@ -42,9 +42,11 @@ export class Meetingsservice {
   updateBulkMedia(clsobj:object) {
     return this.http.post(this.sharedService._baseUrl + this.UserProfileManagementUrl + "/_deleteBulkMedia", clsobj,{ headers: this.sharedService.returnHttpHeaders()});
   }
-  InviteClient(AddMeeting: object) { 
-    debugger;
+  InviteClient(AddMeeting: object) {  
     return this.http.post(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/save_meeting", AddMeeting,{ headers: this.sharedService.returnHttpHeaders()});
+  }
+  CreateMeeting(AddMeeting: object) {  
+    return this.http.post(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/create_zoom_meeting", AddMeeting,{ headers: this.sharedService.returnHttpHeaders()});
   }
   SaveMessage(addmessage: FormData) {
       return from(this.sharedService.postForFormData(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/save_message", addmessage));

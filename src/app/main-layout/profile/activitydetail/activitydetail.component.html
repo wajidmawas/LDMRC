@@ -4,8 +4,7 @@
                   <div class="row mb-2">
                     <div class="col-lg-12">
                     <ul class="breadcrumb">                          
-                      <li class="breadcrumb-item">Dashboard</li>
-                      <li class="breadcrumb-item">Profile</li>
+                      <li class="breadcrumb-item">Dashboard</li> 
                       <li class="breadcrumb-item active">Activity Detail</li>
                   </ul>
                 </div>
@@ -21,7 +20,7 @@
                                 <div class="page_action">
                 
                                 </div>
-                                <div class="p-2 d-flex"> 
+                                <div class="p-2 d-flex" *ngIf="userDtail !== null && userDtail !== ''"> 
                                   <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#addactivity" (click)="EditActivity()"><i class="fa fa-pencil mr-2"></i> Edit</button>
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delaccount"><i class="fa fa-trash mr-2"></i>Delete </button>
                                 </div>
@@ -88,7 +87,7 @@
                               </div>
                              
                             </div>
-                            <p class="acti_para">LoremIpsum </p>
+                            <p class="acti_para">{{ activity.description }} </p>
                               
                            
                       

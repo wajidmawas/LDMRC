@@ -49,7 +49,7 @@
       <div class="col-lg-12">
       <div class="owl-carousel loop">
         <div class="item">
-            <a href="#" class="cards"> 
+            <a href="javascript::" (click)="redirect_page('CO')" class="cards"> 
                 <div class="card-body d-flex flex-column justify-content-center"> 
                   <img src="../../../assets/images/dashboard_icons/Congress_Organization.svg" class="mb-3"/>
                   <h5 class="card-title">Congress Organisation</h5> 
@@ -57,7 +57,7 @@
             </a>
         </div>
         <div class="item">
-          <a href="#" class="cards"> 
+          <a href="javascript::" (click)="redirect_page('CL')" class="cards"> 
             <div class="card-body d-flex flex-column justify-content-center"> 
               <img src="../../../assets/images/dashboard_icons/Congress_Leaders.svg" class="mb-3"/>
                   <h5 class="card-title">Congress Leaders</h5>
@@ -66,7 +66,7 @@
             </a>
         </div>
         <div class="item">
-          <a href="#" class="cards"> 
+          <a href="javascript::" (click)="redirect_page('CO')" class="cards"> 
             <div class="card-body d-flex flex-column justify-content-center"> 
               <img src="../../../assets/images/dashboard_icons/LDM.svg" class="mb-3"/>
                   <h5 class="card-title">Leaders Development Mission (LDM)</h5>
@@ -75,7 +75,7 @@
             </a>
         </div>
         <div class="item">
-          <a href="#" class="cards"> 
+          <a href="javascript::" (click)="redirect_page('CL')" class="cards"> 
             <div class="card-body d-flex flex-column justify-content-center"> 
               <img src="../../../assets/images/dashboard_icons/EEMD.svg" class="mb-3"/>
 
@@ -85,7 +85,7 @@
             </a>
         </div>
         <div class="item">
-          <a href="/profile" class="cards"> 
+          <a href="javascript::" (click)="redirect_page('Activities')" class="cards"> 
             <div class="card-body d-flex flex-column justify-content-center" > 
               <img src="../../../assets/images/dashboard_icons/activities_icon.svg" class="mb-3"/>
                 <h5  class="card-title">Activities Of The Sc, St, Obc & Minority Depts</h5> 
@@ -93,7 +93,15 @@
           </a>
       </div>
       <div class="item">
-        <a href="/meetings" class="cards"> 
+        <a href="javascript::" (click)="redirect_page('Meetings')" class="cards"> 
+          <div class="card-body d-flex flex-column justify-content-center"> 
+            <img src="../../../assets/images/dashboard_icons/meetings.svg" class="mb-3"/>
+              <h5 class="card-title">Meetings</h5> 
+            </div>
+        </a>
+    </div>
+      <div class="item">
+        <a href="javascript::" (click)="redirect_page('Meetings')" class="cards"> 
           <div class="card-body d-flex flex-column justify-content-center"> 
             <img src="../../../assets/images/dashboard_icons/meetings.svg" class="mb-3"/>
               <h5 class="card-title">Trainings / Online Trainings</h5> 
@@ -122,7 +130,7 @@
                         <th>No. of Activity posts in the month</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <!-- <tbody>
                         <tr>
                             <td>01.</td>
                             <td>SC Department</td>
@@ -139,7 +147,7 @@
                             <td>State Chairperson</td>
                             <td>42</td>
                         </tr>
-                    </tbody>
+                    </tbody> -->
                 </table>
                 </div>
             </div>
@@ -224,12 +232,12 @@
        </div> 
     </div>
     <div class="row">
-    <div class="d-flex col-lg-12 justify-content-between mt-4 mb-4" *ngIf="userid && userid !== ''">
+    <div class="d-flex col-lg-12 justify-content-between mt-4 mb-4">
         <h2 class="text-bold text-dark mb-0">Important communications issued</h2>
         <a href="#" class="viewall">View All <img src="../../../assets/images/btn_arrow.png" class="btn_arrow ml-2"/></a>
     </div>
     </div>
-    <div class="row clearfix  mb-5" *ngIf="userid && userid !== ''">
+    <div class="row clearfix  mb-5" >
         
         <div class="col-lg-4 col-md- mb-4">
               <div class="thumbnail">
@@ -269,18 +277,19 @@
       </div>
 </div>
     </div>
-    <!-- <div class="row">
-    <div class="col-lg-12 d-flex mt-4 mb-4"  *ngIf="userid && userid !== ''">
+    <div class="row">
+    <div class="d-flex col-lg-12 justify-content-between mt-4 mb-4"  *ngIf="userid && userid !== ''">
       <h3 class="text-bold text-dark">Physical Trainings Schedules</h3>
+      <a href="/meetings" class="viewall">View All <img src="../../../assets/images/btn_arrow.png" class="btn_arrow ml-2"/></a>
   </div>
   </div>
 
-  <div class="row mb-5" >
-    <div class="owl-carousel loop2">
-      <div class="item" *ngFor="let meeting of Mymetting">
+  <div class="row mb-5" *ngIf="userid && userid !== ''">
+    <div class="row col-lg-12">
+      <div class="col-lg-4" *ngFor="let meeting of Mymetting.slice(0, 3);">
         
           <div class="card"> 
-            <div class="card-body p-2 d-flex flex-column justify-content-center">
+            <div class="card-body p-2 d-flex flex-column ">
               <div class="d-flex justify-content-between"> 
                <div class="training_img">
                   <img src="../../../assets/images/calendar.png"/>
@@ -317,37 +326,16 @@
         </div>
     </div>
     
-  </div>  -->
+  </div> 
  
  
  
- 
-  <div class="row">
-    <div class="col-lg-12 d-flex justify-content-between mt-4 mb-4">
-    <h3 class="text-bold text-dark">Communicaton to the Depts</h3>
-    <a href="#" class="viewall">View All <img src="../../../assets/images/btn_arrow.png" class="btn_arrow ml-2"/></a>
-  </div>
-</div>
-    <div class="row">
-      <!-- Loop through the videos array -->
-      <div class="col-lg-3 col-md-3mb-4" *ngFor="let video of videos">
-        <div class="card">
-          <img [src]="video.thumbnail" class="Video" alt="Video Thumbnail" />
-          <div class="card-body">
-            <p class="card-text">{{ video.date }}</p>
-            <h5 class="card-title1">{{ video.title }}</h5>
-            <!-- <p class="card-text">{{ video.description }}</p>
-            <a href="{{ video.link }}" class="btn btn-primary" target="_blank">Watch</a> -->
-          </div>
-        </div>
-      </div>
-    </div>
   
   
 
   <div class="row">
-    <div class="col-lg-12  mt-4" *ngIf="userid && userid !== ''">
-      <h3 class="text-bold text-dark">Recent Activity</h3> 
+    <div class="col-lg-12  mt-4">
+      <h3 class="text-bold text-dark">Activities</h3> 
       </div>
       </div>
       <div class="row">
@@ -361,12 +349,12 @@
             </div>
             <div class="activities-container">
                 <div class="row">
-                  <div class="col-lg-3 mb-3" *ngFor="let activity of Activities">
+                  <div class="col-lg-3 mb-3" (click)="ActivityDetail(activity)" *ngFor="let activity of Activities">
                     <div class="card no-bdr">
                     <div class="activity-image">
                    <img [src]="activity.thumbnail_image || '../../../assets/images/login_bg.png'" alt="Activity Image" />
                     </div>
-                    <div class="card-body drop_shadow">
+                    <div class="card-body drop_shadow" >
                       <h3 class="active_title mb-0">{{ activity.Author }}</h3>
                       <span class="active_timespan">{{ activity.Date }}</span>
                       <div class="activity-meta mt-3">
