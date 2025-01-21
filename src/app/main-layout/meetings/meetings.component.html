@@ -179,7 +179,7 @@
               </ng-template>
         
         </div>
-        <div class="tab-pane fade" id="pills-Message" role="tabpanel" aria-labelledby="pills-Message-tab">
+        <!-- <div class="tab-pane fade" id="pills-Message" role="tabpanel" aria-labelledby="pills-Message-tab">
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -221,7 +221,50 @@
               <h4>You have not schedule any meetings yet!</h4>
             </div>
           </ng-template>
-        </div> 
+        </div>  -->
+        <div class="tab-pane fade" id="pills-Message" role="tabpanel" aria-labelledby="pills-Message-tab">
+          <div class="table-responsive" *ngIf="messages && messages.length > 0; else noMeetings">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Sr. No</th>
+                  <th>Image, Video, Audio</th>
+                  <th>Content</th>
+                  <th>Sender</th>
+                  <th>Date & Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let message of messages; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>
+                    <img 
+                      [src]="sanitizeFilePath(message.file_path)" 
+                      width="50" 
+                      height="50" 
+                      alt="Attachment"
+                      onerror="this.src='../../../assets/images/logo.png'"
+                    />
+                  </td>
+                  <td class="wp">{{ message.title }} - {{ message.description }}</td>
+                  <td class="wp">{{ message.Sender }}</td>
+                  <td class="wp">{{ message.Datetime }}</td>
+                  <td>Successful</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        
+          <!-- No meetings template -->
+          <ng-template #noMeetings>
+            <div class="no-meetings col-lg-12 d-flex flex-column align-items-center justify-content-center mb-5 mt-5">
+              <img src="../../../assets/images/noactivity.png" class="mb-3 mt-3"/>
+              <h4>You have not scheduled any meetings yet!</h4>
+            </div>
+          </ng-template>
+        </div>
+        
       </div>
     </div>
 </div>

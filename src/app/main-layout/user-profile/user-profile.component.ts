@@ -2,54 +2,47 @@ import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChi
 import 'jquery';
 import { SharedService } from 'src/shared/Shared.Service';
 import { Title } from '@angular/platform-browser';
-import { ProfileService } from './profile.service';
+import { ProfileService } from '../profile/profile.service';
 import { SnackbarService } from 'src/shared/snackbar-service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-
-
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';  // <-- Import this module
 @Component({
-  selector: 'profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-user-profile',
+  standalone: true,
+  imports: [CommonModule,FormsModule], 
+  templateUrl: './user-profile.component.html',
+  styleUrl: './user-profile.component.scss'
 })
 
-export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
+
+export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('activityModal') activityModal!: ElementRef;
-  user_id: number = 0;
   selectedActivity: any = null;
   Activities:any=[];
   clsactivity:cls_addactivity=new cls_addactivity();
-  
-  //  professions: cls_addprofession[] = [];
- 
-    professions: cls_addprofession[] = [new cls_addprofession()];
-  
-  // clsprofession: cls_addprofession = new cls_addprofession();
   selectedState:number | null = null;
   selectedCity:number | null = null;
   selectedActvity:number | null = null;
-  selectedDesignation:number | null = null;
-
   selectedVillage:number | null = null;
   filename: any | null = null;
   ActivitiesDetail:any=[];
-  states: any = []; cities: any = [];ActivityType: any = [];DesiginationList: any = [];
-  userDtail:any={};ProfessionList: any = [];
+  states: any = []; cities: any = [];ActivityType: any = [];
+  userDtail:any={};
   userdetails:any={};
   villages:any=[];
   titlesearch:string='';
+
 //#add activity 
 activityId: string | null = null;
 responseid:any=[];
 //#end activity
+ProfessionList: any = [];
 
 
-
-constructor( private router: Router,private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
+constructor(private router: Router,private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
     this.titleService.setTitle("Leaders Development Mission - Profile");
-   
 }
 
 ngOnDestroy(): void {
@@ -66,9 +59,36 @@ ngOnInit(): void {
 console.log("UserDetails",this.userdetails)
 this.getLookupMaster(0);
 this.getActivityType(0);
-this.getDesigination(0);
-this.getprofessionDetails(this.userdetails.user_id);
  this.LoadActivity(this.userdetails.user_id,this.titlesearch);
+ this.getprofessionDetails(this.userdetails.user_id);
+}
+getprofessionDetails(id: number) {
+  const objRequest = {
+    typeId: 4,
+    userid: 0,
+    filterId: id,
+    filterText: "",
+    filterText1: ""
+  };
+
+  this.service.getMasters(objRequest).subscribe({
+    next: (response: any) => { 
+      var parseresponse = JSON.parse(response.response); 
+      if (response["errorCode"] === "200") {
+        this.ProfessionList = parseresponse.Table1;
+      } else {
+        console.error("API returned an error:", response.message); 
+      }
+    },
+    error: (error: any) => {
+      console.error("API call failed:", error);
+      // Handle the error appropriately
+      // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
+    },
+    complete: () => {
+      console.log("API call completed.");
+    }
+  });
 }
 
 ngAfterViewInit(): void {
@@ -95,11 +115,7 @@ onvillageChange(event: any): void {
 onActvitytypeChange(event: any): void {
   this.selectedActvity = event.target.value; 
 }
-onDesignationChange(event: any): void {
-  this.selectedDesignation = event.target.value; 
-}
 getCities(id: any) {
-  debugger;
   const objRequest = {
     typeId: 2,
     userid: 0,
@@ -111,7 +127,7 @@ getCities(id: any) {
   this.service.getMasters(objRequest).subscribe({
     next: (response: any) => { 
       var parseresponse = JSON.parse(response.response); 
-     debugger;
+     
       if (response["errorCode"] === "200") { 
         this.cities = parseresponse.Table
        console.log("Cities" + JSON.stringify(this.cities))
@@ -199,62 +215,6 @@ getActivityType(id: any) {
       var parseresponse = JSON.parse(response.response); 
       if (response["errorCode"] === "200") {
         this.ActivityType = parseresponse.Table;
-      } else {
-        console.error("API returned an error:", response.message); 
-      }
-    },
-    error: (error: any) => {
-      console.error("API call failed:", error);
-      // Handle the error appropriately
-      // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
-    },
-    complete: () => {
-      console.log("API call completed.");
-    }
-  });
-}
-getDesigination(id: any) {
-  const objRequest = {
-    typeId: 1,
-    userid: 0,
-    filterId: id,
-    filterText: "",
-    filterText1: ""
-  };
-
-  this.service.getMasters(objRequest).subscribe({
-    next: (response: any) => { 
-      var parseresponse = JSON.parse(response.response); 
-      if (response["errorCode"] === "200") {
-        this.DesiginationList = parseresponse.Table2;
-      } else {
-        console.error("API returned an error:", response.message); 
-      }
-    },
-    error: (error: any) => {
-      console.error("API call failed:", error);
-      // Handle the error appropriately
-      // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
-    },
-    complete: () => {
-      console.log("API call completed.");
-    }
-  });
-}
-getprofessionDetails(id: number) {
-  const objRequest = {
-    typeId: 4,
-    userid: 0,
-    filterId: id,
-    filterText: "",
-    filterText1: ""
-  };
-
-  this.service.getMasters(objRequest).subscribe({
-    next: (response: any) => { 
-      var parseresponse = JSON.parse(response.response); 
-      if (response["errorCode"] === "200") {
-        this.ProfessionList = parseresponse.Table1;
       } else {
         console.error("API returned an error:", response.message); 
       }
@@ -364,115 +324,6 @@ this.service.SaveActivity(formData).subscribe((res: any) => {
  
   }
 }
- // Method to add a new profession to the list
- addNewProfession() {
-   this.professions.push(new cls_addprofession());  // Push a new empty profession object
-  // if (this.clsprofession.designation_id && this.clsprofession.from_year && this.clsprofession.to_year) {
-  //   this.professions.push({ ...this.clsprofession });  // Push a copy of the current profession to the list
-  //   this.clsprofession = new cls_addprofession(); // Reset the form for a new entry
-  // } else {
-  //   alert("Please fill in all the required fields.");
-  // }
-}
-validateProfessions() {
-  let validate = false;
-
-  for (const profession of this.professions) {
-    if (!profession.designation_id) {
-      this.snackbar.showInfo("Please select Designation", "Error");
-      validate = true;
-      break;
-    } 
-    if (!profession.from_year || profession.from_year < 2015 || profession.from_year > 2100) {
-      this.snackbar.showInfo("Please enter a valid From Year (2015-2100)", "Error");
-      validate = true;
-      break;
-    }
-    if (!profession.to_year || profession.to_year < 2015 || profession.to_year > 2100) {
-      this.snackbar.showInfo("Please enter a valid To Year (2015-2100)", "Error");
-      validate = true;
-      break;
-    }
-    if (!profession.area || profession.area.trim() === '') {
-      this.snackbar.showInfo("Please enter Charge Area", "Error");
-      validate = true;
-      break;
-    }
-    if (!profession.state_id) {
-      this.snackbar.showInfo("Please select State", "Error");
-      validate = true;
-      break;
-    }
-    if (!profession.city_id) {
-      this.snackbar.showInfo("Please select City", "Error");
-      validate = true;
-      break;
-    }
-    if (!profession.election_result || profession.election_result.trim() === '') {
-      this.snackbar.showInfo("Please enter Election Result", "Error");
-      validate = true;
-      break;
-    }
-    if (!profession.election_contest || profession.election_contest.trim() === '') {
-      this.snackbar.showInfo("Please enter Election Contest", "Error");
-      validate = true;
-      break;
-    }
-  }
-
-  return validate;
-}
-
-
-
-saveproffession() {
-console.log("start");
-console.log(this.professions);
-  var validate:boolean=false; 
-  if (this.validateProfessions()) {
-    return;
-  }
-if(!validate) {
- $(".page-loader-wrapper").show(); 
-
- const formattedData = {
-  user_id: this.userdetails.user_id, 
-  professions: this.professions.map(profession => ({
-    id: profession.id || 0,  
-    designation_id: profession.designation_id,
-    from_year: profession.from_year,
-    to_year: profession.to_year,
-    area: profession.area,
-    state_id: profession.state_id,
-    city_id: profession.city_id,
-    election_contest: profession.election_contest,
-    election_result: profession.election_result
-  }))
-};
-console.log(formattedData);
- this.service.SaveProfession(formattedData).subscribe((res: any) => {
-   setTimeout(() => {
-     $(".page-loader-wrapper").hide();
-    
-   }, 1000); 
-   var response = res;
-   if (response["errorCode"] == "200") {  
-    this.snackbar.showSuccess(response.message, response.status);
-   }
-   else {
-     // console.error("API returned an error:", response.message); 
-     this.snackbar.showInfo(response["message"],"Error");
-   }
-     setTimeout(() => {
-      window.location.reload();
-        }, 3000);
-
- });
- 
-}
- 
-}
-
 onFileChange(event: any) {
   const input = event.target as HTMLInputElement;
     if (input?.files?.length) {
@@ -481,20 +332,7 @@ onFileChange(event: any) {
     }
 }
 
-EditActivity(Activity: any){ 
-    this.clsactivity = { ...Activity };
-    debugger;
-     // Convert date_of_posting to 'YYYY-MM-DD' format
-     this.clsactivity.date_posting = Activity.date_of_posting.split('T')[0];
-     this.clsactivity.friendlyurl = Activity.friendly_url;
-     this.clsactivity.thumbnail_img=Activity.thumbnail_image;
-    this.getCities(Activity.state_id) ;
-    this.selectedCity = Activity.city_id; 
-    this.getvillages(Activity.city_id,Activity.state_id); 
-    this.selectedVillage = Activity.village_id; 
 
-console.log(Activity);
-}
 
 ActivityDetail(Activity: any) { 
   console.log('Activity:', Activity);
@@ -571,15 +409,4 @@ export class cls_addactivity {
   imagePath:string='';
   user_id:string='';
   friendlyurl:string='';
-}
-export class cls_addprofession {
-  id: number = 0;
-  designation_id: number = 0;  
-  from_year: number = 0;
-  to_year: number = 0;
-  area: string = '';  
-  state_id: number = 0;
-  city_id: number = 0;
-  election_result: string = '';
-  election_contest: string = '';
 }

@@ -1,0 +1,450 @@
+.media-object{ 
+    width: 120px;
+    height: 120px;
+    border-radius: 100px;
+    border: 4px solid #fff;
+  }
+  .media{
+  position: absolute;
+    top: -50%;
+  } 
+  .password-toggle-icon{
+      position: absolute;
+      right: 30px;
+      top: 30px;
+  }
+  
+  .sub_plan{ 
+      position:relative; 
+  }
+  
+  .whitebg{
+      background-color: #fff !important;
+  }
+  
+  .detailsInner{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-direction: column;
+      align-items: flex-start;
+      
+  }
+  .detailsInner span{
+      text-align: left;
+      color: #2699fb;
+      color: #000;
+      padding: 5px 0;
+      font-size: 14px;
+  }
+  
+  .detailsInner span:first-child{
+      width: 150px;
+  }
+  
+  .prof_title{
+    font-size: 21px;
+    font-weight: 500;
+    margin-top: 10px;
+  }
+  .activities-container {
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+    
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .search-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+    
+    .search-bar input {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+    }
+    
+    .search-bar button {
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+      gap: 20px;
+    }
+    
+    .activity-card {
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+      border-radius: 4px; 
+      position: relative;
+    }
+    
+    .activity-image {
+      height: 215px;
+      background-color: #d0e7ff;
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+    .activity-image img{
+      width:100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+    .activity-content h3 {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    
+    .activity-meta span{
+      font-size: 12px;
+      color: #555;
+    }
+    
+    .activity-meta span {
+      display: block;
+      font-size: 16px;
+      color: #000;
+    }
+    
+    .edit-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 50px;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .edit-button1 {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #13446C;
+      color: white;
+      border: none; 
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 10px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .activity-detail-container {
+      padding: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .header h1 {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    
+    .content .card {
+      background: #f5f5f5;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .field {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    
+    .field label {
+      font-weight: bold;
+    }
+    
+    .actions {
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .actions .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .active_title{
+      font-size: 15px;
+      color: #000;
+    }
+    .actions .btn.delete {
+      background: #f44336;
+      color: white;
+    }
+    
+    .actions .btn.edit {
+      background: #ff9800;
+      color: white;
+    }
+    
+    .actions .btn.download {
+      background: #4caf50;
+      color: white;
+      text-decoration: none;
+      text-align: center;
+    }
+    
+    .round{
+      border-radius: 50px !important;
+  }
+  .srch_icon{
+      border-radius: 0 50px 50px 0;
+  }
+  
+  .active_title{
+    font-size: 15px;
+    color: #000;
+  }
+  
+  .active_timespan{
+    font-size: 10px;
+    color: #9B9B9B;
+  }
+  
+  .srch_icon{
+    background-color: #ccc;
+      border-radius: 50px;
+      position: absolute;
+      left: 5px;
+      top: 3px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+    
+  .search_txt{
+    padding-left: 60px;
+  }
+  
+  .banner{
+    width: 100%;
+    height: 200px;
+    border-radius: 15px;
+  }
+  .banner img{
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+  }
+  
+  .yop_btns{
+    margin-bottom: 5%;
+  }
+  
+  .details_profile{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background: #F3F5F6;
+      border-radius: 15px;
+      padding: 15px;
+  }
+  .small{
+    color:#9B9B9B;
+    font-size: 10px;
+  }
+  
+  .btn-grey{
+    background-color: #9B9B9B;
+    color:#fff
+  }
+  
+  .container {
+    font-family: Arial, sans-serif;
+    margin: 20px auto;
+    width: 90%;
+  }
+  
+  .note {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .tab.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .activity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .activity-card {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .activity-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  
+  .activity-card h3 {
+    font-size: 18px;
+    margin: 10px;
+  }
+  
+  .activity-card .date {
+    font-size: 14px;
+    color: gray;
+    margin: 10px;
+  }
+  
+  .activity-card p {
+    font-size: 14px;
+    margin: 10px;
+  }
+  
+  .add-activity {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .delete-icon { 
+    position: absolute;
+    top: 10px;
+    left: 10px; 
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .cursor{
+    cursor: pointer;
+  }
+  
+  .close1{
+    top: 0 !important;
+    position: relative; 
+    right: 2%;
+    top: 4%;
+    background-color: #D5D5D5 !important;
+    margin: 0 !important;
+    color: #000;
+    opacity: 1;
+    font-size: 24px;
+    font-weight: normal;
+    z-index: 99;
+    border-radius: 25px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+  }
+  
+  .modal-footer {
+    justify-content: flex-end !important;
+  }
+  
+  
+  .photo_div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px dashed #9B9B9B;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .up_div{
+    margin-left: 10px;
+    align-items: flex-start;
+  }
+  .up_div h4{
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  .up_div span{
+    font-size: 10px;
+    font-style: italic;
+    color: #9B9B9B;
+  }
+  
+  @media only screen and (max-width: 767px) {
+    .media{
+      position: relative;
+      justify-content: center;
+      top:-12%;
+    }
+    .media-left{
+      text-align: center;
+      margin-right: 0;
+    }
+    .mb-flex{
+      flex-direction: column !important;
+  
+    }
+    .yop_btns{
+      flex-direction: column !important;
+      margin-top: -25%;
+    }
+    .yop_btns .btn{
+      width: 100%;
+    }
+  }

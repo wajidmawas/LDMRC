@@ -17,6 +17,7 @@ export class MeetingsComponent {
   isLoggedIn:any ='';
   userdetails:any={};
   selectedmeeting: any = null;
+  messages: Message[] = [];
   constructor(private service:Meetingsservice, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
       $(".page-loader-wrapper").fadeOut();
@@ -29,6 +30,8 @@ export class MeetingsComponent {
     this.userdetails = JSON.parse(this.isLoggedIn)
     this.getupcomingmetting(0);
     this.getmymetting(this.userdetails.user_id)
+    this.getmymessage(this.userdetails.user_id)
+    
   }
   getupcomingmetting(id: any) { 
     const objRequest = {
@@ -78,7 +81,34 @@ export class MeetingsComponent {
       }
     });
   }
- 
+  getmymessage(id: number) { 
+    const objRequest = {
+      typeId: 31,
+      userid: id,
+      filterId: 0,
+      filterText: "",
+      filterText1: ""
+    };
+  
+    this.service.getMasters(objRequest).subscribe({
+      next: (response: any) => {  
+        debugger;
+         const parseresponse = JSON.parse(response.response); 
+        this.messages = parseresponse.Table;
+        console.log(this.messages);
+      },
+      error: (error: any) => {
+        console.error("API call failed:", error);
+      },
+      complete: () => {
+        console.log("API call completed.");
+      }
+    });
+  }
+  sanitizeFilePath(filePath: string) {
+    // Fix backslashes in URLs and sanitize for safe rendering
+    return filePath.replace(/\\/g, '/');
+  }
   backtohome(){
     window.location.href = "/dashboard";
   }
@@ -135,3 +165,15 @@ export interface Meeting {
   Meetingstatus:number;
 
 }
+
+export interface Message {
+  id: number;
+  msg_date: string;
+  msg_time: string;
+  file_path: string;
+  title: string;
+  description: string;
+  Datetime: string;
+  Sender: string;
+}
+

@@ -22,6 +22,9 @@ export class ProfileService {
   SaveActivity(addActivity: FormData) {
     return from(this.sharedService.postForFormData(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/save_articles", addActivity));
   }
- 
+  SaveProfession(Addprofession: object) {  
+  console.log(Addprofession);
+    return this.http.post(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/save_userprofession", Addprofession,{ headers: this.sharedService.returnHttpHeaders()});
+  }
   
 }

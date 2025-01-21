@@ -38,6 +38,7 @@ export class AddmessageComponent implements OnInit {
   isonline: number = 0;
   expandedPanels: { [key: string]: boolean } = {};
   clsinvite:cls_addmessage=new cls_addmessage();
+  userdetails:any={};
   constructor(private route: ActivatedRoute,private service:Meetingsservice, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
       $(".page-loader-wrapper-review").fadeOut();
@@ -49,6 +50,7 @@ export class AddmessageComponent implements OnInit {
     debugger;
     $(".page-loader-wrapper").fadeOut();  
     this.isLoggedIn = localStorage.getItem("cl_user");
+    this.userdetails = JSON.parse(this.isLoggedIn)
     this.getLookupMaster(0);
     this.getActivityMaster(0);
     this.getOrganizer(0);
@@ -239,37 +241,46 @@ clearParticipants() {
      // Append form fields
      formData.append('id', this.clsinvite.id.toString());
      formData.append('sender_id', this.clsinvite.sender_id.toString());
-     formData.append('created_by', '1');
+     formData.append('created_by', this.userdetails.user_id.toString());
      formData.append('msg_date', this.clsinvite.msg_date.toString());
      formData.append('msg_time', this.clsinvite.msg_time.toString());
      formData.append('desc', this.clsinvite.desc.toString());
      formData.append('title', this.clsinvite.title.toString());
      formData.append('imageFile', this.clsinvite.imageFile);
-     formData.append('imagePath', "https://ldmrc_api.pulseadmin.in/__DIR\Attachments\f9dc32a6-5a47-438e-82e8-be781921d72d.png");
-     formData.append('designations', this.clsinvite.designations.toString());
+     formData.append('imagePath', this.clsinvite.imagePath);
      formData.append('participants', this.clsinvite.participants.toString());
+     formData.append('designations', this.clsinvite.designations.toString());
 
         // Append file only if it exists
-        if (this.clsinvite.imageFile && this.clsinvite.imageFile instanceof File) {
-         formData.append('imageFile', this.clsinvite.imageFile);
-       }
+      //   if (this.clsinvite.imageFile && this.clsinvite.imageFile instanceof File) {
+      //    formData.append('imageFile', this.clsinvite.imageFile);
+      //  }
      if (this.clsinvite.id != 0) {
        formData.append('id', this.clsinvite.id.toString());
        formData.delete('imageFile'); 
    }
+   formData.forEach((value, key) => {
+    console.log(`${key}: ${value}`);
+  });
+  console.log(this.clsinvite.participants);
+  console.log(this.clsinvite.designations);
+
+
  this.service.SaveMessage(formData).subscribe((res: any) => {
    setTimeout(() => {
      $(".page-loader-wrapper-review").hide();
    }, 500);
    var response = res;
-   if (response._body.errorCode == "200") {
-      this.snackbar.showSuccess(response._body.message, response._body.status);
+   if (response.errorCode == "200") {
+      this.snackbar.showSuccess(response.message, response.status);
      setTimeout(() => {
        this.clsinvite = new cls_addmessage(); // Reset form data
+        this.clearDesignations();
+        this.clearParticipants();
      }, 3000);
     
    } else {
-     this.snackbar.showInfo(response._body.message, "Error");
+     this.snackbar.showInfo(response.message, "Error");
    }
  });
   
@@ -450,7 +461,8 @@ onFileChange(event: any) {
   const input = event.target as HTMLInputElement;
     if (input?.files?.length) {
       const file = input.files[0];
-      this.clsinvite.imageFile = file; // Assign File object
+      this.clsinvite.imageFile = file; 
+       this.clsinvite.imagePath=file.name;
     }
 }
   selectAllActivities(category: any) {

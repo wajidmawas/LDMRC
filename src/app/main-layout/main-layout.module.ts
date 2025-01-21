@@ -22,6 +22,8 @@ import { FooterComponent } from './footer/footer.component';
 import { CongressOrganizationModule } from './congress-organization/congress-organization.module'; 
 import { CongressLeadersModule } from './congress-leaders/congress-leaders.module';
 import { ActivityListModule } from './activity-list/activity-list.module';
+import { UserProfileModule } from './user-profile/user-profile.module';
+
 // import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
@@ -48,7 +50,8 @@ import { ActivityListModule } from './activity-list/activity-list.module';
     MeetingModule,
     CongressOrganizationModule,
     ActivityListModule,
-    CongressLeadersModule
+    CongressLeadersModule,
+    UserProfileModule
     // ,CarouselModule
     
   ],
