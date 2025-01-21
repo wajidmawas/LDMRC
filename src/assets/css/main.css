@@ -11597,6 +11597,7 @@ app-footer{
 .nav-tabs .nav-link{
     background-color: #f1f1f1;
     border-radius: 0;
+    padding: 12px 24px 12px;
 }
 
 .nav-tabs:first-child{
@@ -11629,4 +11630,8 @@ app-footer{
     position: absolute;
     left: 15px;
     top: 16px;
+}
+
+button:focus{
+    outline: 0 !important;
 }
