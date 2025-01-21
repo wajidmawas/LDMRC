@@ -248,24 +248,12 @@ clearParticipants() {
      formData.append('title', this.clsinvite.title.toString());
      formData.append('imageFile', this.clsinvite.imageFile);
      formData.append('imagePath', this.clsinvite.imagePath);
-     formData.append('participants', this.clsinvite.participants.toString());
-     formData.append('designations', this.clsinvite.designations.toString());
-
-        // Append file only if it exists
-      //   if (this.clsinvite.imageFile && this.clsinvite.imageFile instanceof File) {
-      //    formData.append('imageFile', this.clsinvite.imageFile);
-      //  }
+     formData.append('participants', JSON.stringify(this.clsinvite.participants));
+     formData.append('designations', JSON.stringify(this.clsinvite.designations));
      if (this.clsinvite.id != 0) {
        formData.append('id', this.clsinvite.id.toString());
        formData.delete('imageFile'); 
    }
-   formData.forEach((value, key) => {
-    console.log(`${key}: ${value}`);
-  });
-  console.log(this.clsinvite.participants);
-  console.log(this.clsinvite.designations);
-
-
  this.service.SaveMessage(formData).subscribe((res: any) => {
    setTimeout(() => {
      $(".page-loader-wrapper-review").hide();
@@ -384,6 +372,7 @@ this.categories1 = (categoriesWithActivities|| []).map((category: any) => ({
     }
   }
   onCheckboxChange(event: any, activity: any) {
+    debugger;
     activity.checked = event.checked;
       // Filter the selected designations
       if (activity.checked) {
