@@ -73,7 +73,7 @@ export class CongressOrganizationComponent {
   return this.Users=this.Users.filter((item: any) =>(item.caste_id === 6));
   }
   viewDetails(access_token:any){
-    
+    window.location.href = "/user-profile/"+access_token;
   }
   LoadMasters() {
     const objRequest = {

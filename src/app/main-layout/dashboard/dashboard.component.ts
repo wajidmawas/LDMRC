@@ -64,7 +64,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
   images: any[] = [];
   title = 'dashboard';
-  Activities: any = [];
+  Activities: any = [];Communications: any = [];
+  TopCommunications: any = [];
   PhysicalMetting: any = [];
   meetings: any = [];
   Mymetting: Meeting[] = [];
@@ -180,6 +181,8 @@ constructor(public sharedService: SharedService,private router: Router,private s
         var parseresponse = JSON.parse(response.response); 
         if (response["errorCode"] === "200") {
           this.Activities = parseresponse.Table;
+          this.Communications = parseresponse.Table1;
+          this.TopCommunications = parseresponse.Table2;
         } else {
           console.error("API returned an error:", response.message); 
         }

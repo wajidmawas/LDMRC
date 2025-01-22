@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';  // <-- Import this module
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
@@ -36,12 +37,13 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
 
 //#add activity 
 activityId: string | null = null;
+user_access: string | null = null;
 responseid:any=[];
 //#end activity
 ProfessionList: any = [];
 
 
-constructor(private router: Router,private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
+constructor(private route: ActivatedRoute,private router: Router,private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
     this.titleService.setTitle("Leaders Development Mission - Profile");
 }
 
@@ -54,13 +56,15 @@ logout() {
 }
 ngOnInit(): void { 
   $(".page-loader-wrapper").fadeOut();  
-  this.userDtail = localStorage.getItem("cl_user");
-  this.userdetails = JSON.parse(this.userDtail)
-console.log("UserDetails",this.userdetails)
-this.getLookupMaster(0);
-this.getActivityType(0);
- this.LoadActivity(this.userdetails.user_id,this.titlesearch);
- this.getprofessionDetails(this.userdetails.user_id);
+  this.user_access = this.route.snapshot.paramMap.get('id');
+  if(this.user_access==null || this.user_access=="" || this.user_access==undefined)
+  {
+    window.location.href='/profile';
+  }
+
+  this.userDtail = localStorage.getItem("cl_user"); 
+  this.getUserDetailsByAccess_token(this.user_access);
+
 }
 getprofessionDetails(id: number) {
   const objRequest = {
@@ -101,122 +105,28 @@ searchactivity(){
   this.LoadActivity(this.userdetails.user_id,this.titlesearch);
 
 }
-onstateChange(event: any): void {
-  this.selectedState = event.target.value; 
-  this.getCities(event.target.value) 
-}
-oncityChange(event: any): void {
-  this.selectedCity = event.target.value; 
-  this.getvillages(event.target.value,this.selectedState);
-}
-onvillageChange(event: any): void {
-  this.selectedVillage = event.target.value; 
-}
-onActvitytypeChange(event: any): void {
-  this.selectedActvity = event.target.value; 
-}
-getCities(id: any) {
-  const objRequest = {
-    typeId: 2,
-    userid: 0,
-    filterId: id,
-    filterText: "",
-    filterText1: ""
-  };
-  console.log(JSON.stringify(objRequest));
-  this.service.getMasters(objRequest).subscribe({
-    next: (response: any) => { 
-      var parseresponse = JSON.parse(response.response); 
-     
-      if (response["errorCode"] === "200") { 
-        this.cities = parseresponse.Table
-       console.log("Cities" + JSON.stringify(this.cities))
-      } else {
-        console.error("API returned an error:", response.message); 
-      }
-    },
-    error: (error: any) => {
-      console.error("API call failed:", error);
-      
-    },
-    complete: () => {
-      console.log("API call completed.");
-    }
-  });
-}
-getvillages(id: any,state :any) { 
-  const objRequest = {
-    typeId: 5,
-    userid: 0,
-    filterId: state,
-    filterText: String(id),
-    filterText1: ""
-  };
-  console.log(JSON.stringify(objRequest));
-  this.service.getMasters(objRequest).subscribe({
-    next: (response: any) => {  
-      var parseresponse = JSON.parse(response.response); 
-     
-      if (response["errorCode"] === "200") { 
-        this.villages = parseresponse.Table
-       console.log("villages" + JSON.stringify(this.villages))
-      } else {
-        console.error("API returned an error:", response.message); 
-      }
-    },
-    error: (error: any) => {
-      console.error("API call failed:", error);
-      
-    },
-    complete: () => {
-      console.log("API call completed.");
-    }
-  });
-}
-getLookupMaster(id: any) {
-  const objRequest = {
-    typeId: 1,
-    userid: 0,
-    filterId: id,
-    filterText: "",
-    filterText1: ""
-  };
-
-  this.service.getMasters(objRequest).subscribe({
-    next: (response: any) => { 
-      var parseresponse = JSON.parse(response.response); 
-      if (response["errorCode"] === "200") {
-        this.states = parseresponse.Table1;
-      } else {
-        console.error("API returned an error:", response.message); 
-      }
-    },
-    error: (error: any) => {
-      console.error("API call failed:", error);
-      // Handle the error appropriately
-      // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
-    },
-    complete: () => {
-      console.log("API call completed.");
-    }
-  });
-}
-getActivityType(id: any) {
+  
+getUserDetailsByAccess_token(accesstoken: any) {
   const objRequest = {
     typeId: 18,
     userid: 0,
-    filterId: id,
-    filterText: "",
+    filterId: 0,
+    filterText: accesstoken,
     filterText1: ""
   };
 
-  this.service.getMasters(objRequest).subscribe({
+  this.service.getUserDetailsByAccessToken(objRequest).subscribe({
     next: (response: any) => { 
-      var parseresponse = JSON.parse(response.response); 
+      
       if (response["errorCode"] === "200") {
-        this.ActivityType = parseresponse.Table;
+        var parseresponse =response.response;
+        this.userDtail = parseresponse; 
+        this.userdetails = parseresponse;
+        this.LoadActivity(this.userdetails.user_id,this.titlesearch);
+        this.getprofessionDetails(this.userdetails.user_id);
       } else {
         console.error("API returned an error:", response.message); 
+        this.snackbar.showInfo(response.message, "Error");
       }
     },
     error: (error: any) => {

@@ -20,24 +20,36 @@ import 'jquery';
 export class ActivityListComponent {
   isLoggedIn:any='';
   Activities:any=[];
+  ActivitiesList:any=[];
   selectedActivity: any = null;
   titlesearch:string='';
   constructor(private router: Router,private service:ActivitylistService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService) {
     this.titleService.setTitle("Leaders Development Mission - Profile");
 }
-ActivityDetail(Activity: any) { 
-  console.log('Activity:', Activity);
+ActivityDetail(Activity: any) {  
   if (Activity && Activity.code) {
     this.router.navigate([`activity_detail`, Activity.code]);
   } else {
     console.error('Invalid Activity object or missing ID');
   }
 }
-filterActivities(caste_id: number) {  
-  return this.Activities.filter((item: any) =>item.caste_id=== caste_id);
+filterTab(caste_id:number){
+  this.Activities=this.ActivitiesList; 
+  return this.Activities = this.Activities.filter((item: any) =>item.caste_id=== caste_id);
 }
-filtermyActivities(caste_id: number) {  
-  console.log(this.isLoggedIn.user_id)
+addActivity(){ 
+  if(this.isLoggedIn!=null)
+  {
+  window.location.href = "/profile";
+  }
+  else{
+    window.location.href = "/auth/login";
+  }
+}
+ 
+filtermyActivities(caste_id: number) {   
+  this.Activities=this.ActivitiesList; 
+  if(this.isLoggedIn!=null)
   return this.Activities.filter((item: any) =>item.created_by=== JSON.parse(this.isLoggedIn).user_id);
 }
 setSelectedActivity(activity: any): void {
@@ -109,6 +121,8 @@ DeleteActivity(Activity: any) {
         var parseresponse = JSON.parse(response.response); 
         if (response["errorCode"] === "200") {
           this.Activities = parseresponse.Table;
+          this.ActivitiesList=this.Activities;
+          this.Activities = this.Activities.filter((item: any) =>item.caste_id=== 3);
         } else {
           console.error("API returned an error:", response.message); 
         }

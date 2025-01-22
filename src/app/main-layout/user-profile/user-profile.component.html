@@ -173,9 +173,7 @@
                                               <div class="col-lg-3 mb-3" *ngFor="let activity of Activities">
                                                 <div class="card no-bdr cursor">
                                                 <div class="activity-image">
-                                                  <button class="delete-icon btn-danger" data-toggle="modal" data-target="#delaccount" (click)="setSelectedActivity(activity)">
-                                                    <i class="fa fa-trash"></i>
-                                                  </button>
+                                               
                                                <img [src]="activity.thumbnail_image || '../../../assets/images/login_bg.png'" (click)="ActivityDetail(activity)" alt="Activity Image" />
                                                 </div>
                                                 <div class="card-body drop_shadow" (click)="ActivityDetail(activity)">

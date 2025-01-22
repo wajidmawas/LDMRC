@@ -17,7 +17,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { UserProfileComponent } from './user-profile.component';
 const routes: Routes = [
   {
-    path: 'user-profile',
+    path: 'user-profile/:id',
     component: UserProfileComponent,
   },
 ];
