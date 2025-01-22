@@ -46,6 +46,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     window.location.href = "/congress_organization";
     else if(_pageTye=='CL')
     window.location.href = "/congress_leaders";
+  else if(_pageTye=='EL')
+    window.location.href = "/election_members";
+   else if(_pageTye=='LDM')
+    window.location.href = "/leader_development_mission";
     else if(_pageTye=='Activities')
     window.location.href = "/activity_list";
     else if(_pageTye=='Meetings')

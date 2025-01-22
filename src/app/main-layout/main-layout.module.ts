@@ -23,7 +23,8 @@ import { CongressOrganizationModule } from './congress-organization/congress-org
 import { CongressLeadersModule } from './congress-leaders/congress-leaders.module';
 import { ActivityListModule } from './activity-list/activity-list.module';
 import { UserProfileModule } from './user-profile/user-profile.module';
-
+import { LeaderDevelopmentMissionModule } from './leader-development-mission/leader-development-mission.module';
+import { ElectionMembersModule } from './election-members/election-members.module';
 // import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
@@ -51,7 +52,9 @@ import { UserProfileModule } from './user-profile/user-profile.module';
     CongressOrganizationModule,
     ActivityListModule,
     CongressLeadersModule,
-    UserProfileModule
+    UserProfileModule,
+    ElectionMembersModule,
+    LeaderDevelopmentMissionModule
     // ,CarouselModule
     
   ],
