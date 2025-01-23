@@ -1,0 +1,110 @@
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row mb-2">
+          <div class="col-lg-12">
+          <ul class="breadcrumb">                          
+            <li class="breadcrumb-item">Dashboard</li>
+            <li class="breadcrumb-item active">Knowledge Base(Repository Of Documents/Videos) </li>
+        </ul>
+      </div>
+        </div>
+              <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
+                      <a href="javascript::(0)" (click)="backtohome()">
+                      <i class="fa fa-arrow-left mr-2"></i></a>
+                      <h2 class="mb-0">Knowledge Base(Repository Of Documents/Videos)</h2> 
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                      <div class="d-flex flex-row-reverse">
+                          <div class="page_action">
+          
+                          </div>
+                          
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+          <div class="row"> 
+            <div class="col-lg-12">
+                
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="AICC-tab" data-toggle="tab" href="#AICC" (click)="showTab('Documents')" role="tab" aria-controls="home" aria-selected="true">Documents</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="PCC-tab" data-toggle="tab" href="#AICC" (click)="showTab('Circulars')" role="tab" aria-controls="profile" aria-selected="false">Circulars</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="SC-tab" data-toggle="tab" href="#AICC" (click)="showTab('Videos')" role="tab" aria-controls="contact" aria-selected="false">Videos</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="ST-tab" data-toggle="tab" href="#AICC" (click)="showTab('Photos')" role="tab" aria-controls="contact" aria-selected="false">Photos</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="OBC-tab" data-toggle="tab" href="#AICC" (click)="showTab('Recommended')" role="tab" aria-controls="contact" aria-selected="false">Recommended Readings</a>
+                    </li> 
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="AICC" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="tabseachBar">
+                            <div class="search tab_search">
+                                <i class="fa fa-search"></i> 
+                                <input type="text" class="form-control round"> 
+                            </div>
+                            <div class="btns">
+                              <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
+                              <button class="btn btn-secondary"><i class="fa fa-cloud-download mr-2"></i>Download</button>
+                            </div> 
+                      </div>
+                      <div class="row">
+                        <div class="card col-lg-3 mb-3" *ngFor="let meeting of knowledgebase; let i = index"> 
+                          <div class="card no-bdr cursor">  
+                            <div class="card-body">
+                              <div *ngIf="meeting.type=='Documents' || meeting.type=='Circulars'; else videoContent"> 
+                                <h6 class="active_title mb-0" *ngIf="meeting.type=='Documents'">{{ meeting.author }}</h6>
+                                <span class="active_timespan">{{ meeting.date.split('T')[0] }}</span>
+                                <div class="activity-meta mt-3">
+                                  <span> {{ meeting.title }} 
+                                  </span> 
+                               </div>
+                             </div>
+                             <ng-template #videoContent >
+                              <div class="activity-image"> 
+                                <img [src]="meeting.thumbnail_img || '../../../assets/images/login_bg.png'" (click)="ActivityDetail(meeting)" alt="Activity Image" />
+                                 </div>
+                                 <div class="card-body" (click)="ActivityDetail(meeting)">
+                                   <h3 class="active_title mb-0">{{ meeting.author }}</h3>
+                                   <span class="active_timespan">{{ meeting.date.split('T')[0] }}</span>
+                                   <div class="activity-meta mt-3">
+                                     <span> {{ meeting.title }} 
+                                     </span> 
+                                   </div>
+                                  
+                                 </div>
+
+                             </ng-template>
+
+                            </div>
+                         
+                          <hr>
+                          <div class="row">
+                          <div class="col-lg-6"  > 
+                            <a href="javascript::" >Share <i class="fa fa-share"></i></a>
+                         </div>
+                        <div class="col-lg-6">    <a href="javascript::" > View <i class="fa fa-arrow-right"></i></a>
+                        </div></div>
+                      </div>
+                        
+                        </div>
+                        <!-- <img [src]="meeting.image_path || '../../../assets/images/logo.png'" 
+                                      width="32" height="32"> -->
+                      </div>
+                    </div>
+                     
+                  </div>
+                 
+            </div>
+          </div>
+   </div>

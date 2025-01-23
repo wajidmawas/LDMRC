@@ -9,13 +9,14 @@
                         <h2 class="footer_link_title">
                             Newsletter
                          </h2>
-                         <p>Lorem Ipsum simply dummy text.</p>
+                         <p>Subscribe to our newsletter and stay updated!</p>
                     </div>
                  
                      <div class="d-flex align-items-center mt-2 mb-flex">
-                        <input type="email"  placeholder="Email" class="form-control mr-3 srch_txbox"/>
-                        <button class="btn btn-primary nowrap">Subscribe <img src="../../../assets/images/btn_arrow.png"  class="btn_arrow ml-2"/></button>
-                     </div>
+                        <input type="email"     pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  placeholder="Email" [(ngModel)]="EmailAddress"  class="form-control mr-3 srch_txbox"/>
+                        <button class="btn btn-primary nowrap" (click)="subscribeEmail()">Subscribe <img src="../../../assets/images/btn_arrow.png"  class="btn_arrow ml-2"/></button>
+                      
+                    </div>
                     </div>
             </div>
         </div>
@@ -48,7 +49,7 @@
                         <li><a href="javascript::(0)" (click)="redirect_page('CL')">Elections, Elected Members Data</a></li>
                         <li><a href="javascript::(0)" (click)="redirect_page('Activities')">Activities of SC, ST, OBC & Minority Dept</a></li>
                         <li><a href="javascript::(0)" (click)="redirect_page('Meetings')">Online Trainings</a></li>
-                        <li><a href="javascript::(0)" (click)="redirect_page('CO')">Knowledge Base</a></li>
+                        <li><a href="javascript::(0)" (click)="redirect_page('KB')">Knowledge Base</a></li>
                         <li><a href="javascript::(0)" (click)="redirect_page('Meetings')">Meetings & Communications</a></li>
                     </ul>
                  </div>

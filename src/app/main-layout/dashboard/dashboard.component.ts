@@ -136,6 +136,8 @@ constructor(public sharedService: SharedService,private router: Router,private s
     window.location.href = "/congress_leaders";
   else if(_pageTye=='EL')
     window.location.href = "/election_members";
+   else if(_pageTye=='KB')
+    window.location.href = "/knowledge_base";
     else if(_pageTye=='Activities')
     window.location.href = "/activity_list";
    else if(_pageTye=='LDM')

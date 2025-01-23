@@ -60,7 +60,7 @@
                                   <mat-checkbox color="#000">All</mat-checkbox>
                                 </div>
                                 <div class="inputcheck" *ngFor="let meeting of Designations.slice(0,DesignationLimit)" >
-                                  <mat-checkbox color="#000">{{ meeting.name }}</mat-checkbox>
+                                  <mat-checkbox (change)="onCheckedResult(meeting,'Designations')" color="#000" [checked]="meeting.is_selected">{{ meeting.name }}</mat-checkbox>
                                 </div>
                                 <a class="btn fil-sm"  *ngIf="DesignationLimit < Designations.length" (click)="showmore('designation')" >More</a>
                                 <a class="btn fil-sm"  *ngIf="DesignationLimit == Designations.length" (click)="showless('designation')" >Less</a>
@@ -96,7 +96,7 @@
                                 <mat-checkbox color="#000">All</mat-checkbox>
                               </div>
                               <div class="inputcheck" *ngFor="let meeting of States.slice(0,StatesLimit)" >
-                                <mat-checkbox color="#000">{{ meeting.STATENAME }}</mat-checkbox>
+                                <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'States')" color="#000" [checked]="meeting.is_selected">{{ meeting.STATENAME }}</mat-checkbox>
                               </div>
                               <a class="btn fil-sm" *ngIf="StatesLimit < States.length" (click)="showmore('states')" >More</a>
                               <a class="btn fil-sm"  *ngIf="StatesLimit == States.length" (click)="showless('states')" >Less</a>
@@ -136,7 +136,7 @@
                 </div>
                 <div class="d-flex align-items-center justify-content-center mt-3 mb-3">
                     <button class="btn btn-outline-white mr-2">Clear</button>
-                    <button class="btn btn-primary">Apply</button>
+                    <button class="btn btn-primary" (click)="filterResult()">Apply</button>
                 </div>
                 </div>
             </div>

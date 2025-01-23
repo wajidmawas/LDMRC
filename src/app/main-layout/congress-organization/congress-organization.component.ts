@@ -27,6 +27,7 @@ export class CongressOrganizationComponent {
   StatesLimit:number=5;
   userDetail:any={};
   Designations: any = [];
+  FiltersList: any = [];
   Users: any = [];
   UsersList: any = [];
   States: any = [];
@@ -59,6 +60,49 @@ export class CongressOrganizationComponent {
      }
    
   }
+  filterResult(){ 
+    let selectedlist = this.Designations
+    .filter((item: any) => item.is_selected==true)
+    .map((item: any) => item.id);
+  
+  let existingFilter = this.FiltersList.find((item: any) => item.filterType === 'Designations');
+  if (selectedlist) {
+  if (existingFilter) {
+    existingFilter.Designations = selectedlist;
+  } else {
+    this.FiltersList.push({ filterType: 'Designations', Designations: selectedlist });
+  }
+}
+
+  selectedlist = this.States
+    .filter((item: any) => item.is_selected==true) 
+    .map((item: any) => item.STATEID);
+    existingFilter = this.FiltersList.find((item: any) => item.filterType === 'States');
+  
+    if (selectedlist) {
+  if (existingFilter) {
+    existingFilter.States = selectedlist;
+  } else {
+    this.FiltersList.push({ filterType: 'States', States: selectedlist });
+  }
+}
+
+  }
+  onCheckedResult(childitem:any,checked_type:any) {  
+    if(checked_type=='Designations'){
+    let obj=this.Designations.filter((item: any) =>(item.id === childitem.id));
+    if(obj!=null){
+      obj[0].is_selected=obj.is_selected==true ? false :true;
+    }
+  }
+  else  if(checked_type=='States'){
+    let obj=this.States.filter((item: any) =>(item.STATEID === childitem.STATEID));
+    if(obj!=null){
+      obj[0].is_selected=obj.is_selected==true ? false :true;
+    }
+  }
+  }
+
   showTab(tab_type:any){ 
     this.Users=this.UsersList;
     if(tab_type=='PCC')
