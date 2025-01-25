@@ -91,6 +91,16 @@
                     </select>
                 </div>
             </div>
+           
+                <div class="col-lg-3"><mat-checkbox [(ngModel)]="clsinvite.istraining_flg" color="#000">Is Training</mat-checkbox></div> 
+                <div class="col-lg-3" *ngIf="clsinvite.istraining_flg==true" >
+                    <div class="form-group">
+                        <label >End Date</label>
+                        <input class="form-control" type="date" placeholder="Enter Date" [(ngModel)]="clsinvite.end_date" [ngModelOptions]="{standalone: true}"  [attr.min]="todayDate">
+                    </div>
+                </div>
+
+               
             <div class="col-lg-12">
                 <div class="form-group">
                     <label >Short Description</label>

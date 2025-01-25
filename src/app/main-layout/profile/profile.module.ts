@@ -18,6 +18,7 @@ import { ProfileComponent } from './profile.component';
 import { ProfileService } from './profile.service';
 import { AddactivityComponent } from './addactivity/addactivity.component';
 import { ActivitydetailComponent } from './activitydetail/activitydetail.component';
+import { MeetingDetailComponent } from '../meeting-details/meeting-details.component';
 
 const routes: Routes = [
   {
@@ -32,13 +33,18 @@ const routes: Routes = [
     path: 'activity_detail/:id',
     component: ActivitydetailComponent, 
   },
+  {
+    path: 'meeting_detail/:id',
+    component: MeetingDetailComponent, 
+  },
 ];
 
 @NgModule({
   declarations: [
     ProfileComponent,
     AddactivityComponent,
-    ActivitydetailComponent
+    ActivitydetailComponent,
+    MeetingDetailComponent
   ],
   imports: [
     CommonModule,
@@ -63,7 +69,8 @@ const routes: Routes = [
   exports: [
     ProfileComponent,
     AddactivityComponent,
-    ActivitydetailComponent
+    ActivitydetailComponent,
+    MeetingDetailComponent
    ],
   providers: [ProfileService],
   bootstrap: [ProfileComponent]

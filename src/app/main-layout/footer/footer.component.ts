@@ -65,6 +65,6 @@ subscribeEmail(){
     else if(_pageTye=='Meetings')
     window.location.href = "/meetings";
     else if(_pageTye=='Trainings')
-    window.location.href = "/meetings";
+    window.location.href = "/trainings";
    }
 }

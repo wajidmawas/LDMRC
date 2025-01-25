@@ -141,7 +141,10 @@ export class AddmeetingsComponent implements OnInit {
           this.clsinvite.meeting_location= parseresponse.Table[0].meeting_location;
           this.clsinvite.short_desc= parseresponse.Table[0].short_desc;
           this.clsinvite.isonline= parseresponse.Table[0].isonline;
-          this.selectedOption = this.clsinvite.isonline; // Bind to the selectedOption model
+          if(parseresponse.Table[0].is_training==true){
+          this.clsinvite.istraining_flg=true; // Bind to the selectedOption model
+          this.clsinvite.istraining=1;
+          }
            // Update the designations based on the API response
           this.updateDesignationsList(parseresponse.Table2); 
 // Update the organisation based on the API response
@@ -153,7 +156,7 @@ export class AddmeetingsComponent implements OnInit {
           console.error("API call failed:", error);
         },
         complete: () => {
-          console.log("API call completed.");
+         
         }
       });
      }
@@ -222,7 +225,13 @@ clearParticipants() {
         }
         });
       }
-      console.log('Updated Participants:', this.clsinvite.participants);
+       
+      if(this.clsinvite.istraining_flg)
+        this.clsinvite.istraining=1;
+      if(this.clsinvite.end_date=="" || this.clsinvite.end_date==undefined ||
+      this.clsinvite.end_date==null){
+        this.clsinvite.end_date=this.clsinvite.date;
+      }
     if (this.clsinvite.isonline == null) {
       this.snackbar.showInfo("Please select Meeting", "Error");
       validate = true;
@@ -271,6 +280,10 @@ clearParticipants() {
     }
     else if (this.clsinvite.designations == null || this.clsinvite.designations.length === 0) {
       this.snackbar.showInfo("Please Select Designations", "Error");
+      validate = true;
+    }
+    else if (this.clsinvite.istraining_flg && this.clsinvite.end_date< this.clsinvite.date ) {
+      this.snackbar.showInfo("Invalid end date", "Error");
       validate = true;
     }
    if(!validate) {
@@ -377,7 +390,7 @@ clearParticipants() {
         console.error("API call failed:", error);
       },
       complete: () => {
-        console.log("API call completed.");
+         
       }
     });
   }
@@ -399,7 +412,7 @@ clearParticipants() {
         console.error("API call failed:", error);
       },
       complete: () => {
-        console.log("API call completed.");
+        
       }
     });
   }
@@ -434,7 +447,7 @@ this.categories1 = (categoriesWithActivities|| []).map((category: any) => ({
         console.error("API call failed:", error);
       },
       complete: () => {
-        console.log("API call completed.");
+        
       }
     });
   }
@@ -458,7 +471,7 @@ this.categories1 = (categoriesWithActivities|| []).map((category: any) => ({
         console.error("API call failed:", error);
       },
       complete: () => {
-        console.log("API call completed.");
+       
       }
     });
   }
@@ -581,19 +594,21 @@ export class cls_addmeeting {
   date: string= '';
   time:string=''; 
   notification_type:number=0;
+  end_date:string='';
   duration:number = 0;
   description: string = '';
   // isonline:number=0;
   isonline:string='0';
-
+  istraining:number=0;
+  istraining_flg:boolean=false;
   meeting_location:string='';
   meeting_link:string='';
   short_desc:string='';
   is_reschdule:number=0;
   created_by:number=1;
   duration_type:string='';
-      designations: { id: string }[] = [];
-    participants: { id: number }[] = [];
-    organizer_id :number=0;
+  designations: { id: string }[] = [];
+  participants: { id: number }[] = [];
+  organizer_id :number=0;
 }
 

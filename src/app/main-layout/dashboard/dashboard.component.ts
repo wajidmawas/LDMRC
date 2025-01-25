@@ -147,7 +147,7 @@ constructor(public sharedService: SharedService,private router: Router,private s
     else if(_pageTye=='Meetings')
     window.location.href = "/meetings";
     else if(_pageTye=='Trainings')
-    window.location.href = "/meetings";
+    window.location.href = "/trainings";
    }
   getmymetting(id: number) { 
     const objRequest = {

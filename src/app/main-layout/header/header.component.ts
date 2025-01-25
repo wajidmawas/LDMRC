@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     else if(_pageTye=='Meetings')
     window.location.href = "/meetings";
     else if(_pageTye=='Trainings')
-    window.location.href = "/meetings";
+    window.location.href = "/trainings";
    }
  ngAfterViewInit(): void {
     

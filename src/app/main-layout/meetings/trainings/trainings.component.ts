@@ -1,16 +1,16 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import 'jquery';
 import { Router } from '@angular/router';
-import { Meetingsservice } from '../meetings/meetings.service';
+import { Meetingsservice } from '../../meetings/meetings.service';
 import { SnackbarService } from 'src/shared/snackbar-service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'meetings',
-  templateUrl: './meetings.component.html',
-  styleUrl: './meetings.component.scss'
+  selector: 'trainings',
+  templateUrl: './trainings.component.html',
+  styleUrl: './trainings.component.scss'
 })
-export class MeetingsComponent {
+export class TrainingsComponent {
 
   upcomingmeetings: Meeting[] = [];
   Mymetting: Meeting[] = [];
@@ -28,9 +28,7 @@ export class MeetingsComponent {
     $(".page-loader-wrapper").fadeOut();  
     this.isLoggedIn = localStorage.getItem("cl_user");
     this.userdetails = JSON.parse(this.isLoggedIn)
-    this.getupcomingmetting(0);
-    this.getmymetting(this.userdetails.user_id)
-    this.getmymessage(this.userdetails.user_id)
+    this.getupcomingmetting(0); 
     
   }
   getupcomingmetting(id: any) { 
@@ -45,33 +43,12 @@ export class MeetingsComponent {
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => {  
          const parseresponse = JSON.parse(response.response);  
-        const metting = parseresponse.Table.filter((item: any) =>(item.is_training === false || item.is_training === null));
+        const metting = parseresponse.Table.filter((item: any) =>(item.is_training === true && item.Meeting=='Physical Meeting'));
         this.upcomingmeetings = metting; 
-      },
-      error: (error: any) => {
-        console.error("API call failed:", error);
-      },
-      complete: () => {
-        console.log("API call completed.");
-      }
-    });
-  }
 
-  getmymetting(id: number) { 
-    const objRequest = {
-      typeId: 27,
-      userid: id,
-      filterId: 0,
-      filterText: "",
-      filterText1: ""
-    };
-  
-    this.service.getMasters(objRequest).subscribe({
-      next: (response: any) => {  
-         const parseresponse = JSON.parse(response.response); 
- const metting = parseresponse.Table.filter((item: any) =>(item.is_training === false || item.is_training === null));
- this.Mymetting = metting;
-  console.log(metting);
+        const training = parseresponse.Table.filter((item: any) =>(item.is_training === true && item.Meeting=='Zoom Meeting'));
+        this.Mymetting = training;
+
       },
       error: (error: any) => {
         console.error("API call failed:", error);
@@ -81,30 +58,7 @@ export class MeetingsComponent {
       }
     });
   }
-  getmymessage(id: number) { 
-    const objRequest = {
-      typeId: 31,
-      userid: id,
-      filterId: 0,
-      filterText: "",
-      filterText1: ""
-    };
   
-    this.service.getMasters(objRequest).subscribe({
-      next: (response: any) => {  
-        debugger;
-         const parseresponse = JSON.parse(response.response); 
-        this.messages = parseresponse.Table;
-        console.log(this.messages);
-      },
-      error: (error: any) => {
-        console.error("API call failed:", error);
-      },
-      complete: () => {
-        console.log("API call completed.");
-      }
-    });
-  }
   sanitizeFilePath(filePath: string) {
     // Fix backslashes in URLs and sanitize for safe rendering
     return filePath.replace(/\\/g, '/');

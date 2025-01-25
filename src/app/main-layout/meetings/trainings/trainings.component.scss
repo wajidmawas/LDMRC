@@ -1,0 +1,170 @@
+
+
+.meeting_list{
+    background-color: var(--card-color);
+    padding: 15px;
+    display: flex;
+    align-items: center; 
+}
+
+.meeting-dtls{
+    background: #bce0fd;
+    padding: 10px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.round{
+    border-radius: 50px !important;
+}
+.srch_icon{
+    border-radius: 0 50px 50px 0;
+}
+.tabseachBar{
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.meeting-dtls span{
+    display: block;
+    color: #2699fb;
+    font-size: 14px;
+}
+
+ 
+.meeting-dtls label{
+    display: block;
+    color: #2699fb;
+    font-size: 18px;
+}
+.meetingtype{
+    background: #fffdd1;
+    border-radius: 20px;
+    color: #000;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 5px 8px;
+}
+
+.meeting_list_left{ 
+    margin-right: 20px;
+    width: 60%;
+}
+
+.meeting_list_left h6{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.meeting_list_left span{
+    color: #2699fb;
+}
+
+.collapse .card-body .mdc-form-field>label{
+    font-size: 12px !important;
+}
+.alertbox{
+    padding: 20px 0;
+}
+.alertbox h2{
+    font-size: 30px;
+    color: #2699fb;
+    font-weight: 600;
+    margin: 15px 0;
+}
+.alertbox p{
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+
+.training_img{
+    width: 140px;
+    position: relative;
+}
+.training_img img{
+    width: 100%;
+}
+.tim_details{
+position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left: 33px;
+    bottom: 15px;
+}
+.tim_details span{
+    font-size: 10px;
+    color: #000;
+}
+
+.tim_details label{
+    font-size: 12px;
+    font-weight: 500;
+    color: #000;
+}
+
+.training_dtls{
+    width: 60%;
+}
+
+.training_dtls h2{
+    font-size: 12px;
+    color: #000;
+}
+
+.training_dur{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.train_b_details{
+    width: 100%;
+    border-radius: 50px;
+    background: #13446D;
+    padding: 3px 5px;
+    margin:5px 0;
+}
+
+.train_b_details h4{
+    font-size: 12px;
+    color: #fff;
+    margin-left: 5px;
+    margin-bottom: 0;
+}
+
+.train_b_details span{
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.train_b_details span img{
+    width: 16px;
+}
+
+.btn-white{
+    background-color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.tab-content{
+    padding: 15px 0;
+}
+
+.wp{
+    white-space: break-spaces !important;
+}
