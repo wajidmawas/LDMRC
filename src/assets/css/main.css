@@ -11635,3 +11635,20 @@ app-footer{
 button:focus{
     outline: 0 !important;
 }
+
+.card-footer{
+    width: 100%;
+    background-color: transparent;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #D5D5D5 !important;
+}
+.card-footer a{
+    font-size: 12px;
+    color: #19AAED;
+}
+.bx-shadow{
+    box-shadow: 0px 0px 12px #0000000F;
+}
+

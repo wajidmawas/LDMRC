@@ -26,7 +26,7 @@
           </div>
 
 
-          <div class="row"> 
+          <div class="row mt-5 mb-5"> 
             <div class="col-lg-12">
                 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -53,24 +53,32 @@
                                 <i class="fa fa-search"></i> 
                                 <input type="text" class="form-control round"> 
                             </div>
-                            <div class="btns">
+                            <!-- <div class="btns">
                               <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
                               <button class="btn btn-secondary"><i class="fa fa-cloud-download mr-2"></i>Download</button>
-                            </div> 
+                            </div>  -->
                       </div>
-                      <div class="row">
-                        <div class="card col-lg-3 mb-3" *ngFor="let meeting of knowledgebase; let i = index"> 
-                          <div class="card no-bdr cursor">  
+                      <div class="row mt-3">
+                        <div class="col-lg-3" *ngFor="let meeting of knowledgebase; let i = index">
+                        <div class="card no-bdr mb-2 bx-shadow"> 
+                           
                             <div class="card-body">
                               <div *ngIf="meeting.type=='Documents' || meeting.type=='Circulars'; else videoContent"> 
                                 <h6 class="active_title mb-0" *ngIf="meeting.type=='Documents'">{{ meeting.author }}</h6>
                                 <span class="active_timespan">{{ meeting.date.split('T')[0] }}</span>
                                 <div class="activity-meta mt-3">
-                                  <span> {{ meeting.title }} 
-                                  </span> 
+                                  <p> {{ meeting.title }} 
+                                  </p> 
                                </div>
                              </div>
-                             <ng-template #videoContent >
+                            
+
+                            </div>
+                            <div class="card-footer"> 
+                              <a href="javascript::" >Share <i class="fa fa-share"></i></a>
+                          <a href="javascript::" > View <i class="fa fa-caret-right"></i></a>
+                          </div>
+                            <ng-template #videoContent >
                               <div class="activity-image"> 
                                 <img [src]="meeting.thumbnail_img || '../../../assets/images/login_bg.png'" (click)="ActivityDetail(meeting)" alt="Activity Image" />
                                  </div>
@@ -85,19 +93,10 @@
                                  </div>
 
                              </ng-template>
-
-                            </div>
-                         
-                          <hr>
-                          <div class="row">
-                          <div class="col-lg-6"  > 
-                            <a href="javascript::" >Share <i class="fa fa-share"></i></a>
-                         </div>
-                        <div class="col-lg-6">    <a href="javascript::" > View <i class="fa fa-arrow-right"></i></a>
-                        </div></div>
-                      </div>
+                          
                         
                         </div>
+                      </div>
                         <!-- <img [src]="meeting.image_path || '../../../assets/images/logo.png'" 
                                       width="32" height="32"> -->
                       </div>

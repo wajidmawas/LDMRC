@@ -161,10 +161,12 @@ position: absolute;
     font-weight: 500;
 }
 
-.tab-content{
-    padding: 15px 0;
+.tab-content > .active{
+    padding-right: 0;
 }
-
+.nav-tabs{
+    margin-bottom: 0 !important;
+}
 .wp{
     white-space: break-spaces !important;
 }
