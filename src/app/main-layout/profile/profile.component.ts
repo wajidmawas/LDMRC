@@ -17,6 +17,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('activityModal') activityModal!: ElementRef;
+  
   user_id: number = 0;
   selectedActivity: any = null;
   Activities:any=[];

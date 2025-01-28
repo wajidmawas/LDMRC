@@ -26,6 +26,7 @@ $my-theme: mat.define-light-theme((color: (primary: $my-primary, accent: $my-acc
 @import "assets/css/h-menu.css";
 @import "assets/css/owl.carousel.min.css";
 @import "assets/css/owl.theme.default.css";
+@import "assets/css/sortable-tables.min.css";
 .video_login{
     position: relative;
     width: 100%; 
