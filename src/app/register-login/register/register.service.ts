@@ -6,7 +6,9 @@ export class RegisterService {
 
   constructor(private http: HttpClient, private sharedService:SharedService) {
   }
-
+  UserLogin(updatedLoggedInUser: any) { 
+    return this.http.post(this.sharedService._baseUrl + this.sharedService.AuthServiceUrl + "/ValidateUser", updatedLoggedInUser);
+  }
   RegisterClient(updatedLoggedInUser: object) { 
     return this.http.post(this.sharedService._baseUrl + this.sharedService.AuthServiceUrl + "/Register", updatedLoggedInUser);
   }

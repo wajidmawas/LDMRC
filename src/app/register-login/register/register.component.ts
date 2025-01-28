@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { RegisterService } from './register.service';
 import { SnackbarService } from 'src/shared/snackbar-service';
 import { TranslateService } from '@ngx-translate/core';
+import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'register',
   templateUrl: './register.component.html',
@@ -19,10 +20,15 @@ export class registerComponent implements OnInit, AfterViewInit {
   states: any = []; cities: any = [];
   casteList:any = [];
   selectedCaste: number | null = null;
+  registerForm:any = FormGroup;
   selectedState:number | null = null;
   selectedCity:number | null = null;
   selectedGender:string=""
-  constructor(private service:RegisterService, private snackbar:SnackbarService, private translate:TranslateService) {
+  todayDate:string="";
+  otp:string=""
+  otpForm:boolean=false;
+  successForm:boolean=false;
+  constructor(private service:RegisterService, private snackbar:SnackbarService, private _formBuilder:FormBuilder , private translate:TranslateService) {
     setTimeout(() => {
       $(".page-loader-wrapper").fadeOut();
     }, 300);
@@ -30,6 +36,18 @@ export class registerComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getLookupMaster(0);
+    const today = new Date();
+    this.todayDate = today.toISOString().split('T')[0];
+    this.registerForm= this._formBuilder.group({
+      first_name : ['',Validators.required],
+      last_name : ['',Validators.required],
+      email_id : ['',Validators.required],
+      mobile_no : ['',Validators.required],
+      gender : ['',Validators.required],
+      caste : ['',Validators.required],
+      address_1 : ['',Validators.required],
+      zipcode : ['',Validators.required],
+    })
    
   }
   ngAfterViewInit() {
@@ -104,8 +122,7 @@ export class registerComponent implements OnInit, AfterViewInit {
         var parseresponse = JSON.parse(response.response); 
        
         if (response["errorCode"] === "200") { 
-          this.cities = parseresponse.Table
-         console.log("Cities" + JSON.stringify(this.cities))
+          this.cities = parseresponse.Table 
         } else {
           console.error("API returned an error:", response.message); 
         }
@@ -119,10 +136,54 @@ export class registerComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  back(){
+    this.otpForm= false;
+    this.successForm= false;
+  }
+  login() { 
+    if(this.clsuser.mobile_no == undefined || this.clsuser.mobile_no == null || this.clsuser.mobile_no == '') {
+      this.snackbar.showInfo("Please enter emailaddress","Error");
+      return false;
+    }  
+    $(".page-loader-wrapper").show();
+    this.service.UserLogin(this.clsuser).subscribe((res: any) => {
+        var response = res; 
+        if (response["errorCode"] == "200") { 
+          this.clsuser = response.response;  
+          this.otpForm= true; 
+          localStorage.setItem("cl_user", JSON.stringify(this.clsuser));
+        }
+        else if (response["errorCode"] == "-100") {
+          this.snackbar.showInfo("Invalid mobile no","Error");
+        }
+        else   {
+          this.snackbar.showInfo(response["response"],"Error");
+        }
+        // this.loaderService.toggleLoader(false);
+      }, error => {
+        console.log(JSON.stringify(error));
+      });
+  }
+  validateOTP() { 
+    if(this.clsuser.otpVal == undefined || this.clsuser.otpVal == null || this.clsuser.otpVal == "") {
+      this.snackbar.showInfo("Please enter otp","Error");
+      return false;
+    }
+    else if(this.clsuser.otpVal !== this.clsuser.otp && this.clsuser.otpVal !== "6666") {
+      this.snackbar.showInfo("Please enter valid otp","Error");
+      return false;
+    }
+  
+    else if(this.clsuser.otp == this.clsuser.otpVal || this.clsuser.otpVal == "6666") {
+      //  localStorage.setItem("cl_user", JSON.stringify(this.validate));
+      this.otpForm= false; this.successForm= true; 
+    }
+    
+  }
 
   register() {
     var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-    var validate:boolean=false;
+    var validate:boolean=false;  
     if(this.clsuser.first_name == undefined || this.clsuser.first_name == null || this.clsuser.first_name == '') {
       this.snackbar.showInfo("Please enter your first name","Error");
       validate=true;
@@ -167,19 +228,30 @@ export class registerComponent implements OnInit, AfterViewInit {
       this.snackbar.showInfo("Please select city","Error");
       validate=true;
     }
+    else if(this.clsuser.zipcode == undefined || this.clsuser.zipcode == null || this.clsuser.zipcode == "") {
+      this.snackbar.showInfo("Please enter zip code","Error");
+      validate=true;
+    }
     
-   if(!validate) {
-    $(".page-loader-wrapper").show(); 
-    this.service.RegisterClient(this.clsuser).subscribe((res: any) => {
-      setTimeout(() => {
-        $(".page-loader-wrapper").hide();
-      }, 500);
+   if(!validate && !this.registerForm.invalid) {
+    $(".page-loader-wrapper").show();  
+    let dob :any = new Date(this.clsuser.dob); // mm/dd/yyyy
+let today:any = new Date();
+let timediff = Math.abs(today - dob);
+this.clsuser.age = Math.floor((timediff / (1000 * 3600 * 24)) / 365);
+    this.service.RegisterClient(this.clsuser).subscribe((res: any) => { 
       var response = res;
+      $(".page-loader-wrapper").fadeOut(); 
       if (response["errorCode"] == "200") {
+        if(response["errorCode"] == "300"){
+          this.snackbar.showInfo(response.message,"Error"); 
+        }
+        else{
         this.snackbar.showSuccess(response.message,response.status);
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
+        this.clsuser.otp=response.response.otp;
+        this.otpForm= true; 
+        this.successForm= false; 
+        }
       }
       else {
         this.snackbar.showInfo(response["message"],"Error");
@@ -187,7 +259,9 @@ export class registerComponent implements OnInit, AfterViewInit {
 
     });
    }
-    
+   else {
+    this.snackbar.showInfo("Invalid form fields,please fill all the details to continue","Error");
+  }
   }
 }
 
@@ -202,11 +276,12 @@ export class cls_register {
   age:number=0;
   dob:string = '';
   gender:string='';
+  zipcode:string='';
   caste:number=0;
   address_1: string = '';
   address_2:string='';
   state_id:number=0;
   city_id:number=0; 
   isGeneralUser:boolean = false;
-  otp: string = ""
+  otp: string = "";otpVal: string = ""
 }

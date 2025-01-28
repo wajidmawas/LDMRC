@@ -43,7 +43,7 @@ export class MeetingsComponent {
     };
   
     this.service.getMasters(objRequest).subscribe({
-      next: (response: any) => {  
+      next: (response: any) => {   
          const parseresponse = JSON.parse(response.response);  
         const metting = parseresponse.Table.filter((item: any) =>(item.is_training === false || item.is_training === null));
         this.upcomingmeetings = metting; 
@@ -117,6 +117,9 @@ export class MeetingsComponent {
     // Open the Zoom link in a new tab or window
     window.open(meeting.meeting_link, '_blank');
   }
+  viewmeeting(accesstoken:string){ 
+    window.location.href = "/meeting_detail/"+accesstoken; 
+  }
   ReSchedule(meeting:any) {
     window.location.href = "/addmeetings?id="+meeting.id;
   }
@@ -158,6 +161,7 @@ export interface Meeting {
   Day: string;
   Date: string;
   time: string;
+  code: string;
   Meeting: string;
   organizer: string; 
   stateNm: string;

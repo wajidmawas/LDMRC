@@ -149,6 +149,9 @@ constructor(public sharedService: SharedService,private router: Router,private s
     else if(_pageTye=='Trainings')
     window.location.href = "/trainings";
    }
+   viewmeeting(accesstoken:string){ 
+    window.location.href = "/meeting_detail/"+accesstoken; 
+  }
   getmymetting(id: number) { 
     const objRequest = {
       typeId: 28,
@@ -159,11 +162,12 @@ constructor(public sharedService: SharedService,private router: Router,private s
     };
   
     this.service.getMasters(objRequest).subscribe({
-      next: (response: any) => {  
+      next: (response: any) => {   
+        if(response["errorCode"]=="200"){
          const parseresponse = JSON.parse(response.response); 
- const metting = parseresponse.Table;
- this.Mymetting = metting;
-  console.log(metting);
+        const metting = parseresponse.Table;
+        this.Mymetting = metting;
+        } 
       },
       error: (error: any) => {
         console.error("API call failed:", error);
@@ -203,8 +207,7 @@ constructor(public sharedService: SharedService,private router: Router,private s
       }
     });
   }
-  ActivityDetail(Activity: any) { 
-    console.log('Activity:', Activity);
+  ActivityDetail(Activity: any) {  
     if (Activity && Activity.code) {
       this.router.navigate([`activity_detail`, Activity.code]);
     } else {
@@ -343,7 +346,7 @@ export interface Meeting {
   title: string;
   Day: string;
   Date: string;
-  time: string;
+  time: string;code: string;stateNm: string;
   Meeting: string;
   organizer: string;
   DurationInNightsAndDays: string;

@@ -17,6 +17,7 @@ export class MeetingDetailComponent implements OnInit  {
   activityId: string | null = null;
   selectedActivity: any = null;
   ActivitiesDetail:any=[];
+  ParticipantsDetail:any=[];
  clsactivity:cls_addactivity=new cls_addactivity();
   selectedState:number | null = null;
   selectedCity:number | null = null;
@@ -250,10 +251,7 @@ CancelActivity()
 }
 EditActivity(){ 
   this.ActivityDetail();
- 
-   
-
-console.log(this.ActivitiesDetail);
+  
 }
 setSelectedActivity(activity: any): void {
   this.selectedActivity = activity; ;
@@ -308,8 +306,9 @@ fetchMeetingDetail(id: string|null):void{
   this.service.getMasters(objRequest).subscribe({
     next: (response: any) => { 
       var parseresponse = JSON.parse(response.response); 
-      if (response["errorCode"] === "200") {
+      if (response["errorCode"] === "200") { 
         this.ActivitiesDetail = parseresponse.Table;
+        this.ParticipantsDetail = parseresponse.Table1;
       } else {
         console.error("API returned an error:", response.message); 
       }

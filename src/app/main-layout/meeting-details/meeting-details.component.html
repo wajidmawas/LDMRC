@@ -20,10 +20,10 @@
 
           </div>
           <div class="p-2 d-flex" *ngIf="userDtail !== null && userDtail !== ''">
-            <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#addactivity"
+            <!-- <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#addactivity"
               (click)="EditActivity()"><i class="fa fa-pencil mr-2"></i> Edit</button>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delaccount"><i
-                class="fa fa-trash mr-2"></i>Delete </button>
+                class="fa fa-trash mr-2"></i>Delete </button> -->
           </div>
         </div>
       </div>
@@ -39,14 +39,14 @@
             <div class="physical-card-img">
               <img src="../../../assets/images/calendar.png" alt="" width="100%">
               <div class="image-position">
-                <p class="content">Thursday</p>
-                <p class="date-time">05-12-2024 <br> 10:30 AM</p>
+                <p class="content">{{activity.day_Name}}</p>
+                <p class="date-time">{{activity.date.split('T')[0]}} <br> {{activity.time}}</p>
               </div>
             </div>
           </div>
           <div class="col-lg-11">
-            <p class="fs-4 mb-0"><strong>Training 01</strong></p>
-            <p>Residential program attended by senior most Adivasi leaders</p>
+            <p class="fs-4 mb-0"><strong>{{activity.title}}</strong></p>
+            <p>{{activity.short_desc}}</p>
           </div>
 
           <div class="d-flex align-items-center">
@@ -58,34 +58,35 @@
 
                     <img src="../../../assets/images/meeting_location.png" alt="">
                   </div>
-                  <p class="ml-2">Online Training</p>
+                  <p class="ml-2" *ngIf="activity.isonline=='1'">Online Training</p>
+                  <p class="ml-2" *ngIf="activity.isonline=='0'">Online Meeting</p>
                 </div>
               </div>
             </div>
             <div class="content-recent ml-2 mt-2">
               <p>Meeting Link</p>
-              <a href="https://meet.google.com/jbx-oymm-usi">https://meet.google.com/jbx-oymm-usi</a><span
+              <a href="{{activity.meeting_link}}" target="_blank">{{activity.meeting_link}}</a><span
                 class="ml-2">Click to Join <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
             </div>
           </div>
         </div>
 
-        <div class="content mt-3">
+        <!-- <div class="content mt-3">
           <img src="{{ activity.thumbnail_image }}" alt="Activity Image" class="img-fluid" />
-        </div>
+        </div> -->
         <div class="card mt-3 card-details">
           <h3 class="activitytitle">{{activity.title}}</h3>
           <div class="details_cards">
             <div class="field">
               <label>Date of Posting:</label>
               <span>
-                {{ activity.date }}
+                {{ activity.date.split('T')[0] }}
               </span>
             </div>
             <div class="field">
               <label>Type of Activity:</label>
               <span>
-                {{ activity.name }}
+                {{ activity.meeting_type }}
               </span>
             </div>
             <div class="field">
@@ -103,19 +104,19 @@
             <div class="field">
               <label>State:</label>
               <span>
-                {{ activity.StateName }}
+                {{ activity.stateNm }}
               </span>
             </div>
             <div class="field">
               <label>City:</label>
               <span>
-                {{ activity.DistrictName }}
+                {{ activity.district_name }}
               </span>
             </div>
             <div class="field">
-              <label>Town/Village:</label>
+              <label>Location:</label>
               <span>
-                {{ activity.CityName }}
+                {{ activity.meeting_location }}
               </span>
             </div>
           </div>
@@ -129,13 +130,19 @@
     <div class="col-lg-12  ps-lg-0">
       <ul class="nav nav-pills" id="pills-tab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" id="pills-upmeeting-tab" data-toggle="pill" href="#pills-upmeeting" role="tab" aria-controls="pills-upmeeting" aria-selected="true">Upcoming Meetings</a>
+          <a class="nav-link active" id="pills-upmeeting-tab" data-toggle="pill" href="#pills-upmeeting" role="tab" aria-controls="pills-upmeeting" aria-selected="true">Resource Person</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="pills-mymeeting-tab" data-toggle="pill" href="#pills-mymeeting" role="tab" aria-controls="pills-mymeeting" aria-selected="false">My Meetings</a>
+          <a class="nav-link" id="pills-mymeeting-tab" data-toggle="pill" href="#pills-mymeeting" role="tab" aria-controls="pills-mymeeting" aria-selected="false">Participants</a>
         </li> 
         <li class="nav-item">
-            <a class="nav-link" id="pills-Message-tab" data-toggle="pill" href="#pills-Message" role="tab" aria-controls="pills-Message" aria-selected="false">My Messages</a>
+            <a class="nav-link" id="pills-Message-tab" data-toggle="pill" href="#pills-Message" role="tab" aria-controls="pills-Message" aria-selected="false">Organisers</a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" id="pills-Message-tab" data-toggle="pill" href="#pills-Message" role="tab" aria-controls="pills-Message" aria-selected="false">Visiting Dignitarioes</a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" id="pills-Message-tab" data-toggle="pill" href="#pills-Message" role="tab" aria-controls="pills-Message" aria-selected="false">Others</a>
           </li> 
       </ul>
       <div class="tab-content" id="pills-tabContent">
@@ -177,30 +184,19 @@
                 </tr>
               </thead>
               <tbody class="tbody">
-                <tr>
-                  <td>01</td>
-                  <td><img src="../assets/img/aboutdetails.png" alt=""></td>
-                  <td>Smt. Sumitra Kumari</td>
-                  <td>9101412854</td>
-                  <td>Assam</td>
-                  <td>Yes</td>
-                  <td>1. Ex. G.P. President Vice President Charaideo Dist. Committee <br>2. Chairperson Assam Chah Mozdoor, Adivasi Congress Department</td>
+                <tr *ngFor="let activity of ParticipantsDetail; let i=index">
+                  <td>{{i+1}}</td>
+                  <td><img style="width: 50px;" [src]="activity.image_path || '../../../assets/images/login_bg.png'" 
+                      alt=""></td>
+                  <td>{{activity.User}}</td>
+                  <td>{{activity.User}}</td>
+                  <td>{{activity.stateNm}}</td>
+                  <td>{{activity.caste}}</td>
+                  <td>{{activity.User}}</td>
                   <td>Resource Person</td>
-                  <td>02 DEC 2024 11.00 AM <br>02 DEC 2024 12.00 Noon</td>
+                  <td>{{activity.date}} <br>{{activity.time}} </td>
                   <td><a href="profile.html" class="view"><i class="fa-solid fa-eye"></i></a></td>
-                </tr>
-                <tr>
-                  <td>02</td>
-                  <td><img src="../assets/img/aboutdetails.png" alt=""></td>
-                  <td>Smt. Sumitra Kumari</td>
-                  <td>9101412854</td>
-                  <td>Assam</td>
-                  <td>Yes</td>
-                  <td>1. Ex. G.P. President Vice President Charaideo Dist. Committee <br>2. Chairperson Assam Chah Mozdoor, Adivasi Congress Department</td>
-                  <td>Resource Person</td>
-                  <td>02 DEC 2024 11.00 AM <br>02 DEC 2024 12.00 Noon</td>
-                  <td><a href="profile.html" class="view"><i class="fa-solid fa-eye"></i></a></td>
-                </tr>
+                </tr> 
               </tbody>
             </table>
           </div>

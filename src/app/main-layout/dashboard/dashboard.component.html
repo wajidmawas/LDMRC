@@ -284,7 +284,7 @@
                     </div>
                     <div class="d-flex align-items-center detials">
                       <span>State :</span>
-                      <label>New Delhi</label>
+                      <label>{{meeting.stateNm}}</label>
                     </div>
                   </div>
                </div>
@@ -294,7 +294,7 @@
                   <span><img src="../../../assets/images/meeting_location.png"/></span>
                   <h4>{{ meeting.Meeting }}</h4>
                 </div>
-                  <button class="btn btn-white">View Details</button>
+                  <button class="btn btn-white" (click)="viewmeeting(meeting.code)">View Details</button>
               </div>
             </div>
           </div>
