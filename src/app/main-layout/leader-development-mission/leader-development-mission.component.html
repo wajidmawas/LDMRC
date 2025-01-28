@@ -22,7 +22,8 @@
       
                       </div>
                       <div class="p-2 d-flex"> 
-                          <button class="btn btn-primary"  >Add LDM Activity <img src="../../../assets/images/btn_arrow.png" class="ml-2 btn_arrow"/></button>
+                        <!-- <button class="btn btn-primary"  data-toggle="modal" data-target="#addldm" ><i class="icon-plus mr-2"></i> Add LDM Activity</button> -->
+                          <button class="btn btn-primary" data-toggle="modal" data-target="#addldm">Add LDM Activity <img src="../../../assets/images/btn_arrow.png" class="ml-2 btn_arrow"/></button>
                       </div>
                   </div>
                   </div>
@@ -259,7 +260,7 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                                 <td class="wp">{{act.no_of_participants}}</td>
                                 <td class="wp">{{act.statename}}</td>
                                 <td class="wp">{{act.expected_outcome}}</td>
-                                <td><a href='javascript::' target="_blank" >
+                                <td><a href='javascript::'  (click)="ViewActivityDetails(act)">
                                   <i class="fa fa-eye"></i> 
                                 </a></td>
                             </tr> 
@@ -272,3 +273,154 @@ and LDM Assembly Coordinators will have to add the LDM Activities
             </div>
           </div>
    </div>
+    <div class="modal fade" id="addldm" tabindex="-1" role="dialog" aria-labelledby="addactivity" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add LDM Activity</h5>
+            <button type="button" class="close1" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="my-input">Title</label>
+                                <input id="my-input" class="form-control" placeholder="Enter Title" [(ngModel)]="clsldm.title" [ngModelOptions]="{standalone: true}" >
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                              <label >Name of the office bearer</label>
+                              <input class="form-control" type="text" placeholder="Enter name of the office bearer" [(ngModel)]="clsldm.office_bearer" [ngModelOptions]="{standalone: true}" >
+                          </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="form-group" >
+                            <label >Desigination</label>
+                            <select class="form-control" (change)="onDesiginationChange($event)" [(ngModel)]="clsldm.designation_id" [ngModelOptions]="{standalone: true}">
+                                <option value="">Select Desigination</option>
+                                <option *ngFor="let Designation of DesiginationList" [value]="Designation.id">{{ Designation.name }}</option> 
+                                </select>
+                        </div>
+                    </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label >Date of Posting</label>
+                                <input class="form-control" type="date" placeholder="Enter Date" [(ngModel)]="clsldm.date_of_posting" [ngModelOptions]="{standalone: true}" >
+                            </div>
+                        </div>
+                      
+                        <div class="col-lg-4">
+                            <div class="form-group" >
+                                <label >Type of Activity</label>
+                                <select class="form-control" (change)="onActvitytypeChange($event)" [(ngModel)]="clsldm.activity_id" [ngModelOptions]="{standalone: true}">
+                                    <option value="">Select Activity Type</option>
+                                    <option *ngFor="let type of ActivityType" [value]="type.id">{{ type.name }}</option> 
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group"  >
+                                <label >No of Participant</label>
+                                <input id="my-input" class="form-control" type="number" placeholder="Enter Participant" [(ngModel)]="clsldm.no_of_participants" [ngModelOptions]="{standalone: true}" >
+                            </div>
+                        </div>
+                       
+            
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">State</label>
+                                <select class="form-control" (change)="onstateChange($event)" [(ngModel)]="clsldm.state_id" [ngModelOptions]="{standalone: true}">
+                                    <option value="">Select State</option>
+                                    <option *ngFor="let state of states" [value]="state.STATEID">{{ state.STATENAME }}</option> 
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Assesmbly/Block</label>
+                                <select class="form-control" (change)="oncityChange($event)" [(ngModel)]="clsldm.assembly_id" [ngModelOptions]="{standalone: true}">
+                                    <option value="">Select Assembly</option>
+                                    <option *ngFor="let Asmbly of Assembly" [value]="Asmbly.AssemblyId">{{ Asmbly.AssemblyName }}</option> 
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="control-label">villages</label>
+                                <select class="form-control" (change)="onvillageChange($event)" [(ngModel)]="clsldm.village_id" [ngModelOptions]="{standalone: true}">
+                                    <option value="">Select villages</option>
+                                    <option *ngFor="let village of villages" [value]="village.CityID">{{ village.CityName }}</option> 
+                                    </select>
+                            </div>
+                        </div>
+                      
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label >Description</label>
+                                <textarea class="form-control" placeholder="Enter Description" [(ngModel)]="clsldm.desc" [ngModelOptions]="{standalone: true}" ></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label >Expected Outcome</label>
+                                <input class="form-control" placeholder="Enter Short Description" [(ngModel)]="clsldm.expected_outcome" [ngModelOptions]="{standalone: true}" /> 
+                            </div>
+                        </div>
+                       
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label >Photo</label>
+                          <div class="photo_div">
+                            <div class="d-flex align-items-center">
+                                <img src="../../../../assets/images/loader.png" width="32" height="32"/>
+                                <div class="d-flex flex-column up_div">
+                                    <h4>Upload Photo</h4>
+                                    <span>.jpeg,.jpg files upto 200KB</span>
+                                </div>
+                            </div>
+                            <button  class="btn btn-primary">
+                            <input type="file" [(ngModel)]="clsldm.imageFile" style="opacity: 0;position: absolute;width: 50px;" (change)="onFileChange($event)">
+                            Browse
+                        </button>
+                        </div>
+                      </div>
+                           
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label >Photo</label>
+                          <div class="photo_div">
+                            <div class="d-flex align-items-center">
+                                <img src="../../../../assets/images/loader.png" width="32" height="32"/>
+                                <div class="d-flex flex-column up_div">
+                                    <h4>Upload Detailed Report</h4>
+                                    <span>.pdf,.doc,.xlsx files upto 200KB</span>
+                                </div>
+                            </div>
+                            <button  class="btn btn-primary">
+                            <input type="file" [(ngModel)]="clsldm.pdfFile" style="opacity: 0;position: absolute;width: 50px;" (change)="onpdfChange($event)">
+                            Browse
+                        </button>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+               
+                    
+            </div>   
+
+            
+
+          </div>
+          <div class="modal-footer justify-content-end">
+            <button type="button"  class="btn btn-lg btn-outline-primary" data-dismiss="modal" (click)="CancelActivity()">Cancel</button>
+             <button type="button" class="btn btn-lg btn-primary" (click)="SaveActivity()">Save <img src="../../../../assets/images/btn_arrow.png" class="btn_arrow ml-2" /></button>
+          </div>
+        </div>
+      </div>
+  </div> 
+  
