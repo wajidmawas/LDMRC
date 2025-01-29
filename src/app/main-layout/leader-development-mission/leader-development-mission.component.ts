@@ -26,7 +26,7 @@ export class LeaderDevelopmentMissionComponent {
   clsldm:cls_addldm=new cls_addldm();
   isLoggedIn:any='';
   Userid:any='';
-
+  selectedLDM: any = null;
   userdetails:any={};
   DesignationLimit:number=5;
   StatesLimit:number=5;
@@ -254,7 +254,7 @@ else if(type=='designation'){
   getAssembly(id: any) {
     debugger;
     const objRequest = {
-      typeId: 8,
+      typeId: 40,
       userid: 0,
       filterId: id,
       filterText: "",
@@ -267,7 +267,7 @@ else if(type=='designation'){
        debugger;
         if (response["errorCode"] === "200") { 
           debugger;
-          this.Assembly = parseresponse.Table5
+          this.Assembly = parseresponse.Table1
          console.log("Assembly" + JSON.stringify(this.Assembly))
         } else {
           console.error("API returned an error:", response.message); 
@@ -287,7 +287,7 @@ else if(type=='designation'){
       typeId: 36,
       userid: 0,
       filterId: state,
-      filterText: String(id),
+      filterText: "",
       filterText1: ""
     };
     console.log(JSON.stringify(objRequest));
@@ -344,7 +344,7 @@ else if(type=='designation'){
   {
     this.clsldm = new cls_addldm(); // Reset form data
   }
-  SaveActivity() { 
+  SaveLDM() { 
     var validate:boolean=false;
   
     // Perform client-side validation
@@ -425,7 +425,8 @@ else if(type=='designation'){
     if (response.errorCode == "200") {
        this.snackbar.showSuccess(response.message, response.status);
       setTimeout(() => {
-        this.responseid=JSON.parse(response.response).Table[0].id;
+        this.responseid=JSON.parse(response.response).Table[0].Column1;
+        debugger;
         if(this.responseid==this.clsldm.id)
         {
           this.clsldm = new cls_addldm(); // Reset form data
@@ -444,7 +445,7 @@ else if(type=='designation'){
   }
   getActivityType(id: any) {
     const objRequest = {
-      typeId: 8,
+      typeId: 40,
       userid: 0,
       filterId: id,
       filterText: "",
@@ -456,7 +457,7 @@ else if(type=='designation'){
         var parseresponse = JSON.parse(response.response); 
         if (response["errorCode"] === "200") {
           debugger;
-          this.ActivityType = parseresponse.Table4;
+          this.ActivityType = parseresponse.Table;
         } else {
           console.error("API returned an error:", response.message); 
         }
@@ -470,6 +471,82 @@ else if(type=='designation'){
         console.log("API call completed.");
       }
     });
+  }
+  EditLDM(LDM: any) { 
+    console.log('LDM:', LDM);
+    const objRequest = {
+      typeId: 38,
+      userid: 0,
+      filterId:LDM.id ,
+      filterText: "",
+      filterText1: ""
+    };
+   
+    this.service.getMasters(objRequest).subscribe({
+      next: (response: any) => { 
+        var parseresponse = JSON.parse(response.response); 
+        debugger;
+        if (response["errorCode"] === "200") {
+          this.clsldm=parseresponse.Table
+          this.clsldm = { ...parseresponse.Table[0] };
+     this.clsldm.imageFile = parseresponse.Table[0].imagePath;
+     this.clsldm.pdfFile = parseresponse.Table[0].pdfPath;
+     this.clsldm.date_of_posting = parseresponse.Table[0].date_of_posting.split('T')[0];
+     this.getAssembly(parseresponse.Table[0].state_id)
+    // this.getCities(this.ActivitiesDetail[0].state_id) ;
+    this.selectedCity = parseresponse.Table[0].assembly_id; 
+    this.getvillages("",parseresponse.Table[0].state_id); 
+    this.selectedVillage = parseresponse.Table[0].village_id; 
+
+        } else {
+          console.error("API returned an error:", response.message); 
+        }
+      },
+      error: (error: any) => {
+        console.error("API call failed:", error);
+        // Handle the error appropriately
+        // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
+      },
+      complete: () => {
+        console.log("API call completed.");
+      }
+    });
+  
+  }
+  DeleteLDM(LDM: any) { 
+    console.log('LDM:', LDM);
+    const objRequest = {
+      typeId: 39,
+      userid: 0,
+      filterId: LDM.id,
+      filterText:"",
+      filterText1: ""
+    };
+  
+    this.service.getMasters(objRequest).subscribe({
+      next: (response: any) => { 
+        var parseresponse = JSON.parse(response.response);  
+        debugger;
+        if (response["errorCode"] === "200") {
+          this.snackbar.showSuccess("", response.status);
+              setTimeout(() => {
+                window.location.reload();
+              }, 500);
+        } else {
+          console.error("API returned an error:", response.message); 
+        }
+      },
+      error: (error: any) => {
+        console.error("API call failed:", error);
+      },
+      complete: () => {
+        console.log("API call completed.");
+      }
+    });
+    
+  }
+  setSelectedLDM(LDM: any): void {
+    this.selectedLDM = LDM;
   }
 }
 
