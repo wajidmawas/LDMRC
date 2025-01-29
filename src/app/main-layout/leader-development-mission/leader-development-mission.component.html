@@ -260,9 +260,19 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                                 <td class="wp">{{act.no_of_participants}}</td>
                                 <td class="wp">{{act.statename}}</td>
                                 <td class="wp">{{act.expected_outcome}}</td>
-                                <td><a href='javascript::'  (click)="ViewActivityDetails(act)">
+                                <td>
+                                                          
+                                  <a href='javascript::'  data-toggle="modal" data-target="#addldm"   (click)="EditLDM(act)">
+                                  <i class="fa fa-pencil"></i> 
+                                </a> 
+                                <a href='javascript::' data-toggle="modal" data-target="#delaccount"  (click)="setSelectedLDM(act)">
+                                  <i class="fa fa-trash"></i> 
+                                </a> 
+                              
+                              </td>
+                                <!-- <td><a href='javascript::'  (click)="ViewActivityDetails(act)">
                                   <i class="fa fa-eye"></i> 
-                                </a></td>
+                                </a></td> -->
                             </tr> 
                         </tbody>
                     </table>
@@ -418,9 +428,28 @@ and LDM Assembly Coordinators will have to add the LDM Activities
           </div>
           <div class="modal-footer justify-content-end">
             <button type="button"  class="btn btn-lg btn-outline-primary" data-dismiss="modal" (click)="CancelActivity()">Cancel</button>
-             <button type="button" class="btn btn-lg btn-primary" (click)="SaveActivity()">Save <img src="../../../../assets/images/btn_arrow.png" class="btn_arrow ml-2" /></button>
+             <button type="button" class="btn btn-lg btn-primary" (click)="SaveLDM()">Save <img src="../../../../assets/images/btn_arrow.png" class="btn_arrow ml-2" /></button>
           </div>
         </div>
       </div>
   </div> 
+  <div class="modal fade" id="delaccount" tabindex="-1" role="dialog" aria-labelledby="delaccount" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="modal-body mt-5 d-flex align-items-center flex-column justify-content-center alertbox">
+            <img src="assets/images/loader.png" width="32" class="mb-2"/>
+            <h2>Are you sure?</h2>
+            <p>Do you really want to delete the account?</p>
+           </div>
+           <div class="modal-footer text-center">
+            <button type="button" class="btn btn-lg btn-dark" data-dismiss="modal">No, Keep It.</button>
+            <button type="button" class="btn btn-lg btn-danger"  (click)="DeleteLDM(selectedLDM)"  data-dismiss="modal" >Yes, Delete!</button>
+          </div>
+      </div>
+    </div>
+  </div>
+  
   
