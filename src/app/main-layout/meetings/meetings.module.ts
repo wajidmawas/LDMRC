@@ -18,6 +18,8 @@ import { MeetingsComponent } from './meetings.component';
 import { AddmeetingsComponent } from './addmeetings/addmeetings.component';
 import {MatRadioModule} from '@angular/material/radio';
 import { AddmessageComponent } from './addmessage/addmessage.component';
+import { HttpClientModule} from '@angular/common/http';
+import { AngularEditorModule } from '@wfpena/angular-wysiwyg';
 const routes: Routes = [
   {
     path: 'meetings',
@@ -32,8 +34,7 @@ const routes: Routes = [
     component: AddmessageComponent, 
   },
 ];
-
-
+ 
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ const routes: Routes = [
     AddmessageComponent
   ],
   imports: [
+    HttpClientModule, AngularEditorModule,
     CommonModule,
     FormsModule,
     MatFormFieldModule,

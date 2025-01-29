@@ -19,7 +19,8 @@ import { ProfileService } from './profile.service';
 import { AddactivityComponent } from './addactivity/addactivity.component';
 import { ActivitydetailComponent } from './activitydetail/activitydetail.component';
 import { MeetingDetailComponent } from '../meeting-details/meeting-details.component';
-
+import { HttpClientModule} from '@angular/common/http';
+import { AngularEditorModule } from '@wfpena/angular-wysiwyg';
 const routes: Routes = [
   {
     path: 'profile',
@@ -47,6 +48,7 @@ const routes: Routes = [
     MeetingDetailComponent
   ],
   imports: [
+    HttpClientModule, AngularEditorModule,
     CommonModule,
     FormsModule,
     MatFormFieldModule,

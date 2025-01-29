@@ -5,7 +5,7 @@ import { Meetingsservice } from '../meetings.service';
 import { SnackbarService } from 'src/shared/snackbar-service';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { AngularEditorConfig } from '@wfpena/angular-wysiwyg';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class AddmeetingsComponent implements OnInit {
   selectedUsers: { id: number; name: string }[] = []; // Selected users
   meetingId: number | null = null;
   OrganisersList: any = [];
-  responseid:any=[];
+  responseid:any=[]; 
    designationsList: { id: string,name : string, selected: boolean }[] = [];
   categories1: {
     id: number;
