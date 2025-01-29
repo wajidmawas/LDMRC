@@ -1,298 +1,444 @@
+<div class="container-fluid">
+  <div class="block-header">
+    <div class="row mb-2">
+      <div class="col-lg-12">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item">Dashboard</li>
+          <li class="breadcrumb-item active">Meeting Detail</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
+        <a href="javascript::(0)" (click)="Back()">
+          <i class="fa-solid fa-arrow-left mr-2"></i></a>
+        <h2 class="mb-0">Meeting Detail</h2>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="d-flex flex-row-reverse">
+          <div class="page_action">
 
-            <div class="container-fluid">
-                <div class="block-header">
-                  <div class="row mb-2">
-                    <div class="col-lg-12">
-                    <ul class="breadcrumb">                          
-                      <li class="breadcrumb-item">Dashboard</li> 
-                      <li class="breadcrumb-item active">Meeting Detail</li>
-                  </ul>
-                </div>
+          </div>
+          <div class="p-2 d-flex" *ngIf="userDtail !== null && userDtail !== ''">
+            <!-- <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#addactivity"
+              (click)="EditActivity()"><i class="fa fa-pencil mr-2"></i> Edit</button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delaccount"><i
+                class="fa fa-trash mr-2"></i>Delete </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-5 activity-details">
+
+    <div class="col-lg-12">
+      <div class="physical-card-slider slide-content " *ngFor="let activity of ActivitiesDetail">
+        <div class="border-solid row bg-gray border-0">
+          <div class="col-lg-1 p-0">
+            <div class="physical-card-img">
+              <img src="../../../assets/images/calendar.png" alt="" width="100%">
+              <div class="image-position">
+                <p class="content">{{activity.day_Name}}</p>
+                <p class="date-time">{{activity.date.split('T')[0]}} <br> {{activity.time}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-11">
+            <p class="fs-4 mb-0"><strong>{{activity.title}}</strong></p>
+            <p>{{activity.short_desc}}</p>
+          </div>
+
+          <div class="d-flex align-items-center">
+
+            <div class="bg-blue rounded-5 py-2 mt-2 w-auto pe-4">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex align-items-center">
+                  <div class="bg-light rounded-5">
+
+                    <img src="../../../assets/images/meeting_location.png" alt="">
                   </div>
-                       <div class="row">
-                           <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
-                               <a href="javascript::(0)" (click)="Back()" >
-                               <i class="fa fa-arrow-left mr-2"></i></a>
-                               <h2 class="mb-0">Meeting Detail</h2> 
-                           </div>
-                           <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="d-flex flex-row-reverse">
-                                <div class="page_action">
-                
-                                </div>
-                                <div class="p-2 d-flex" *ngIf="userDtail !== null && userDtail !== ''"> 
-                                  <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#addactivity" (click)="EditActivity()"><i class="fa fa-pencil mr-2"></i> Edit</button>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delaccount"><i class="fa fa-trash mr-2"></i>Delete </button>
-                                </div>
-                            </div>
-                        </div>
-                       </div>
-                   </div>
-                  
-            <div class="row mb-5"> 
-              
-                <div class="col-lg-12"> 
-                        <div class="activity-detail-container" *ngFor="let activity of ActivitiesDetail">
-                          <div class="col-lg-1">
-                            <div class="physical-card-img">
-                              <img src="../assets/img/cald.png" alt="" width="100%">
-                              <div class="image-position">
-                                <p class="content">Thursday</p>
-                                <p class="date-time">05-12-2024 <br> 10:30 AM</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-lg-11">
-                            <p class="fs-4 mb-0"><strong>Training 01</strong></p>
-                            <p>Residential program attended by senior most Adivasi leaders</p>
-                          </div>
-                          <div class="d-flex align-items-center">
-        
-                              <div class="bg-blue rounded-5 py-2 mt-2 w-auto pe-4">
-                                <div class="d-flex justify-content-between">
-                                  <div class="d-flex align-items-center ms-2">
-                                    <div class="bg-light rounded-5">
-              
-                                      <img src="../assets/img/location.png" alt="">
-                                    </div>
-                                    <p class="ms-2">Online Training</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="content-recent ms-2 mt-2">
-                                <p>Meeting Link</p>
-                              <a href="https://meet.google.com/jbx-oymm-usi">https://meet.google.com/jbx-oymm-usi</a><span class="ms-2">Click to Join <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-                              </div>
-                          </div>
-                          
-                            <div class="content"> 
-                                <img
-                                  src="{{ activity.thumbnail_image }}"
-                                  alt="Activity Image"
-                                  class="img-fluid"
-                                />
-                              </div> 
-                              <div class="card mt-3 card-details"> 
-                                <h3 class="activitytitle">{{activity.title}}</h3> 
-                                <div class="details_cards">
-                                <div class="field">
-                                  <label>Date of Posting:</label>
-                                  <span>
-                                   {{ activity.date }}
-                                  </span>
-                                </div>
-                                <div class="field">
-                                  <label>Type of Activity:</label>
-                                  <span>
-                                    {{ activity.name }}
-                                  </span>
-                                </div>
-                                <div class="field">
-                                  <label>No of Participants:</label>
-                                  <span>
-                                   {{ activity.no_of_participants }}
-                                  </span>
-                                </div>
-                                <div class="field">
-                                  <label>Expected Outcome:</label>
-                                  <span>
-                                    {{ activity.outcome }}
-                                  </span>
-                                </div>
-                                <div class="field">
-                                  <label>State:</label>
-                                  <span>
-                                    {{ activity.StateName }}
-                                  </span>
-                                </div>
-                                <div class="field">
-                                  <label>City:</label>
-                                  <span>
-                                     {{ activity.DistrictName }}
-                                  </span>
-                                </div>
-                                <div class="field">
-                                  <label>Town/Village:</label>
-                                  <span>
-                                    {{ activity.CityName }}
-                                  </span>
-                                </div>
-                              </div>
-                             
-                            </div>
-                            <p class="acti_para">{{ activity.description }} </p>
-                              
-                           
-                      
-                          
-                       
-
-                       
-                    </div>
+                  <p class="ml-2" *ngIf="activity.isonline=='1'">Online Training</p>
+                  <p class="ml-2" *ngIf="activity.isonline=='0'">Online Meeting</p>
                 </div>
-                </div> 
+              </div>
+            </div>
+            <div class="content-recent ml-2 mt-2">
+              <p>Meeting Link</p>
+              <a href="{{activity.meeting_link}}" target="_blank">{{activity.meeting_link}}</a><span
+                class="ml-2">Click to Join <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="content mt-3">
+          <img src="{{ activity.thumbnail_image }}" alt="Activity Image" class="img-fluid" />
+        </div> -->
+        <div class="card mt-3 card-details">
+          <h3 class="activitytitle">{{activity.title}}</h3>
+          <div class="details_cards">
+            <div class="field">
+              <label>Date of Posting:</label>
+              <span>
+                {{ activity.date.split('T')[0] }}
+              </span>
+            </div>
+            <div class="field">
+              <label>Type of Activity:</label>
+              <span>
+                {{ activity.meeting_type }}
+              </span>
+            </div>
+            <div class="field">
+              <label>No of Participants:</label>
+              <span>
+                {{ activity.no_of_participants }}
+              </span>
+            </div>
+            <div class="field">
+              <label>Expected Outcome:</label>
+              <span>
+                {{ activity.outcome }}
+              </span>
+            </div>
+            <div class="field">
+              <label>State:</label>
+              <span>
+                {{ activity.stateNm }}
+              </span>
+            </div>
+            <div class="field">
+              <label>City:</label>
+              <span>
+                {{ activity.district_name }}
+              </span>
+            </div>
+            <div class="field">
+              <label>Location:</label>
+              <span>
+                {{ activity.meeting_location }}
+              </span>
+            </div>
+          </div>
+
+        </div>
+        <p class="acti_para">{{ activity.description }} </p>
+
+      </div>
+    </div>
+
+    <div class="col-lg-12  ps-lg-0">
+      <ul class="nav nav-pills" id="pills-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="pills-upmeeting-tab" data-toggle="pill" href="#pills-upmeeting" role="tab" aria-controls="pills-upmeeting" aria-selected="true">Resource Person</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-mymeeting-tab" data-toggle="pill" href="#pills-mymeeting" role="tab" aria-controls="pills-mymeeting" aria-selected="false">Participants</a>
+        </li> 
+        <li class="nav-item">
+            <a class="nav-link" id="pills-Message-tab" data-toggle="pill" href="#pills-Message" role="tab" aria-controls="pills-Message" aria-selected="false">Organisers</a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" id="pills-Message-tab" data-toggle="pill" href="#pills-Message" role="tab" aria-controls="pills-Message" aria-selected="false">Visiting Dignitarioes</a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" id="pills-Message-tab" data-toggle="pill" href="#pills-Message" role="tab" aria-controls="pills-Message" aria-selected="false">Others</a>
+          </li> 
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-upmeeting" role="tabpanel" aria-labelledby="pills-upmeeting-tab">
+          <div class="align-items-center d-flex flex-column h-100 justify-content-center my-5 py-5">
+            <img src="../../../assets/images/noactivity.png" alt="" width="120px">
+            <p>No data to show!</p>
+          </div>
+          
+        </div>
+        <div class="tab-pane fade" id="pills-mymeeting" role="tabpanel" aria-labelledby="pills-mymeeting-tab">
+          <div class="d-md-flex justify-content-between align-items-center my-3">
+            <div class="search-table w-25 position-relative">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" class="form-control pl-5 round mb-2 mb-md-0" style="border: 1px solid #52BFF1; padding: 11px;" placeholder="Search here">
+            </div>
+              <div class="d-md-flex align-items-center justify-content-center gap-2">
+                <button class="align-items-center btn d-flex gap-2 justify-content-center p-0 px-3 py-1 rounded-pill text-white" style="background-color: #2C393F;"><i class="bi bi-cloud-arrow-down" style="font-size: 25px;"></i> <span>
+                    Download
+                </span>
+              </button>
+              </div>
+            </div>
+            <div class="table-container flex-grow-1">
+              <div class="table table-responsive h-100">
+                <table class="table sortable-table sortable-fa-icons">
+              <thead>
+                <tr>
+                  <th class="numeric-sort">Sr. No</th>
+                  <th class="numeric-sort">Image</th>
+                  <th class="numeric-sort">Name</th>
+                  <th class="numeric-sort">Phone Number</th>
+                  <th class="numeric-sort">Domicile State</th>
+                  <th class="numeric-sort">Community</th>
+                  <th class="numeric-sort">Whether from Academia, Social activism or Political background</th>
+                  <th class="numeric-sort">Sessions Handled</th>
+                  <th class="numeric-sort">Date & Time</th> 
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+                <tr *ngFor="let activity of ParticipantsDetail; let i=index">
+                  <td>{{i+1}}</td>
+                  <td><img style="width: 50px;" [src]="activity.image_path || '../../../assets/images/login_bg.png'" 
+                      alt=""></td>
+                  <td>{{activity.User}}</td>
+                  <td>{{activity.User}}</td>
+                  <td>{{activity.stateNm}}</td>
+                  <td>{{activity.caste}}</td>
+                  <td>{{activity.User}}</td>
+                  <td>Resource Person</td>
+                  <td>{{activity.date}} <br>{{activity.time}} </td>
+                  <td><a href="profile.html" class="view"><i class="fa-solid fa-eye"></i></a></td>
+                </tr> 
+              </tbody>
+            </table>
+          </div>
+          </div>
+          <div class="d-flex justify-content-end gap-2 align-items-center mx-3">
+              <div class="px-3 py-1 rounded text-white" style="background-color: #52BFF1;border: 2px solid #52BFF1;" role="button">
+                  1
+              </div>
+<div class="px-3 py-1 rounded" style="border: 2px solid #52BFF1;" role="button">
+  2
+</div>
+<div class="px-3 py-1 rounded d-none d-md-block" style="border: 2px solid #52BFF1;" role="button">
+  3
+</div>
+<div class="px-3 py-1 rounded d-none d-md-block" style="border: 2px solid #52BFF1;" role="button">
+  4
+</div>
+<div class="px-3 py-1 rounded d-none d-md-block" style="border: 2px solid #52BFF1;" role="button">
+  5
+</div>
+<div class="px-3 py-1 rounded" style="border: 2px solid #52BFF1; font-weight: bolder;" role="button">
+  &rarr;
+</div>
+        </div>
+              
+        
+        </div>
+        
+        <div class="tab-pane fade" id="pills-Message" role="tabpanel" aria-labelledby="pills-Message-tab">
+          <div class="table-responsive">
+            <table class="table sortable-table sortable-fa-icons">
+              <thead>
+                <tr>
+                  <th class="numeric-sort">Sr. No</th>
+                  <th class="numeric-sort">Image, Video, Audio</th>
+                  <th class="numeric-sort">Content</th>
+                  <th class="numeric-sort">Sender</th>
+                  <th class="numeric-sort">Date & Time</th>
+                  <th class="numeric-sort">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr >
+                  <td>1</td>
                    
-                
-           
-                <div class="modal fade" id="addactivity" tabindex="-1" role="dialog" aria-labelledby="addactivity" aria-hidden="true">
-                  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title">Edit Activity</h5>
-                          <button type="button" class="close1" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="container-fluid"> 
-                                
-                          <div class="row"> 
-                                      <div class="col-lg-12">
-                                          <div class="form-group">
-                                              <label for="my-input">Title</label>
-                                              <input id="my-input" class="form-control" placeholder="Enter Title" [(ngModel)]="clsactivity.title" [ngModelOptions]="{standalone: true}" >
-                                          </div>
-                                      </div>
-                                      <div class="col-lg-4">
-                                          <div class="form-group">
-                                              <label >Date</label>
-                                              <input class="form-control" type="date" placeholder="Enter Date" [(ngModel)]="clsactivity.date_posting" [ngModelOptions]="{standalone: true}" >
-                                          </div>
-                                      </div>
-                                    
-                                      <div class="col-lg-4">
-                                          <div class="form-group" >
-                                              <label >Type of Activity</label>
-                                              <select class="form-control" (change)="onActvitytypeChange($event)" [(ngModel)]="clsactivity.activity_type" [ngModelOptions]="{standalone: true}">
-                                                  <option value="">Select Activity Type</option>
-                                                  <option *ngFor="let type of ActivityType" [value]="type.id">{{ type.name }}</option> 
-                                                  </select>
-                                          </div>
-                                      </div>
-                                      <div class="col-lg-4">
-                                          <div class="form-group"  >
-                                              <label >No of Participant</label>
-                                              <input id="my-input" class="form-control" type="number" placeholder="Enter Participant" [(ngModel)]="clsactivity.no_of_participants" [ngModelOptions]="{standalone: true}" >
-                                          </div>
-                                      </div>
-                                     
-                          
-                                      <div class="col-lg-4">
-                                          <div class="form-group">
-                                              <label class="control-label">State</label>
-                                              <select class="form-control" (change)="onstateChange($event)" [(ngModel)]="clsactivity.state_id" [ngModelOptions]="{standalone: true}">
-                                                  <option value="">Select State</option>
-                                                  <option *ngFor="let state of states" [value]="state.STATEID">{{ state.STATENAME }}</option> 
-                                                  </select>
-                                          </div>
-                                      </div>
-                                      <div class="col-lg-4">
-                                          <div class="form-group">
-                                              <label class="control-label">City</label>
-                                              <select class="form-control" (change)="oncityChange($event)" [(ngModel)]="clsactivity.city_id" [ngModelOptions]="{standalone: true}">
-                                                  <option value="">Select City</option>
-                                                  <option *ngFor="let city of cities" [value]="city.DISTRICTID">{{ city.DISTRICTNAME }}</option> 
-                                                  </select>
-                                          </div>
-                                      </div>
-                                      <div class="col-lg-4">
-                                          <div class="form-group">
-                                              <label class="control-label">Town/Village</label>
-                                              <select class="form-control" (change)="onvillageChange($event)" [(ngModel)]="clsactivity.village_id" [ngModelOptions]="{standalone: true}">
-                                                  <option value="">Select villages</option>
-                                                  <option *ngFor="let village of villages" [value]="village.CityID">{{ village.CityName }}</option> 
-                                                  </select>
-                                          </div>
-                                      </div>
-                                    
-                                      <div class="col-lg-12">
-                                          <div class="form-group">
-                                              <label >Description</label>
-                                              <textarea class="form-control" placeholder="Enter Description" [(ngModel)]="clsactivity.description" [ngModelOptions]="{standalone: true}" ></textarea>
-                                          </div>
-                                      </div>
-                                      <div class="col-lg-12">
-                                          <div class="form-group">
-                                              <label >Short Description</label>
-                                              <textarea class="form-control" placeholder="Enter Short Description" [(ngModel)]="clsactivity.short_desc" [ngModelOptions]="{standalone: true}"> </textarea>
-                                          </div>
-                                      </div>
-                                      <div class="col-lg-12">
-                                          <div class="form-group">
-                                              <label >Friendly url</label>
-                                              <textarea class="form-control" placeholder="Enter Frienedly Url" [(ngModel)]="clsactivity.friendlyurl" [ngModelOptions]="{standalone: true}"> </textarea>
-                                          </div>
-                                      </div>
-                                       
-                                      <div class="col-lg-6">
-                                        <div class="form-group">
-                                          <label >Photo</label>
-                                        <div class="photo_div">
-                                          <div class="d-flex align-items-center">
-                                              <img src="../../../../assets/images/loader.png" width="32" height="32"/>
-                                              <div class="d-flex flex-column up_div">
-                                                  <h4>Upload Photo</h4>
-                                                  <span>.jpeg,.jpg files upto 200KB</span>
-                                              </div>
-                                          </div>
-                                          <button  class="btn btn-primary">
-                                          <input type="file" style="opacity: 0;position: absolute;width: 50px;" (change)="onFileChange($event)">
-                                          Browse
-                                      </button>
-                                      </div>
-                                    </div>
-                                         
-                                      </div>
-                                      <div class="col-lg-6">
-                                        <div class="form-group">
-                                          <label >Photo</label>
-                                        <div class="photo_div">
-                                          <div class="d-flex align-items-center">
-                                              <img src="../../../../assets/images/loader.png" width="32" height="32"/>
-                                              <div class="d-flex flex-column up_div">
-                                                  <h4>Upload Detailed Report</h4>
-                                                  <span>.pdf,.doc,.xlsx files upto 200KB</span>
-                                              </div>
-                                          </div>
-                                          <button  class="btn btn-primary">
-                                          <input type="file" style="opacity: 0;position: absolute;width: 50px;" (change)="onFileChange($event)">
-                                          Browse
-                                      </button>
-                                      </div>
-                                    </div>
-                                    </div>
-                                  </div>
-                              
-                                  
-                          </div>   
-              
-                          
-              
-                        </div>
-                        <div class="modal-footer justify-content-end">
-                          <button type="button"  class="btn btn-outline-primary" data-dismiss="modal" (click)="CancelActivity()">Cancel</button>
-                                  <button type="button" class="btn btn-primary" (click)="SaveActivity()">Update <img src="../../../../assets/images/btn_arrow.png" class="btn_arrow ml-2" /></button>
-                        </div>
+                  <td class="wp">sample</td>
+                  <td class="wp">sample</td>
+                  <td class="wp">sample</td>
+                  <td>Successful</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        
+          <!-- No meetings template -->
+          <ng-template #noMeetings>
+            <div class="no-meetings col-lg-12 d-flex flex-column align-items-center justify-content-center mb-5 mt-5">
+              <img src="../../../assets/images/noactivity.png" class="mb-3 mt-3"/>
+              <h4>You have not scheduled any meetings yet!</h4>
+            </div>
+          </ng-template>
+        </div>
+        
+      </div>
+</div>
+    </div>
+  </div>
+
+
+
+  <div class="modal fade" id="addactivity" tabindex="-1" role="dialog" aria-labelledby="addactivity" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Activity</h5>
+          <button type="button" class="close1" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label for="my-input">Title</label>
+                  <input id="my-input" class="form-control" placeholder="Enter Title" [(ngModel)]="clsactivity.title"
+                    [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label>Date</label>
+                  <input class="form-control" type="date" placeholder="Enter Date"
+                    [(ngModel)]="clsactivity.date_posting" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label>Type of Activity</label>
+                  <select class="form-control" (change)="onActvitytypeChange($event)"
+                    [(ngModel)]="clsactivity.activity_type" [ngModelOptions]="{standalone: true}">
+                    <option value="">Select Activity Type</option>
+                    <option *ngFor="let type of ActivityType" [value]="type.id">{{ type.name }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label>No of Participant</label>
+                  <input id="my-input" class="form-control" type="number" placeholder="Enter Participant"
+                    [(ngModel)]="clsactivity.no_of_participants" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+
+
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="control-label">State</label>
+                  <select class="form-control" (change)="onstateChange($event)" [(ngModel)]="clsactivity.state_id"
+                    [ngModelOptions]="{standalone: true}">
+                    <option value="">Select State</option>
+                    <option *ngFor="let state of states" [value]="state.STATEID">{{ state.STATENAME }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="control-label">City</label>
+                  <select class="form-control" (change)="oncityChange($event)" [(ngModel)]="clsactivity.city_id"
+                    [ngModelOptions]="{standalone: true}">
+                    <option value="">Select City</option>
+                    <option *ngFor="let city of cities" [value]="city.DISTRICTID">{{ city.DISTRICTNAME }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="control-label">Town/Village</label>
+                  <select class="form-control" (change)="onvillageChange($event)" [(ngModel)]="clsactivity.village_id"
+                    [ngModelOptions]="{standalone: true}">
+                    <option value="">Select villages</option>
+                    <option *ngFor="let village of villages" [value]="village.CityID">{{ village.CityName }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea class="form-control" placeholder="Enter Description" [(ngModel)]="clsactivity.description"
+                    [ngModelOptions]="{standalone: true}"></textarea>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label>Short Description</label>
+                  <textarea class="form-control" placeholder="Enter Short Description"
+                    [(ngModel)]="clsactivity.short_desc" [ngModelOptions]="{standalone: true}"> </textarea>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label>Friendly url</label>
+                  <textarea class="form-control" placeholder="Enter Frienedly Url" [(ngModel)]="clsactivity.friendlyurl"
+                    [ngModelOptions]="{standalone: true}"> </textarea>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Photo</label>
+                  <div class="photo_div">
+                    <div class="d-flex align-items-center">
+                      <img src="../../../../assets/images/loader.png" width="32" height="32" />
+                      <div class="d-flex flex-column up_div">
+                        <h4>Upload Photo</h4>
+                        <span>.jpeg,.jpg files upto 200KB</span>
                       </div>
                     </div>
-                </div> 
-
-                <div class="modal fade" id="delaccount" tabindex="-1" role="dialog" aria-labelledby="delaccount" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                        <div class="modal-body mt-5 d-flex align-items-center flex-column justify-content-center alertbox">
-                          <img src="assets/images/loader.png" width="32" class="mb-2"/>
-                          <h2>Are you sure?</h2>
-                          <p>Do you really want to delete the account?</p>
-                         </div>
-                         <div class="modal-footer jus_center">
-                          <button type="button" class="btn btn-lg btn-dark" data-dismiss="modal">No, Keep It.</button>
-                          <button type="button" class="btn btn-lg btn-danger" (click)="deleteActivity()">Yes, Delete!</button>
-                        </div>
-                    </div>
+                    <button class="btn btn-primary">
+                      <input type="file" style="opacity: 0;position: absolute;width: 50px;"
+                        (change)="onFileChange($event)">
+                      Browse
+                    </button>
                   </div>
                 </div>
-                
+
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Photo</label>
+                  <div class="photo_div">
+                    <div class="d-flex align-items-center">
+                      <img src="../../../../assets/images/loader.png" width="32" height="32" />
+                      <div class="d-flex flex-column up_div">
+                        <h4>Upload Detailed Report</h4>
+                        <span>.pdf,.doc,.xlsx files upto 200KB</span>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary">
+                      <input type="file" style="opacity: 0;position: absolute;width: 50px;"
+                        (change)="onFileChange($event)">
+                      Browse
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+
+
+        </div>
+        <div class="modal-footer justify-content-end">
+          <button type="button" class="btn btn-outline-primary" data-dismiss="modal"
+            (click)="CancelActivity()">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="SaveActivity()">Update <img
+              src="../../../../assets/images/btn_arrow.png" class="btn_arrow ml-2" /></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="delaccount" tabindex="-1" role="dialog" aria-labelledby="delaccount" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="modal-body mt-5 d-flex align-items-center flex-column justify-content-center alertbox">
+          <img src="assets/images/loader.png" width="32" class="mb-2" />
+          <h2>Are you sure?</h2>
+          <p>Do you really want to delete the account?</p>
+        </div>
+        <div class="modal-footer jus_center">
+          <button type="button" class="btn btn-lg btn-dark" data-dismiss="modal">No, Keep It.</button>
+          <button type="button" class="btn btn-lg btn-danger" (click)="deleteActivity()">Yes, Delete!</button>
+        </div>
+      </div>
+    </div>
+  </div>

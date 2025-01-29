@@ -2095,6 +2095,7 @@ footer {
     }
     .flt_mb{
         display: block;
+        cursor: pointer;
     }
     .search{
         margin-right: 0 !important;
@@ -3272,8 +3273,7 @@ html.fullscreen-bg,html.fullscreen-bg body,html.fullscreen-bg #wrapper {
 }
 
 .nav-tabs>li>a {
-    color: inherit;
-    font-weight: 600
+    color: #000; 
 }
 
 .nav-tabs>li>a:hover,.nav-tabs>li>a:focus {
@@ -11652,3 +11652,28 @@ button:focus{
     box-shadow: 0px 0px 12px #0000000F;
 }
 
+.modal-backdrop { 
+    --bs-backdrop-bg: #000;
+    --bs-backdrop-opacity: 0.5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: var(--bs-backdrop-zindex);
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bs-backdrop-bg);
+}
+.modal-backdrop {
+    --bs-backdrop-bg: #FFFFFF 0% 0% no-repeat padding-box !important;
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
+    --bs-backdrop-opacity: 5 !important;
+}
+
+.modal-backdrop.show {
+    opacity: var(--bs-backdrop-opacity);
+}
+
+.modal-open.h_menu header{
+    filter: blur(30px);
+}

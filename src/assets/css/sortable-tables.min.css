@@ -1,0 +1,29 @@
+.sortable-table thead th.numeric-sort {
+  cursor: pointer;
+}
+.sortable-table thead th.numeric-sort:after {
+  padding-left: 2px;
+}
+.sortable-table thead th.numeric-sort[data-sort-direction="0"]:after {
+  content: " ▲";
+  color: #9b9b9b;
+}
+.sortable-table thead th.numeric-sort[data-sort-direction="1"]:after {
+  content: "\25B4";
+  color: #9b9b9b;
+}
+.sortable-table thead th.numeric-sort[data-sort-direction="-1"]:after {
+  content: "\25BE";
+}
+.sortable-table.sortable-fa-icons thead th.numeric-sort:after {
+  font-family: FontAwesome;
+}
+.sortable-table.sortable-fa-icons thead th.numeric-sort[data-sort-direction="0"]:after {
+  content: "\f0dc";
+}
+.sortable-table.sortable-fa-icons thead th.numeric-sort[data-sort-direction="1"]:after {
+  content: "\f0de";
+}
+.sortable-table.sortable-fa-icons thead th.numeric-sort[data-sort-direction="-1"]:after {
+  content: "\f0dd";
+}

@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
                 <a href="javascript::(0)" (click)="backtohome()">
-                <i class="fa fa-arrow-left mr-2"></i></a>
+                <i class="fa-solid fa-arrow-left mr-2"></i></a>
                 <h2 class="mb-0">Trainings</h2> 
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -182,7 +182,7 @@
         </div>
         <!-- <div class="tab-pane fade" id="pills-Message" role="tabpanel" aria-labelledby="pills-Message-tab">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table sortable-table sortable-fa-icons">
               <thead>
                   <tr>
                     <th>Sr. No</th>
@@ -225,15 +225,15 @@
         </div>  -->
         <div class="tab-pane fade" id="pills-Message" role="tabpanel" aria-labelledby="pills-Message-tab">
           <div class="table-responsive" *ngIf="messages && messages.length > 0; else noMeetings">
-            <table class="table table-striped">
+            <table class="table sortable-table sortable-fa-icons">
               <thead>
                 <tr>
-                  <th>Sr. No</th>
-                  <th>Image, Video, Audio</th>
-                  <th>Content</th>
-                  <th>Sender</th>
-                  <th>Date & Time</th>
-                  <th>Status</th>
+                  <th class="numeric-sort">Sr. No</th>
+                  <th class="numeric-sort">Image, Video, Audio</th>
+                  <th class="numeric-sort">Content</th>
+                  <th class="numeric-sort">Sender</th>
+                  <th class="numeric-sort">Date & Time</th>
+                  <th class="numeric-sort">Status</th>
                 </tr>
               </thead>
               <tbody>

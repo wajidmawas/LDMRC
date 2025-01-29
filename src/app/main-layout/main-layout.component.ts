@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
+import { AfterViewInit, Component, HostListener,OnInit  } from '@angular/core';
+import { Router,NavigationEnd  } from '@angular/router';
 import 'jquery';
 declare var c3: any;
 declare var toastr: any;
@@ -9,13 +9,15 @@ declare var Iconic:any;
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
 })
-export class MainLayoutComponent implements AfterViewInit {
+export class MainLayoutComponent implements AfterViewInit  {
   title = 'Main';
+  hideHeaderFooter = false;
   userActivity: any;
   constructor(private router: Router) {
     this.setTimeout();
   
   }
+   
   ngAfterViewInit(): void {
     // toastr.options.closeButton = true;
     // toastr.options.positionClass = 'toast-bottom-right';

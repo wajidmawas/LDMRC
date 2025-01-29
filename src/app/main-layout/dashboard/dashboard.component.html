@@ -127,13 +127,13 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-striped">
+                  <table class="table sortable-table sortable-fa-icons">
                     <thead>
                         <tr>
-                        <th>Sr.No</th>
-                        <th>Department</th>
-                        <th>Level</th>
-                        <th>No. of Activity posts in the month</th> 
+                        <th class="numeric-sort">Sr.No</th>
+                        <th class="numeric-sort">Department</th>
+                        <th class="numeric-sort">Level</th>
+                        <th class="numeric-sort">No. of Activity posts in the month</th> 
                     </tr>
                     </thead>
                     <tbody>
@@ -284,7 +284,7 @@
                     </div>
                     <div class="d-flex align-items-center detials">
                       <span>State :</span>
-                      <label>New Delhi</label>
+                      <label>{{meeting.stateNm}}</label>
                     </div>
                   </div>
                </div>
@@ -294,7 +294,7 @@
                   <span><img src="../../../assets/images/meeting_location.png"/></span>
                   <h4>{{ meeting.Meeting }}</h4>
                 </div>
-                  <button class="btn btn-white">View Details</button>
+                  <button class="btn btn-white" (click)="viewmeeting(meeting.code)">View Details</button>
               </div>
             </div>
           </div>

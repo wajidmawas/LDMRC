@@ -6,9 +6,9 @@
                 <div class="col-lg-6  ml-auto">
                     
             <div class="auth-box"> 
-                <div class="card">
+                <div class="card" *ngIf="!otpForm && !successForm">
                     <div class="back ml-3">
-                        <a href="/auth/login"><i class="fa fa-arrow-left mr-2"></i>Back</a>
+                        <a href="/auth/login"><i class="fa-solid fa-arrow-left mr-2"></i>Back</a>
                     </div>
                      <img src="../../../assets/images/logo.png" class="logo"/>
                     <div class="header text-center">
@@ -17,53 +17,47 @@
                     <div class="body">
                         <div class="mb-4 mt-4 top_radio_btns">
                         <mat-radio-group class="custom-radio-group" aria-label="Select an option" [(ngModel)]="selectedOption" (change)="onOptionChange()">
-                            <mat-radio-button value="1" >AICC Family</mat-radio-button>
+                            <mat-radio-button value="1" checked>SC, ST, OBC and Minority Dept office bearers</mat-radio-button>
                             <mat-radio-button value="2" >General User</mat-radio-button>
                           </mat-radio-group>
                         </div>
-                        <form class="form-auth-small">
+                        <form class="form-auth-small" name="registerForm" [formGroup]="registerForm">
                             <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">First Name</label>
-                                            <input type="text" class="form-control" placeholder="Enter First Name" [(ngModel)]="clsuser.first_name" [ngModelOptions]="{standalone: true}" maxlength="50">
+                                            <label class="control-label">First Name*</label>
+                                            <input type="text" class="form-control" formControlName="first_name" placeholder="Enter First Name" [(ngModel)]="clsuser.first_name"   maxlength="50">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Last Name</label>
-                                            <input type="text" class="form-control" placeholder="Enter Last Name" [(ngModel)]="clsuser.last_name" [ngModelOptions]="{standalone: true}" maxlength="50">
+                                            <label class="control-label">Last Name*</label>
+                                            <input type="text" class="form-control"  formControlName="last_name"  placeholder="Enter Last Name" [(ngModel)]="clsuser.last_name"   maxlength="50">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Email ID</label>
-                                            <input type="email" class="form-control" placeholder="Email" [(ngModel)]="clsuser.email_id" [ngModelOptions]="{standalone: true}">
+                                            <label class="control-label">Email ID*</label>
+                                            <input type="email" class="form-control" placeholder="Email"  formControlName="email_id" [(ngModel)]="clsuser.email_id"  >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Phone Number</label>
-                                            <input type="text" class="form-control" maxlength="10" placeholder="Enter Phone Number" [(ngModel)]="clsuser.mobile_no" [ngModelOptions]="{standalone: true}">
+                                            <label class="control-label">Phone Number*</label>
+                                            <input type="text" class="form-control" maxlength="10" formControlName="mobile_no" placeholder="Enter Phone Number" [(ngModel)]="clsuser.mobile_no" >
                                         </div>
                                     </div>
-                            
+                             
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Age</label>
-                                            <input type="number" class="form-control" placeholder="Enter Your Age" [(ngModel)]="clsuser.age" [ngModelOptions]="{standalone: true}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label">DOB</label>
-                                            <input type="date" class="form-control" placeholder="Enter Your DOB" [(ngModel)]="clsuser.dob" [ngModelOptions]="{standalone: true}">
+                                            <label class="control-label">DOB*</label>
+                                            <input type="date" class="form-control" [attr.max]="todayDate"   [ngModelOptions]="{standalone: true}" placeholder="Enter Your DOB" [(ngModel)]="clsuser.dob">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Gender</label>
-                                            <select class="form-control" (change)="ongenderChange($event)" [(ngModel)]="clsuser.gender" [ngModelOptions]="{standalone: true}">
+                                            <label class="control-label">Gender*</label>
+                                            <select class="form-control" (change)="ongenderChange($event)" [(ngModel)]="clsuser.gender" formControlName="gender" >
                                                 <option value="">Select Gender</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
@@ -72,8 +66,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Caste</label>
-                                            <select class="form-control" (change)="onCasteChange($event)" [(ngModel)]="clsuser.caste" [ngModelOptions]="{standalone: true}">
+                                            <label class="control-label">Caste*</label>
+                                            <select class="form-control" (change)="onCasteChange($event)" [(ngModel)]="clsuser.caste" formControlName="caste">
                                                 <option value=0>Select Caste</option>
                                                 <option *ngFor="let caste of casteList" [value]="caste.id">{{ caste.name }}</option> 
                                                 </select>
@@ -87,8 +81,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label">Address 1</label>
-                                                <input type="text" class="form-control" placeholder="Enter your Address" [(ngModel)]="clsuser.address_1" [ngModelOptions]="{standalone: true}">
+                                                <label class="control-label">Address 1*</label>
+                                                <input type="text" class="form-control" placeholder="Enter your Address" [(ngModel)]="clsuser.address_1" formControlName="address_1">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -99,7 +93,7 @@
                                         </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">State</label>
+                                            <label class="control-label">State*</label>
                                             <select class="form-control" (change)="onstateChange($event)" [(ngModel)]="clsuser.state_id" [ngModelOptions]="{standalone: true}">
                                                 <option value="">Select State</option>
                                                 <option *ngFor="let state of states" [value]="state.STATEID">{{ state.STATENAME }}</option> 
@@ -108,18 +102,23 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">City</label>
+                                            <label class="control-label">City*</label>
                                             <select class="form-control" (change)="oncityChange($event)" [(ngModel)]="clsuser.city_id" [ngModelOptions]="{standalone: true}">
                                                 <option value="">Select City</option>
                                                 <option *ngFor="let city of cities" [value]="city.DISTRICTID">{{ city.DISTRICTNAME }}</option> 
                                                 </select>
                                         </div>
                                     </div>
-                                
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Zip Code*</label>
+                                            <input type="number" class="form-control" placeholder="Enter your zipcode" [(ngModel)]="clsuser.zipcode" formControlName="zipcode">
+                                        </div>
+                                    </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 text-center">
-                                    <button type="submit" class="btn btn-primary btn-lg btn_login" (click)="register()">REGISTER</button>
+                                    <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary btn-block btn-lg" (click)="register()">REGISTER</button>
                             
                                 </div>
                             </div>
@@ -129,6 +128,47 @@
                         </form>
                        
                         </div>
+                </div>
+                <div class="card" *ngIf="successForm">
+                    <div class="reg-success">
+                        <div class="d-flex justify-content-center flex-column align-items-center" style="min-height: 80vh;">
+                          <div class="">
+                            <img src="../assets/icons/tick (2)@2x.png" alt=" register success" style="width: 118px;" class="my-2"> 
+                          </div>
+                          <div class="p" style="font-size: 40px; font-weight: 500;">
+                            <p>Successfully Registered!</p>
+                          </div>
+                          <div class="" style="color: #9B9B9B; font-size: 14px; width: 400px; text-align: center;">
+                            <p>Your request is registered and currently being processed. We will notify you once it is verified.</p>
+                          </div>
+                          <a href="/"><div class="px-4 py-2 rounded-pill text-white" style="background-color: #19AAED;">Okay  <i class="fa-solid fa-arrow-right-long ms-1"></i></div></a>
+                        </div>
+                      </div>
+                </div>
+                <div class="card" *ngIf="otpForm">
+                    <div class="back ml-3">
+                        <a href="javascript::" (click)="back()"><i class="fa fa-arrow-left"></i> Back</a>
+                    </div>
+                    <img src="../../../assets/images/logo.png" class="logo"/>
+                    <div class="header text-center">
+                        <h4 class="lead">OTP Verification</h4>
+                        <p class="leadp">We have sent OTP on your Mobile Number. Please capture for verification.</p>
+                    </div>
+                    <div class="body d-flex justify-content-center">
+                        <form class="form-auth-small">
+                            <div class="form-group"> 
+                                <input type="password" name="number" maxlength="4" class="form-control" id="signin-otp" [(ngModel)]="clsuser.otpVal"  [ngModelOptions]="{ standalone: true }" placeholder="Enter OTP">
+                                <span class="helper-text m-b-10"><a href="javascript::" (click)="login()" >Didn't Receive OTP?</a></span>
+                            </div>
+                            <div class="w-100 text-center mt-5">
+                            <button type="submit" class="btn btn-primary btn-lg" (click)="validateOTP()">VERIFY OTP</button>
+                        </div>
+                            <div class="bottom text-center w-100">
+                               
+                                <span>Don't have an account? <a href="/auth/register">Register</a></span>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
