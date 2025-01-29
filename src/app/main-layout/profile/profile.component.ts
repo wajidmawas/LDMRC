@@ -20,6 +20,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   
   user_id: number = 0;
   selectedActivity: any = null;
+  selectedProfession: any = null;
+
   Activities:any=[];
   clsactivity:cls_addactivity=new cls_addactivity();
   
@@ -505,8 +507,85 @@ ActivityDetail(Activity: any) {
     console.error('Invalid Activity object or missing ID');
   }
 }
+EditProfession(profession: any) { 
+  console.log('profession:', profession);
+  const objRequest = {
+    typeId: 6,
+    userid: 0,
+    filterId:profession.id ,
+    filterText: "",
+    filterText1: ""
+  };
+ 
+  this.service.getMasters(objRequest).subscribe({
+    next: (response: any) => { 
+      var parseresponse = JSON.parse(response.response); 
+      debugger;
+      if (response["errorCode"] === "200") {
+        this.professions=parseresponse.Table
+       
+        // this.ActivitiesDetail = parseresponse.Table;
+        // this.clsactivity = { ...this.ActivitiesDetail[0] };
+     
+    //  this.clsactivity.date_posting = this.ActivitiesDetail[0].date_of_posting.split('T')[0];
+    //  this.clsactivity.friendlyurl = this.ActivitiesDetail[0].friendly_url;
+    //  this.clsactivity.thumbnail_img=this.ActivitiesDetail[0].thumbnail_image;
+    //  this.clsactivity.id=this.ActivitiesDetail[0].id;
+    this.getCities(this.professions[0].state_id) ;
+    this.selectedCity = this.professions[0].city_id; 
+   
+      } else {
+        console.error("API returned an error:", response.message); 
+      }
+    },
+    error: (error: any) => {
+      console.error("API call failed:", error);
+      // Handle the error appropriately
+      // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
+    },
+    complete: () => {
+      console.log("API call completed.");
+    }
+  });
+
+}
+DeleteProfession(profession: any) { 
+  console.log('DeleteProfession:', profession);
+  const objRequest = {
+    typeId: 37,
+    userid: 0,
+    filterId: profession.id,
+    filterText:"",
+    filterText1: ""
+  };
+
+  this.service.getMasters(objRequest).subscribe({
+    next: (response: any) => { 
+      var parseresponse = JSON.parse(response.response);  
+      debugger;
+      if (response["errorCode"] === "200") {
+        this.snackbar.showSuccess("", response.status);
+            setTimeout(() => {
+              window.location.reload();
+            }, 500);
+      } else {
+        console.error("API returned an error:", response.message); 
+      }
+    },
+    error: (error: any) => {
+      console.error("API call failed:", error);
+    },
+    complete: () => {
+      console.log("API call completed.");
+    }
+  });
+  
+}
 setSelectedActivity(activity: any): void {
   this.selectedActivity = activity;
+}
+setSelectedprofession(profession: any): void {
+  this.selectedProfession = profession;
 }
 DeleteActivity(Activity: any) { 
   const objRequest = {
