@@ -100,7 +100,7 @@ export class KnowledgeBaseComponent {
   {
     this.clsknowledge = new cls_addknowledge(); // Reset form data
   }
-  SaveActivity() { 
+  Saveknowledge() { 
     var validate:boolean=false;
   
     // Perform client-side validation
@@ -128,7 +128,7 @@ export class KnowledgeBaseComponent {
       formData.append('activity_type', this.clsknowledge.activity_type);
       formData.append('short_desc', this.clsknowledge.short_desc);
       formData.append('description', this.clsknowledge.description);
-      formData.append('is_recommended', this.clsknowledge.is_recommended.toString());
+      formData.append('is_recommended', this.clsknowledge.is_recommended ? '1' : '0');
        formData.append('user_id', this.userdetails.user_id.toString());
       formData.append('id',this.clsknowledge.id.toString());
       formData.append('imagePath', this.clsknowledge.imagePath);
@@ -152,16 +152,9 @@ export class KnowledgeBaseComponent {
     var response = res;
     if (response.errorCode == "200") {
        this.snackbar.showSuccess(response.message, response.status);
-      // setTimeout(() => {
-      //   this.responseid=JSON.parse(response.response).Table[0].id;
-      //   if(this.responseid==this.clsactivity.id)
-      //   {
-      //     this.clsactivity = new cls_addactivity(); // Reset form data
-      //     window.location.href = "/profile";
-      //   }
-      //   this.clsactivity = new cls_addactivity(); // Reset form data
-  
-      // }, 3000);
+      setTimeout(() => {
+        this.clsknowledge = new cls_addknowledge(); // Reset form data
+      }, 500);
      
     } else {
       this.snackbar.showInfo(response.message, "Error");
@@ -216,6 +209,15 @@ export class KnowledgeBaseComponent {
    
   backtohome(){
     window.location.href = "/dashboard";
+  }
+  onSelectedoption(event: any): void {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    this.clsknowledge.activity_type = selectedValue;
+
+    // Optional: Clear video path when switching away from "Videos"
+    if (selectedValue !== 'Videos') {
+      this.clsknowledge.videopath = '';
+    }
   }
 }
 
