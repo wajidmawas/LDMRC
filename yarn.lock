@@ -2851,6 +2851,13 @@
     "@webassemblyjs/ast" "1.11.6"
     "@xtuc/long" "4.2.2"
 
+"@wfpena/angular-wysiwyg@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/@wfpena/angular-wysiwyg/-/angular-wysiwyg-2.0.1.tgz"
+  integrity sha512-ZKKzCKQNvz+h0T4dLrmC1m2g8yoEyxRB4zYjOa4Qt4XDlW8sWZYfnfD//tyriKB6L5oGbMia18FxXGTHbxxouA==
+  dependencies:
+    tslib "^2.6.2"
+
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
   resolved "https://registry.npmjs.org/@xtuc/ieee754/-/ieee754-1.2.0.tgz"
@@ -6888,7 +6895,7 @@ tslib@^1.9.0:
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.1.0, tslib@^2.3.0, tslib@^2.3.1, tslib@^2.4.0, tslib@^2.5.2, tslib@2.6.2:
+tslib@^2.1.0, tslib@^2.3.0, tslib@^2.3.1, tslib@^2.4.0, tslib@^2.5.2, tslib@^2.6.2, tslib@2.6.2:
   version "2.6.2"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.6.2.tgz"
   integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==

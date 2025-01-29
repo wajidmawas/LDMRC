@@ -47,7 +47,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     max-height: 0;
     transition: max-height 0.3s ease-in-out;
   }
-  
+  .angular-editor-wrapper,.angular-editor-textarea{
+    height: 15rem!important;
+  }
   .collapse-container.open {
     max-height: 1000px; /* Set a sufficiently large value */
   }

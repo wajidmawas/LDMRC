@@ -32,6 +32,7 @@
     "@ngx-translate/core": "^15.0.0",
     "@types/c3": "^0.7.11",
     "@types/google.maps": "^3.55.3",
+    "@wfpena/angular-wysiwyg": "^2.0.1",
     "angular-ng-autocomplete": "^2.0.12",
     "c3": "^0.4.24",
     "crypto-js": "^4.2.0",
