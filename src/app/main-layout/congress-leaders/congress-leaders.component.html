@@ -37,7 +37,7 @@
                             <div class="d-flex w-100 align-items-center justify-content-between" id="headingOne"> 
                                     <button  class="filter_title accordion-toggle"      data-toggle="collapse"  data-target="#collapseOne"
                                       aria-expanded="true"    aria-controls="collapseOne" > <span class="icon">-</span>    Designations</button>
-                                    <button class="btn fil-sm btn-dark"  >Clear All</button> 
+                                    <button class="btn fil-sm btn-dark"   (click)="clearCheckedResult(Designations,'Designations')">Clear All</button> 
                             </div>
                             
                         </div>
@@ -46,10 +46,10 @@
                         aria-labelledby="headingOne"
                         data-parent="#accordion">
                                 <div class="inputcheck" >
-                                  <mat-checkbox color="#000">All</mat-checkbox>
+                                  <mat-checkbox color="#000" (change)="onAllCheckedResult(Designations,'Designations')">All</mat-checkbox>
                                 </div>
                                 <div class="inputcheck" *ngFor="let meeting of Designations.slice(0,DesignationLimit)" >
-                                  <mat-checkbox color="#000">{{ meeting.name }}</mat-checkbox>
+                                  <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'Designations')" [checked]="meeting.is_selected">{{ meeting.name }}</mat-checkbox>
                                 </div>
                                 <a class="btn fil-sm"  *ngIf="DesignationLimit < Designations.length" (click)="showmore('designation')" >More</a>
                                 <a class="btn fil-sm"  *ngIf="DesignationLimit == Designations.length" (click)="showless('designation')" >Less</a>
@@ -65,27 +65,27 @@
                                     class="filter_title accordion-toggle"
                                     data-toggle="collapse"
                                     data-target="#collapseTwo"
-                                    aria-expanded="true"
+                                    aria-expanded="false"
                                     aria-controls="collapseTwo"
                                   > <span class="icon">-</span>
                                     States
                                    
                                   </button>
-                                  <button class="btn fil-sm btn-dark"  >Clear All</button>
+                                  <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(States,'States')" >Clear All</button>
                                
                               
                           </div>
                           
                       </div>
                       <div class="filter_main"  id="collapseTwo"
-                      class="collapse show"
+                      class="collapse"
                       aria-labelledby="headingTwo"
                       data-parent="#accordion">
                               <div class="inputcheck" >
-                                <mat-checkbox color="#000">All</mat-checkbox>
+                                <mat-checkbox color="#000" (change)="onAllCheckedResult(States,'States')">All</mat-checkbox>
                               </div>
                               <div class="inputcheck" *ngFor="let meeting of States.slice(0,StatesLimit)" >
-                                <mat-checkbox color="#000">{{ meeting.STATENAME }}</mat-checkbox>
+                                <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'States')" [checked]="meeting.is_selected">{{ meeting.STATENAME }}</mat-checkbox>
                               </div>
                               <a class="btn fil-sm" *ngIf="StatesLimit < States.length" (click)="showmore('states')" >More</a>
                               <a class="btn fil-sm"  *ngIf="StatesLimit == States.length" (click)="showless('states')" >Less</a>
@@ -103,11 +103,11 @@
                                       data-target="#collapseThree"
                                       aria-expanded="false"
                                       aria-controls="collapseThree"
-                                    > <span class="icon">+</span>
+                                    > <span class="icon">-</span>
                                     Gender
                                      
                                     </button>
-                                    <button class="btn fil-sm btn-dark">Clear All</button>
+                                    <button class="btn fil-sm btn-dark" (click)="clearCheckedResult(GenderList,'Gender')">Clear All</button>
                                  
                                 
                             </div>
@@ -118,14 +118,11 @@
                         aria-labelledby="headingThree"
                         data-parent="#accordion">
                                 <div class="inputcheck">
-                                  <mat-checkbox color="#000">All</mat-checkbox>
+                                  <mat-checkbox color="#000" (change)="onAllCheckedResult(GenderList,'Gender')">All</mat-checkbox>
                                 </div>
-                                <div class="inputcheck">
-                                  <mat-checkbox color="#000">Male</mat-checkbox>
-                                </div>
-                                <div class="inputcheck">
-                                  <mat-checkbox color="#000">Female</mat-checkbox>
-                                </div>
+                                <div class="inputcheck" *ngFor="let meeting of GenderList" >
+                                  <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'Gender')" [checked]="meeting.is_selected">{{ meeting.name }}</mat-checkbox>
+                                </div> 
                         </div>
                     </div>
                 </div>
@@ -140,11 +137,11 @@
                                     data-target="#collapseFour"
                                     aria-expanded="false"
                                     aria-controls="collapseFour"
-                                  > <span class="icon">+</span>
+                                  > <span class="icon">-</span>
                                   Age
                                    
                                   </button>
-                                  <button class="btn fil-sm btn-dark">Clear All</button>
+                                  <button class="btn fil-sm btn-dark" (click)="clearCheckedResult(AgeList,'Age')">Clear All</button>
                                
                               
                           </div>
@@ -154,21 +151,13 @@
                       class="collapse"
                       aria-labelledby="headingFour"
                       data-parent="#accordion">
-                              <div class="inputcheck">
-                                <mat-checkbox color="#000">All</mat-checkbox>
-                              </div>
-                              <div class="inputcheck">
-                                <mat-checkbox color="#000">25 to 40</mat-checkbox>
-                              </div>
-                              <div class="inputcheck">
-                                <mat-checkbox color="#000">40 to 50</mat-checkbox>
-                              </div>
-                              <div class="inputcheck">
-                                <mat-checkbox color="#000">50 to 60</mat-checkbox>
-                              </div>
-                              <div class="inputcheck">
-                                <mat-checkbox color="#000">60 and above</mat-checkbox>
-                              </div>
+                      <div class="inputcheck">
+                        <mat-checkbox color="#000" (change)="onAllCheckedResult(AgeList,'Age')">All</mat-checkbox>
+                      </div>
+                      <div class="inputcheck" *ngFor="let meeting of AgeList" >
+                        <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'Age')" [checked]="meeting.is_selected">{{ meeting.name }}</mat-checkbox>
+                      </div> 
+                              
                       </div>
                   </div>
               </div>
@@ -177,30 +166,65 @@
                     <div class="filter_title_div">
                         <div class="d-flex w-100 align-items-center justify-content-between" id="headingFive"> 
                                 <button  class="filter_title accordion-toggle"      data-toggle="collapse"  data-target="#collapseFive"
-                                  aria-expanded="true"    aria-controls="collapseFive" > <span class="icon">-</span> 
+                                  aria-expanded="false"    aria-controls="collapseFive" > <span class="icon">-</span> 
                                      Community</button>
-                                <button class="btn fil-sm btn-dark"  >Clear All</button> 
+                                <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(CasteList,'Caste')">Clear All</button> 
                         </div>
                         
                     </div>
                     <div class="filter_main"  id="collapseFive"
-                    class="collapse show"
+                    class="collapse"
                     aria-labelledby="headingFive"
                     data-parent="#accordion">
                             <div class="inputcheck" >
-                              <mat-checkbox color="#000">All</mat-checkbox>
+                              <mat-checkbox color="#000" (change)="onAllCheckedResult(CasteList,'Caste')">All</mat-checkbox>
                             </div>
-                            <div class="inputcheck" *ngFor="let meeting of CasteList.slice(0,DesignationLimit)" >
-                              <mat-checkbox color="#000">{{ meeting.name }}</mat-checkbox>
+                            <div class="inputcheck" *ngFor="let meeting of CasteList.slice(0,CasteLimit)" >
+                              <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'Caste')" [checked]="meeting.is_selected">{{ meeting.name }}</mat-checkbox>
                             </div>
                             <a class="btn fil-sm"  *ngIf="CasteLimit < CasteList.length" (click)="showmore('caste')" >More</a>
                             <a class="btn fil-sm"  *ngIf="CasteLimit == CasteList.length" (click)="showless('caste')" >Less</a>
                     </div>
                 </div>
             </div>
+            <div class="card mb-2">
+              <div class="card-body">
+                  <div class="filter_title_div">
+                      <div class="d-flex w-100 align-items-center justify-content-between" id="YearsOfExp">
+                          
+                              <button
+                                class="filter_title accordion-toggle"
+                                data-toggle="collapse"
+                                data-target="#collapseYearsOfExp"
+                                aria-expanded="false"
+                                aria-controls="collapseYearsOfExp"
+                              > <span class="icon">-</span>
+                              Years of experience
+                               
+                              </button>
+                              <button class="btn fil-sm btn-dark" (click)="clearCheckedResult(YearsOfExp,'YearsOfExp')">Clear All</button>
+                           
+                          
+                      </div>
+                      
+                  </div>
+                  <div class="filter_main"  id="collapseYearsOfExp"
+                  class="collapse"
+                  aria-labelledby="YearsOfExp"
+                  data-parent="#accordion">
+                  <div class="inputcheck">
+                    <mat-checkbox color="#000" (change)="onAllCheckedResult(YearsOfExp,'YearsOfExp')">All</mat-checkbox>
+                  </div>
+                  <div class="inputcheck" *ngFor="let meeting of YearsOfExp" >
+                    <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'YearsOfExp')" [checked]="meeting.is_selected">{{ meeting.name }}</mat-checkbox>
+                  </div> 
+                          
+                  </div>
+              </div>
+          </div>
                 <div class="d-flex align-items-center justify-content-center mt-3 mb-3">
                     <button class="btn btn-outline-white mr-2">Clear</button>
-                    <button class="btn btn-primary">Apply</button>
+                    <button class="btn btn-primary" (click)="filterResult()">Apply</button>
                 </div>
                 </div>
             </div>

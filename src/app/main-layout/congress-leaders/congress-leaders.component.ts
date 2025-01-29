@@ -27,6 +27,7 @@ export class CongressLeadersComponent {
   CasteLimit:number=5;
   StatesLimit:number=5;
   userDetail:any={};
+  FiltersList: any = [];
   Designations: any = [];
   CasteList: any = [];
   Users: any = [];
@@ -34,6 +35,9 @@ export class CongressLeadersComponent {
   UsersProfessions: any = [];
   States: any = [];
   Districts: any = [];
+  GenderList: any = [];
+  AgeList: any = [];
+  YearsOfExp: any = [];
   constructor(public sharedService: SharedService,private router: Router,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
       $(".page-loader-wrapper-review").fadeOut();
@@ -55,12 +59,83 @@ export class CongressLeadersComponent {
     this.isLoggedIn = localStorage.getItem("cl_user");
      if(this.isLoggedIn!=null){
       this.LoadMasters();
-      this.LoadUsers() ;
+      this.LoadUsers("") ;
+      this.GenderList.push({"name":"Male","is_selected":false})
+      this.GenderList.push({"name":"Female","is_selected":false})
+      this.GenderList.push({"name":"Others","is_selected":false})
+
+      this.AgeList.push({"name":"25 to 40","is_selected":false})
+      this.AgeList.push({"name":"40 to 50","is_selected":false})
+      this.AgeList.push({"name":"50 to 60","is_selected":false})
+      this.AgeList.push({"name":"60 and above","is_selected":false})
+
+      this.YearsOfExp.push({"name":"Below 5 years","is_selected":false})
+      this.YearsOfExp.push({"name":"5 to 10 years","is_selected":false})
+      this.YearsOfExp.push({"name":"10 to 15 years","is_selected":false})
+      this.YearsOfExp.push({"name":"15 to 20 years","is_selected":false})
+      this.YearsOfExp.push({"name":"20 years and above","is_selected":false})
      }
      else{
       window.location.href = "/auth/login";
      }
    
+  }
+  bindFilter(list:any,primarycol:any,filterType:any){
+    let selectedlist = list
+    .filter((item: any) => item.is_selected==true)
+    .map((item: any) => item[primarycol]);
+  
+    selectedlist.forEach((element:any) => {
+      this.FiltersList.push({ filterType: filterType, id: element });
+    });
+  }
+  filterResult(){ 
+    this.FiltersList=[];
+    this.bindFilter(this.Designations,"id","Designations")
+    this.bindFilter(this.States,"STATEID","States") 
+    this.bindFilter(this.GenderList,"name","Gender")  
+    this.bindFilter(this.CasteList,"id","Caste")  
+    this.bindFilter(this.AgeList,"name","Age")  
+    this.bindFilter(this.YearsOfExp,"name","YearsOfExp")  
+    this.LoadUsers(JSON.stringify(this.FiltersList))
+}
+  onCheckedResult(childitem:any,checked_type:any) {  
+    if(checked_type=='Designations'){
+    let obj=this.Designations.filter((item: any) =>(item.id === childitem.id));
+    if(obj!=null){
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
+    }
+  }
+  else  if(checked_type=='States'){
+    let obj=this.States.filter((item: any) =>(item.STATEID === childitem.STATEID));
+    if(obj!=null){
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
+    }
+  }
+  else  if(checked_type=='Gender'){
+    let obj=this.GenderList.filter((item: any) =>(item.name === childitem.name));
+    if(obj!=null){
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
+    }
+  }
+  else  if(checked_type=='Caste'){
+    let obj=this.CasteList.filter((item: any) =>(item.id === childitem.id));
+    if(obj!=null){
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
+    }
+  }
+  else  if(checked_type=='Age'){
+    let obj=this.AgeList.filter((item: any) =>(item.name === childitem.name));
+    if(obj!=null){
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
+    }
+  }
+  else  if(checked_type=='YearsOfExp'){
+    let obj=this.YearsOfExp.filter((item: any) =>(item.name === childitem.name));
+    if(obj!=null){
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
+    }
+  }
   }
   showTab(tab_type:any){ 
     this.Users=this.UsersList;
@@ -88,9 +163,9 @@ export class CongressLeadersComponent {
     };
   
     this.service.getMasters(objRequest).subscribe({
-      next: (response: any) => { 
-        var parseresponse = JSON.parse(response.response); 
+      next: (response: any) => {  
         if (response["errorCode"] === "200") {
+          var parseresponse = JSON.parse(response.response); 
           this.Designations = parseresponse.Table2;
           this.States = parseresponse.Table1; 
             this.CasteList = parseresponse.Table;
@@ -108,19 +183,36 @@ export class CongressLeadersComponent {
       }
     });
   }
-  LoadUsers() {
+  onAllCheckedResult(list:any,listType:any){
+    list.forEach((element:any) => {
+      element.is_selected=element.is_selected==true ? false :true;
+    }); 
+     
+  }
+  clearCheckedResult(list:any,listType:any){
+    list.forEach((element:any) => {
+      element.is_selected=false;
+    }); 
+     
+  }
+  LoadUsers(filterText:any) {
     const objRequest = {
       typeId: 8,
       userid: 0,
       filterId: 0,
-      filterText: "",
+      filterText: filterText,
       filterText1: ""
     };
   
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
-        var parseresponse = JSON.parse(response.response); 
+        let el:any = document.getElementById('AICC');
+        el.scrollIntoView();
+        this.Users=[];
+        this.UsersList=[];
+        this.UsersProfessions=[];
         if (response["errorCode"] === "200") {
+          var parseresponse = JSON.parse(response.response); 
           this.Users = parseresponse.Table; 
           this.UsersList = parseresponse.Table; 
           this.UsersProfessions = parseresponse.Table1; 

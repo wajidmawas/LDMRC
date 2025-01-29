@@ -53,52 +53,41 @@ export class CongressOrganizationComponent {
     this.isLoggedIn = localStorage.getItem("cl_user");
      if(this.isLoggedIn!=null){
       this.LoadMasters();
-      this.LoadUsers() ;
+      this.LoadUsers("") ;
      }
      else{
       window.location.href = "/auth/login";
      }
    
   }
-  filterResult(){ 
-    let selectedlist = this.Designations
+  bindFilter(list:any,primarycol:any,filterType:any){
+    let selectedlist = list
     .filter((item: any) => item.is_selected==true)
-    .map((item: any) => item.id);
+    .map((item: any) => item[primarycol]);
   
-  let existingFilter = this.FiltersList.find((item: any) => item.filterType === 'Designations');
-  if (selectedlist) {
-  if (existingFilter) {
-    existingFilter.Designations = selectedlist;
-  } else {
-    this.FiltersList.push({ filterType: 'Designations', Designations: selectedlist });
+    selectedlist.forEach((element:any) => {
+      this.FiltersList.push({ filterType: filterType, id: element });
+    });
   }
+  filterResult(){ 
+    this.FiltersList=[];
+    this.bindFilter(this.Designations,"id","Designations")
+    this.bindFilter(this.States,"STATEID","States")  
+    this.LoadUsers(JSON.stringify(this.FiltersList))
 }
 
-  selectedlist = this.States
-    .filter((item: any) => item.is_selected==true) 
-    .map((item: any) => item.STATEID);
-    existingFilter = this.FiltersList.find((item: any) => item.filterType === 'States');
-  
-    if (selectedlist) {
-  if (existingFilter) {
-    existingFilter.States = selectedlist;
-  } else {
-    this.FiltersList.push({ filterType: 'States', States: selectedlist });
-  }
-}
-
-  }
+ 
   onCheckedResult(childitem:any,checked_type:any) {  
     if(checked_type=='Designations'){
     let obj=this.Designations.filter((item: any) =>(item.id === childitem.id));
     if(obj!=null){
-      obj[0].is_selected=obj.is_selected==true ? false :true;
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
     }
   }
   else  if(checked_type=='States'){
     let obj=this.States.filter((item: any) =>(item.STATEID === childitem.STATEID));
     if(obj!=null){
-      obj[0].is_selected=obj.is_selected==true ? false :true;
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
     }
   }
   }
@@ -130,11 +119,14 @@ export class CongressOrganizationComponent {
   
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
-        var parseresponse = JSON.parse(response.response); 
+       
         if (response["errorCode"] === "200") {
+          var parseresponse = JSON.parse(response.response); 
           this.Designations = parseresponse.Table2;
           this.States = parseresponse.Table1; 
         } else {
+          this.Designations=[];
+          this.States=[];
           console.error("API returned an error:", response.message); 
         }
       },
@@ -148,22 +140,38 @@ export class CongressOrganizationComponent {
       }
     });
   }
-  LoadUsers() {
+  onAllCheckedResult(list:any,listType:any){
+    list.forEach((element:any) => {
+      element.is_selected=element.is_selected==true ? false :true;
+    }); 
+     
+  }
+  clearCheckedResult(list:any,listType:any){
+    list.forEach((element:any) => {
+      element.is_selected=false;
+    }); 
+     
+  }
+  LoadUsers(filtertext:string) {
     const objRequest = {
       typeId: 8,
       userid: 0,
       filterId: 0,
-      filterText: "",
+      filterText: filtertext,
       filterText1: ""
     };
   
     this.service.getMasters(objRequest).subscribe({
-      next: (response: any) => { 
-        var parseresponse = JSON.parse(response.response); 
+      next: (response: any) => {  
+        let el:any = document.getElementById('AICC');
+        el.scrollIntoView();
         if (response["errorCode"] === "200") {
+          var parseresponse = JSON.parse(response.response);
           this.Users = parseresponse.Table; 
           this.UsersList = parseresponse.Table; 
         } else {
+          this.Users=[];
+          this.UsersList=[];
           console.error("API returned an error:", response.message); 
         }
       },
