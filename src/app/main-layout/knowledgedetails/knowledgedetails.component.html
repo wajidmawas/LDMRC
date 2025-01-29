@@ -1,0 +1,60 @@
+
+            <div class="container-fluid">
+                <div class="block-header">
+                  <div class="row mb-2">
+                    <div class="col-lg-12">
+                    <ul class="breadcrumb">                          
+                      <li class="breadcrumb-item">Dashboard</li> 
+                      <li class="breadcrumb-item active">Knowledge Detail</li>
+                  </ul>
+                </div>
+                  </div>
+                       <div class="row">
+                           <div class="col-lg-12 col-md-12 col-sm-12 d-flex align-items-center">
+                               <a href="javascript::(0)" (click)="Back()" >
+                               <i class="fa-solid fa-arrow-left mr-2"></i></a>
+                               <h2 class="mb-0">{{ActivitiesDetail[0].title}}</h2> 
+                           </div>
+                           <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="d-flex flex-row-reverse">
+                                <div class="page_action">
+                
+                                </div>
+                              
+                            </div>
+                        </div>
+                       </div>
+                   </div>
+                  
+            <div class="row mb-5"> 
+                <div class="col-lg-12"> 
+                        <div class="activity-detail-container" *ngFor="let activity of ActivitiesDetail">
+                            <div class="content"> 
+                              <p class="photo-head ps-4 my-2 mb-2">{{ activity.date.split('T')[0]}} | Share <span><i class="fas fa-share"></i></span></p>
+                                <img
+                                  src="{{ activity.detail_image}}"
+                                  alt="Activity Image"
+                                  class="img-fluid"
+                                />
+                              </div> 
+                        
+                            <p class="acti_para" [innerHTML]="activity.description"> </p> 
+                              
+                           
+                            <div class="d-flex justify-content-between">
+                              <button class="prev" (click)="getnext(0)"><i class="fa-solid fa-arrow-left me-1"></i> Previous</button>
+                              <button class="next" (click)="getnext(1)">Next <i class="fa-solid fa-arrow-right ms-1"></i></button>
+                          </div>
+                          
+                       
+
+                       
+                    </div>
+                </div>
+                </div> 
+                   
+                
+       
+
+             
+                

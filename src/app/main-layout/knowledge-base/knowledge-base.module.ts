@@ -15,15 +15,22 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox'; 
 import { MatRadioModule } from '@angular/material/radio'; 
 import { KnowledgeBaseComponent } from './knowledge-base.component'; // Import the standalone component.
-
+import { KnowledgeDetailComponent } from '../knowledgedetails/knowledgedetails.component';
 const routes: Routes = [
   {
     path: 'knowledge_base',
     component: KnowledgeBaseComponent,
   },
+  {
+    path: 'knowledge_detail/:id',
+    component: KnowledgeDetailComponent, 
+  },
 ];
 
 @NgModule({
+  declarations: [ 
+    KnowledgeDetailComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -40,7 +47,10 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule.forChild(),
     MatRadioModule,
-    KnowledgeBaseComponent, // Import the standalone component here.
+    KnowledgeBaseComponent // Import the standalone component here.
   ],
+  exports: [ 
+    KnowledgeDetailComponent
+   ],
 })
 export class KnowledgeBaseModule {}
