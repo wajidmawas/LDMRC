@@ -27,7 +27,7 @@ import { LeaderDevelopmentMissionModule } from './leader-development-mission/lea
 import { ElectionMembersModule } from './election-members/election-members.module';
  import { KnowledgeBaseModule } from './knowledge-base/knowledge-base.module';
  import { TrainingModule } from './meetings/trainings/trainings.module';
- import { CommunicationListModule } from './communication-list/communication-list.module';
+ import { CommunicationListModule } from './communication-list/communication-list.module'; 
 // import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
@@ -61,6 +61,7 @@ import { ElectionMembersModule } from './election-members/election-members.modul
     KnowledgeBaseModule,
     TrainingModule,
     CommunicationListModule
+    
     // ,CarouselModule
     
   ],
