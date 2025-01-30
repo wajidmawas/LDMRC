@@ -16,6 +16,7 @@ import { map, startWith, Subject, takeUntil } from 'rxjs';
 import 'jquery';
 import { FormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
+import { AngularEditorConfig } from '@wfpena/angular-wysiwyg';
 @Component({
   selector: 'app-knowledge-base',
   standalone: true,
@@ -45,8 +46,7 @@ export class KnowledgeBaseComponent {
     }, 300);
       this.userDetail = this.sharedService.getUserSession();
       this.userDtail = localStorage.getItem("cl_user");
-      this.userdetails = JSON.parse(this.userDtail)
-    console.log("UserDetails",this.userdetails)
+      this.userdetails = JSON.parse(this.userDtail) 
       var year  = new Date().getFullYear();
       const now = new Date();
       const options: Intl.DateTimeFormatOptions = { 
