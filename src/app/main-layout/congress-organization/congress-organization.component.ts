@@ -10,16 +10,17 @@ import { TranslateService } from '@ngx-translate/core';
 import dayGridPlugin from '@fullcalendar/daygrid' 
 import { DatePipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
-import { FormControl } from '@angular/forms';
+import { FormControl ,FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, startWith, Subject, takeUntil } from 'rxjs'; 
 @Component({
   selector: 'app-congress-organization',
   standalone: true,
-  imports: [CommonModule, MatCheckboxModule], 
+  imports: [CommonModule, MatCheckboxModule,FormsModule], 
   templateUrl: './congress-organization.component.html',
   styleUrl: './congress-organization.component.scss'
 })
+
 export class CongressOrganizationComponent {
   isLoggedIn:any='';
   userdetails:any={};
@@ -29,6 +30,7 @@ export class CongressOrganizationComponent {
   Designations: any = [];
   FiltersList: any = [];
   Users: any = [];
+  searchValue:any='';
   UsersList: any = [];
   States: any = [];
   Districts: any = [];
@@ -59,6 +61,28 @@ export class CongressOrganizationComponent {
       window.location.href = "/auth/login";
      }
    
+  }
+  onSearchChange(): void {  
+    this.Users=this.UsersList;
+    if(this.searchValue!=null && this.searchValue!=undefined && this.searchValue!=""){
+      var list=this.Users.filter((item: any) =>(item.first_name.includes(this.searchValue) ||
+      item.last_name.includes(this.searchValue) ||
+      item.mobile_no.includes(this.searchValue) ));
+      this.Users=list;
+    }
+     
+  }
+  export2Excel(){
+     
+    const downloadLink = document.createElement('a');
+    let table: any = [];
+    table = document.getElementById('exportable');
+    const tableHTML = table.outerHTML.replace(/ /g, '%20');
+    var html = table.outerHTML;
+    var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+    downloadLink.href = 'data:' + url + ' ';
+    downloadLink.download = 'congress_organisation.xls'
+    downloadLink.click();
   }
   bindFilter(list:any,primarycol:any,filterType:any){
     let selectedlist = list

@@ -95,6 +95,18 @@ responseid:any=[];
   viewDetails(access_token:any){
     window.location.href = "/user-profile/"+access_token;
   }
+  export2Excel(fileNm:string){
+     
+    const downloadLink = document.createElement('a');
+    let table: any = [];
+    table = document.getElementById(fileNm);
+    const tableHTML = table.outerHTML.replace(/ /g, '%20');
+    var html = table.outerHTML;
+    var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+    downloadLink.href = 'data:' + url + ' ';
+    downloadLink.download = 'leader_development_mission.xls'
+    downloadLink.click();
+  }
   LoadMasters() {
     const objRequest = {
       typeId: 1,
@@ -251,8 +263,7 @@ else if(type=='designation'){
   onvillageChange(event: any): void {
     this.selectedVillage = event.target.value; 
   }
-  getAssembly(id: any) {
-    debugger;
+  getAssembly(id: any) { 
     const objRequest = {
       typeId: 40,
       userid: 0,
@@ -264,9 +275,7 @@ else if(type=='designation'){
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
         var parseresponse = JSON.parse(response.response); 
-       debugger;
-        if (response["errorCode"] === "200") { 
-          debugger;
+        if (response["errorCode"] === "200") {  
           this.Assembly = parseresponse.Table1
          console.log("Assembly" + JSON.stringify(this.Assembly))
         } else {
@@ -292,14 +301,10 @@ else if(type=='designation'){
     };
     console.log(JSON.stringify(objRequest));
     this.service.getMasters(objRequest).subscribe({
-      next: (response: any) => {  
-        debugger;
-        var parseresponse = JSON.parse(response.response); 
-       
-        if (response["errorCode"] === "200") { 
-          debugger;
-          this.villages = parseresponse.Table
-         console.log("villages" + JSON.stringify(this.villages))
+      next: (response: any) => {    
+        if (response["errorCode"] === "200") {  
+          var parseresponse = JSON.parse(response.response); 
+          this.villages = parseresponse.Table 
         } else {
           console.error("API returned an error:", response.message); 
         }
@@ -317,8 +322,7 @@ else if(type=='designation'){
     const input = event.target as HTMLInputElement;
       if (input?.files?.length) {
         const file = input.files[0];
-        this.clsldm.imageFile = file; // Assign File object
-        debugger;
+        this.clsldm.imageFile = file; // Assign File object 
         this.clsldm.imagePath=file.name;
       }
   }
@@ -388,8 +392,7 @@ else if(type=='designation'){
     else if (this.clsldm.date_of_posting == undefined || this.clsldm.date_of_posting == null || this.clsldm.date_of_posting == '') {
       this.snackbar.showInfo("Please enter Date", "Error");
       validate = true;
-    }
-  debugger;
+    } 
     if (!validate) {
       $(".page-loader-wrapper-review").show();
       const formData = new FormData();
@@ -425,8 +428,7 @@ else if(type=='designation'){
     if (response.errorCode == "200") {
        this.snackbar.showSuccess(response.message, response.status);
       setTimeout(() => {
-        this.responseid=JSON.parse(response.response).Table[0].Column1;
-        debugger;
+        this.responseid=JSON.parse(response.response).Table[0].Column1; 
         if(this.responseid==this.clsldm.id)
         {
           this.clsldm = new cls_addldm(); // Reset form data
@@ -455,8 +457,7 @@ else if(type=='designation'){
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
         var parseresponse = JSON.parse(response.response); 
-        if (response["errorCode"] === "200") {
-          debugger;
+        if (response["errorCode"] === "200") { 
           this.ActivityType = parseresponse.Table;
         } else {
           console.error("API returned an error:", response.message); 
@@ -484,8 +485,7 @@ else if(type=='designation'){
    
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
-        var parseresponse = JSON.parse(response.response); 
-        debugger;
+        var parseresponse = JSON.parse(response.response);  
         if (response["errorCode"] === "200") {
           this.clsldm=parseresponse.Table
           this.clsldm = { ...parseresponse.Table[0] };
@@ -525,8 +525,7 @@ else if(type=='designation'){
   
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
-        var parseresponse = JSON.parse(response.response);  
-        debugger;
+        var parseresponse = JSON.parse(response.response);   
         if (response["errorCode"] === "200") {
           this.snackbar.showSuccess("", response.status);
               setTimeout(() => {

@@ -48,7 +48,7 @@
                                     States
                                    
                                   </button>
-                                  <button class="btn fil-sm btn-dark"  >Clear All</button>
+                                  <button class="btn fil-sm btn-dark"   (click)="clearCheckedResult(States,'States')">Clear All</button>
                                
                               
                           </div>
@@ -59,10 +59,10 @@
                       aria-labelledby="headingOne"
                       data-parent="#accordion">
                               <div class="inputcheck" >
-                                <mat-checkbox color="#000">All</mat-checkbox>
+                                <mat-checkbox (change)="onAllCheckedResult(States,'States')" color="#000">All</mat-checkbox>
                               </div>
                               <div class="inputcheck" *ngFor="let meeting of States.slice(0,StatesLimit)" >
-                                <mat-checkbox color="#000">{{ meeting.STATENAME }}</mat-checkbox>
+                                <mat-checkbox (change)="onCheckedResult(meeting,'States')" color="#000" [checked]="meeting.is_selected">{{ meeting.STATENAME }}</mat-checkbox>
                               </div>
                               <a class="btn fil-sm" *ngIf="StatesLimit < States.length" (click)="showmore('states')" >More</a>
                               <a class="btn fil-sm"  *ngIf="StatesLimit == States.length" (click)="showless('states')" >Less</a>
@@ -71,7 +71,7 @@
               </div> 
                 <div class="d-flex align-items-center justify-content-center mt-3 mb-3">
                     <button class="btn btn-outline-white mr-2">Clear</button>
-                    <button class="btn btn-primary">Apply</button>
+                    <button class="btn btn-primary" (click)="ApplyFilter()" >Apply</button>
                 </div>
                 </div>
             </div>
@@ -79,16 +79,16 @@
                 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link active" id="AICC-tab" data-toggle="tab" href="#AICC" (click)="showTab('SC Dept')" role="tab" aria-controls="home" aria-selected="true">All Assembly Contituencies</a>
+                      <a class="nav-link active" id="AICC-tab" data-toggle="tab" href="#AICC" (click)="showTab(1)" role="tab" aria-controls="home" aria-selected="true">All Assembly Contituencies</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link" id="PCC-tab" data-toggle="tab" href="#AICC" (click)="showTab('ST Dept')" role="tab" aria-controls="profile" aria-selected="false">All Parliament Contituencies</a>
+                      <a class="nav-link" id="PCC-tab" data-toggle="tab" href="#AICC" (click)="showTab(1)" role="tab" aria-controls="profile" aria-selected="false">All Parliament Contituencies</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link" id="SC-tab" data-toggle="tab" href="#AICC" (click)="showTab('OBC Dept')" role="tab" aria-controls="contact" aria-selected="false">Sitting MP's Of  All Communities</a>
+                      <a class="nav-link" id="SC-tab" data-toggle="tab" href="#Sitting" (click)="showTab(2)" role="tab" aria-controls="contact" aria-selected="false">Sitting MP's Of  All Communities</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link" id="ST-tab" data-toggle="tab" href="#AICC" (click)="showTab('Minority Dept')" role="tab" aria-controls="contact" aria-selected="false">Sitting MLA's Of   All Communities</a>
+                      <a class="nav-link" id="ST-tab" data-toggle="tab" href="#Sitting" (click)="showTab(3)" role="tab" aria-controls="contact" aria-selected="false">Sitting MLA's Of   All Communities</a>
                     </li>
                    
                   </ul>
@@ -101,48 +101,96 @@
                             </div>
                             <div class="btns">
                               <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
-                              <button class="btn btn-secondary"><i class="fa fa-cloud-download mr-2"></i>Download</button>
+                              <button class="btn btn-secondary" (click)="export2Excel('exportTable2')"><i class="fa fa-cloud-download mr-2"></i>Download</button>
                             </div> 
                       </div>
                       <div class="table-responsive">
-                        <table class="table sortable-table sortable-fa-icons">
+                        <table class="table sortable-table sortable-fa-icons" id="exportTable2">
                           <thead>
                               <tr>
                                 <th class="numeric-sort">Sr. No</th>
                                 <th class="numeric-sort">Image</th>
-                                <th class="numeric-sort">Title</th>
-                                <th class="numeric-sort">Name of the <br/> office bearer</th> 
-                                <th class="numeric-sort">Designation</th>
-                                <th class="numeric-sort">Date Of Posting</th>
-                                <th class="numeric-sort">Type Of Activity</th>
-                                <th class="numeric-sort">No.Of <br/> Participants</th>
                                 <th class="numeric-sort">State</th>
-                                <th class="numeric-sort">Expected outcome</th>
-                                <th>#</th>
+                                <th class="numeric-sort">Name <br/> Of the 
+                                  <br/> Parliament Constituency</th>
+                                <th class="numeric-sort">Year of <br/> Election</th> 
+                                <th class="numeric-sort">SC/ST <br/> Category</th>
+                                <th class="numeric-sort">Name of the <br/> Candidate who won</th>
+
+                                <th class="numeric-sort">Party</th>
+                                <th class="numeric-sort">Votes Secured by <br/> the winner</th>
+                                <th class="numeric-sort">Name of the INC candidate<br/>(if not the winner)</th>
+                                <th class="numeric-sort">Votes Secured</th> 
                           </tr>
                           </thead>
                           <tbody>
                               <tr *ngFor="let act of LDMActivities; let i = index">
                                   <td>{{i+1}}</td>
-                                  <td><img [src]="act.photo_path || '../../../assets/images/logo.png'" 
+                                  <td><img [src]="act.image_path || '../../../assets/images/logo.png'" 
                                       width="32" height="32"></td>
-                                  <td class="wp">{{act.title}}</td>
-                                  <td class="wp">{{act.office_bearer}}</td> 
-                                  <td class="wp">{{act.designation}}</td>
-                                  <td class="wp">{{act.date_of_posting.split('T')[0]}}</td>
-                                  <td class="wp">{{act.activity_type_name}}</td>
-                                  <td class="wp">{{act.no_of_participants}}</td>
-                                  <td class="wp">{{act.statename}}</td>
-                                  <td class="wp">{{act.expected_outcome}}</td>
-                                  <td><a href='javascript::' target="_blank" >
-                                    <i class="fa fa-eye"></i> 
-                                  </a></td>
+                                      <td class="wp">{{act.statename}}</td> 
+                                  <td class="wp">{{act.pc_name}}</td>
+                                  <td class="wp">{{act.election_year}}</td> 
+                                  <td class="wp">{{act.category}}</td>
+                                  <td class="wp">{{act.winner_candidate_name}}</td>
+                                  <td class="wp">{{act.winning_party}}</td>
+                                  <td class="wp">{{act.votes_secured}}</td>
+                                  <td class="wp">{{act.looser_candidate_name}}</td>
+                                  <td class="wp">{{act.looser_votes}}</td> 
                               </tr> 
                           </tbody>
                       </table>
                       </div>
                     </div>
-                   
+                    <div class="tab-pane fade" id="Sitting" role="tabpanel" aria-labelledby="home-tab">
+                      <div class="tabseachBar">
+                          <div class="search tab_search">
+                              <i class="fa fa-search"></i> 
+                              <input type="text" class="form-control round"> 
+                          </div>
+                          <div class="btns">
+                            <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
+                            <button class="btn btn-secondary" (click)="export2Excel('exportTable2')"><i class="fa fa-cloud-download mr-2"></i>Download</button>
+                          </div> 
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table sortable-table sortable-fa-icons" id="exportTable2">
+                        <thead>
+                            <tr>
+                              <th class="numeric-sort">Sr. No</th>
+                              <th class="numeric-sort">Image</th>
+                              <th class="numeric-sort">State</th>
+                              <th class="numeric-sort">Candidate Name</th>
+                              <th class="numeric-sort">Age</th>
+                              <th class="numeric-sort">Phone Number</th>
+                              <th class="numeric-sort">Email Id</th>
+                              <th class="numeric-sort">Party</th>
+                              <th class="numeric-sort">Membership Status</th>
+                              <th class="numeric-sort">Assembly <br/> Constituency Type</th>
+                              <th class="numeric-sort">Name of the  <br/> Assembly Constituency</th> 
+                              <th class="numeric-sort">State/Union Territory</th> 
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let act of SittingData; let i = index">
+                                <td>{{i+1}}</td>
+                                <td><img [src]="act.image_path || '../../../assets/images/logo.png'" 
+                                    width="32" height="32"></td>
+                                    <td class="wp">{{act.statename}}</td>
+                                    <td class="wp">{{act.candidate_name}}</td> 
+                                <td class="wp">{{act.role}}</td>
+                                <td class="wp">{{act.age}}</td> 
+                                <td class="wp">{{act.phone_no}}</td>
+                                <td class="wp">{{act.email_id}}</td>
+                                <td class="wp">{{act.party}}</td>
+                                <td class="wp">{{act.membership_status}}</td>
+                                <td class="wp">{{act.constituency_type}}</td>
+                                <td class="wp">{{act.assembly_name}}</td> 
+                            </tr> 
+                        </tbody>
+                    </table>
+                    </div>
+                  </div>
                   </div>
                  
             </div>

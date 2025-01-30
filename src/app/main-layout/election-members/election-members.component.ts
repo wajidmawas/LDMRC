@@ -30,6 +30,7 @@ export class ElectionMembersComponent {
   Users: any = [];
   UsersList: any = [];
   LDMActivities: any = [];
+  SittingData: any = [];AllSittingData: any = [];
   States: any = [];
   Districts: any = [];
   constructor(public sharedService: SharedService,private router: Router,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
@@ -61,8 +62,67 @@ export class ElectionMembersComponent {
    
   }
   showTab(tab_type:any){  
-    this.Users=this.UsersList;
-    this.Users=this.Users.filter((item: any) =>(item.stream === tab_type));
+    if(tab_type==1){
+      this.LDMActivities=this.UsersList; 
+    }
+    else if(tab_type==2){
+      this.SittingData=this.AllSittingData;
+      this.SittingData=this.SittingData.filter((item: any) =>(item.role === 'MP'));
+    }
+    else if(tab_type==3){
+      this.SittingData=this.AllSittingData;
+      this.SittingData=this.SittingData.filter((item: any) =>(item.role === 'MLA'));
+    }
+  }
+  
+  onCheckedResult(childitem:any,checked_type:any) {  
+  if(checked_type=='States'){
+    let obj=this.States.filter((item: any) =>(item.STATEID === childitem.STATEID));
+    if(obj!=null){
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
+    }
+  }
+  }
+  onAllCheckedResult(list:any,listType:any){
+    list.forEach((element:any) => {
+      element.is_selected=element.is_selected==true ? false :true;
+    }); 
+     
+  }
+  clearCheckedResult(list:any,listType:any){
+    list.forEach((element:any) => {
+      element.is_selected=false;
+    }); 
+     
+  }
+  bindFilter(list:any,primarycol:any,filterType:any){
+    let selectedlist = list
+    .filter((item: any) => item.is_selected==true)
+    .map((item: any) => item[primarycol]);
+  
+    let list1:any=[];
+    let list2:any=[];
+    selectedlist.forEach((element:any) => {
+      let filterList = this.SittingData
+      .filter((item: any) => item.state_id==element) 
+       list1.push(filterList);
+
+        filterList = this.LDMActivities
+       .filter((item: any) => item.state_id==element) 
+       list2.push(filterList);
+    });
+
+    if(list1.length>0)
+    this.SittingData=list1[0];
+    if(list2.length>0)
+    this.LDMActivities=list2[0];
+    let el:any = document.getElementById('AICC');
+        el.scrollIntoView();
+  }
+  ApplyFilter(){
+    this.SittingData=this.AllSittingData;
+    this.LDMActivities=this.UsersList;
+    this.bindFilter(this.States,"STATEID","States")   
   }
   viewDetails(access_token:any){
     window.location.href = "/user-profile/"+access_token;
@@ -96,6 +156,18 @@ export class ElectionMembersComponent {
       }
     });
   }
+  export2Excel(fileNm:string){
+     
+    const downloadLink = document.createElement('a');
+    let table: any = [];
+    table = document.getElementById(fileNm);
+    const tableHTML = table.outerHTML.replace(/ /g, '%20');
+    var html = table.outerHTML;
+    var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+    downloadLink.href = 'data:' + url + ' ';
+    downloadLink.download = 'election_data.xls'
+    downloadLink.click();
+  }
   LoadUsers() {
     const objRequest = {
       typeId: 8,
@@ -108,11 +180,11 @@ export class ElectionMembersComponent {
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
         var parseresponse = JSON.parse(response.response); 
-        if (response["errorCode"] === "200") {
-          this.Users = parseresponse.Table2; 
-          this.UsersList = parseresponse.Table2; 
-          this.Users=this.Users.filter((item: any) =>(item.stream === "SC Dept"));
-          this.LDMActivities = parseresponse.Table3; 
+        if (response["errorCode"] === "200") { 
+          this.UsersList = parseresponse.Table4;  
+          this.LDMActivities = parseresponse.Table4; 
+          this.SittingData = parseresponse.Table5; 
+          this.AllSittingData = parseresponse.Table5; 
         } else {
           console.error("API returned an error:", response.message); 
         }

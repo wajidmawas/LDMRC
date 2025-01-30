@@ -137,15 +137,15 @@
                         <div class="tabseachBar">
                             <div class="search tab_search">
                                 <i class="fa fa-search"></i> 
-                                <input type="text" class="form-control round"> 
+                                <input type="text" class="form-control round" [(ngModel)]="searchValue"    (input)="onSearchChange()"> 
                             </div>
                             <div class="btns">
                               <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
-                              <button class="btn btn-secondary"><i class="fa fa-cloud-download mr-2"></i>Download</button>
+                              <button class="btn btn-secondary" (click)="export2Excel()"><i class="fa fa-cloud-download mr-2"></i>Download</button>
                             </div> 
                       </div>
                       <div class="table-responsive">
-                        <table class="table sortable-table sortable-fa-icons">
+                        <table class="table sortable-table sortable-fa-icons" id="exportable">
                           <thead>
                               <tr>
                                 <th class="numeric-sort">Sr. No</th>

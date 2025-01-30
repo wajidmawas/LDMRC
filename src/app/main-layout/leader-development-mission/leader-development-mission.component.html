@@ -181,11 +181,11 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                             </div>
                             <div class="btns">
                               <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
-                              <button class="btn btn-secondary"><i class="fa fa-cloud-download mr-2"></i>Download</button>
+                              <button class="btn btn-secondary" (click)="export2Excel('exportTable')"><i class="fa fa-cloud-download mr-2"></i>Download</button>
                             </div> 
                       </div>
                       <div class="table-responsive">
-                        <table class="table sortable-table sortable-fa-icons">
+                        <table class="table sortable-table sortable-fa-icons" id="exportTable">
                           <thead>
                               <tr>
                                 <th class="numeric-sort">Sr. No</th>
@@ -227,11 +227,11 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                           </div>
                           <div class="btns">
                             <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
-                            <button class="btn btn-secondary"><i class="fa fa-cloud-download mr-2"></i>Download</button>
+                            <button class="btn btn-secondary" (click)="export2Excel('exportTable2')"><i class="fa fa-cloud-download mr-2"></i>Download</button>
                           </div> 
                     </div>
                     <div class="table-responsive">
-                      <table class="table sortable-table sortable-fa-icons">
+                      <table class="table sortable-table sortable-fa-icons" id="exportTable2">
                         <thead>
                             <tr>
                               <th class="numeric-sort">Sr. No</th>
