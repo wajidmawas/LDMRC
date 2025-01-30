@@ -79,12 +79,18 @@
                    
                     <div class="tab-pane fade" id="myactivities" role="tabpanel" aria-labelledby="contact-tab">
                       <div class="card"> 
-                
-                           
-                        <div class="body text-center d-flex justify-content-center flex-column " *ngIf="(Activities ?? []).length === 0">
-                           <img src="assets/images/loader.png" class="loader_img"/>
+                        <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12"></div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                          <div class="d-flex flex-row-reverse">
+                              <div class="page_action">
+                              
                            <button class="btn btn-primary" (click)="addActivity()">Activity</button>
-                        </div>
+                              </div>
+                              
+                          </div>
+                      </div>
+                    </div>
                        
                             <div class="row">
                               <div class="col-lg-3 mb-3" *ngFor="let activity of filtermyActivities(5)">

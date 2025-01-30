@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedActivity: any = null;
   selectedProfession: any = null;
 
-  Activities:any=[];
+  Activities:any=[];ActivitiesList:any=[];
   clsactivity:cls_addactivity=new cls_addactivity();
   
   //  professions: cls_addprofession[] = [];
@@ -81,7 +81,14 @@ addactivity(){
     this.router.navigate([`/profile/addactivity`, 0]);
 }
 searchactivity(){ 
-  this.LoadActivity(this.userdetails.user_id,this.titlesearch);
+   
+  this.Activities=this.ActivitiesList;
+  if(this.titlesearch!=null && this.titlesearch!=undefined && this.titlesearch!=""){
+    var list=this.Activities.filter((item: any) =>( 
+    item.title.includes(this.titlesearch) ||
+    item.Author.includes(this.titlesearch) ));
+    this.Activities=list;
+  }
 
 }
 onstateChange(event: any): void {
@@ -260,6 +267,7 @@ LoadActivity(id: any,filterText:string) {
       if (response["errorCode"] === "200") {
         var parseresponse = JSON.parse(response.response); 
         this.Activities = parseresponse.Table2;
+        this.ActivitiesList = parseresponse.Table2;
         this.ProfessionList = parseresponse.Table1;
         this.ElectionData = parseresponse.Table3;
       } else {
