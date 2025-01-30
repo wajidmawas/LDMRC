@@ -23,15 +23,17 @@
                       </div>
                       <div class="p-2 d-flex"> 
                         <!-- <button class="btn btn-primary"  data-toggle="modal" data-target="#addldm" ><i class="icon-plus mr-2"></i> Add LDM Activity</button> -->
-                          <button class="btn btn-primary" data-toggle="modal" data-target="#addldm">Add LDM Activity <img src="../../../assets/images/btn_arrow.png" class="ml-2 btn_arrow"/></button>
+                          <button class="btn btn-primary" data-toggle="modal" data-target="#addldm"><i class="icon-plus mr-2"></i> Add LDM Activity</button>
                       </div>
                   </div>
                   </div>
               </div>
-              <div class="row"> 
-                <p class="p_info"><span class="span_info">National,State ChairPersons of SC,ST,OBC and Minority Depts and LDM National Conveners
+              <div class="row">
+                <div class="col-lg-12"> 
+                <span class="span_info">National,State ChairPersons of SC,ST,OBC and Minority Depts and LDM National Conveners
 and LDM Assembly Coordinators will have to add the LDM Activities
-                </span></p>
+                </span> 
+              </div>
               </div>
           </div>
 
@@ -211,7 +213,7 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                                   <td class="wp">{{meeting.block_coordinator}}</td>
                                   <td class="wp">{{meeting.phone_no_block}}</td>
                                   <td class="wp">{{meeting.statename}}</td>
-                                  <td><a href='javascript::' target="_blank" >
+                                  <td><a href='javascript::' class="pop_edit">
                                     <i class="fa fa-eye"></i> 
                                   </a></td>
                               </tr> 
@@ -261,14 +263,14 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                                 <td class="wp">{{act.statename}}</td>
                                 <td class="wp">{{act.expected_outcome}}</td>
                                 <td>
-                                                          
-                                  <a href='javascript::'  data-toggle="modal" data-target="#addldm"   (click)="EditLDM(act)">
+                                  <div class="d-flex align-items-center">                   
+                                  <a href='javascript::' class="pop_edit"  data-toggle="modal" data-target="#addldm"   (click)="EditLDM(act)">
                                   <i class="fa fa-pencil"></i> 
                                 </a> 
-                                <a href='javascript::' data-toggle="modal" data-target="#delaccount"  (click)="setSelectedLDM(act)">
+                                <a href='javascript::' class="pop_del" data-toggle="modal" data-target="#delaccount"  (click)="setSelectedLDM(act)">
                                   <i class="fa fa-trash"></i> 
                                 </a> 
-                              
+                              </div>
                               </td>
                                 <!-- <td><a href='javascript::'  (click)="ViewActivityDetails(act)">
                                   <i class="fa fa-eye"></i> 

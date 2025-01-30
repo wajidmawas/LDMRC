@@ -11677,3 +11677,34 @@ button:focus{
 .modal-open.h_menu header{
     filter: blur(30px);
 }
+
+.pop_edit{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #19aaed;
+    color: #fff;
+    margin: 0 5px;
+    border-radius: 20px;
+    float: left;
+    font-size: 10px;
+}
+.pop_del{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #c82333;
+    color: #fff;
+    margin: 0 5px;
+    border-radius: 20px;
+    float: left;
+    font-size: 10px;
+}
+
+.pop_edit:hover, .pop_del:hover{
+    color: #fff;
+}
