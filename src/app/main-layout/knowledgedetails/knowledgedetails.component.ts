@@ -33,7 +33,7 @@ export class KnowledgeDetailComponent implements OnInit  {
 
 
   constructor(private route: ActivatedRoute,private router: Router,private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
-    this.titleService.setTitle("AICC - Profile");
+    
 }
 ngOnInit(): void { 
   // Get the path parameter
@@ -249,6 +249,7 @@ fetchActivitiesDetail(id: string|null):void{
         var parseresponse = JSON.parse(response.response); 
         this.ActivitiesDetail = parseresponse.Table;
         this.knowledge_id=this.ActivitiesDetail[0].id;
+        this.titleService.setTitle("AICC - " + this.ActivitiesDetail[0].title);
       } else {
         console.error("API returned an error:", response.message); 
       }

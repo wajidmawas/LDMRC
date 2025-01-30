@@ -14,12 +14,12 @@
                       <i class="fa-solid fa-arrow-left mr-2"></i></a>
                       <h2 class="mb-0">Knowledge Base(Repository Of Documents/Videos)</h2> 
                   </div>
-                  <button class="btn btn-primary"  data-toggle="modal" data-target="#addKnowledge" ><i class="icon-plus mr-2"></i> Add New</button>
-
+                
                   <div class="col-lg-6 col-md-6 col-sm-12">
                       <div class="d-flex flex-row-reverse">
                           <div class="page_action">
-          
+                            <button class="btn btn-primary" *ngIf="userdetails.role_type=='A'"  data-toggle="modal" data-target="#addKnowledge" ><i class="icon-plus mr-2"></i> Add New</button>
+
                           </div>
                           
                       </div>
@@ -81,7 +81,7 @@
                             </div>
                             <div class="card-footer"> 
                               <a href="javascript::" >Share <i class="fa fa-share"></i></a>
-                          <a href="javascript::" > View <i class="fa fa-caret-right"></i></a>
+                          <a href="/knowledge_detail/{{meeting.code}}" target="_blank"> View <i class="fa fa-caret-right"></i></a>
                           </div>
                             <ng-template #videoContent >
                               <div class="activity-image"> 
@@ -165,7 +165,8 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label >Description</label>
-                                <textarea class="form-control" placeholder="Enter Description" [(ngModel)]="clsknowledge.description" [ngModelOptions]="{standalone: true}" ></textarea>
+                                <angular-editor class="angular-editor-wrapper"   placeholder="Enter Description" [(ngModel)]="clsknowledge.description"></angular-editor>
+                                
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -177,15 +178,15 @@
                         <div class="col-lg-12" *ngIf="clsknowledge.activity_type === 'Videos'">
                           <div class="form-group">
                               <label for="my-input">Videos</label>
-                              <input id="my-input" class="form-control" placeholder="Enter Title" [(ngModel)]="clsknowledge.videopath" [ngModelOptions]="{standalone: true}" >
+                              <input id="my-input" class="form-control" placeholder="Enter video path" [(ngModel)]="clsknowledge.videopath" [ngModelOptions]="{standalone: true}" >
                           </div>
                       </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label >recommended</label>
-                                 <input id="my-input" class="form-control" type="checkbox" placeholder="Enter Activity Type" [(ngModel)]="clsknowledge.is_recommended" [ngModelOptions]="{standalone: true}" >
+                        <div class="col-lg-6">
+                            <div class="form-group"> 
+                              <mat-checkbox [(ngModel)]="clsknowledge.is_recommended" color="#000">Is Recommended</mat-checkbox> 
                             </div>
                         </div>
+                        <div class="col-lg-6"></div> 
                         <div class="col-lg-6">
                           <div class="form-group">
                             <label >Photo</label>

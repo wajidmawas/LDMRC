@@ -40,6 +40,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   ActivitiesDetail:any=[];
   states: any = []; cities: any = [];ActivityType: any = [];DesiginationList: any = [];
   userDtail:any={};ProfessionList: any = [];
+  ElectionData: any = [];
   userdetails:any={};
   villages:any=[];
   titlesearch:string='';
@@ -69,8 +70,7 @@ ngOnInit(): void {
 console.log("UserDetails",this.userdetails)
 this.getLookupMaster(0);
 this.getActivityType(0);
-this.getDesigination(0);
-this.getprofessionDetails(this.userdetails.user_id);
+this.getDesigination(0); 
  this.LoadActivity(this.userdetails.user_id,this.titlesearch);
 }
 
@@ -101,8 +101,7 @@ onActvitytypeChange(event: any): void {
 onDesignationChange(event: any): void {
   this.selectedDesignation = event.target.value; 
 }
-getCities(id: any) {
-  debugger;
+getCities(id: any) { 
   const objRequest = {
     typeId: 2,
     userid: 0,
@@ -244,34 +243,7 @@ getDesigination(id: any) {
     }
   });
 }
-getprofessionDetails(id: number) {
-  const objRequest = {
-    typeId: 4,
-    userid: 0,
-    filterId: id,
-    filterText: "",
-    filterText1: ""
-  };
-
-  this.service.getMasters(objRequest).subscribe({
-    next: (response: any) => { 
-      var parseresponse = JSON.parse(response.response); 
-      if (response["errorCode"] === "200") {
-        this.ProfessionList = parseresponse.Table1;
-      } else {
-        console.error("API returned an error:", response.message); 
-      }
-    },
-    error: (error: any) => {
-      console.error("API call failed:", error);
-      // Handle the error appropriately
-      // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
-    },
-    complete: () => {
-      console.log("API call completed.");
-    }
-  });
-}
+ 
 LoadActivity(id: any,filterText:string) {
   const
    objRequest = {
@@ -284,9 +256,12 @@ LoadActivity(id: any,filterText:string) {
 
   this.service.getMasters(objRequest).subscribe({
     next: (response: any) => {  
-      var parseresponse = JSON.parse(response.response); 
+     
       if (response["errorCode"] === "200") {
+        var parseresponse = JSON.parse(response.response); 
         this.Activities = parseresponse.Table2;
+        this.ProfessionList = parseresponse.Table1;
+        this.ElectionData = parseresponse.Table3;
       } else {
         console.error("API returned an error:", response.message); 
       }
@@ -319,8 +294,11 @@ SaveActivity() {
   } else if (this.clsactivity.thumbnail_img == undefined || this.clsactivity.thumbnail_img == null || this.clsactivity.thumbnail_img == '') {
     this.snackbar.showInfo("Please select an image", "Error");
     validate = true;
-  }
-debugger;
+  } 
+  else if (this.clsactivity.details_img == undefined || this.clsactivity.details_img == null || this.clsactivity.details_img == '') {
+    this.snackbar.showInfo("Please select an detail image", "Error");
+    validate = true;
+  } 
   if (!validate) {
     $(".page-loader-wrapper-review").show();
     const formData = new FormData();
@@ -341,6 +319,9 @@ debugger;
        // Append file only if it exists
        if (this.clsactivity.thumbnail_img && this.clsactivity.thumbnail_img instanceof File) {
         formData.append('thumbnail_img', this.clsactivity.thumbnail_img);
+      }
+      if (this.clsactivity.details_img && this.clsactivity.details_img instanceof File) {
+        formData.append('details_img', this.clsactivity.details_img);
       }
 this.service.SaveActivity(formData).subscribe((res: any) => {
   setTimeout(() => {
@@ -428,9 +409,7 @@ validateProfessions() {
 
 
 
-saveproffession() {
-console.log("start");
-console.log(this.professions);
+saveproffession() { 
   var validate:boolean=false; 
   if (this.validateProfessions()) {
     return;
@@ -483,10 +462,15 @@ onFileChange(event: any) {
       this.clsactivity.thumbnail_img = file; // Assign File object
     }
 }
-
+onFileChange_2(event: any) {
+  const input = event.target as HTMLInputElement;
+    if (input?.files?.length) {
+      const file = input.files[0];
+      this.clsactivity.details_img = file; // Assign File object
+    }
+}
 EditActivity(Activity: any){ 
-    this.clsactivity = { ...Activity };
-    debugger;
+    this.clsactivity = { ...Activity }; 
      // Convert date_of_posting to 'YYYY-MM-DD' format
      this.clsactivity.date_posting = Activity.date_of_posting.split('T')[0];
      this.clsactivity.friendlyurl = Activity.friendly_url;
@@ -494,13 +478,10 @@ EditActivity(Activity: any){
     this.getCities(Activity.state_id) ;
     this.selectedCity = Activity.city_id; 
     this.getvillages(Activity.city_id,Activity.state_id); 
-    this.selectedVillage = Activity.village_id; 
-
-console.log(Activity);
+    this.selectedVillage = Activity.village_id;  
 }
 
-ActivityDetail(Activity: any) { 
-  console.log('Activity:', Activity);
+ActivityDetail(Activity: any) {  
   if (Activity && Activity.code) {
     this.router.navigate([`activity_detail`, Activity.code]);
   } else {
@@ -647,8 +628,10 @@ export class cls_addactivity {
   short_desc: string = '';
   description: string = '';
   thumbnail_img: string | File = ''; // Allow both string and File
+  details_img: string | File = ''; // Allow both string and File
   id:number=0;
   imagePath:string='';
+  details_imagePath:string='';
   user_id:string='';
   friendlyurl:string='';
 }
