@@ -31,6 +31,9 @@ export class TrainingsComponent {
     this.getupcomingmetting(0); 
     
   }
+  viewmeeting(accesstoken:string){ 
+    window.location.href = "/meeting_detail/"+accesstoken; 
+  }
   getupcomingmetting(id: any) { 
     const objRequest = {
       typeId: 19,
@@ -115,6 +118,7 @@ export interface Meeting {
   Meeting: string;
   organizer: string; 
   stateNm: string;
+  code: string;
   DurationInNightsAndDays: string;
   Meetingstatus:number;
 
@@ -125,7 +129,7 @@ export interface Message {
   msg_date: string;
   msg_time: string;
   file_path: string;
-  title: string;
+  title: string; 
   description: string;
   Datetime: string;
   Sender: string;

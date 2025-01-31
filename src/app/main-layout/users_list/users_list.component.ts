@@ -8,7 +8,7 @@ import { SharedService } from 'src/shared/Shared.Service';
 import { SnackbarService } from 'src/shared/snackbar-service';   
 import { TranslateService } from '@ngx-translate/core'; 
 import { FormControl ,FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'; 
 import { map, startWith, Subject, takeUntil } from 'rxjs'; 
 @Component({
   selector: 'app-users_list',
@@ -81,6 +81,15 @@ export class UsersListComponent {
           var parseresponse = JSON.parse(response.response);
           this.Users = parseresponse.Table;  
           this.UsersList = parseresponse.Table; 
+        //   setTimeout(()=>{   
+        //     $('#datatableexample').DataTable( {
+        //      pagingType: 'full_numbers',
+        //      pageLength: 5,
+        //      processing: true,
+        //      lengthMenu : [5, 10, 25],
+        //  } );
+        //  }, 1);
+
         } else {
           this.Users=[];
           this.UsersList=[];

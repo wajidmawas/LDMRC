@@ -48,6 +48,7 @@
                                 <th class="numeric-sort">Name</th>
                                 <th class="numeric-sort">Phone Number</th>
                                 <th class="numeric-sort">Email Id</th>
+                                <th class="numeric-sort">Status</th>
                                 <th class="numeric-sort">Designation</th>
                                 <th class="numeric-sort">Charge Area</th>
                                 <th class="numeric-sort">Year</th>
@@ -65,19 +66,20 @@
                                   <td class="wp">{{meeting.first_name + ' ' + meeting.last_name}}</td>
                                   <td class="wp">{{meeting.mobile_no}}</td> 
                                   <td class="wp">{{meeting.email_id}}</td>
+                                  <td class="wp">{{meeting.status}}</td>
                                   <td class="wp">{{meeting.designation}}</td>
                                   <td class="wp">{{meeting.chargearea}}</td>
                                   <td class="wp">{{meeting.current_year}}</td>
                                   <td class="wp">{{meeting.city_name}}</td>
                                   <td class="wp">{{meeting.state_name}}</td>
                                   <td class="wp">
-                                    <button class="badge badge-success" *ngIf="meeting.status === 'Active'" (click)="changeStatus('Inactive',meeting.id)">
-                                      Active
+                                    <button class="badge badge-danger" *ngIf="meeting.status === 'Active'" (click)="changeStatus('Inactive',meeting.id)">
+                                     Mark as InActive
                                     </button>
                                   
                                     <!-- Show 'Activate' button if status is 'inactive' -->
-                                    <button class="badge badge-danger" *ngIf="meeting.status === 'Inactive'" (click)="changeStatus('Active',meeting.id)">
-                                      InActive
+                                    <button class="badge badge-success" *ngIf="meeting.status === 'Inactive'" (click)="changeStatus('Active',meeting.id)">
+                                     Mark as Active
                                     </button>
                                   </td> 
                                   <td><a href='javascript::' class="pop_edit" target="_blank" (click)="viewDetails(meeting.access_token)">
