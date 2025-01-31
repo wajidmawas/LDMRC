@@ -10820,9 +10820,7 @@ ul.list-connected-app>li:last-child .connected-app {
     width: 90px;
 }
 
-.mdc-form-field{
- font-family: "Nunito", sans-serif !important;
-}
+ 
 
 .fc-toolbar-chunk{
     display: flex;
@@ -10845,9 +10843,31 @@ ul.list-connected-app>li:last-child .connected-app {
 }
 
 .mdc-form-field{
-    color: var(--font-color) !important;
+    color: #000 !important;
+    font-weight: normal !important;
+    font-size: 10px !important;
+    font-family:  "Inter", serif !important;
 }
 
+.mdc-checkbox{
+    padding: 0 !important;
+    flex: 0 0 14px !important;
+}
+
+.mat-mdc-checkbox-touch-target{
+    top: 0% !important; 
+    height: 0px !important;
+    left: 0% !important; 
+    width: 0px !important;
+}
+.mdc-checkbox .mdc-checkbox__background{
+    top: 10% !important;  
+    left: 0% !important; 
+}
+.mdc-checkbox__background{
+    width: 12px !important;
+    height: 12px !important;
+}
 [data-theme="dark"] .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background {
 
     border-color: #c7c7c7 !important;
@@ -11545,6 +11565,7 @@ app-footer{
 
 .filter_title_div{
     width: 100%;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -11562,17 +11583,32 @@ app-footer{
     font-size: 10px;
     color: #000;
     margin-bottom: 0;
-    font-weight: 500 !important; 
+    font-weight: 600 !important; 
     background-color: transparent !important;
     border: 0 !important;
+    display: flex;
+    align-items: center;
+    padding: 0;
 }
-
-.fil-sm{
-    background-color: #000;
+.filter_title span{
+    font-size: 20px;
+    margin-right: 5px;
+}
+.fil-sm{ 
+    background-color: #000 !important;
     border-color: #000;
     padding: 3px 10px !important;
     font-size: 8px;
     color: #fff !important;
+}
+
+.more_btn{   
+        font-size: 10px;
+        text-transform: uppercase;
+        color: #19AAED !important;
+        margin-top: 5px; 
+        padding: 0;
+        font-weight: 600;
 }
 
 .fil-sm:hover{
@@ -11708,3 +11744,7 @@ button:focus{
 .pop_edit:hover, .pop_del:hover{
     color: #fff;
 }
+
+ 
+  
+  

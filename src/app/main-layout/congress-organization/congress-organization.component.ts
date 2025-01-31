@@ -34,6 +34,9 @@ export class CongressOrganizationComponent {
   searchValue:any='';
   UsersList: any = [];
   States: any = [];
+  isOpen = false;
+
+  
   Districts: any = [];DistrictsList: any = [];
   constructor(public sharedService: SharedService,private router: Router,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
@@ -50,7 +53,9 @@ export class CongressOrganizationComponent {
         weekday: 'long', // Full day name
       }; 
   }
-   
+  toggleOpen() {
+    this.isOpen = !this.isOpen;
+  }
   ngOnInit() {   
     $(".page-loader-wrapper").fadeOut();  
     this.isLoggedIn = localStorage.getItem("cl_user");

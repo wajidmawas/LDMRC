@@ -39,6 +39,7 @@ export class CongressLeadersComponent {
   AgeList: any = [];
   YearsOfExp: any = [];
   searchValue: string='';
+  isOpen = false;
   constructor(public sharedService: SharedService,private router: Router,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
       $(".page-loader-wrapper-review").fadeOut();
@@ -54,7 +55,9 @@ export class CongressLeadersComponent {
         weekday: 'long', // Full day name
       }; 
   }
-   
+  toggleOpen() {
+    this.isOpen = !this.isOpen;
+  }
   ngOnInit() {   
     $(".page-loader-wrapper").fadeOut();  
     this.isLoggedIn = localStorage.getItem("cl_user");

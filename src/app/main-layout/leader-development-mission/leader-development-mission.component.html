@@ -39,7 +39,7 @@ and LDM Assembly Coordinators will have to add the LDM Activities
 
 
           <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <h2 class="filter flt_mb" (click)="filter()">Filters</h2>
                 <h2 class="filter flt_web">Filters</h2>
                 <div id="accordion" class="acc_filter">
@@ -54,7 +54,8 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                                       data-target="#collapseOne"
                                       aria-expanded="true"
                                       aria-controls="collapseOne"
-                                    > <span class="icon">-</span>
+                                      (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
+                                      > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
                                       Designations
                                      
                                     </button>
@@ -74,8 +75,8 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                                 <div class="inputcheck" *ngFor="let meeting of Designations.slice(0,DesignationLimit)" >
                                   <mat-checkbox color="#000">{{ meeting.name }}</mat-checkbox>
                                 </div>
-                                <a class="btn fil-sm"  *ngIf="DesignationLimit < Designations.length" (click)="showmore('designation')" >More</a>
-                                <a class="btn fil-sm"  *ngIf="DesignationLimit == Designations.length" (click)="showless('designation')" >Less</a>
+                                <a class="btn more_btn" *ngIf="DesignationLimit < Designations.length" (click)="showmore('designation')" >More</a>
+                                <a class="btn more_btn"  *ngIf="DesignationLimit == Designations.length" (click)="showless('designation')" >Less</a>
                         </div>
                     </div>
                 </div>
@@ -90,7 +91,8 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                                     data-target="#collapseOne"
                                     aria-expanded="true"
                                     aria-controls="collapseOne"
-                                  > <span class="icon">-</span>
+                                    (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
+                                    > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
                                     States
                                    
                                   </button>
@@ -110,8 +112,8 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                               <div class="inputcheck" *ngFor="let meeting of States.slice(0,StatesLimit)" >
                                 <mat-checkbox color="#000">{{ meeting.STATENAME }}</mat-checkbox>
                               </div>
-                              <a class="btn fil-sm" *ngIf="StatesLimit < States.length" (click)="showmore('states')" >More</a>
-                              <a class="btn fil-sm"  *ngIf="StatesLimit == States.length" (click)="showless('states')" >Less</a>
+                              <a class="btn more_btn" *ngIf="StatesLimit < States.length" (click)="showmore('states')" >More</a>
+                              <a class="btn more_btn"  *ngIf="StatesLimit == States.length" (click)="showless('states')" >Less</a>
                       </div>
                   </div>
               </div>
@@ -126,7 +128,8 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                                       data-target="#collapseTwo"
                                       aria-expanded="false"
                                       aria-controls="collapseTwo"
-                                    > <span class="icon">+</span>
+                                      (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
+                                      > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
                                     Town/Blocks/Mandal
                                      
                                     </button>
@@ -152,7 +155,7 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                 </div>
                 </div>
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-10">
                 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">

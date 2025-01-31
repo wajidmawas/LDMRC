@@ -27,7 +27,7 @@
 
 
           <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <h2 class="filter flt_mb" (click)="filter()">Filters</h2>
                 <h2 class="filter flt_web">Filters</h2>
                 <div id="accordion" class="acc_filter">
@@ -36,7 +36,8 @@
                         <div class="filter_title_div">
                             <div class="d-flex w-100 align-items-center justify-content-between" id="headingOne"> 
                                     <button  class="filter_title accordion-toggle"      data-toggle="collapse"  data-target="#collapseOne"
-                                      aria-expanded="true"    aria-controls="collapseOne" > <span class="icon">-</span>    Designations</button>
+                                      aria-expanded="true"    aria-controls="collapseOne" (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
+                                      > <span class="icon">{{ isOpen ? '+' : '-' }}</span>   Designations</button>
                                     <button class="btn fil-sm btn-dark"   (click)="clearCheckedResult(Designations,'Designations')">Clear All</button> 
                             </div>
                             
@@ -51,8 +52,8 @@
                                 <div class="inputcheck" *ngFor="let meeting of Designations.slice(0,DesignationLimit)" >
                                   <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'Designations')" [checked]="meeting.is_selected">{{ meeting.name }}</mat-checkbox>
                                 </div>
-                                <a class="btn fil-sm"  *ngIf="DesignationLimit < Designations.length" (click)="showmore('designation')" >More</a>
-                                <a class="btn fil-sm"  *ngIf="DesignationLimit == Designations.length" (click)="showless('designation')" >Less</a>
+                                <a class="btn more_btn"  *ngIf="DesignationLimit < Designations.length" (click)="showmore('designation')" >More</a>
+                                <a class="btn more_btn"  *ngIf="DesignationLimit == Designations.length" (click)="showless('designation')" >Less</a>
                         </div>
                     </div>
                 </div>
@@ -67,7 +68,8 @@
                                     data-target="#collapseTwo"
                                     aria-expanded="false"
                                     aria-controls="collapseTwo"
-                                  > <span class="icon">-</span>
+                                    (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
+                                    > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
                                     States
                                    
                                   </button>
@@ -87,8 +89,8 @@
                               <div class="inputcheck" *ngFor="let meeting of States.slice(0,StatesLimit)" >
                                 <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'States')" [checked]="meeting.is_selected">{{ meeting.STATENAME }}</mat-checkbox>
                               </div>
-                              <a class="btn fil-sm" *ngIf="StatesLimit < States.length" (click)="showmore('states')" >More</a>
-                              <a class="btn fil-sm"  *ngIf="StatesLimit == States.length" (click)="showless('states')" >Less</a>
+                              <a class="btn more_btn" *ngIf="StatesLimit < States.length" (click)="showmore('states')" >More</a>
+                              <a class="btn more_btn"  *ngIf="StatesLimit == States.length" (click)="showless('states')" >Less</a>
                       </div>
                   </div>
               </div>
@@ -103,7 +105,8 @@
                                       data-target="#collapseThree"
                                       aria-expanded="false"
                                       aria-controls="collapseThree"
-                                    > <span class="icon">-</span>
+                                      (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
+                                      > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
                                     Gender
                                      
                                     </button>
@@ -137,7 +140,8 @@
                                     data-target="#collapseFour"
                                     aria-expanded="false"
                                     aria-controls="collapseFour"
-                                  > <span class="icon">-</span>
+                                    (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
+                                    > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
                                   Age
                                    
                                   </button>
@@ -166,7 +170,8 @@
                     <div class="filter_title_div">
                         <div class="d-flex w-100 align-items-center justify-content-between" id="headingFive"> 
                                 <button  class="filter_title accordion-toggle"      data-toggle="collapse"  data-target="#collapseFive"
-                                  aria-expanded="false"    aria-controls="collapseFive" > <span class="icon">-</span> 
+                                  aria-expanded="false"    aria-controls="collapseFive" (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
+                                  > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
                                      Community</button>
                                 <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(CasteList,'Caste')">Clear All</button> 
                         </div>
@@ -182,8 +187,8 @@
                             <div class="inputcheck" *ngFor="let meeting of CasteList.slice(0,CasteLimit)" >
                               <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'Caste')" [checked]="meeting.is_selected">{{ meeting.name }}</mat-checkbox>
                             </div>
-                            <a class="btn fil-sm"  *ngIf="CasteLimit < CasteList.length" (click)="showmore('caste')" >More</a>
-                            <a class="btn fil-sm"  *ngIf="CasteLimit == CasteList.length" (click)="showless('caste')" >Less</a>
+                            <a class="btn more_btn"  *ngIf="CasteLimit < CasteList.length" (click)="showmore('caste')" >More</a>
+                            <a class="btn more_btn"  *ngIf="CasteLimit == CasteList.length" (click)="showless('caste')" >Less</a>
                     </div>
                 </div>
             </div>
@@ -198,7 +203,8 @@
                                 data-target="#collapseYearsOfExp"
                                 aria-expanded="false"
                                 aria-controls="collapseYearsOfExp"
-                              > <span class="icon">-</span>
+                                (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
+                                > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
                               Years of experience
                                
                               </button>
@@ -228,7 +234,7 @@
                 </div>
                 </div>
             </div>
-            <div class="col-lg-9"> 
+            <div class="col-lg-10"> 
                 
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="AICC" role="tabpanel" aria-labelledby="home-tab">

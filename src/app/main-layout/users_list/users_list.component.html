@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row mb-2">
+          <div class="col-lg-12">
+          <ul class="breadcrumb">                          
+            <li class="breadcrumb-item">Dashboard</li>
+            <li class="breadcrumb-item active">Users List</li>
+        </ul>
+      </div>
+        </div>
+              <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
+                      <a href="javascript::(0)" (click)="backtohome()">
+                      <i class="fa-solid fa-arrow-left mr-2"></i></a>
+                      <h2 class="mb-0">Users List</h2> 
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                      <div class="d-flex flex-row-reverse">
+                          <div class="page_action">
+          
+                          </div>
+                          
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+          <div class="row">
+            
+            <div class="col-lg-12">
+                 
+                  <div class="card" id="myTabContent">
+                    <div class="card-body" id="AICC">
+                        <div class="tabseachBar">
+                            <div class="search tab_search">
+                                <i class="fa fa-search"></i> 
+                                <input type="text" class="form-control round" [(ngModel)]="searchValue"    (input)="onSearchChange()"> 
+                            </div>
+                            
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table sortable-table sortable-fa-icons" id="exportable">
+                          <thead>
+                              <tr>
+                                <th class="numeric-sort">Sr. No</th>
+                                <th class="numeric-sort">Image</th>
+                                <th class="numeric-sort">Name</th>
+                                <th class="numeric-sort">Phone Number</th>
+                                <th class="numeric-sort">Email Id</th>
+                                <th class="numeric-sort">Designation</th>
+                                <th class="numeric-sort">Charge Area</th>
+                                <th class="numeric-sort">Year</th>
+                                <th class="numeric-sort">Native City/ <br/>Village</th>
+                                <th class="numeric-sort">State</th>
+                                <th>Status</th>
+                                <th class="numeric-sort">#</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let meeting of Users; let i = index">
+                                  <td>{{i+1}}</td>
+                                  <td><img [src]="meeting.image_path || '../../../assets/images/logo.png'" 
+                                      width="32" height="32"></td>
+                                  <td class="wp">{{meeting.first_name + ' ' + meeting.last_name}}</td>
+                                  <td class="wp">{{meeting.mobile_no}}</td> 
+                                  <td class="wp">{{meeting.email_id}}</td>
+                                  <td class="wp">{{meeting.designation}}</td>
+                                  <td class="wp">{{meeting.chargearea}}</td>
+                                  <td class="wp">{{meeting.current_year}}</td>
+                                  <td class="wp">{{meeting.city_name}}</td>
+                                  <td class="wp">{{meeting.state_name}}</td>
+                                  <td class="wp">
+                                    <button class="badge badge-success" *ngIf="meeting.status === 'Active'" (click)="changeStatus('Inactive',meeting.id)">
+                                      Active
+                                    </button>
+                                  
+                                    <!-- Show 'Activate' button if status is 'inactive' -->
+                                    <button class="badge badge-danger" *ngIf="meeting.status === 'Inactive'" (click)="changeStatus('Active',meeting.id)">
+                                      InActive
+                                    </button>
+                                  </td> 
+                                  <td><a href='javascript::' class="pop_edit" target="_blank" (click)="viewDetails(meeting.access_token)">
+                                    <i class="fa fa-eye"></i> 
+                                  </a></td>
+                              </tr> 
+                          </tbody>
+                      </table>
+                      </div>
+                    </div>
+                     
+                  </div>
+                 
+            </div>
+          </div>
+   </div>

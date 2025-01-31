@@ -19,6 +19,9 @@ export class dashboardService {
     Saveknowledge(addknowledge: FormData) {
       return from(this.sharedService.postForFormData(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/save_knowledgebase", addknowledge));
     }
+    SaveSlider(addActivity: FormData) {
+      return from(this.sharedService.postForFormData(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/save_slider", addActivity));
+    }
 }
 
 

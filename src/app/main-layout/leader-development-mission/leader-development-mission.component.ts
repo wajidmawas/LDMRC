@@ -48,7 +48,7 @@ export class LeaderDevelopmentMissionComponent {
   Activities:any=[];
   states: any = []; Assembly: any = [];ActivityType: any = [];DesiginationList: any = [];
   userDtail:any={};ProfessionList: any = [];
-
+  isOpen = false;
   villages:any=[];
   titlesearch:string='';
   activityId: string | null = null;
@@ -72,7 +72,9 @@ responseid:any=[];
         weekday: 'long', // Full day name
       }; 
   }
-   
+  toggleOpen() {
+    this.isOpen = !this.isOpen;
+  }
   ngOnInit() {   
     $(".page-loader-wrapper").fadeOut();  
     this.isLoggedIn = localStorage.getItem("cl_user");

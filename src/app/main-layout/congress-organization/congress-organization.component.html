@@ -27,7 +27,7 @@
 
 
           <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <h2 class="filter flt_mb" (click)="filter()">Filters</h2>
                 <h2 class="filter flt_web">Filters</h2>
                 <div id="accordion" class="acc_filter">
@@ -42,7 +42,8 @@
                                       data-target="#collapseOne"
                                       aria-expanded="true"
                                       aria-controls="collapseOne"
-                                    > <span class="icon">-</span>
+                                      (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
+                                      > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
                                       Designations
                                      
                                     </button>
@@ -62,8 +63,8 @@
                                 <div class="inputcheck" *ngFor="let meeting of Designations.slice(0,DesignationLimit)" >
                                   <mat-checkbox (change)="onCheckedResult(meeting,'Designations')" color="#000" [checked]="meeting.is_selected">{{ meeting.name }}</mat-checkbox>
                                 </div>
-                                <a class="btn fil-sm"  *ngIf="DesignationLimit < Designations.length" (click)="showmore('designation')" >More</a>
-                                <a class="btn fil-sm"  *ngIf="DesignationLimit == Designations.length" (click)="showless('designation')" >Less</a>
+                                <a class="btn more_btn"  *ngIf="DesignationLimit < Designations.length" (click)="showmore('designation')" >More</a>
+                                <a class="btn more_btn"  *ngIf="DesignationLimit == Designations.length" (click)="showless('designation')" >Less</a>
                         </div>
                     </div>
                 </div>
@@ -78,7 +79,8 @@
                                     data-target="#collapseOne"
                                     aria-expanded="true"
                                     aria-controls="collapseOne"
-                                  > <span class="icon">-</span>
+                                    (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
+                                    > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
                                     States
                                    
                                   </button>
@@ -93,13 +95,13 @@
                       aria-labelledby="headingOne"
                       data-parent="#accordion">
                               <div class="inputcheck" >
-                                <mat-checkbox color="#000" (change)="onAllCheckedResult(States,'States')">All</mat-checkbox>
+                                <mat-checkbox color="#000" class="custom" (change)="onAllCheckedResult(States,'States')">All</mat-checkbox>
                               </div>
                               <div class="inputcheck" *ngFor="let meeting of States.slice(0,StatesLimit)" >
                                 <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'States')" color="#000" [checked]="meeting.is_selected">{{ meeting.STATENAME }}</mat-checkbox>
                               </div>
-                              <a class="btn fil-sm" *ngIf="StatesLimit < States.length" (click)="showmore('states')" >More</a>
-                              <a class="btn fil-sm"  *ngIf="StatesLimit == States.length" (click)="showless('states')" >Less</a>
+                              <a class="btn more_btn" *ngIf="StatesLimit < States.length" (click)="showmore('states')" >More</a>
+                              <a class="btn more_btn"  *ngIf="StatesLimit == States.length" (click)="showless('states')" >Less</a>
                       </div>
                   </div>
               </div>
@@ -114,7 +116,8 @@
                                   data-target="#collapseThree"
                                   aria-expanded="true"
                                   aria-controls="collapseThree"
-                                > <span class="icon">-</span>
+                                  (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
+                                  > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
                                   Districts
                                  
                                 </button>
@@ -134,8 +137,8 @@
                             <div class="inputcheck" *ngFor="let meeting of Districts.slice(0,DistrictsLimit)" >
                               <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'Districts')" color="#000" [checked]="meeting.is_selected">{{ meeting.DISTRICTNAME }}</mat-checkbox>
                             </div>
-                            <a class="btn fil-sm" *ngIf="DistrictsLimit < Districts.length" (click)="showmore('districts')" >More</a>
-                            <a class="btn fil-sm"  *ngIf="DistrictsLimit == Districts.length" (click)="showless('districts')" >Less</a>
+                            <a class="btn more_btn" *ngIf="DistrictsLimit < Districts.length" (click)="showmore('districts')" >More</a>
+                            <a class="btn more_btn"  *ngIf="DistrictsLimit == Districts.length" (click)="showless('districts')" >Less</a>
                     </div>
                 </div>
             </div>
@@ -146,7 +149,7 @@
                 </div>
                 </div>
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-10">
                 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
