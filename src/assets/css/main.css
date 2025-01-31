@@ -2085,7 +2085,20 @@ footer {
 .flt_web{
     display: block ;
 }
+.main_title{
+    font-weight: 500;
+    color: #000;
+}
 @media only screen and (max-width: 767px) {
+    .header h4{
+        font-size: 1rem;
+    }
+    h3, h2{
+        font-size: 1rem;
+    }
+    .viewall{
+        white-space: nowrap;
+    }
     .acc_filter{ 
         display:none;
         margin-bottom: 20px;
@@ -11720,7 +11733,7 @@ button:focus{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #19aaed;
+    background: #13446C;
     color: #fff;
     margin: 0 5px;
     border-radius: 20px;

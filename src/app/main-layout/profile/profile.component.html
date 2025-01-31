@@ -153,14 +153,14 @@
                                                         <td class="wp">{{ Profession.state_name }}</td>
                                                         <td class="wp">{{ Profession.city_name }}</td>
                                                         <td>
-                                                          
-                                                          <a href='javascript::'  data-toggle="modal" data-target="#expdetails"   (click)="EditProfession(Profession)">
+                                                          <div class="d-flex align-items-center">
+                                                          <a href='javascript::' class="pop_edit"  data-toggle="modal" data-target="#expdetails"   (click)="EditProfession(Profession)">
                                                           <i class="fa fa-pencil"></i> 
                                                         </a> 
-                                                        <a href='javascript::' data-toggle="modal" data-target="#delexpaccount"  (click)="setSelectedprofession(Profession)">
+                                                        <a href='javascript::' class="pop_del" data-toggle="modal" data-target="#delexpaccount"  (click)="setSelectedprofession(Profession)">
                                                           <i class="fa fa-trash"></i> 
                                                         </a> 
-                                                      
+                                                      </div>
                                                       </td>
                                                       </tr>
                                                     </tbody>
@@ -175,10 +175,10 @@
 
 
                         </div>
-                        <div class="row mt-4">
+                      
                           <div class="col-lg-12 mb-2">
                             <h4 class="main_title">Election Data</h4></div> 
-                            </div>
+                            
                             <div class="col-lg-12">
                               <div class="card"> 
                                 <div class="body text-center d-flex justify-content-center flex-column" *ngIf="(ElectionData ?? []).length === 0">
