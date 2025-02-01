@@ -4836,21 +4836,15 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .pagination>li:first-child>a,.pagination>li:first-child>span {
-    -moz-border-radius-topleft: 2px;
-    -webkit-border-top-left-radius: 2px;
-    border-top-left-radius: 2px;
-    -moz-border-radius-bottomleft: 2px;
-    -webkit-border-bottom-left-radius: 2px;
-    border-bottom-left-radius: 2px
+    -moz-border-radius: 0.25rem !important;
+    -webkit-border-radius: 0.25rem !important;
+    border-radius: 0.25rem !important; 
 }
 
 .pagination>li:last-child>a,.pagination>li:last-child>span {
-    -moz-border-radius-topright: 2px;
-    -webkit-border-top-right-radius: 2px;
-    border-top-right-radius: 2px;
-    -moz-border-radius-bottomright: 2px;
-    -webkit-border-bottom-right-radius: 2px;
-    border-bottom-right-radius: 2px
+    -moz-border-radius: 0.25rem !important;
+    -webkit-border-radius: 0.25rem !important;
+    border-radius: 0.25rem !important; 
 }
 
 .pagination>.active>a:hover,.pagination>.active>span:hover,.pagination>.active>a:focus,.pagination>.active>span:focus {
@@ -11758,6 +11752,40 @@ button:focus{
     color: #fff;
 }
 
+.acc_filter{
+    height: 62vh;
+    overflow: auto;
+    padding-right: 5px;
+}
  
+.table-responsive { 
+    height: 400px; 
+} 
+
+.table th{
+    position: sticky;
+    top:0
+}
+
+.gap-2 {
+    gap: .5rem !important;
+}
+ 
+.mdc-checkbox .mdc-checkbox__native-control{
+    width: 12px !important;
+    height: 12px !important;
+}
   
+
+.dataTables_length{
+    display: none;
+}
+
+div.dataTables_wrapper div.dataTables_filter{
+    display: none;
+}
+
+.pagination{
+    gap: .5rem;
+}
   

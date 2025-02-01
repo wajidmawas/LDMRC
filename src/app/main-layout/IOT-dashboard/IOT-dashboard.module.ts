@@ -14,12 +14,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox'; 
 import { MatRadioModule } from '@angular/material/radio'; 
-import { LeaderDevelopmentMissionComponent } from './leader-development-mission.component'; // Import the standalone component.
+import { IOTComponent } from './IOT-dashboard.component'; // Import the standalone component.
 
 const routes: Routes = [
   {
-    path: 'leader_dev_mission',
-    component: LeaderDevelopmentMissionComponent,
+    path: 'IOT',
+    component: IOTComponent,
   },
 ];
 
@@ -40,7 +40,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule.forChild(),
     MatRadioModule,
-    LeaderDevelopmentMissionComponent, // Import the standalone component here.
+    IOTComponent, // Import the standalone component here.
   ],
 })
-export class LeaderDevelopmentMissionModule {}
+export class IOTModule {}

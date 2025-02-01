@@ -36,13 +36,13 @@
                         <div class="filter_title_div">
                             <div class="d-flex w-100 align-items-center justify-content-between" id="headingOne"> 
                                     <button  class="filter_title accordion-toggle"      data-toggle="collapse"  data-target="#collapseOne"
-                                      aria-expanded="true"    aria-controls="collapseOne" (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
-                                      > <span class="icon">{{ isOpen ? '+' : '-' }}</span>   Designations</button>
+                                      aria-expanded="true"    aria-controls="collapseOne" 
+                                      > <span class="icon">-</span>   Designations</button>
                                     <button class="btn fil-sm btn-dark"   (click)="clearCheckedResult(Designations,'Designations')">Clear All</button> 
                             </div>
                             
                         </div>
-                        <div class="filter_main"  id="collapseOne"
+                        <div class="filter_main"   
                         class="collapse show"
                         aria-labelledby="headingOne"
                         data-parent="#accordion">
@@ -68,8 +68,8 @@
                                     data-target="#collapseTwo"
                                     aria-expanded="false"
                                     aria-controls="collapseTwo"
-                                    (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
-                                    > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
+                                     
+                                    > <span class="icon">-</span>
                                     States
                                    
                                   </button>
@@ -79,7 +79,7 @@
                           </div>
                           
                       </div>
-                      <div class="filter_main"  id="collapseTwo"
+                      <div class="filter_main"  
                       class="collapse show"
                       aria-labelledby="headingTwo"
                       data-parent="#accordion">
@@ -105,8 +105,8 @@
                                       data-target="#collapseThree"
                                       aria-expanded="false"
                                       aria-controls="collapseThree"
-                                      (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
-                                      > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
+                                      
+                                      > <span class="icon">-</span>
                                     Gender
                                      
                                     </button>
@@ -116,7 +116,7 @@
                             </div>
                             
                         </div>
-                        <div class="filter_main"  id="collapseThree"
+                        <div class="filter_main"  
                         class="collapse show"
                         aria-labelledby="headingThree"
                         data-parent="#accordion">
@@ -140,8 +140,8 @@
                                     data-target="#collapseFour"
                                     aria-expanded="false"
                                     aria-controls="collapseFour"
-                                    (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
-                                    > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
+                                     
+                                    > <span class="icon">-</span>
                                   Age
                                    
                                   </button>
@@ -151,7 +151,7 @@
                           </div>
                           
                       </div>
-                      <div class="filter_main"  id="collapseFour"
+                      <div class="filter_main"   
                       class="collapse show"
                       aria-labelledby="headingFour"
                       data-parent="#accordion">
@@ -170,14 +170,14 @@
                     <div class="filter_title_div">
                         <div class="d-flex w-100 align-items-center justify-content-between" id="headingFive"> 
                                 <button  class="filter_title accordion-toggle"      data-toggle="collapse"  data-target="#collapseFive"
-                                  aria-expanded="false"    aria-controls="collapseFive" (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
-                                  > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
+                                  aria-expanded="false"    aria-controls="collapseFive" 
+                                  > <span class="icon">-</span>
                                      Community</button>
                                 <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(CasteList,'Caste')">Clear All</button> 
                         </div>
                         
                     </div>
-                    <div class="filter_main"  id="collapseFive"
+                    <div class="filter_main"   
                     class="collapse show"
                     aria-labelledby="headingFive"
                     data-parent="#accordion">
@@ -203,8 +203,8 @@
                                 data-target="#collapseYearsOfExp"
                                 aria-expanded="false"
                                 aria-controls="collapseYearsOfExp"
-                                (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
-                                > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
+                                
+                                > <span class="icon">-</span>
                               Years of experience
                                
                               </button>
@@ -214,7 +214,7 @@
                       </div>
                       
                   </div>
-                  <div class="filter_main"  id="collapseYearsOfExp"
+                  <div class="filter_main" 
                   class="collapse show"
                   aria-labelledby="YearsOfExp"
                   data-parent="#accordion">
@@ -249,7 +249,7 @@
                             </div> 
                       </div>
                       <div class="table-responsive">
-                        <table class="table sortable-table sortable-fa-icons" id="exportable">
+                        <table class="table table-hover js-basic-example dataTable table-custom mb-0" id="exportable">
                           <thead>
                               <tr>
                                 <th class="numeric-sort">Sr. No</th>
@@ -283,7 +283,7 @@
                                   <td class="wp">{{meeting.dob.split('T')[0]}}</td> 
                                   <td class="wp">{{meeting.age}}</td> 
                                   <td class="wp">{{meeting.gender}}</td> 
-                                  <td class="wp">{{meeting.ENGLISH}}</td>
+                                  <td class="wp">{{meeting.english}}</td>
                                   <td class="wp">{{meeting.mobile_no}}</td> 
                                   <td class="wp">{{meeting.state_name}}</td> 
                                   <td class="wp">{{meeting.designation}}</td>
@@ -293,7 +293,7 @@
                                   <td>-</td>
                                   <td>-</td>
                                   <td>-</td>
-                                  <td><a href='javascript::' target="_blank" (click)="viewDetails(meeting.access_token)">
+                                  <td><a href='javascript::' class="pop_edit" (click)="viewDetails(meeting.access_token)">
                                     <i class="fa fa-eye"></i> 
                                   </a></td>
 
@@ -325,6 +325,7 @@
                           </tbody>
                       </table>
                       </div>
+                     
                     </div>
                      
                   </div>

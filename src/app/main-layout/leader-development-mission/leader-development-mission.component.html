@@ -54,8 +54,8 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                                       data-target="#collapseOne"
                                       aria-expanded="true"
                                       aria-controls="collapseOne"
-                                      (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
-                                      > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
+                                      
+                                      > <span class="icon">-</span>
                                       Designations
                                      
                                     </button>
@@ -65,7 +65,7 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                             </div>
                             
                         </div>
-                        <div class="filter_main"  id="collapseOne"
+                        <div class="filter_main" 
                         class="collapse show"
                         aria-labelledby="headingOne"
                         data-parent="#accordion">
@@ -91,8 +91,8 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                                     data-target="#collapseOne"
                                     aria-expanded="true"
                                     aria-controls="collapseOne"
-                                    (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
-                                    > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
+                                   
+                                    > <span class="icon">-</span>
                                     States
                                    
                                   </button>
@@ -102,7 +102,7 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                           </div>
                           
                       </div>
-                      <div class="filter_main"  id="collapseOne"
+                      <div class="filter_main"  
                       class="collapse show"
                       aria-labelledby="headingOne"
                       data-parent="#accordion">
@@ -128,8 +128,8 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                                       data-target="#collapseTwo"
                                       aria-expanded="false"
                                       aria-controls="collapseTwo"
-                                      (click)="toggleOpen()" [ngClass]="{'open': isOpen}"
-                                      > <span class="icon">{{ isOpen ? '+' : '-' }}</span>
+                                      
+                                      > <span class="icon">-</span>
                                     Town/Blocks/Mandal
                                      
                                     </button>
@@ -139,7 +139,7 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                             </div>
                             
                         </div>
-                        <div class="filter_main"  id="collapseTwo"
+                        <div class="filter_main" 
                         class="collapse"
                         aria-labelledby="headingTwo"
                         data-parent="#accordion">
@@ -190,32 +190,32 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                             </div> 
                       </div>
                       <div class="table-responsive">
-                        <table class="table sortable-table sortable-fa-icons" id="exportTable">
+                        <table class="table table-hover js-basic-example dataTable table-custom mb-0" id="exportTable">
                           <thead>
                               <tr>
-                                <th class="numeric-sort">Sr. No</th>
-                                <th class="numeric-sort">Name of the Assembly <br/>Constituency</th>
-                                <th class="numeric-sort">Stream</th>
-                                <th class="numeric-sort">Name of the LDM <br/> Coordinator</th>
-                                <th class="numeric-sort">Phone No</th>
-                                <th class="numeric-sort">Name of the <br/> Block</th>
-                                <th class="numeric-sort">Name of the <br/> Block Coordinator</th>
-                                <th class="numeric-sort">Phone No</th> 
-                                <th class="numeric-sort">State</th>
+                                <th>Sr. No</th>
+                                <th>State</th>
+                                <th>Name of the Assembly <br/>Constituency</th>
+                                <!-- <th class="numeric-sort">Stream</th> -->
+                                <th>Name of the Assembly <br/> Coordinator</th>
+                                <th>Phone No</th>
+                                <th>Name of the <br/> Block</th>
+                                <th>Name of the <br/> Block Coordinator</th>
+                                <th>Phone No</th> 
                                 <th>#</th>
                           </tr>
                           </thead>
                           <tbody>
                               <tr *ngFor="let meeting of Users; let i = index">
                                   <td>{{i+1}}</td> 
+                                  <td class="wp">{{meeting.statename}}</td>
                                   <td class="wp">{{meeting.assemblyname}}</td>
-                                  <td class="wp">{{meeting.stream}}</td> 
+                                  <!-- <td class="wp">{{meeting.stream}}</td>  -->
                                   <td class="wp">{{meeting.coordinator}}</td>
                                   <td class="wp">{{meeting.phone_no}}</td>
                                   <td class="wp">{{meeting.block_name}}</td>
                                   <td class="wp">{{meeting.block_coordinator}}</td>
                                   <td class="wp">{{meeting.phone_no_block}}</td>
-                                  <td class="wp">{{meeting.statename}}</td>
                                   <td><a href='javascript::' class="pop_edit">
                                     <i class="fa fa-eye"></i> 
                                   </a></td>
@@ -236,7 +236,7 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                           </div> 
                     </div>
                     <div class="table-responsive">
-                      <table class="table sortable-table sortable-fa-icons" id="exportTable2">
+                      <table class="table table-hover js-basic-example dataTable table-custom mb-0" id="exportTable2">
                         <thead>
                             <tr>
                               <th class="numeric-sort">Sr. No</th>

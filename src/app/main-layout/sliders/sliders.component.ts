@@ -25,8 +25,8 @@ export class SlidersComponent {
   userDetail:any={}; 
   Users: any = [];
   images: any[] = []; 
-  UsersList: any = []; 
   user_id:number=0;
+  UsersList: any = []; 
    clsactivity:cls_addactivity=new cls_addactivity();
   constructor(public sharedService: SharedService,private router: Router,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
@@ -36,10 +36,7 @@ export class SlidersComponent {
       
        
   }
-  setSelectedActivity(uid:number){
-this.user_id=uid;
-  }
-   
+ 
   ngOnInit() {   
     $(".page-loader-wrapper").fadeOut();  
     this.isLoggedIn = localStorage.getItem("cl_user");
@@ -52,7 +49,9 @@ this.user_id=uid;
      }
    
   }
- 
+  setSelectedActivity(uid:number){
+    this.user_id=uid;
+      }
   LoadSlider(id:any) { 
     const objRequest = {
       typeId: 21,
@@ -98,9 +97,8 @@ this.user_id=uid;
     });
   }
   
- 
-  
-  saveslider(){ 
+  saveslider(){
+    debugger;
  $(".page-loader-wrapper-review").show();
     const formData = new FormData();
     // Append form fields
@@ -108,15 +106,20 @@ this.user_id=uid;
     formData.append('display_order',this.clsactivity.display_order.toString()); 
     formData.append('id' , this.clsactivity.id.toString());
     formData.append('user_id', this.userdetails.user_id.toString());
-    formData.append('details_img', this.clsactivity.details_img);
-    formData.append('details_imagePath', '');
+    formData.append('details_imagePath', this.clsactivity.details_img);
+      if (this.clsactivity.details_imagePath && this.clsactivity.details_imagePath instanceof File) {
+        formData.append('details_img', this.clsactivity.details_imagePath);
+      }
 this.service.SaveSlider(formData).subscribe((res: any) => {
   setTimeout(() => {
     $(".page-loader-wrapper-review").hide();
   }, 500);
   var response = res;
   if (response.errorCode == "200") {
-     this.snackbar.showSuccess(response.message, response.status); 
+     this.snackbar.showSuccess("Successfully Updated","Success"); 
+     setTimeout(() => {
+      window.location.reload();
+    }, 2000);
    
   } else {
     this.snackbar.showInfo(response.message, "Error");
@@ -128,7 +131,7 @@ this.service.SaveSlider(formData).subscribe((res: any) => {
   const input = event.target as HTMLInputElement;
     if (input?.files?.length) {
       const file = input.files[0];
-      this.clsactivity.details_img = file; // Assign File object
+      this.clsactivity.details_imagePath = file; // Assign File object
     }
 } 
   backtohome(){
@@ -143,8 +146,8 @@ export class cls_addactivity {
   }
   title: string=''; 
   display_order:number = 0;
-  details_imagePath: string='';
+  details_imagePath: string | File = '';
   user_id: number=0;
   id:number =0;
-  details_img:string | File = '';
+  details_img:string=''
 }
