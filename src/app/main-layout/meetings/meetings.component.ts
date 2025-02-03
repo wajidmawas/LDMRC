@@ -17,6 +17,7 @@ export class MeetingsComponent {
   isLoggedIn:any ='';
   userdetails:any={};
   selectedmeeting: any = null;
+  searchValue:any='';
   messages: Message[] = [];
   constructor(private service:Meetingsservice, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
@@ -92,7 +93,6 @@ export class MeetingsComponent {
   
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => {  
-        debugger;
          const parseresponse = JSON.parse(response.response); 
         this.messages = parseresponse.Table;
         console.log(this.messages);
@@ -125,6 +125,23 @@ export class MeetingsComponent {
   }
   setSelectedmeeting(meeting: any): void {
     this.selectedmeeting = meeting;
+  }
+  onSearchChange(tableid:string): void {  
+    $("#tblMeeting").find("tbody tr").show()
+    if(this.searchValue!=null && this.searchValue!=undefined && this.searchValue!=""){
+      let searchkeyword=this.searchValue;
+      $("#tblMeeting").find("tbody tr").each(function (ind, val) { 
+            if ($(this).find("td")[2].innerText.toLowerCase().indexOf(searchkeyword.toLowerCase()) == -1 && 
+                $(this).find("td")[3].innerText.toLowerCase().indexOf(searchkeyword.toLowerCase()) == -1) {
+                $(this).hide();
+            }
+            else {
+                $(this).show();
+            } 
+    });
+   
+    }
+     
   }
   Cancelmeeting(meeting:any) { 
     const objRequest = {
