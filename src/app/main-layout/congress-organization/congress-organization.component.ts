@@ -31,6 +31,7 @@ export class CongressOrganizationComponent {
   Designations: any = [];
   FiltersList: any = [];
   Users: any = [];
+   
   searchValue:any='';
   UsersList: any = [];
   States: any = [];
@@ -56,6 +57,7 @@ export class CongressOrganizationComponent {
   toggleOpen() {
     this.isOpen = !this.isOpen;
   }
+  
   ngOnInit() {   
     $(".page-loader-wrapper").fadeOut();  
     this.isLoggedIn = localStorage.getItem("cl_user");
@@ -66,23 +68,30 @@ export class CongressOrganizationComponent {
      else{
       window.location.href = "/auth/login";
      }
-   
+    
   }
-  onSearchChange(): void {  
-    this.Users=this.UsersList;
+  onSearchChange(tableid:string): void {  
+    $("#"+tableid+"_wrapper").find("tbody tr").show()
     if(this.searchValue!=null && this.searchValue!=undefined && this.searchValue!=""){
-      var list=this.Users.filter((item: any) =>(item.first_name.includes(this.searchValue) ||
-      item.last_name.includes(this.searchValue) ||
-      item.mobile_no.includes(this.searchValue) ));
-      this.Users=list;
+      let searchkeyword=this.searchValue;
+      $("#"+tableid+"_wrapper").find("tbody tr").each(function (ind, val) { 
+            if ($(this).find("td")[2].innerText.toLowerCase().indexOf(searchkeyword.toLowerCase()) == -1 && 
+                $(this).find("td")[4].innerText.toLowerCase().indexOf(searchkeyword.toLowerCase()) == -1) {
+                $(this).hide();
+            }
+            else {
+                $(this).show();
+            } 
+    });
+   
     }
      
   }
-  export2Excel(){
+  export2Excel(fileNm:string){
      
     const downloadLink = document.createElement('a');
     let table: any = [];
-    table = document.getElementById('exportable');
+    table = document.getElementById(fileNm);
     const tableHTML = table.outerHTML.replace(/ /g, '%20');
     var html = table.outerHTML;
     var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
@@ -141,10 +150,8 @@ export class CongressOrganizationComponent {
   }
 
   showTab(tab_type:any){ 
-    this.Users=this.UsersList;
-    if(tab_type=='PCC')
-    return this.Users=this.Users.filter((item: any) =>(item.designation_id === 2 || item.designation_id === 3));
-  else  if(tab_type=='SC')
+    this.Users=this.UsersList; 
+   if(tab_type=='SC')
   return this.Users=this.Users.filter((item: any) =>(item.caste_id === 3));
   else  if(tab_type=='ST')
   return this.Users=this.Users.filter((item: any) =>(item.caste_id === 4));
@@ -152,6 +159,21 @@ export class CongressOrganizationComponent {
   return this.Users=this.Users.filter((item: any) =>(item.caste_id === 5));
   else  if(tab_type=='Minority')
   return this.Users=this.Users.filter((item: any) =>(item.caste_id === 6));
+  }
+  returnDataset(tab_type:any){ 
+    this.Users=this.UsersList; 
+   if(tab_type=='SC')
+  return this.Users=this.Users.filter((item: any) =>(item.caste_id === 3));
+  else  if(tab_type=='PCC')
+  return this.Users=this.Users.filter((item: any) =>(item.caste_id === 3 || item.caste_id === 5));
+  else  if(tab_type=='ST')
+  return this.Users=this.Users.filter((item: any) =>(item.caste_id === 4));
+  else  if(tab_type=='OBC')
+  return this.Users=this.Users.filter((item: any) =>(item.caste_id === 5));
+  else  if(tab_type=='Minority')
+  return this.Users=this.Users.filter((item: any) =>(item.caste_id === 6));
+  else  if(tab_type=='AICC')
+  return this.Users;
   }
   viewDetails(access_token:any){
     window.location.href = "/user-profile/"+access_token;
@@ -245,7 +267,7 @@ export class CongressOrganizationComponent {
         if (response["errorCode"] === "200") {
           var parseresponse = JSON.parse(response.response);
           this.Users = parseresponse.Table; 
-          this.UsersList = parseresponse.Table; 
+          this.UsersList = parseresponse.Table;  
         } else {
           this.Users=[];
           this.UsersList=[];

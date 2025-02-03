@@ -1,6 +1,22 @@
 $(function () {
-    $('.js-basic-example').DataTable();
-
+   setTimeout(() => {
+    $.each($(".nexagrid-basic-example"),function(ind,val){
+        $(val).DataTable({
+            pageLength: 10,
+            filter: true, 
+            searching: true,
+          }); 
+    }) 
+    $('.js-basic-example').DataTable(); 
+    // $('.js-basic-example').on('click', 'thead th', function() {   
+    //     $(".dataTables_empty").closest("tr").detach()
+    //      });
+    // $('#myTab').on('click', 'li', function() {   
+    //    setTimeout(() => {
+    //     var myTable = $('.js-basic-example').DataTable();   
+    //     myTable.clear().rows.add($('.js-basic-example tbody tr')).draw();
+    //    }, 500);
+    //     });
     //Exportable table
     $('.js-exportable').DataTable({
         dom: 'Bfrtip',
@@ -8,7 +24,9 @@ $(function () {
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
+   }, 100);
 });
+
 
 /* Formatting function for row details - modify as you need */
 function format ( d ) {

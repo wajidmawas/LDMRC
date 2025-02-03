@@ -156,75 +156,92 @@
                       <a class="nav-link active" id="AICC-tab" data-toggle="tab" href="#AICC" (click)="showTab('AICC')" role="tab" aria-controls="home" aria-selected="true">AICC</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link" id="PCC-tab" data-toggle="tab" href="#AICC" (click)="showTab('PCC')" role="tab" aria-controls="profile" aria-selected="false">PCC's</a>
+                      <a class="nav-link" id="PCC-tab" data-toggle="tab" href="#PCC" (click)="showTab('PCC')" role="tab" aria-controls="profile" aria-selected="false">PCC's</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link" id="SC-tab" data-toggle="tab" href="#AICC" (click)="showTab('SC')" role="tab" aria-controls="contact" aria-selected="false">SC Dept</a>
+                      <a class="nav-link" id="SC-tab" data-toggle="tab" href="#SC" (click)="showTab('SC')" role="tab" aria-controls="contact" aria-selected="false">SC Dept</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link" id="ST-tab" data-toggle="tab" href="#AICC" (click)="showTab('ST')" role="tab" aria-controls="contact" aria-selected="false">ST Dept</a>
+                      <a class="nav-link" id="ST-tab" data-toggle="tab" href="#ST" (click)="showTab('ST')" role="tab" aria-controls="contact" aria-selected="false">ST Dept</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link" id="OBC-tab" data-toggle="tab" href="#AICC" (click)="showTab('OBC')" role="tab" aria-controls="contact" aria-selected="false">OBC Dept</a>
+                      <a class="nav-link" id="OBC-tab" data-toggle="tab" href="#OBC" (click)="showTab('OBC')" role="tab" aria-controls="contact" aria-selected="false">OBC Dept</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link" id="Minority-tab" data-toggle="tab" href="#AICC" (click)="showTab('Minority')" role="tab" aria-controls="contact" aria-selected="false">Minority Dept</a>
+                      <a class="nav-link" id="Minority-tab" data-toggle="tab" href="#Minority" (click)="showTab('Minority')" role="tab" aria-controls="contact" aria-selected="false">Minority Dept</a>
                     </li>
                   </ul>
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="AICC" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="tabseachBar">
-                            <div class="search tab_search">
-                                <i class="fa fa-search"></i> 
-                                <input type="text" class="form-control round" [(ngModel)]="searchValue"    (input)="onSearchChange()"> 
-                            </div>
-                            <div class="btns">
-                              <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
-                              <button class="btn btn-secondary" (click)="export2Excel()"><i class="fa fa-cloud-download mr-2"></i>Download</button>
-                            </div> 
-                      </div>
-                      <div class="table-responsive">
-                        <table class="table table-hover js-basic-example dataTable table-custom mb-0">
-                          <thead>
-                              <tr>
-                                <th>Sr. No</th>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Phone Number</th>
-                                <th>Email Id</th>
-                                <th>Designation</th>
-                                <th>Charge Area</th>
-                                <th>Year</th>
-                                <th>Native City/ <br/>Village</th>
-                                <th>State</th>
-                                <th>#</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                              <tr *ngFor="let meeting of Users; let i = index">
-                                  <td>{{i+1}}</td>
-                                  <td><img [src]="meeting.image_path || '../../../assets/images/logo.png'" 
-                                      width="32" height="32"></td>
-                                  <td>{{meeting.first_name + ' ' + meeting.last_name}}</td>
-                                  <td>{{meeting.mobile_no}}</td> 
-                                  <td>{{meeting.email_id}}</td>
-                                  <td>{{meeting.designation}}</td>
-                                  <td>{{meeting.chargearea}}</td>
-                                  <td>{{meeting.current_year}}</td>
-                                  <td>{{meeting.city_name}}</td>
-                                  <td>{{meeting.state_name}}</td>
-                                  <td><a href='javascript::' class="pop_edit" (click)="viewDetails(meeting.access_token)">
-                                    <i class="fa fa-eye"></i> 
-                                  </a></td>
-                              </tr> 
-                          </tbody>
-                      </table>
-                      </div>
-                      
+                      <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblAicc',dataset: returnDataset('AICC') ,tabType :'AICC' }" ></div> 
                     </div>
-                     
+                    <div class="tab-pane fade" id="PCC" role="tabpanel" aria-labelledby="home-tab">
+                      <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblPCC',dataset: returnDataset('PCC'),tabType :'PCC' }" ></div> 
+                    </div>
+                    <div class="tab-pane fade" id="SC" role="tabpanel" aria-labelledby="home-tab">
+                      <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblSC',dataset: returnDataset('SC'),tabType :'SC' }" ></div> 
+                    </div>  
+                      <div class="tab-pane fade" id="ST" role="tabpanel" aria-labelledby="home-tab">
+                      <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblST',dataset: returnDataset('ST'),tabType :'ST' }" ></div> 
+                    </div>
+                    <div class="tab-pane fade" id="OBC" role="tabpanel" aria-labelledby="home-tab">
+                      <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblOBC',dataset: returnDataset('OBC'),tabType :'OBC' }" ></div> 
+                    </div>
+                    <div class="tab-pane fade" id="Minority" role="tabpanel" aria-labelledby="home-tab">
+                      <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblMinority',dataset: returnDataset('Minority'),tabType :'Minority' }" ></div> 
+                    </div>
                   </div>
-                 
+                 <ng-template #gridTemplate let-tableId="tableId" let-dataset="dataset" let-tabType="tabType">
+                  <div class="tabseachBar">
+                    <div class="search tab_search">
+                        <i class="fa fa-search"></i>  
+                        <input type="text" class="form-control round" [(ngModel)]="searchValue"    (input)="onSearchChange(tableId)"> 
+                    </div>
+                    <div class="btns">
+                      <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
+                      <button class="btn btn-secondary" (click)="export2Excel(tableId)"><i class="fa fa-cloud-download mr-2"></i>Download</button>
+                    </div> 
+              </div>
+              <div class="table-responsive"> 
+                <table class="table table-hover  dataTable nexagrid-basic-example table-custom mb-0" id="{{tableId}}">
+                  <thead>
+                      <tr>
+                        <th>Sr. No</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>State</th>
+                        <th>Phone Number</th>
+                        <th>Email Id</th>
+                        <th>Designation</th>
+                        <th>Charge Area</th>
+                        <th>Year</th>
+                        <th>Native City/ <br/>Village</th>
+                      
+                        <th>#</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let meeting of dataset; let i = index">
+                          <td>{{i+1}}</td>
+                          <td><img [src]="meeting.image_path || '../../../assets/images/logo.png'" 
+                              width="32" height="32"></td>
+                          <td>{{meeting.first_name + ' ' + meeting.last_name}}</td>
+                          <td>{{meeting.state_name}}</td>
+                          <td>{{meeting.mobile_no}}</td> 
+                          <td>{{meeting.email_id}}</td>
+                          <td>{{meeting.designation}}</td>
+                          <td>{{meeting.chargearea}}</td>
+                          <td>{{meeting.current_year}}</td>
+                          <td>{{meeting.city_name}}</td>
+                      
+                          <td><a href='javascript::' class="pop_edit" (click)="viewDetails(meeting.access_token)">
+                            <i class="fa fa-eye"></i> 
+                          </a></td>
+                      </tr> 
+                  </tbody>
+              </table>
+              </div>
+            </ng-template>
             </div>
           </div>
    </div>

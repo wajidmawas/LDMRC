@@ -10,13 +10,13 @@ import { TranslateService } from '@ngx-translate/core';
 import dayGridPlugin from '@fullcalendar/daygrid' 
 import { DatePipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
-import { FormControl } from '@angular/forms';
+import { FormControl,FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, startWith, Subject, takeUntil } from 'rxjs'; 
 @Component({
   selector: 'app-elections-leaders',
   standalone: true,
-  imports: [CommonModule, MatCheckboxModule], 
+  imports: [CommonModule, MatCheckboxModule,FormsModule], 
   templateUrl: './election-members.component.html',
   styleUrl: './election-members.component.scss'
 })
@@ -33,6 +33,7 @@ export class ElectionMembersComponent {
   SittingData: any = [];AllSittingData: any = [];
   States: any = [];
   isOpen = false;
+  searchValue : any="";
   Districts: any = [];
   constructor(public sharedService: SharedService,private router: Router,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
@@ -77,7 +78,38 @@ export class ElectionMembersComponent {
       this.SittingData=this.SittingData.filter((item: any) =>(item.role === 'MLA'));
     }
   }
+  returnDataset(tab_type:any){  
+    if(tab_type==1){
+     return this.LDMActivities=this.UsersList; 
+    }
+    else if(tab_type==2){
+     this.SittingData=this.AllSittingData;
+      return this.SittingData=this.SittingData.filter((item: any) =>(item.role === 'MP'));
+    }
+    else if(tab_type==3){
+        this.SittingData=this.AllSittingData;
+      return this.SittingData=this.SittingData.filter((item: any) =>(item.role === 'MLA'));
+    }
+  }
   
+  onSearchChange(tableid:string): void {  
+    $("#"+tableid+"_wrapper").find("tbody tr").show()
+    if(this.searchValue!=null && this.searchValue!=undefined && this.searchValue!=""){
+      let searchkeyword=this.searchValue;
+      $("#"+tableid+"_wrapper").find("tbody tr").each(function (ind, val) { 
+            if ($(this).find("td")[6].innerText.toLowerCase().indexOf(searchkeyword.toLowerCase()) == -1 && 
+                $(this).find("td")[9].innerText.toLowerCase().indexOf(searchkeyword.toLowerCase()) == -1) {
+                $(this).hide();
+            }
+            else {
+                $(this).show();
+            } 
+    });
+   
+    }
+     
+  }
+
   onCheckedResult(childitem:any,checked_type:any) {  
   if(checked_type=='States'){
     let obj=this.States.filter((item: any) =>(item.STATEID === childitem.STATEID));
@@ -159,8 +191,7 @@ export class ElectionMembersComponent {
       }
     });
   }
-  export2Excel(fileNm:string){
-     
+  export2Excel(fileNm:string){ 
     const downloadLink = document.createElement('a');
     let table: any = [];
     table = document.getElementById(fileNm);

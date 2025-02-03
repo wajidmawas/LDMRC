@@ -249,13 +249,12 @@
                             </div> 
                       </div>
                       <div class="table-responsive">
-                        <table class="table table-hover js-basic-example dataTable table-custom mb-0" id="exportable">
+                        <table class="table table-hover nexagrid-basic-example dataTable table-custom mb-0" id="exportable">
                           <thead>
                               <tr>
                                 <th class="numeric-sort">Sr. No</th>
                                 <th class="numeric-sort">Image</th>
-                                <th class="numeric-sort">Name</th>
-                                <th class="numeric-sort">DOB</th>
+                                <th class="numeric-sort">Name</th> 
                                 <th class="numeric-sort">Age</th>
                                 <th class="numeric-sort">Gender</th>
                                 <th class="numeric-sort">Community</th>
@@ -279,8 +278,7 @@
                                     <td>{{i+1}}</td>
                                   <td><img [src]="meeting.image_path || '../../../assets/images/logo.png'" 
                                       width="32" height="32"></td>
-                                  <td class="wp">{{meeting.first_name + ' ' + meeting.last_name}}</td>
-                                  <td class="wp">{{meeting.dob.split('T')[0]}}</td> 
+                                  <td class="wp">{{meeting.first_name + ' ' + meeting.last_name}}</td> 
                                   <td class="wp">{{meeting.age}}</td> 
                                   <td class="wp">{{meeting.gender}}</td> 
                                   <td class="wp">{{meeting.english}}</td>

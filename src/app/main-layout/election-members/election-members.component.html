@@ -83,119 +83,137 @@
                       <a class="nav-link active" id="AICC-tab" data-toggle="tab" href="#AICC" (click)="showTab(1)" role="tab" aria-controls="home" aria-selected="true">All Assembly Contituencies</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link" id="PCC-tab" data-toggle="tab" href="#AICC" (click)="showTab(1)" role="tab" aria-controls="profile" aria-selected="false">All Parliament Contituencies</a>
+                      <a class="nav-link" id="PCC-tab" data-toggle="tab" href="#PCC" (click)="showTab(1)" role="tab" aria-controls="profile" aria-selected="false">All Parliament Contituencies</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link" id="SC-tab" data-toggle="tab" href="#Sitting" (click)="showTab(2)" role="tab" aria-controls="contact" aria-selected="false">Sitting MP's Of  All Communities</a>
+                      <a class="nav-link" id="SC-tab" data-toggle="tab" href="#SittingMP" (click)="showTab(2)" role="tab" aria-controls="contact" aria-selected="false">Sitting MP's Of  All Communities</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <a class="nav-link" id="ST-tab" data-toggle="tab" href="#Sitting" (click)="showTab(3)" role="tab" aria-controls="contact" aria-selected="false">Sitting MLA's Of   All Communities</a>
+                      <a class="nav-link" id="ST-tab" data-toggle="tab" href="#SittingMLA" (click)="showTab(3)" role="tab" aria-controls="contact" aria-selected="false">Sitting MLA's Of   All Communities</a>
                     </li>
                    
                   </ul>
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="AICC" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="tabseachBar">
-                            <div class="search tab_search">
-                                <i class="fa fa-search"></i> 
-                                <input type="text" class="form-control round"> 
-                            </div>
-                            <div class="btns">
-                              <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
-                              <button class="btn btn-secondary" (click)="export2Excel('exportTable2')"><i class="fa fa-cloud-download mr-2"></i>Download</button>
-                            </div> 
-                      </div>
-                      <div class="table-responsive">
-                        <table class="table table-hover js-basic-example dataTable table-custom mb-0" id="exportTable2">
-                          <thead>
-                              <tr>
-                                <th class="numeric-sort">Sr. No</th>
-                                <th class="numeric-sort">Image</th>
-                                <th class="numeric-sort">State</th>
-                                <th class="numeric-sort">Name <br/> Of the 
-                                  <br/> Parliament Constituency</th>
-                                <th class="numeric-sort">Year of <br/> Election</th> 
-                                <th class="numeric-sort">SC/ST <br/> Category</th>
-                                <th class="numeric-sort">Name of the <br/> Candidate who won</th>
-
-                                <th class="numeric-sort">Party</th>
-                                <th class="numeric-sort">Votes Secured by <br/> the winner</th>
-                                <th class="numeric-sort">Name of the INC candidate<br/>(if not the winner)</th>
-                                <th class="numeric-sort">Votes Secured</th> 
-                          </tr>
-                          </thead>
-                          <tbody>
-                              <tr *ngFor="let act of LDMActivities; let i = index">
-                                  <td>{{i+1}}</td>
-                                  <td><img [src]="act.image_path || '../../../assets/images/logo.png'" 
-                                      width="32" height="32"></td>
-                                      <td class="wp">{{act.statename}}</td> 
-                                  <td class="wp">{{act.pc_name}}</td>
-                                  <td class="wp">{{act.election_year}}</td> 
-                                  <td class="wp">{{act.category}}</td>
-                                  <td class="wp">{{act.winner_candidate_name}}</td>
-                                  <td class="wp">{{act.winning_party}}</td>
-                                  <td class="wp">{{act.votes_secured}}</td>
-                                  <td class="wp">{{act.looser_candidate_name}}</td>
-                                  <td class="wp">{{act.looser_votes}}</td> 
-                              </tr> 
-                          </tbody>
-                      </table>
-                      </div>
+                      <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblAicc',dataset: returnDataset(1) ,tabType :'AICC' }" ></div> 
                       
                     </div>
-                    <div class="tab-pane fade" id="Sitting" role="tabpanel" aria-labelledby="home-tab">
-                      <div class="tabseachBar">
-                          <div class="search tab_search">
-                              <i class="fa fa-search"></i> 
-                              <input type="text" class="form-control round"> 
-                          </div>
-                          <div class="btns">
-                            <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
-                            <button class="btn btn-secondary" (click)="export2Excel('exportTable2')"><i class="fa fa-cloud-download mr-2"></i>Download</button>
-                          </div> 
+                    <div class="tab-pane fade" id="PCC" role="tabpanel" aria-labelledby="home-tab">
+                      <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblPCC',dataset: returnDataset(1) ,tabType :'PCC' }" ></div> 
+                      
                     </div>
-                    <div class="table-responsive">
-                      <table class="table table-hover js-basic-example dataTable table-custom mb-0" id="exportTable2">
-                        <thead>
-                            <tr>
-                              <th class="numeric-sort">Sr. No</th>
-                              <th class="numeric-sort">Image</th>
-                              <th class="numeric-sort">State</th>
-                              <th class="numeric-sort">Candidate Name</th>
-                              <th class="numeric-sort">Age</th>
-                              <th class="numeric-sort">Phone Number</th>
-                              <th class="numeric-sort">Email Id</th>
-                              <th class="numeric-sort">Party</th>
-                              <th class="numeric-sort">Membership Status</th>
-                              <th class="numeric-sort">Assembly <br/> Constituency Type</th>
-                              <th class="numeric-sort">Name of the  <br/> Assembly Constituency</th> 
-                              <th class="numeric-sort">State/Union Territory</th> 
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let act of SittingData; let i = index">
-                                <td>{{i+1}}</td>
-                                <td><img [src]="act.image_path || '../../../assets/images/logo.png'" 
-                                    width="32" height="32"></td>
-                                    <td class="wp">{{act.statename}}</td>
-                                    <td class="wp">{{act.candidate_name}}</td> 
-                                <td class="wp">{{act.role}}</td>
-                                <td class="wp">{{act.age}}</td> 
-                                <td class="wp">{{act.phone_no}}</td>
-                                <td class="wp">{{act.email_id}}</td>
-                                <td class="wp">{{act.party}}</td>
-                                <td class="wp">{{act.membership_status}}</td>
-                                <td class="wp">{{act.constituency_type}}</td>
-                                <td class="wp">{{act.assembly_name}}</td> 
-                            </tr> 
-                        </tbody>
-                    </table>
-                    </div>
-                     
+                    <div class="tab-pane fade" id="SittingMP" role="tabpanel" aria-labelledby="home-tab">
+                    
+                    <div  *ngTemplateOutlet="gridTemplate1; context: { tableId: 'tblSittingMP',dataset: returnDataset(2) ,tabType :'SittingMP' }" ></div> 
+                      
+                  </div>
+                  <div class="tab-pane fade" id="SittingMLA" role="tabpanel" aria-labelledby="home-tab">
+                    
+                    <div  *ngTemplateOutlet="gridTemplate1; context: { tableId: 'tblSittingMLA',dataset: returnDataset(3) ,tabType :'SittingMLA' }" ></div> 
+                      
                   </div>
                   </div>
-                 
+                  <ng-template #gridTemplate let-tableId="tableId" let-dataset="dataset" let-tabType="tabType">
+                    <div class="tabseachBar">
+                      <div class="search tab_search">
+                          <i class="fa fa-search"></i> 
+                          <input type="text" class="form-control round" [(ngModel)]="searchValue"    (input)="onSearchChange(tableId)"> 
+                      </div>
+                      <div class="btns">
+                        <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
+                        <button class="btn btn-secondary" (click)="export2Excel(tableId)"><i class="fa fa-cloud-download mr-2"></i>Download</button>
+                      </div> 
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-hover  dataTable nexagrid-basic-example table-custom mb-0" id="{{tableId}}">
+                    <thead>
+                        <tr>
+                          <th class="numeric-sort">Sr. No</th>
+                          <th class="numeric-sort">Image</th>
+                          <th class="numeric-sort">State</th>
+                          <th class="numeric-sort">Name <br/> Of the 
+                            <br/> Parliament Constituency</th>
+                          <th class="numeric-sort">Year of <br/> Election</th> 
+                          <th class="numeric-sort">SC/ST <br/> Category</th>
+                          <th class="numeric-sort">Name of the <br/> Candidate who won</th>
+
+                          <th class="numeric-sort">Party</th>
+                          <th class="numeric-sort">Votes Secured by <br/> the winner</th>
+                          <th class="numeric-sort">Name of the INC candidate<br/>(if not the winner)</th>
+                          <th class="numeric-sort">Votes Secured</th> 
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let act of dataset; let i = index">
+                            <td>{{i+1}}</td>
+                            <td><img [src]="act.image_path || '../../../assets/images/logo.png'" 
+                                width="32" height="32"></td>
+                                <td class="wp">{{act.statename}}</td> 
+                            <td class="wp">{{act.pc_name}}</td>
+                            <td class="wp">{{act.election_year}}</td> 
+                            <td class="wp">{{act.category}}</td>
+                            <td class="wp">{{act.winner_candidate_name}}</td>
+                            <td class="wp">{{act.winning_party}}</td>
+                            <td class="wp">{{act.votes_secured}}</td>
+                            <td class="wp">{{act.looser_candidate_name}}</td>
+                            <td class="wp">{{act.looser_votes}}</td> 
+                        </tr> 
+                    </tbody>
+                </table>
+                </div>
+
+                  </ng-template>
+
+                  <ng-template #gridTemplate1 let-tableId="tableId" let-dataset="dataset" let-tabType="tabType">
+                    <div class="tabseachBar">
+                      <div class="search tab_search">
+                          <i class="fa fa-search"></i> 
+                          <input type="text" class="form-control round"> 
+                      </div>
+                      <div class="btns">
+                        <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
+                        <button class="btn btn-secondary" (click)="export2Excel(tableId)"><i class="fa fa-cloud-download mr-2"></i>Download</button>
+                      </div> 
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-hover  dataTable nexagrid-basic-example table-custom mb-0" id="{{tableId}}">
+                    <thead>
+                        <tr>
+                          <th class="numeric-sort">Sr. No</th>
+                          <th class="numeric-sort">Image</th>
+                          <th class="numeric-sort">State</th>
+                          <th class="numeric-sort">Candidate Name</th>
+                          <th class="numeric-sort">Age</th>
+                          <th class="numeric-sort">Phone Number</th>
+                          <th class="numeric-sort">Email Id</th>
+                          <th class="numeric-sort">Party</th>
+                          <th class="numeric-sort">Membership Status</th>
+                          <th class="numeric-sort">Assembly <br/> Constituency Type</th>
+                          <th class="numeric-sort">Name of the  <br/> Assembly Constituency</th> 
+                          <th class="numeric-sort">State/Union Territory</th> 
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let act of dataset; let i = index">
+                            <td>{{i+1}}</td>
+                            <td><img [src]="act.image_path || '../../../assets/images/logo.png'" 
+                                width="32" height="32"></td>
+                                <td class="wp">{{act.statename}}</td>
+                                <td class="wp">{{act.candidate_name}}</td> 
+                            <td class="wp">{{act.role}}</td>
+                            <td class="wp">{{act.age}}</td> 
+                            <td class="wp">{{act.phone_no}}</td>
+                            <td class="wp">{{act.email_id}}</td>
+                            <td class="wp">{{act.party}}</td>
+                            <td class="wp">{{act.membership_status}}</td>
+                            <td class="wp">{{act.constituency_type}}</td>
+                            <td class="wp">{{act.assembly_name}}</td> 
+                        </tr> 
+                    </tbody>
+                </table>
+                </div>
+
+                  </ng-template>
             </div>
           </div>
    </div>

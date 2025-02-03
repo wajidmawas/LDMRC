@@ -1229,7 +1229,7 @@
 			 */
 			
 			// If aaSorting is not defined, then we use the first indicator in asSorting
-			// in case that has been altered, so the default sort reflects that option
+			// in case that has been altered, so the default sort reflects that option 
 			if ( oInit.aaSorting === undefined )
 			{
 				var sorting = oSettings.aaSorting;
