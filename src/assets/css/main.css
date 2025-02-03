@@ -11763,7 +11763,7 @@ button:focus{
 } 
 
 .table th{
-    position: sticky;
+    position: sticky !important;
     top:0
 }
 
@@ -11788,4 +11788,9 @@ div.dataTables_wrapper div.dataTables_filter{
 .pagination{
     gap: .5rem;
 }
+
+.angular-editor-textarea{
+    min-height: 150px !important;
+    border-radius: 0 0px 10px 10px;
+  }
   

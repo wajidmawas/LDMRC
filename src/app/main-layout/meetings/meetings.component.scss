@@ -161,8 +161,8 @@
     font-weight: 500;
 }
 
-.tab-content{
-    padding: 15px 0;
+.tab-content > .active{
+    padding-right: 0;
 }
 
 .wp{

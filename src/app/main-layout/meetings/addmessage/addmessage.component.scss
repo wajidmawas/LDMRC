@@ -83,3 +83,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     font-style: italic;
     color: #9B9B9B;
   }
+
+  .chkbx{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }

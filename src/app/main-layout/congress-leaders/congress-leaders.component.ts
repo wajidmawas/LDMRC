@@ -34,6 +34,7 @@ export class CongressLeadersComponent {
   UsersList: any = [];
   UsersProfessions: any = [];
   States: any = [];
+  usersid:number = 0;
   Districts: any = [];
   GenderList: any = [];
   AgeList: any = [];
@@ -165,6 +166,7 @@ export class CongressLeadersComponent {
   }
   showTab(tab_type:any){ 
     this.Users=this.UsersList;
+    this.usersid = this.UsersList.id;
     if(tab_type=='PCC')
     return this.Users=this.Users.filter((item: any) =>(item.designation_id === 2 || item.designation_id === 3));
   else  if(tab_type=='SC')

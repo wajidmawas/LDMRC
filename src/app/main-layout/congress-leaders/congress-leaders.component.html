@@ -251,42 +251,42 @@
                       <div class="table-responsive">
                         <table class="table table-hover nexagrid-basic-example dataTable table-custom mb-0" id="exportable">
                           <thead>
-                              <tr>
-                                <th class="numeric-sort">Sr. No</th>
-                                <th class="numeric-sort">Image</th>
-                                <th class="numeric-sort">Name</th> 
-                                <th class="numeric-sort">Age</th>
-                                <th class="numeric-sort">Gender</th>
-                                <th class="numeric-sort">Community</th>
-                                <th class="numeric-sort">Phone No</th> 
-                                <th class="numeric-sort">Native State</th>
-                                <th class="numeric-sort">Designation</th>
-                                <th class="numeric-sort">Exp.Years</th>
-                                <th class="numeric-sort">No. Of Year <br/>in the position</th>
-                                <th class="numeric-sort">Org exp level</th>
-                                <th class="numeric-sort">Election Contested</th>
-                                <th class="numeric-sort">Year Of Election</th>
-                                <th class="numeric-sort">Election Result <br/> (Won/Lost)</th>
-                                <th>#</th>
-                          </tr>
-                          </thead>
+                            <tr>
+                              <th>Sr. No</th>
+                              <th>Image</th>
+                              <th>Name</th> 
+                              <th>Age</th>
+                              <th>Gender</th>
+                              <th>Community</th>
+                              <th>Phone No</th> 
+                              <th>Native State</th>
+                              <th>Designation</th>
+                              <th>Exp.Years</th>
+                              <th>No. Of Year <br/>in the position</th>
+                              <th>Org exp level</th>
+                              <th>Election Contested</th>
+                              <th>Year Of Election</th>
+                              <th>Election Result <br/> (Won/Lost)</th>
+                              <th>#</th>
+                        </tr>
+                        </thead>
                           <tbody>
-                              <tr *ngFor="let meeting of Users; let i = index">
-                                <td colspan="17">
-                                  <table width="100%">
-                                  <tr>
+                              <ng-container *ngFor="let meeting of Users; let i = index">
+                                <ng-container>
+                                   
+                                  <tr> 
                                     <td>{{i+1}}</td>
                                   <td><img [src]="meeting.image_path || '../../../assets/images/logo.png'" 
                                       width="32" height="32"></td>
-                                  <td class="wp">{{meeting.first_name + ' ' + meeting.last_name}}</td> 
-                                  <td class="wp">{{meeting.age}}</td> 
-                                  <td class="wp">{{meeting.gender}}</td> 
-                                  <td class="wp">{{meeting.english}}</td>
-                                  <td class="wp">{{meeting.mobile_no}}</td> 
-                                  <td class="wp">{{meeting.state_name}}</td> 
-                                  <td class="wp">{{meeting.designation}}</td>
-                                  <td class="wp">{{meeting.year_of_exp}}</td>
-                                  <td class="wp">{{meeting.no_of_year_position}}</td>  
+                                  <td>{{meeting.first_name + ' ' + meeting.last_name}}</td> 
+                                  <td>{{meeting.age}}</td> 
+                                  <td>{{meeting.gender}}</td> 
+                                  <td>{{meeting.english}}</td>
+                                  <td>{{meeting.mobile_no}}</td> 
+                                  <td>{{meeting.state_name}}</td> 
+                                  <td>{{meeting.designation}}</td>
+                                  <td>{{meeting.year_of_exp}}</td>
+                                  <td>{{meeting.no_of_year_position}}</td>  
                                   <td>-</td>
                                   <td>-</td>
                                   <td>-</td>
@@ -296,19 +296,10 @@
                                   </a></td>
 
                                   </tr>
-                                  <tr *ngFor="let child of FilterProfessions(meeting.id);">
-                                    <td></td>
-                                    <td></td>
-                                    <td class="wp"></td>
-                                    <td class="wp"></td> 
-                                    <td class="wp"></td> 
-                                    <td class="wp"></td> 
-                                    <td class="wp"></td>
-                                    <td class="wp"></td> 
-                                    <td class="wp"></td> 
-                                    <td class="wp"></td>
-                                    <td class="wp"></td>
-                                    <td class="wp"></td>  
+                                </ng-container>
+                                  <ng-container *ngFor="let child of FilterProfessions(meeting.id);">
+                                    <tr>
+                                    <td colspan="8"></td>  
                                     <td class="wp">{{child.designation_name}}</td>  
                                     <td class="wp">{{child.election_contest}}</td>  
                                     <td class="wp">{{child.from_year}}</td>  
@@ -316,9 +307,8 @@
     
                                     <td> </td>
                                   </tr>
-                                </table></td>
-                                  
-                              </tr> 
+                                </ng-container>
+                              </ng-container>
                              
                           </tbody>
                       </table>
