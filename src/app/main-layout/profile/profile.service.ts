@@ -12,11 +12,14 @@ export class ProfileService {
   getMasters(clsobj:object) { 
     return this.http.post(this.sharedService._baseUrl + this.UserProfileManagementUrl + "/_GetMasters", clsobj,{ headers: this.sharedService.returnHttpHeaders()});
   }
+  UpdateUser(clsobj:object) { 
+    return this.http.post(this.sharedService._baseUrl + this.UserProfileManagementUrl + "/Update_User", clsobj,{ headers: this.sharedService.returnHttpHeaders()});
+  }
   getUserDetailsByAccessToken(clsobj:object) { 
     return this.http.post(this.sharedService._baseUrl + this.UserProfileManagementUrl + "/_getUserDetailsByAccessToken", clsobj,{ headers: this.sharedService.returnHttpHeaders()});
   }
   uploadprofileimg(clsobj:FormData) {
-    return this.sharedService.postForFormData(this.sharedService._baseUrl + this.UserProfileManagementUrl + "/_uploadProfile_v3", clsobj);
+    return from(this.sharedService.postForFormData(this.sharedService._baseUrl + this.UserProfileManagementUrl + "/upload_profile", clsobj));
   }
   getawskey(clsobj:object) {
     return this.http.post(this.sharedService._baseUrl + this.UserProfileManagementUrl + "/GetMasters", clsobj,{ headers: this.sharedService.returnHttpHeaders()});

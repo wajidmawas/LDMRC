@@ -50,6 +50,7 @@ export class registerComponent implements OnInit, AfterViewInit {
     })
    
   }
+
   ngAfterViewInit() {
 
     $('input[name^="number"]').on('keypress keyup blur', function (event: any) {
@@ -230,11 +231,7 @@ export class registerComponent implements OnInit, AfterViewInit {
     else if(this.clsuser.dob == undefined || this.clsuser.dob == null || this.clsuser.dob == '') {
       this.snackbar.showInfo("Please select date of birth","Error");
       validate=true;
-    }
-    else if(this.clsuser.age == undefined || this.clsuser.age == null) {
-      this.snackbar.showInfo("Please enter your age","Error");
-      validate=true;
-    }
+    } 
     else if(this.clsuser.gender == undefined || this.clsuser.gender == null || this.clsuser.gender == '') {
       this.snackbar.showInfo("Please select your gender","Error");
       validate=true;
@@ -266,6 +263,7 @@ export class registerComponent implements OnInit, AfterViewInit {
 let today:any = new Date();
 let timediff = Math.abs(today - dob);
 this.clsuser.age = Math.floor((timediff / (1000 * 3600 * 24)) / 365);
+this.clsuser.zipcode=this.clsuser.zipcode.toString();
     this.service.RegisterClient(this.clsuser).subscribe((res: any) => { 
       var response = res;
       $(".page-loader-wrapper").fadeOut(); 

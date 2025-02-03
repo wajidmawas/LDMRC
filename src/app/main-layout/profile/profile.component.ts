@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-
+import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'profile',
   templateUrl: './profile.component.html',
@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   user_id: number = 0;
   selectedActivity: any = null;
   selectedProfession: any = null;
-
+  cls_register:cls_register=new cls_register();
   Activities:any=[];ActivitiesList:any=[];
   clsactivity:cls_addactivity=new cls_addactivity();
   
@@ -38,12 +38,14 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedVillage:number | null = null;
   filename: any | null = null;
   ActivitiesDetail:any=[];
-  states: any = []; cities: any = [];ActivityType: any = [];DesiginationList: any = [];
+  states: any = []; cities: any = [];casteList: any = [];ActivityType: any = [];DesiginationList: any = [];
   userDtail:any={};ProfessionList: any = [];
   ElectionData: any = [];
   userdetails:any={};
   villages:any=[];
+  todayDate:string="";
   titlesearch:string='';
+  registerForm:any = FormGroup;
 //#add activity 
 activityId: string | null = null;
 responseid:any=[];
@@ -51,7 +53,7 @@ responseid:any=[];
 
 
 
-constructor( private router: Router,private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
+constructor( private router: Router,private _formBuilder:FormBuilder ,private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
     this.titleService.setTitle("Leaders Development Mission - Profile");
    
 }
@@ -66,27 +68,160 @@ logout() {
 ngOnInit(): void { 
   $(".page-loader-wrapper").fadeOut();  
   this.userDtail = localStorage.getItem("cl_user");
-  this.userdetails = JSON.parse(this.userDtail)
-console.log("UserDetails",this.userdetails)
+  this.userdetails = JSON.parse(this.userDtail) 
 this.getLookupMaster(0);
 this.getActivityType(0);
 this.getDesigination(0); 
  this.LoadActivity(this.userdetails.user_id,this.titlesearch);
+ const today = new Date();
+ this.todayDate = today.toISOString().split('T')[0];
+    this.registerForm= this._formBuilder.group({
+      first_name : ['',Validators.required],
+      last_name : ['',Validators.required],
+      email_id : ['',Validators.required],
+      mobile_no : ['',Validators.required],
+      gender : ['',Validators.required],
+      caste : ['',Validators.required],
+      address_1 : ['',Validators.required],
+      zipcode : ['',Validators.required],
+    })
 }
-
+EditProfile(){
+    this.cls_register.first_name=this.userdetails.first_name;
+    this.cls_register.last_name=this.userdetails.last_name;
+    this.cls_register.email_id=this.userdetails.email_id;
+    this.cls_register.mobile_no=this.userdetails.mobile_no;
+    this.cls_register.address_1=this.userdetails.address_1;
+    this.cls_register.address_2=this.userdetails.address_2;
+    this.cls_register.state_id=this.userdetails.state_id;
+    this.getCities( this.cls_register.state_id) 
+    this.cls_register.city_id=this.userdetails.city_id;
+    this.cls_register.caste=this.userdetails.caste; 
+    this.cls_register.dob=this.userdetails.dob.split('T')[0];
+    this.cls_register.gender=this.userdetails.gender;
+    this.cls_register.zipcode=this.userdetails.zipcode;
+}
 ngAfterViewInit(): void {
   
 }
 addactivity(){
     this.router.navigate([`/profile/addactivity`, 0]);
 }
+
+UpdateProfile(){ 
+  $(".page-loader-wrapper-review").show();
+     const formData = new FormData();
+     // Append form fields 
+     formData.append('upload_type', "");
+     formData.append('imagePath', "");
+     formData.append('id', this.userdetails.user_id.toString());
+     formData.append('imageFile', this.clsactivity.details_img); 
+ this.service.uploadprofileimg(formData).subscribe((res: any) => { 
+   var response = res;
+   if (response.errorCode == "200") {
+      this.snackbar.showSuccess("Successfully Updated","Success"); 
+      var parseresponse = JSON.parse(response.response);   
+     this.userdetails.image_path=parseresponse.Table[0].image_path
+     
+    
+   } else {
+     this.snackbar.showInfo(response.message, "Error");
+   }
+ });
+   }
+
+   UpdateUser(){
+    var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    var validate:boolean=false;  
+    if(this.cls_register.first_name == undefined || this.cls_register.first_name == null || this.cls_register.first_name == '') {
+      this.snackbar.showInfo("Please enter your first name","Error");
+      validate=true;
+    }
+    else if(this.cls_register.last_name == undefined || this.cls_register.last_name == null || this.cls_register.last_name == '') {
+      this.snackbar.showInfo("Please enter your last name","Error");
+      validate=true;
+    }
+    else if (this.cls_register.email_id != undefined && this.cls_register.email_id!= null && this.cls_register.email_id != "" && !reg.test(this.cls_register.email_id)) {
+      this.snackbar.showInfo("Please enter correct email", 'Error');
+      validate=true;
+    } 
+    else if(this.cls_register.mobile_no !== undefined && this.cls_register.mobile_no !== '' && (this.cls_register.mobile_no.length <=9 || this.cls_register.mobile_no.length > 10)) {
+      this.snackbar.showInfo("Please enter correct contact no","Error");
+      validate=true;
+    }
+    else if(this.cls_register.dob == undefined || this.cls_register.dob == null || this.cls_register.dob == '') {
+      this.snackbar.showInfo("Please select date of birth","Error");
+      validate=true;
+    }
+    
+    else if(this.cls_register.gender == undefined || this.cls_register.gender == null || this.cls_register.gender == '') {
+      this.snackbar.showInfo("Please select your gender","Error");
+      validate=true;
+    }
+    else if(this.cls_register.caste == undefined || this.cls_register.caste == null || this.cls_register.caste == 0) {
+      this.snackbar.showInfo("Please select your caste","Error");
+      validate=true;
+    }
+    else if(this.cls_register.address_1 == undefined || this.cls_register.address_1 == null || this.cls_register.address_1 == '') {
+      this.snackbar.showInfo("Please enter your address","Error");
+      validate=true;
+    }
+    else if(this.cls_register.state_id == undefined || this.cls_register.state_id == null || this.cls_register.state_id == 0) {
+      this.snackbar.showInfo("Please select state","Error");
+      validate=true;
+    }
+    else if(this.cls_register.city_id == undefined || this.cls_register.city_id == null || this.cls_register.city_id == 0) {
+      this.snackbar.showInfo("Please select city","Error");
+      validate=true;
+    }
+    else if(this.cls_register.zipcode == undefined || this.cls_register.zipcode == null || this.cls_register.zipcode == "") {
+      this.snackbar.showInfo("Please enter zip code","Error");
+      validate=true;
+    }
+    
+   if(!validate && !this.registerForm.invalid) {
+    $(".page-loader-wrapper").show();  
+    let dob :any = new Date(this.cls_register.dob); // mm/dd/yyyy
+let today:any = new Date();
+let timediff = Math.abs(today - dob);
+this.cls_register.age = Math.floor((timediff / (1000 * 3600 * 24)) / 365);
+this.cls_register.zipcode=this.cls_register.zipcode.toString();
+    this.service.UpdateUser(this.cls_register).subscribe((res: any) => { 
+      var response = res;
+      $(".page-loader-wrapper").fadeOut(); 
+      if (response["errorCode"] == "200") {
+        if(response["errorCode"] == "300"){
+          this.snackbar.showInfo(response.message,"Error"); 
+        }
+        else{
+        this.snackbar.showSuccess(response.message,response.status);
+        localStorage.setItem("cl_user", JSON.stringify(response.response));
+        this.userDtail = localStorage.getItem("cl_user");
+        this.userdetails = JSON.parse(this.userDtail) 
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000);
+     
+        }
+      }
+      else {
+        this.snackbar.showInfo(response["message"],"Error");
+      }
+
+    });
+   }
+   else {
+    this.snackbar.showInfo("Invalid form fields,please fill all the details to continue","Error");
+  }
+   }
+      
 searchactivity(){ 
    
   this.Activities=this.ActivitiesList;
   if(this.titlesearch!=null && this.titlesearch!=undefined && this.titlesearch!=""){
     var list=this.Activities.filter((item: any) =>( 
-    item.title.includes(this.titlesearch) ||
-    item.Author.includes(this.titlesearch) ));
+    item.title.toLowerCase().includes(this.titlesearch.toLowerCase()) ||
+    item.Author.toLowerCase().includes(this.titlesearch.toLowerCase()) ));
     this.Activities=list;
   }
 
@@ -119,11 +254,13 @@ getCities(id: any) {
   console.log(JSON.stringify(objRequest));
   this.service.getMasters(objRequest).subscribe({
     next: (response: any) => { 
-      var parseresponse = JSON.parse(response.response); 
-     debugger;
+     
       if (response["errorCode"] === "200") { 
-        this.cities = parseresponse.Table
-       console.log("Cities" + JSON.stringify(this.cities))
+        var parseresponse = JSON.parse(response.response);  
+        this.cities = parseresponse.Table 
+        setTimeout(() => {
+          this.cls_register.city_id=this.userdetails.city_id;
+        }, 500);
       } else {
         console.error("API returned an error:", response.message); 
       }
@@ -180,6 +317,7 @@ getLookupMaster(id: any) {
       var parseresponse = JSON.parse(response.response); 
       if (response["errorCode"] === "200") {
         this.states = parseresponse.Table1;
+        this.casteList = parseresponse.Table;
       } else {
         console.error("API returned an error:", response.message); 
       }
@@ -439,7 +577,7 @@ if(!validate) {
     election_result: profession.election_result
   }))
 };
-console.log(formattedData);
+ 
  this.service.SaveProfession(formattedData).subscribe((res: any) => {
    setTimeout(() => {
      $(".page-loader-wrapper").hide();
@@ -468,6 +606,10 @@ onFileChange(event: any) {
     if (input?.files?.length) {
       const file = input.files[0];
       this.clsactivity.thumbnail_img = file; // Assign File object
+      const reader = new FileReader();
+      reader.onload = e => this.userdetails.details_imagePath = reader.result;
+
+      reader.readAsDataURL(file);
     }
 }
 onFileChange_2(event: any) {
@@ -475,6 +617,23 @@ onFileChange_2(event: any) {
     if (input?.files?.length) {
       const file = input.files[0];
       this.clsactivity.details_img = file; // Assign File object
+      const reader = new FileReader();
+      reader.onload = e => this.userdetails.details_imagePath1 = reader.result;
+
+      reader.readAsDataURL(file);
+  
+    }
+}
+onFileChange_3(event: any) {
+  const input = event.target as HTMLInputElement;
+    if (input?.files?.length) {
+      const file = input.files[0];
+      this.clsactivity.details_img = file; // Assign File object
+      this.userdetails.image_path=file;
+      const reader = new FileReader();
+      reader.onload = e => this.userdetails.image_path = reader.result;
+
+      reader.readAsDataURL(file);
     }
 }
 EditActivity(Activity: any){ 
@@ -496,8 +655,7 @@ ActivityDetail(Activity: any) {
     console.error('Invalid Activity object or missing ID');
   }
 }
-EditProfession(profession: any) { 
-  console.log('profession:', profession);
+EditProfession(profession: any) {  
   const objRequest = {
     typeId: 6,
     userid: 0,
@@ -508,8 +666,7 @@ EditProfession(profession: any) {
  
   this.service.getMasters(objRequest).subscribe({
     next: (response: any) => { 
-      var parseresponse = JSON.parse(response.response); 
-      debugger;
+      var parseresponse = JSON.parse(response.response);  
       if (response["errorCode"] === "200") {
         this.professions=parseresponse.Table
        
@@ -550,8 +707,7 @@ DeleteProfession(profession: any) {
 
   this.service.getMasters(objRequest).subscribe({
     next: (response: any) => { 
-      var parseresponse = JSON.parse(response.response);  
-      debugger;
+       
       if (response["errorCode"] === "200") {
         this.snackbar.showSuccess("", response.status);
             setTimeout(() => {
@@ -622,6 +778,25 @@ Back()
 }
 
 
+export class cls_register {
+  constructor() {
+  }
+  first_name: string='';
+  last_name:string='';
+  email_id:string=''; 
+  mobile_no:string='';
+  age:number=0;
+  dob:string = '';
+  gender:string='';
+  zipcode:string='';
+  caste:number=0;
+  address_1: string = '';
+  address_2:string='';
+  state_id:number=0;
+  city_id:number=0; 
+  isGeneralUser:boolean = false;
+  otp: string = "";otpVal: string = ""
+}
 export class cls_addactivity {
   constructor(){
 

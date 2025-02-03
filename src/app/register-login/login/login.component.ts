@@ -143,7 +143,7 @@ export class clsUser {
     otp: string ='';
     address_1: string = '';
     address_2: string ='';
-    gender: string ='';
+    gender: string ='';zipcode: string ='';
     first_name: string ='';
     last_name: string ='';
   }

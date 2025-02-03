@@ -97,8 +97,7 @@ export class SlidersComponent {
     });
   }
   
-  saveslider(){
-    debugger;
+  saveslider(){ 
  $(".page-loader-wrapper-review").show();
     const formData = new FormData();
     // Append form fields

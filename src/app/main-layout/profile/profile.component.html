@@ -33,21 +33,21 @@
     <div class="col-lg-12">
         <div class="card whitebg">
             <div class="banner">
-                <img src="../../../assets/images/login_bg.png"/>
-                <button class="edit-button1"><i class="icon-pencil"></i></button>
+                <img src="../../../assets/images/login_bg.png"/> 
             </div>  
                     <div class="body">
                         <div class="row">
                             <div class="col-lg-12 ">
                                 <div class="media">
                                     <div class="media-left m-r-15">
-                                        <img src="../../../assets/images/rahul_bg.png" class="user-photo media-object" alt="User">
+                                        <img [src]="userdetails.image_path || '../../../assets/images/rahul_bg.png'"   class="user-photo media-object" alt="User">
+                                        <button class="edit-button1"  data-toggle="modal" data-target="#updateprofileimage"><i class="icon-pencil"></i></button>
                                         <h6 class="prof_title">{{userdetails.first_name}}</h6>
                                     </div> 
                                 </div>
                                 <div class="d-flex flex-row justify-content-end w-100 yop_btns"> 
                                      
-                                    <button class="btn btn-secondary mr-2" data-toggle="modal" data-target="#delaccount"><i class="fa fa-pencil mr-2"></i>Edit Profile</button>
+                                    <button class="btn btn-secondary mr-2" (click)="EditProfile()"  data-toggle="modal" data-target="#UpdateProfile"><i class="fa fa-pencil mr-2"></i>Edit Profile</button>
                                         <button class="btn btn-danger mr-2" data-toggle="modal" data-target="#delaccount"><i class="fa fa-trash-o mr-2"></i>Delete Account</button>
                                         <button class="btn btn-grey" (click)="logout()"><i class="fa fa-sign-out mr-2"></i>Logout</button>
                                     
@@ -331,7 +331,46 @@
       </div>
     </div>
   </div>
-
+  <div class="modal fade" id="updateprofileimage" tabindex="-1" role="dialog" aria-labelledby="updateprofileimage" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Update Image</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+           
+            <div class="row">  
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label >Photo</label>
+                  <div class="photo_div">
+                    <div class="d-flex align-items-center">
+                        <img [src]="userdetails.image_path || '../../../assets/images/rahul_bg.png'" width="32" height="32"/>
+                        <div class="d-flex flex-column up_div">
+                            <h4>Upload Photo</h4>
+                            <span>.jpeg,.jpg files upto 1MB</span>
+                        </div>
+                    </div>
+                    <button  class="btn btn-primary">
+                    <input type="file" style="opacity: 0;position: absolute;width: 50px;" (change)="onFileChange_3($event)">
+                    Browse
+                </button>
+                </div>
+              </div>
+                   
+                </div>        
+          </div>
+          </div>
+          <div class="modal-footer justify-content-end">
+            <button type="button" class="btn btn-lg btn-outline-primary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-lg btn-primary" (click)="UpdateProfile()">Upload <img src="../../../assets/images/btn_arrow.png" class="btn_arrow ml-2"/></button>
+          </div>
+        </div>
+      </div>
+  </div> 
   <div class="modal fade" id="expdetails" tabindex="-1" role="dialog" aria-labelledby="expdetails" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -519,7 +558,7 @@
                             <label >Photo</label>
                           <div class="photo_div">
                             <div class="d-flex align-items-center">
-                                <img src="../../../../assets/images/loader.png" width="32" height="32"/>
+                                <img  [src]="userdetails.details_imagePath || '../../../../assets/images/loader.png'" width="32" height="32"/>
                                 <div class="d-flex flex-column up_div">
                                     <h4>Upload Photo</h4>
                                     <span>.jpeg,.jpg files upto 200KB</span>
@@ -538,7 +577,7 @@
                             <label >Photo</label>
                           <div class="photo_div">
                             <div class="d-flex align-items-center">
-                                <img src="../../../../assets/images/loader.png" width="32" height="32"/>
+                                <img [src]="userdetails.details_imagePath1 || '../../../../assets/images/loader.png'"  width="32" height="32"/>
                                 <div class="d-flex flex-column up_div">
                                     <h4>Upload Detailed Photo</h4>
                                     <span>.jpeg,.jpg files upto 200KB</span>
@@ -562,6 +601,133 @@
           <div class="modal-footer justify-content-end">
             <button type="button"  class="btn btn-lg btn-outline-primary" data-dismiss="modal" (click)="CancelActivity()">Cancel</button>
              <button type="button" class="btn btn-lg btn-primary" (click)="SaveActivity()">Save <img src="../../../../assets/images/btn_arrow.png" class="btn_arrow ml-2" /></button>
+          </div>
+        </div>
+      </div>
+  </div> 
+
+  <div class="modal fade" id="UpdateProfile" tabindex="-1" role="dialog" aria-labelledby="UpdateProfile" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Update Profile</h5>
+            <button type="button" class="close1" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid"> 
+                    <div class="row">
+                      <form class="form-auth-small" name="registerForm" [formGroup]="registerForm">
+                        <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">First Name*</label>
+                                        <input type="text" class="form-control" formControlName="first_name" placeholder="Enter First Name" [(ngModel)]="cls_register.first_name"   maxlength="50">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Last Name*</label>
+                                        <input type="text" class="form-control"  formControlName="last_name"  placeholder="Enter Last Name" [(ngModel)]="cls_register.last_name"   maxlength="50">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Email ID*</label>
+                                        <input type="email" class="form-control" placeholder="Email"  formControlName="email_id" [(ngModel)]="cls_register.email_id"  >
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Phone Number*</label>
+                                        <input type="text" class="form-control" maxlength="10" formControlName="mobile_no" placeholder="Enter Phone Number" [(ngModel)]="cls_register.mobile_no" >
+                                    </div>
+                                </div>
+                         
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">DOB*</label>
+                                        <input type="date" class="form-control" [attr.max]="todayDate"   [ngModelOptions]="{standalone: true}" placeholder="Enter Your DOB" [(ngModel)]="cls_register.dob">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Gender*</label>
+                                        <select class="form-control"   [(ngModel)]="cls_register.gender" formControlName="gender" >
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Caste*</label>
+                                        <select class="form-control"   [(ngModel)]="cls_register.caste" formControlName="caste">
+                                            <option value=0>Select Caste</option>
+                                            <option *ngFor="let caste of casteList" [value]="caste.id">{{ caste.name }}</option> 
+                                            </select>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-2 mb-2">
+
+                                        <h5>Address Details</h5>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Address 1*</label>
+                                            <input type="text" class="form-control" placeholder="Enter your Address" [(ngModel)]="cls_register.address_1" formControlName="address_1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Address 2</label>
+                                            <input type="text" class="form-control" placeholder="Enter your Address" [(ngModel)]="cls_register.address_2" [ngModelOptions]="{standalone: true}">
+                                        </div>
+                                    </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">State*</label>
+                                        <select class="form-control" (change)="onstateChange($event)" [(ngModel)]="cls_register.state_id" [ngModelOptions]="{standalone: true}">
+                                            <option value="">Select State</option>
+                                            <option *ngFor="let state of states" [value]="state.STATEID">{{ state.STATENAME }}</option> 
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">City*</label>
+                                        <select class="form-control"   [(ngModel)]="cls_register.city_id" [ngModelOptions]="{standalone: true}">
+                                            <option value="">Select City</option>
+                                            <option *ngFor="let city of cities" [value]="city.DISTRICTID">{{ city.DISTRICTNAME }}</option> 
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Zip Code*</label>
+                                        <input type="number" class="form-control" placeholder="Enter your zipcode" [(ngModel)]="cls_register.zipcode" formControlName="zipcode">
+                                    </div>
+                                </div>
+                        </div>
+                      
+                    
+                    </form>
+                       
+                    </div>
+               
+                    
+            </div>   
+
+            
+
+          </div>
+          <div class="modal-footer justify-content-end">
+            <button type="button"  class="btn btn-lg btn-outline-primary" data-dismiss="modal" (click)="CancelActivity()">Cancel</button>
+             <button type="button" class="btn btn-lg btn-primary" (click)="UpdateUser()">Update <img src="../../../../assets/images/btn_arrow.png" class="btn_arrow ml-2" /></button>
           </div>
         </div>
       </div>
