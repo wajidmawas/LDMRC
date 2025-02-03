@@ -273,7 +273,10 @@ clearParticipants() {
       this.snackbar.showInfo("Please Select Organisers","Error");
       validate=true;
     }
- 
+    else if(this.clsinvite.meeting_link == undefined || this.clsinvite.meeting_link == null || this.clsinvite.meeting_link == "") {
+      this.snackbar.showInfo("Please meeting link","Error");
+      validate=true;
+    }
     else if (this.clsinvite.participants == null || this.clsinvite.participants.length === 0) {
       this.snackbar.showInfo("Please Select Participants", "Error");
       validate = true;
@@ -475,8 +478,7 @@ this.categories1 = (categoriesWithActivities|| []).map((category: any) => ({
       }
     });
   }
-  updateDesignations(designation: any): void {
-    debugger;
+  updateDesignations(designation: any): void { 
     // Filter the selected designations
     if (designation.selected) {
       // Add the selected designation in the desired format
@@ -580,7 +582,7 @@ updateOrganisationList(apiResponse: any[]): void {
         this.clsinvite.participants = this.clsinvite.participants.filter(d => d.id !== activity.id);
       }
     });
-    console.log( this.clsinvite.participants);
+    //console.log( this.clsinvite.participants);
   }
   
 }
