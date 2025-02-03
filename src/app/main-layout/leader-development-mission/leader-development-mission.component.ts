@@ -33,6 +33,7 @@ export class LeaderDevelopmentMissionComponent {
   userDetail:any={};
   Designations: any = [];
   Users: any = [];
+  searchValue:any=[];
   UsersList: any = [];
   LDMActivities: any = [];
   States: any = [];
@@ -90,9 +91,33 @@ responseid:any=[];
      }
    
   }
+  onSearchChange(tableid:string): void {  
+    $("#"+tableid+"_wrapper").find("tbody tr").show()
+    if(this.searchValue!=null && this.searchValue!=undefined && this.searchValue!=""){
+      let searchkeyword=this.searchValue;
+      $("#"+tableid+"_wrapper").find("tbody tr").each(function (ind, val) { 
+            if ($(this).find("td")[2].innerText.toLowerCase().indexOf(searchkeyword.toLowerCase()) == -1 && 
+                $(this).find("td")[4].innerText.toLowerCase().indexOf(searchkeyword.toLowerCase()) == -1) {
+                $(this).hide();
+            }
+            else {
+                $(this).show();
+            } 
+    });
+   
+    }
+     
+  }
   showTab(tab_type:any){  
     this.Users=this.UsersList;
     this.Users=this.Users.filter((item: any) =>(item.stream === tab_type));
+  }
+  returnDataset(tab_type:any){  
+    if(this.UsersList.length>0){
+    this.Users=this.UsersList; 
+    return this.Users = this.Users.filter((item: any) =>(item.stream === tab_type));
+     
+    }
   }
   viewDetails(access_token:any){
     window.location.href = "/user-profile/"+access_token;

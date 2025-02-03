@@ -136,6 +136,31 @@ export class registerComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  send_email() {
+    const objRequest = {
+      typeId: -3,
+      userid: 0,
+      filterId: 0,
+      filterText:this.clsuser.mobile_no,
+      filterText1: ""
+    }; 
+    this.service.getMasters(objRequest).subscribe({
+      next: (response: any) => {  
+        if (response["errorCode"] === "200") { 
+          
+        } else {
+          console.error("API returned an error:", response.message); 
+        }
+      },
+      error: (error: any) => {
+        console.error("API call failed:", error);
+        
+      },
+      complete: () => {
+        console.log("API call completed.");
+      }
+    });
+  }
   back(){
     this.otpForm= false;
     this.successForm= false;
@@ -176,7 +201,9 @@ export class registerComponent implements OnInit, AfterViewInit {
   
     else if(this.clsuser.otp == this.clsuser.otpVal || this.clsuser.otpVal == "6666") {
       //  localStorage.setItem("cl_user", JSON.stringify(this.validate));
+      this.send_email();
       this.otpForm= false; this.successForm= true; 
+     
     }
     
   }
@@ -248,7 +275,7 @@ this.clsuser.age = Math.floor((timediff / (1000 * 3600 * 24)) / 365);
         }
         else{
         this.snackbar.showSuccess(response.message,response.status);
-        this.clsuser.otp=response.response.otp;
+        this.clsuser.otp=response.response.otp; 
         this.otpForm= true; 
         this.successForm= false; 
         }
