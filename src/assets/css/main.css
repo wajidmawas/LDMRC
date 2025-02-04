@@ -11759,7 +11759,7 @@ button:focus{
 }
  
 .table-responsive { 
-    height: 400px; 
+    max-height: 400px; 
 } 
 
 .table th{
@@ -11781,10 +11781,10 @@ button:focus{
     display: none;
 }
 
-div.dataTables_wrapper div.dataTables_filter{
-    display: none;
-}
-
+ div.dataTables_wrapper div.dataTables_filter input {
+    
+    border-radius: 25px !important;
+ }
 .pagination{
     gap: .5rem;
 }

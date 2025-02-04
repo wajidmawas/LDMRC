@@ -423,6 +423,11 @@ position: absolute;
   font-style: italic;
   color: #9B9B9B;
 }
+.tab_search i{
+  position:  relative !important;
+  left: unset !important;
+  top: unset !important;
+}
 
 @media only screen and (max-width: 767px) {
   .media{

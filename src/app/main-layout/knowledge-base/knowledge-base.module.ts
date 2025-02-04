@@ -17,7 +17,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { KnowledgeBaseComponent } from './knowledge-base.component'; // Import the standalone component.
 import { KnowledgeDetailComponent } from '../knowledgedetails/knowledgedetails.component';
 import { HttpClientModule} from '@angular/common/http';
-import { AngularEditorModule } from '@wfpena/angular-wysiwyg';
+import { AngularEditorModule } from '@wfpena/angular-wysiwyg'; 
+
+
 const routes: Routes = [
   {
     path: 'knowledge_base',
@@ -33,7 +35,8 @@ const routes: Routes = [
   declarations: [ 
     KnowledgeDetailComponent
   ],
-  imports: [
+  imports: [ 
+    
     HttpClientModule,
     AngularEditorModule,
     CommonModule,

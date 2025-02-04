@@ -10,13 +10,14 @@ import { SnackbarService } from 'src/shared/snackbar-service';
 import { CryptoService } from 'src/shared/crypto.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';  
+import { FormsModule } from '@angular/forms'; 
 
 @NgModule({
   declarations: [
     AppComponent
   ],
-  imports: [
+  imports: [ 
+    
     RouterModule,
     BrowserModule,
     AppRoutingModule,
