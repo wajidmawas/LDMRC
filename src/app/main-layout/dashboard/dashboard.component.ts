@@ -188,8 +188,9 @@ constructor(public sharedService: SharedService,private router: Router,private s
   
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
-        var parseresponse = JSON.parse(response.response); 
+       
         if (response["errorCode"] === "200") {
+          var parseresponse = JSON.parse(response.response); 
           this.Activities = parseresponse.Table;
           this.Communications = parseresponse.Table1;
           this.TopCommunications = parseresponse.Table2;
@@ -223,10 +224,9 @@ constructor(public sharedService: SharedService,private router: Router,private s
       filterText1: ""
     };  
     this.service.getMasters(objRequest).subscribe({
-      next: (response: any) => {  
-
-        var parseresponse = JSON.parse(response.response);  
+      next: (response: any) => {   
         if (response["errorCode"] === "200") {
+          var parseresponse = JSON.parse(response.response);
           this.meetings=parseresponse.Table1;
           this.PhysicalMetting = parseresponse.Table;
         } else {

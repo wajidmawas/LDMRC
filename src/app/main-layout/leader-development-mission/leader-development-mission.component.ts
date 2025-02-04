@@ -61,8 +61,7 @@ responseid:any=[];
       this.userDetail = this.sharedService.getUserSession();
       // this.userdetails=JSON.parse(this.userDetail.user_id);
       this.userDtail = localStorage.getItem("cl_user");
-      this.userdetails = JSON.parse(this.userDtail)
-    console.log("UserDetails",this.userdetails)
+      this.userdetails = JSON.parse(this.userDtail) 
     
       var year  = new Date().getFullYear();
       const now = new Date();
@@ -89,7 +88,9 @@ responseid:any=[];
      else{
       window.location.href = "/auth/login";
      }
-   
+     $.each($(".nexagrid-basic-example"),function(ind,val){ 
+              $(val).DataTable().destroy(); 
+          }) 
   }
   onSearchChange(tableid:string): void {  
     $("#"+tableid+"_wrapper").find("tbody tr").show()
@@ -208,6 +209,15 @@ responseid:any=[];
           this.UsersList = parseresponse.Table2; 
           this.Users=this.Users.filter((item: any) =>(item.stream === "SC Dept"));
           this.LDMActivities = parseresponse.Table3; 
+
+          setTimeout(() => {
+            $.each($(".nexagrid-basic-example"),function(ind,val){  
+              $(val).DataTable({
+                  pageLength: 10, 
+                  searching: true,
+                }); 
+          }) 
+           }, 100);
         } else {
           console.error("API returned an error:", response.message); 
         }

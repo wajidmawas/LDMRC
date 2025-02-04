@@ -79,6 +79,9 @@ export class CongressLeadersComponent {
       this.YearsOfExp.push({"name":"10 to 15 years","is_selected":false})
       this.YearsOfExp.push({"name":"15 to 20 years","is_selected":false})
       this.YearsOfExp.push({"name":"20 years and above","is_selected":false})
+      $.each($(".nexagrid-basic-example"),function(ind,val){ 
+                $(val).DataTable().destroy(); 
+            }) 
      }
      else{
       window.location.href = "/auth/login";
@@ -244,6 +247,15 @@ export class CongressLeadersComponent {
           this.Users = parseresponse.Table; 
           this.UsersList = parseresponse.Table; 
           this.UsersProfessions = parseresponse.Table1; 
+
+          setTimeout(() => {
+            $.each($(".nexagrid-basic-example"),function(ind,val){  
+              $(val).DataTable({
+                  pageLength: 10, 
+                  searching: true,
+                }); 
+          }) 
+           }, 100);
         } else {
           console.error("API returned an error:", response.message); 
         }

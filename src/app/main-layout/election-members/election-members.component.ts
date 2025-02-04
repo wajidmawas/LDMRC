@@ -10,9 +10,11 @@ import { TranslateService } from '@ngx-translate/core';
 import dayGridPlugin from '@fullcalendar/daygrid' 
 import { DatePipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
-import { FormControl,FormsModule } from '@angular/forms';
+import { FormControl,FormsModule } from '@angular/forms'; 
 import { Router } from '@angular/router';
 import { map, startWith, Subject, takeUntil } from 'rxjs'; 
+import 'datatables.net';
+import 'datatables.net-bs4';
 @Component({
   selector: 'app-elections-leaders',
   standalone: true,
@@ -62,8 +64,12 @@ export class ElectionMembersComponent {
      }
      else{
       window.location.href = "/auth/login";
-     }
-   
+     } 
+    
+     $.each($(".nexagrid-basic-example"),function(ind,val){ 
+              $(val).DataTable().destroy(); 
+          }) 
+
   }
   showTab(tab_type:any){  
     if(tab_type==1){
@@ -219,6 +225,16 @@ export class ElectionMembersComponent {
           this.LDMActivities = parseresponse.Table4; 
           this.SittingData = parseresponse.Table5; 
           this.AllSittingData = parseresponse.Table5; 
+
+          setTimeout(() => {
+            $.each($(".nexagrid-basic-example"),function(ind,val){  
+              $(val).DataTable({
+                  pageLength: 10, 
+                  searching: true,
+                }); 
+          }) 
+           }, 100);
+
         } else {
           console.error("API returned an error:", response.message); 
         }

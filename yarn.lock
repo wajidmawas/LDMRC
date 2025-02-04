@@ -3663,6 +3663,21 @@ d3@~3.5.0:
   resolved "https://registry.npmjs.org/d3/-/d3-3.5.17.tgz"
   integrity sha512-yFk/2idb8OHPKkbAL8QaOaqENNoMhIaSHZerk3oQsECwkObkCpJyjYwCe+OHiq6UEdhe1m8ZGARRRO3ljFjlKg==
 
+datatables.net-bs4@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/datatables.net-bs4/-/datatables.net-bs4-2.2.1.tgz"
+  integrity sha512-YJpbGGTqrOhS6p8BolGv16mdmljaq4ewhc0dbm3yd02UQ86A2cWQ2tDq6lE966tvRD43JE0PPAc5wLgsRozReg==
+  dependencies:
+    datatables.net "2.2.1"
+    jquery ">=1.7"
+
+datatables.net@^2.2.1, datatables.net@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/datatables.net/-/datatables.net-2.2.1.tgz"
+  integrity sha512-Hz7f+a77xGdroAzej88aobT5nkQIJ2Oy1JI7yh2cl0QAXQSJDXOKkOLknu+nphVP8CP8w9MtLCmwMst/F8niiQ==
+  dependencies:
+    jquery ">=1.7"
+
 date-format@^4.0.14:
   version "4.0.14"
   resolved "https://registry.npmjs.org/date-format/-/date-format-4.0.14.tgz"
@@ -4858,7 +4873,7 @@ jiti@^1.20.0:
   resolved "https://registry.npmjs.org/jiti/-/jiti-1.21.0.tgz"
   integrity sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==
 
-jquery@^3.7.1:
+jquery@^3.7.1, jquery@>=1.7:
   version "3.7.1"
   resolved "https://registry.npmjs.org/jquery/-/jquery-3.7.1.tgz"
   integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==

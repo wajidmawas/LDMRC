@@ -68,7 +68,9 @@ export class CongressOrganizationComponent {
      else{
       window.location.href = "/auth/login";
      }
-    
+     $.each($(".nexagrid-basic-example"),function(ind,val){ 
+              $(val).DataTable().destroy(); 
+          }) 
   }
   onSearchChange(tableid:string): void {  
     $("#"+tableid+"_wrapper").find("tbody tr").show()
@@ -268,6 +270,14 @@ export class CongressOrganizationComponent {
           var parseresponse = JSON.parse(response.response);
           this.Users = parseresponse.Table; 
           this.UsersList = parseresponse.Table;  
+          setTimeout(() => {
+            $.each($(".nexagrid-basic-example"),function(ind,val){  
+              $(val).DataTable({
+                  pageLength: 10, 
+                  searching: true,
+                }); 
+          }) 
+           }, 100);
         } else {
           this.Users=[];
           this.UsersList=[];
