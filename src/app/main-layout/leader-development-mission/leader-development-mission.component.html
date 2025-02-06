@@ -201,11 +201,11 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                   
                   </div>
                   <ng-template #gridTemplate let-tableId="tableId" let-dataset="dataset" let-tabType="tabType">
-                    <div class="tabseachBar">
-                      <div class="search tab_search">
+                    <div class="tabseachBar justify-content-end">
+                      <!-- <div class="search tab_search">
                           <i class="fa fa-search"></i>  
                           <input type="text" class="form-control round" [(ngModel)]="searchValue"    (input)="onSearchChange(tableId)"> 
-                      </div>
+                      </div> -->
                       <div class="btns">
                         <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
                         <button class="btn btn-secondary" (click)="export2Excel(tableId)"><i class="fa fa-cloud-download mr-2"></i>Download</button>

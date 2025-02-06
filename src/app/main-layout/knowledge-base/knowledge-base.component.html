@@ -80,7 +80,7 @@
 
                             </div>
                             <div class="card-footer"> 
-                              <a href="javascript::" >Share <i class="fa fa-share"></i></a>
+                              <a href="javascript::" data-toggle="modal" data-target="#sharepop">Share <i class="fa fa-share"></i></a>
                           <a href="/knowledge_detail/{{meeting.code}}" target="_blank"> View <i class="fa fa-caret-right"></i></a>
                           </div>
                             <ng-template #videoContent >
@@ -111,6 +111,7 @@
                  
             </div>
           </div>
+          
    </div>
 
    
@@ -255,6 +256,30 @@
             <button type="button"  class="btn btn-lg btn-outline-primary" data-dismiss="modal" (click)="CancelActivity()">Cancel</button>
              <button type="button" class="btn btn-lg btn-primary" (click)="Saveknowledge()">Save <img src="../../../../assets/images/btn_arrow.png" class="btn_arrow ml-2" /></button>
           </div>
+        </div>
+      </div>
+  </div> 
+
+   
+  <div class="modal fade" id="sharepop" tabindex="-1" role="dialog" aria-labelledby="sharepop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          
+          <div class="modal-body">
+            <div class="container-fluid"> 
+              <h6 class="mb-4">Share</h6>
+              <div class="social-links">
+              <a href="https://www.facebook.com/" target="_blank" class="social-link"><i class="fa fa-facebook"></i></a>
+              <a href="https://twitter.com/" target="_blank" class="social-link"><i class="fa fa-twitter"></i></a>
+              <a href="https://www.linkedin.com/" target="_blank" class="social-link"><i class="fa fa-linkedin"></i></a>
+              <a href="https://wa.me/" target="_blank" class="social-link"><i class="fa fa-whatsapp"></i></a>
+            </div>
+            </div>   
+
+            
+
+          </div>
+          
         </div>
       </div>
   </div> 
