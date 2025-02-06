@@ -26,6 +26,7 @@ import { AngularEditorConfig } from '@wfpena/angular-wysiwyg';
 })
 export class KnowledgeBaseComponent {
   isLoggedIn:any='';
+  selectedArticle:any={};
   userdetails:any={};
   DesignationLimit:number=5;
   StatesLimit:number=5;
@@ -70,6 +71,30 @@ export class KnowledgeBaseComponent {
   }  
   ActivityDetail(actitem:any){
 
+  }
+  sharemedia(shareType:any){
+   // this.selectedArticle=item;
+   let articleLink=(location.origin +/'knowledge_detail'/+this.selectedArticle.code);
+   if(shareType=='wa'){ 
+   var message = this.selectedArticle.title + " . Article link: " +  articleLink;
+    var url = 'https://wa.me/' + this.userdetails.mobile_no + '/?text=' + message; 
+    window.open(url, '_blank');
+   }
+   if(shareType=='fb'){  
+    const navUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + articleLink +'&quote='+ this.selectedArticle.title;
+    window.open(navUrl, '_blank');
+    }
+    if(shareType=='ln'){  
+      const navUrl = 'https://www.linkedin.com/share?url=' +  + '&summary=' + this.selectedArticle.title;
+      window.open(navUrl, '_blank');
+      }
+      if(shareType=='tw'){  
+        const navUrl = 'http://twitter.com/share?text=' + this.selectedArticle.title + '&url=' + articleLink ;
+        window.open(navUrl, '_blank'); 
+        }
+  }
+  selectedActivity(item:any){
+    this.selectedArticle=item;
   }
   onFileChange(event: any) {
     const input = event.target as HTMLInputElement;

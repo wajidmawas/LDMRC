@@ -198,7 +198,7 @@
                         <input type="text" class="form-control round" [(ngModel)]="searchValue"    (input)="onSearchChange(tableId)"> 
                     </div> -->
                     <div class="btns">
-                      <button class="btn btn-outline-white mr-2"><i class="icon-printer mr-2"></i> Print</button>
+                      <button class="btn btn-outline-white mr-2" data-toggle="modal" data-target="#printExcel" (click)="printTable(tableId)"><i class="icon-printer mr-2"></i> Print</button>
                       <button class="btn btn-secondary" (click)="export2Excel(tableId)"><i class="fa fa-cloud-download mr-2"></i>Download</button>
                     </div> 
               </div>
@@ -245,3 +245,20 @@
             </div>
           </div>
    </div>
+
+   <div class="modal fade" id="printExcel" tabindex="-1" role="dialog" aria-labelledby="printExcel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="modal-body mt-5 d-flex align-items-center flex-column justify-content-center alertbox">
+            <div class="table-responsive" id="divPrint"> </div>
+           </div>
+           <div class="modal-footer text-center">
+            <button type="button" class="btn btn-lg btn-dark" data-dismiss="modal"><i class="icon-close mr-2"></i> Cancel.</button>
+            <button type="button" class="btn btn-lg btn-danger"  (click)="printgrid()"  data-dismiss="modal" ><i class="icon-printer mr-2"></i> Print</button>
+          </div>
+      </div>
+    </div>
+  </div>

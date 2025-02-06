@@ -164,6 +164,23 @@ responseid:any=[];
       }
     });
   }
+  printTable(fileNm:string){ 
+    let el:any = document.getElementById('divPrint');
+    $(el).html($("#"+fileNm)[0]);
+  }
+  printgrid(){  
+    let el:any = document.getElementById('divPrint'); 
+    var mywindow:any = window.open('', 'new div', 'height=400,width=600');
+    mywindow.document.write('<html><head><title></title>');
+    mywindow.document.write('<link rel="stylesheet" href="/styles.css" type="text/css" />');
+    mywindow.document.write('</head><body >');
+    mywindow.document.write($(el).html());
+    mywindow.document.write('</body></html>');
+    mywindow.document.close();
+    mywindow.focus();
+    setTimeout(function(){mywindow.print();},500);
+   // mywindow.close();  
+  }
   getLookupMaster(id: any) {
     const objRequest = {
       typeId: 1,

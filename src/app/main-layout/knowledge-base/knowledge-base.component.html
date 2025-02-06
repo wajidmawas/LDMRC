@@ -80,7 +80,7 @@
 
                             </div>
                             <div class="card-footer"> 
-                              <a href="javascript::" data-toggle="modal" data-target="#sharepop">Share <i class="fa fa-share"></i></a>
+                              <a href="javascript::" data-toggle="modal" (click)="selectedActivity(meeting)" data-target="#sharepop">Share <i class="fa fa-share"></i></a>
                           <a href="/knowledge_detail/{{meeting.code}}" target="_blank"> View <i class="fa fa-caret-right"></i></a>
                           </div>
                             <ng-template #videoContent >
@@ -269,10 +269,10 @@
             <div class="container-fluid"> 
               <h6 class="mb-4">Share</h6>
               <div class="social-links">
-              <a href="https://www.facebook.com/" target="_blank" class="social-link"><i class="fa fa-facebook"></i></a>
-              <a href="https://twitter.com/" target="_blank" class="social-link"><i class="fa fa-twitter"></i></a>
-              <a href="https://www.linkedin.com/" target="_blank" class="social-link"><i class="fa fa-linkedin"></i></a>
-              <a href="https://wa.me/" target="_blank" class="social-link"><i class="fa fa-whatsapp"></i></a>
+              <a (click)="sharemedia('fb')" href="javascript::"   class="social-link"><i class="fa fa-facebook"></i></a>
+              <a (click)="sharemedia('tw')" href="javascript::"   class="social-link"><i class="fa fa-twitter"></i></a>
+              <a (click)="sharemedia('ln')" href="javascript::"   class="social-link"><i class="fa fa-linkedin"></i></a>
+              <a (click)="sharemedia('wa')" href="javascript::"   class="social-link"><i class="fa fa-whatsapp"></i></a>
             </div>
             </div>   
 
