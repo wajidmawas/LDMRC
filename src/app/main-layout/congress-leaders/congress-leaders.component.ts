@@ -41,6 +41,8 @@ export class CongressLeadersComponent {
   YearsOfExp: any = [];
   searchValue: string='';
   openSection: string | null = null;
+  FilterSection: any = [];AllDesignations: any = [];
+  FilterOptions: any = {"Designation":false,"State":false,"District":false,"Caste":false,"Age":false,"Gender":false,"YearofExp":false};
   constructor(public sharedService: SharedService,private router: Router,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
       $(".page-loader-wrapper-review").fadeOut();
@@ -198,8 +200,45 @@ export class CongressLeadersComponent {
         if (response["errorCode"] === "200") {
           var parseresponse = JSON.parse(response.response); 
           this.Designations = parseresponse.Table2;
+          this.AllDesignations=this.Designations;
           this.States = parseresponse.Table1; 
             this.CasteList = parseresponse.Table;
+
+            let cofilter=parseresponse.Table5.filter((item: any) => item.page_name=='congress_leaders');
+            this.FilterSection=parseresponse.Table6;
+  
+            if(cofilter!=null && cofilter.length>0){
+              var option=cofilter[0].filter_section_name.split(',')
+              let temp=option.filter((item: any) => item.toLowerCase()=='designation');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.Designation=true;
+              }
+              temp=option.filter((item: any) => item.toLowerCase()=='state');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.State=true;
+              }
+              temp=option.filter((item: any) => item.toLowerCase()=='district');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.District=true;
+              }
+              temp=option.filter((item: any) => item.toLowerCase()=='age');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.Age=true;
+              }
+              temp=option.filter((item: any) => item.toLowerCase()=='gender');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.Gender=true;
+              }
+              temp=option.filter((item: any) => item.toLowerCase()=='yearofexp');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.YearofExp=true;
+              }
+              temp=option.filter((item: any) => item.toLowerCase()=='caste');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.Caste=true;
+              }
+            }
+
         } else {
           console.error("API returned an error:", response.message); 
         }

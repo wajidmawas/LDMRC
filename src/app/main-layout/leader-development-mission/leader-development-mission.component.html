@@ -44,7 +44,7 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                 <h2 class="filter flt_web">Filters</h2>
                 <div id="accordion" class="acc_filter">
                 <div class="card mb-2">
-                    <div class="card-body">
+                    <div class="card-body" *ngIf="FilterOptions && FilterOptions.Designation">
                         <div class="filter_title_div">
                             <div class="d-flex w-100 align-items-center justify-content-between" id="headingOne">
                                 
@@ -59,7 +59,7 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                                       Designations
                                      
                                     </button>
-                                    <button class="btn fil-sm btn-dark"  >Clear All</button>
+                                    <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(Designations,'Designations')">Clear All</button>
                                  
                                 
                             </div>
@@ -70,10 +70,10 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                         aria-labelledby="headingOne"
                         data-parent="#accordion">
                                 <div class="inputcheck" >
-                                  <mat-checkbox color="#000">All</mat-checkbox>
+                                  <mat-checkbox color="#000" (change)="onAllCheckedResult(Designations,'Designations')">All</mat-checkbox>
                                 </div>
                                 <div class="inputcheck" *ngFor="let meeting of Designations.slice(0,DesignationLimit)" >
-                                  <mat-checkbox color="#000">{{ meeting.name }}</mat-checkbox>
+                                  <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'Designations')" color="#000" [checked]="meeting.is_selected">{{ meeting.name }}</mat-checkbox>
                                 </div>
                                 <a class="btn more_btn" *ngIf="DesignationLimit < Designations.length" (click)="showmore('designation')" >More</a>
                                 <a class="btn more_btn"  *ngIf="DesignationLimit == Designations.length" (click)="showless('designation')" >Less</a>
@@ -81,7 +81,7 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                     </div>
                 </div>
                 <div class="card mb-2">
-                  <div class="card-body">
+                  <div class="card-body" *ngIf="FilterOptions && FilterOptions.State">
                       <div class="filter_title_div">
                           <div class="d-flex w-100 align-items-center justify-content-between" id="headingOne">
                               
@@ -96,7 +96,7 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                                     States
                                    
                                   </button>
-                                  <button class="btn fil-sm btn-dark"  >Clear All</button>
+                                  <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(States,'States')">Clear All</button>
                                
                               
                           </div>
@@ -107,10 +107,10 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                       aria-labelledby="headingOne"
                       data-parent="#accordion">
                               <div class="inputcheck" >
-                                <mat-checkbox color="#000">All</mat-checkbox>
+                                <mat-checkbox color="#000" (change)="onAllCheckedResult(States,'States')">All</mat-checkbox>
                               </div>
                               <div class="inputcheck" *ngFor="let meeting of States.slice(0,StatesLimit)" >
-                                <mat-checkbox color="#000">{{ meeting.STATENAME }}</mat-checkbox>
+                                <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'States')" color="#000" [checked]="meeting.is_selected">{{ meeting.STATENAME }}</mat-checkbox>
                               </div>
                               <a class="btn more_btn" *ngIf="StatesLimit < States.length" (click)="showmore('states')" >More</a>
                               <a class="btn more_btn"  *ngIf="StatesLimit == States.length" (click)="showless('states')" >Less</a>
@@ -118,7 +118,7 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                   </div>
               </div>
                 <div class="card mb-2">
-                    <div class="card-body">
+                    <div class="card-body" *ngIf="FilterOptions && FilterOptions.District">
                         <div class="filter_title_div">
                             <div class="d-flex w-100 align-items-center justify-content-between" id="headingOne">
                                 
@@ -130,23 +130,28 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                                       aria-controls="collapseTwo"
                                       
                                       > <span class="icon">-</span>
-                                    Town/Blocks/Mandal
+                                    District
                                      
                                     </button>
-                                    <button class="btn fil-sm btn-dark">Clear All</button>
-                                 
+                                    <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(Districts,'Districts')">Clear All</button>
+                             
                                 
                             </div>
                             
                         </div>
-                        <div class="filter_main" 
-                        class="collapse"
-                        aria-labelledby="headingTwo"
-                        data-parent="#accordion">
-                                <div class="inputcheck">
-                                  <mat-checkbox color="#000">All</mat-checkbox>
-                                </div>
-                        </div>
+                        <div class="filter_main"  
+                    class="collapse show"
+                    aria-labelledby="headingThree"
+                    data-parent="#accordion">
+                            <div class="inputcheck" >
+                              <mat-checkbox color="#000" (change)="onAllCheckedResult(Districts,'Districts')">All</mat-checkbox>
+                            </div>
+                            <div class="inputcheck" *ngFor="let meeting of Districts.slice(0,DistrictsLimit)" >
+                              <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'Districts')" color="#000" [checked]="meeting.is_selected">{{ meeting.DISTRICTNAME }}</mat-checkbox>
+                            </div>
+                            <a class="btn more_btn" *ngIf="DistrictsLimit < Districts.length" (click)="showmore('districts')" >More</a>
+                            <a class="btn more_btn"  *ngIf="DistrictsLimit == Districts.length" (click)="showless('districts')" >Less</a>
+                    </div>
                     </div>
                 </div>
                 <div class="d-flex align-items-center justify-content-center mt-3 mb-3">
@@ -279,8 +284,9 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                     <tr *ngFor="let act of dataset; let i = index">
                         <td>{{i+1}}</td>
                         <td class="wp">{{act.statename}}</td>
-                        <td><img [src]="act.photo_path || '../../../assets/images/logo.png'" 
-                            width="32" height="32"></td>
+                        <td>
+                          <a href="{{act.photo_path || '../../../assets/images/logo.png'}}" target="_blank"><img [src]="act.photo_path || '../../../assets/images/logo.png'" 
+                            width="32" height="32"></a> </td>
                         <td class="wp">{{act.title}}</td>
                         <td class="wp">{{act.office_bearer}}</td> 
                         <td class="wp">{{act.designation}}</td>

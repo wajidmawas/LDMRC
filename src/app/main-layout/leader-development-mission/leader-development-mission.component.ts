@@ -37,7 +37,8 @@ export class LeaderDevelopmentMissionComponent {
   UsersList: any = [];
   LDMActivities: any = [];
   States: any = [];
-  Districts: any = [];
+  Districts: any = [];DistrictsList: any = [];
+  DistrictsLimit:number=5;
   selectedState:number | null = null;
   selectedCity:number | null = null;
   selectedActvity:number | null = null;
@@ -54,6 +55,8 @@ export class LeaderDevelopmentMissionComponent {
   titlesearch:string='';
   activityId: string | null = null;
 responseid:any=[];
+FilterSection: any = [];AllDesignations: any = [];
+  FilterOptions: any = {"Designation":false,"State":false,"District":false,"Age":false,"Gender":false,"YearofExp":false};
   constructor(public sharedService: SharedService,private router: Router,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
       $(".page-loader-wrapper-review").fadeOut();
@@ -111,7 +114,22 @@ responseid:any=[];
   }
   showTab(tab_type:any){  
     this.Users=this.UsersList;
-    this.Users=this.Users.filter((item: any) =>(item.stream === tab_type));
+    this.Users=this.Users.filter((item: any) =>(item.stream === tab_type)); 
+    this.Designations=this.AllDesignations;
+    let isExists=this.FilterSection.filter((item: any) =>(item.page.toLowerCase() =='leader_dev_mission' && 
+     item.tab_name.toLowerCase()==tab_type.toLowerCase() && item.is_active==true && 
+     item.filter_name.toLowerCase()=="designation"))
+     if(isExists.length>0){
+      var filteredData = this.Designations.filter(function(item:any) {
+        return (
+          isExists[0].filter_section_name.indexOf(parseInt(item.id)) > -1
+        );
+      });
+      if(filteredData.length>0){
+        this.Designations=filteredData
+      }
+     }
+
   }
   returnDataset(tab_type:any){  
     if(this.UsersList.length>0){
@@ -149,7 +167,28 @@ responseid:any=[];
         var parseresponse = JSON.parse(response.response); 
         if (response["errorCode"] === "200") {
           this.Designations = parseresponse.Table2;
-          this.States = parseresponse.Table1; 
+          this.States = parseresponse.Table1;  
+          this.Districts = parseresponse.Table4;  
+          this.AllDesignations=this.Designations; 
+
+            let cofilter=parseresponse.Table5.filter((item: any) => item.page_name=='leader_dev_mission');
+            this.FilterSection=parseresponse.Table6;
+  
+            if(cofilter!=null && cofilter.length>0){
+              var option=cofilter[0].filter_section_name.split(',')
+              let temp=option.filter((item: any) => item.toLowerCase()=='designation');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.Designation=true;
+              }
+              temp=option.filter((item: any) => item.toLowerCase()=='state');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.State=true;
+              }
+              temp=option.filter((item: any) => item.toLowerCase()=='district');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.District=true;
+              }
+            }
         } else {
           console.error("API returned an error:", response.message); 
         }
@@ -256,6 +295,9 @@ if(type=='states'){
 else if(type=='designation'){
   this.DesignationLimit=this.Designations.length;
 }
+else if(type=='districts'){
+  this.DistrictsLimit=this.Districts.length;
+}
   }
   showless(type:any){
     if(type=='states'){
@@ -264,6 +306,37 @@ else if(type=='designation'){
     else if(type=='designation'){
       this.DesignationLimit=5;
     }
+    else if(type=='districts'){
+      this.DistrictsLimit=5;
+    }
+      }
+      LoadDistrictsByState(stateId:string) {
+        const objRequest = {
+          typeId: 43,
+          userid: 0,
+          filterId: 0,
+          filterText: stateId,
+          filterText1: ""
+        };
+      
+        this.service.getMasters(objRequest).subscribe({
+          next: (response: any) => {  
+            if (response["errorCode"] === "200") {
+              var parseresponse = JSON.parse(response.response);  
+              this.Districts = parseresponse.Table; 
+            } else { 
+              console.error("API returned an error:", response.message); 
+            }
+          },
+          error: (error: any) => {
+            console.error("API call failed:", error);
+            // Handle the error appropriately
+            // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
+          },
+          complete: () => {
+            console.log("API call completed.");
+          }
+        });
       }
   filter(){  
         $('.acc_filter').toggle();
@@ -277,6 +350,37 @@ else if(type=='designation'){
   }
   onDesiginationChange(event: any): void {
     this.selectedDesignation = event.target.value; 
+  }
+  onCheckedResult(childitem:any,checked_type:any) {  
+    if(checked_type=='Designations'){
+    let obj=this.Designations.filter((item: any) =>(item.id === childitem.id));
+    if(obj!=null){
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
+    }
+  }
+  else  if(checked_type=='States'){
+    let obj=this.States.filter((item: any) =>(item.STATEID === childitem.STATEID));
+    if(obj!=null){
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
+      this.Districts=this.DistrictsList;
+      let selectedlist = this.States
+      .filter((item: any) => item.is_selected==true)
+      .map((item: any) => item.STATEID);
+      if(selectedlist.length>0){
+        let templist='';
+        selectedlist.forEach((element:any) => {
+          templist=templist+ element +",";
+        });
+        this.LoadDistrictsByState(templist)
+      }
+    }
+  }
+  else  if(checked_type=='Districts'){
+    let obj=this.Districts.filter((item: any) =>(item.DISTRICTID === childitem.DISTRICTID));
+    if(obj!=null){
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
+    }
+  }
   }
   getDesigination(id: any) {
     const objRequest = {
@@ -305,6 +409,18 @@ else if(type=='designation'){
         console.log("API call completed.");
       }
     });
+  }
+  onAllCheckedResult(list:any,listType:any){
+    list.forEach((element:any) => {
+      element.is_selected=element.is_selected==true ? false :true;
+    }); 
+     
+  }
+  clearCheckedResult(list:any,listType:any){
+    list.forEach((element:any) => {
+      element.is_selected=false;
+    }); 
+     
   }
   onstateChange(event: any): void {
     this.selectedState = event.target.value; 

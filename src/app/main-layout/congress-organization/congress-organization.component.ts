@@ -35,8 +35,9 @@ export class CongressOrganizationComponent {
   searchValue:any='';
   UsersList: any = [];
   States: any = [];
+  FilterSection: any = [];AllDesignations: any = [];
   isOpen = false;
-
+  FilterOptions: any = {"Designation":false,"State":false,"District":false};
   
   Districts: any = [];DistrictsList: any = [];
   constructor(public sharedService: SharedService,private router: Router,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
@@ -169,16 +170,31 @@ export class CongressOrganizationComponent {
   }
   }
 
-  showTab(tab_type:any){ 
-    this.Users=this.UsersList; 
-   if(tab_type=='SC')
-  return this.Users=this.Users.filter((item: any) =>(item.caste_id === 3));
-  else  if(tab_type=='ST')
-  return this.Users=this.Users.filter((item: any) =>(item.caste_id === 4));
-  else  if(tab_type=='OBC')
-  return this.Users=this.Users.filter((item: any) =>(item.caste_id === 5));
-  else  if(tab_type=='Minority')
-  return this.Users=this.Users.filter((item: any) =>(item.caste_id === 6));
+  showTab(tab_type:any){   
+  this.Designations=this.AllDesignations;
+    let isExists=this.FilterSection.filter((item: any) =>(item.page.toLowerCase() =='congress_organisation' && 
+     item.tab_name.toLowerCase()==tab_type.toLowerCase() && item.is_active==true && 
+     item.filter_name.toLowerCase()=="designation"))
+     if(isExists.length>0){
+      var filteredData = this.Designations.filter(function(item:any) {
+        return (
+          isExists[0].filter_section_name.indexOf(parseInt(item.id)) > -1
+        );
+      });
+      if(filteredData.length>0){
+        this.Designations=filteredData
+      }
+     }
+
+
+  //  if(tab_type=='SC')
+  // return this.Users=this.Users.filter((item: any) =>(item.caste_id === 3));
+  // else  if(tab_type=='ST')
+  // return this.Users=this.Users.filter((item: any) =>(item.caste_id === 4));
+  // else  if(tab_type=='OBC')
+  // return this.Users=this.Users.filter((item: any) =>(item.caste_id === 5));
+  // else  if(tab_type=='Minority')
+  // return this.Users=this.Users.filter((item: any) =>(item.caste_id === 6));
   }
   returnDataset(tab_type:any){ 
     this.Users=this.UsersList; 
@@ -213,8 +229,27 @@ export class CongressOrganizationComponent {
         if (response["errorCode"] === "200") {
           var parseresponse = JSON.parse(response.response); 
           this.Designations = parseresponse.Table2;
+          this.AllDesignations=this.Designations;
           this.States = parseresponse.Table1; 
           this.Districts = this.DistrictsList= parseresponse.Table4; 
+          let cofilter=parseresponse.Table5.filter((item: any) => item.page_name=='congress_organisation');
+          this.FilterSection=parseresponse.Table6;
+
+          if(cofilter!=null && cofilter.length>0){
+            var option=cofilter[0].filter_section_name.split(',')
+            let temp=option.filter((item: any) => item.toLowerCase()=='designation');
+            if(temp!=null && temp.length>0){
+              this.FilterOptions.Designation=true;
+            }
+            temp=option.filter((item: any) => item.toLowerCase()=='state');
+            if(temp!=null && temp.length>0){
+              this.FilterOptions.State=true;
+            }
+            temp=option.filter((item: any) => item.toLowerCase()=='district');
+            if(temp!=null && temp.length>0){
+              this.FilterOptions.District=true;
+            }
+          }
         } else {
           this.Designations=[];
           this.States=[];
