@@ -155,6 +155,21 @@
 .item .cards .card-body img{
     width: 72px;
 }
+
+.item .cards:hover{
+    background: #2699fb;
+}
+
+.item .cards:hover .hover_show{
+    display: block !important;
+}
+.item .cards:hover .hover_hide{
+    display: none;
+}
+.item .cards:hover .card-title{
+    color:#fff;
+}
+
 .menu:hover{
     background: #2699fb;
 }
