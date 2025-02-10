@@ -392,9 +392,9 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label class="control-label">villages</label>
+                                <label class="control-label">Village</label>
                                 <select class="form-control" (change)="onvillageChange($event)" [(ngModel)]="clsldm.village_id" [ngModelOptions]="{standalone: true}">
-                                    <option value="">Select villages</option>
+                                    <option value="">Select Village</option>
                                     <option *ngFor="let village of villages" [value]="village.CityID">{{ village.CityName }}</option> 
                                     </select>
                             </div>
@@ -434,7 +434,7 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                         </div>
                         <div class="col-lg-6">
                           <div class="form-group">
-                            <label >Photo</label>
+                            <label >Report</label>
                           <div class="photo_div">
                             <div class="d-flex align-items-center">
                                 <img src="../../../../assets/images/loader.png" width="32" height="32"/>

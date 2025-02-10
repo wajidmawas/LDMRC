@@ -290,7 +290,7 @@ export class CongressLeadersComponent {
           setTimeout(() => {
             $.each($(".nexagrid-basic-example"),function(ind,val){  
               $(val).DataTable({
-                  pageLength: 10, 
+                pageLength: 50, 
                   searching: true,
                 }); 
           }) 

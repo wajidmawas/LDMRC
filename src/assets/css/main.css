@@ -11777,9 +11777,9 @@ button:focus{
 }
   
 
-.dataTables_length{
+/* .dataTables_length{
     display: none;
-}
+} */
 
  div.dataTables_wrapper div.dataTables_filter input {
     
