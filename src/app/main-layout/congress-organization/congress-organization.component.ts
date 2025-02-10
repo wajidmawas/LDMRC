@@ -69,9 +69,7 @@ export class CongressOrganizationComponent {
      else{
       window.location.href = "/auth/login";
      }
-     $.each($(".nexagrid-basic-example"),function(ind,val){ 
-              $(val).DataTable().destroy(); 
-          }) 
+
   }
   onSearchChange(tableid:string): void {  
     $("#"+tableid+"_wrapper").find("tbody tr").show()
@@ -199,15 +197,15 @@ export class CongressOrganizationComponent {
   returnDataset(tab_type:any){ 
     this.Users=this.UsersList; 
    if(tab_type=='SC')
-  return this.Users=this.Users.filter((item: any) =>(item.caste_id === 3));
+  return this.Users=this.Users.filter((item: any) =>(item.department_id === 2));
   else  if(tab_type=='PCC')
-  return this.Users=this.Users.filter((item: any) =>(item.caste_id === 3 || item.caste_id === 5));
+  return this.Users=this.Users.filter((item: any) =>(item.department_id === 1));
   else  if(tab_type=='ST')
-  return this.Users=this.Users.filter((item: any) =>(item.caste_id === 4));
+  return this.Users=this.Users.filter((item: any) =>(item.department_id === 3));
   else  if(tab_type=='OBC')
-  return this.Users=this.Users.filter((item: any) =>(item.caste_id === 5));
+  return this.Users=this.Users.filter((item: any) =>(item.department_id === 5));
   else  if(tab_type=='Minority')
-  return this.Users=this.Users.filter((item: any) =>(item.caste_id === 6));
+  return this.Users=this.Users.filter((item: any) =>(item.department_id === 5));
   else  if(tab_type=='AICC')
   return this.Users;
   }
@@ -317,12 +315,16 @@ export class CongressOrganizationComponent {
   
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => {  
+        $.each($(".nexagrid-basic-example"),function(ind,val){ 
+          $(val).DataTable().destroy(); 
+      })  
         let el:any = document.getElementById('AICC');
         el.scrollIntoView();
-        if (response["errorCode"] === "200") {
+        if (response["errorCode"] === "200") { 
           var parseresponse = JSON.parse(response.response);
           this.Users = parseresponse.Table; 
-          this.UsersList = parseresponse.Table;  
+          this.UsersList = parseresponse.Table; 
+       
           setTimeout(() => {
             $.each($(".nexagrid-basic-example"),function(ind,val){  
               $(val).DataTable({

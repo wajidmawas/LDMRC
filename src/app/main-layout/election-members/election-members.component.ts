@@ -66,9 +66,6 @@ export class ElectionMembersComponent {
       window.location.href = "/auth/login";
      } 
     
-     $.each($(".nexagrid-basic-example"),function(ind,val){ 
-              $(val).DataTable().destroy(); 
-          }) 
 
   }
   showTab(tab_type:any){  
@@ -236,8 +233,12 @@ export class ElectionMembersComponent {
   
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
-        var parseresponse = JSON.parse(response.response); 
+      
+        $.each($(".nexagrid-basic-example"),function(ind,val){ 
+          $(val).DataTable().destroy(); 
+      })  
         if (response["errorCode"] === "200") { 
+          var parseresponse = JSON.parse(response.response); 
           this.UsersList = parseresponse.Table4;  
           this.LDMActivities = parseresponse.Table4; 
           this.SittingData = parseresponse.Table5; 

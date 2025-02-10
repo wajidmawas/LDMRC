@@ -90,10 +90,7 @@ FilterSection: any = [];AllDesignations: any = [];
      }
      else{
       window.location.href = "/auth/login";
-     }
-     $.each($(".nexagrid-basic-example"),function(ind,val){ 
-              $(val).DataTable().destroy(); 
-          }) 
+     } 
   }
   onSearchChange(tableid:string): void {  
     $("#"+tableid+"_wrapper").find("tbody tr").show()
@@ -259,8 +256,13 @@ FilterSection: any = [];AllDesignations: any = [];
   
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
-        var parseresponse = JSON.parse(response.response); 
+        
+     $.each($(".nexagrid-basic-example"),function(ind,val){ 
+      $(val).DataTable().destroy(); 
+  }) 
+  
         if (response["errorCode"] === "200") {
+          var parseresponse = JSON.parse(response.response); 
           this.Users = parseresponse.Table2; 
           this.UsersList = parseresponse.Table2; 
           this.Users=this.Users.filter((item: any) =>(item.stream === "SC Dept"));

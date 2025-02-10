@@ -192,6 +192,14 @@
                     </div>
                   </div>
                  <ng-template #gridTemplate let-tableId="tableId" let-dataset="dataset" let-tabType="tabType">
+                  <!-- <div class="body text-center d-flex justify-content-center flex-column" *ngIf="(dataset ?? []).length === 0">
+                    <div class="page-loader-wrapper">
+                      <div class="loader">
+                          <div class="m-t-30"><img src="../../assets/images/loader.png" width="64" height="64" alt="Iconic"></div>
+                          <p>Loading...</p>
+                      </div>
+                  </div>
+                 </div> -->
                   <div class="tabseachBar justify-content-end">
                     <!-- <div class="search tab_search">
                         <i class="fa fa-search"></i>  
@@ -234,7 +242,7 @@
                           <td>{{meeting.current_year}}</td>
                           <td>{{meeting.city_name}}</td>
                       
-                          <td><a href='javascript::' class="pop_edit" (click)="viewDetails(meeting.access_token)">
+                          <td><a href='/user-profile/{{meeting.access_token}}' target="_blank" class="pop_edit"  >
                             <i class="fa fa-eye"></i> 
                           </a></td>
                       </tr> 

@@ -81,9 +81,7 @@ export class CongressLeadersComponent {
       this.YearsOfExp.push({"name":"10 to 15 years","is_selected":false})
       this.YearsOfExp.push({"name":"15 to 20 years","is_selected":false})
       this.YearsOfExp.push({"name":"20 years and above","is_selected":false})
-      $.each($(".nexagrid-basic-example"),function(ind,val){ 
-                $(val).DataTable().destroy(); 
-            }) 
+ 
      }
      else{
       window.location.href = "/auth/login";
@@ -276,6 +274,9 @@ export class CongressLeadersComponent {
   
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
+        $.each($(".nexagrid-basic-example"),function(ind,val){ 
+          $(val).DataTable().destroy(); 
+      })  
         let el:any = document.getElementById('AICC');
         el.scrollIntoView();
         this.Users=[];
@@ -285,8 +286,7 @@ export class CongressLeadersComponent {
           var parseresponse = JSON.parse(response.response); 
           this.Users = parseresponse.Table; 
           this.UsersList = parseresponse.Table; 
-          this.UsersProfessions = parseresponse.Table1; 
-
+          this.UsersProfessions = parseresponse.Table1;  
           setTimeout(() => {
             $.each($(".nexagrid-basic-example"),function(ind,val){  
               $(val).DataTable({
