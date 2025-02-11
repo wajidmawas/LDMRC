@@ -273,7 +273,8 @@ clearParticipants() {
       this.snackbar.showInfo("Please Select Organisers","Error");
       validate=true;
     }
-    else if(this.clsinvite.meeting_link == undefined || this.clsinvite.meeting_link == null || this.clsinvite.meeting_link == "") {
+    else if(this.clsinvite.isonline=="1" && (
+      this.clsinvite.meeting_link == undefined || this.clsinvite.meeting_link == null || this.clsinvite.meeting_link == "")) {
       this.snackbar.showInfo("Please meeting link","Error");
       validate=true;
     }

@@ -247,7 +247,7 @@ FilterSection: any = [];AllDesignations: any = [];
   }
   LoadUsers() {
     const objRequest = {
-      typeId: 8,
+      typeId: 46,
       userid: 0,
       filterId: 0,
       filterText: "",
@@ -263,10 +263,10 @@ FilterSection: any = [];AllDesignations: any = [];
   
         if (response["errorCode"] === "200") {
           var parseresponse = JSON.parse(response.response); 
-          this.Users = parseresponse.Table2; 
-          this.UsersList = parseresponse.Table2; 
+          this.Users = parseresponse.Table; 
+          this.UsersList = parseresponse.Table; 
           this.Users=this.Users.filter((item: any) =>(item.stream === "SC Dept"));
-          this.LDMActivities = parseresponse.Table3; 
+          this.LDMActivities = parseresponse.Table1; 
 
           setTimeout(() => {
             $.each($(".nexagrid-basic-example"),function(ind,val){  

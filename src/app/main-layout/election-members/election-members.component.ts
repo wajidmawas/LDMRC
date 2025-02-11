@@ -32,7 +32,8 @@ export class ElectionMembersComponent {
   Users: any = [];
   UsersList: any = [];
   LDMActivities: any = [];
-  SittingData: any = [];AllSittingData: any = [];
+  SittingDataMLA: any = [];AllSittingDataMLA: any = [];
+  SittingDataMP: any = [];AllSittingDataMP: any = [];
   States: any = [];
   isOpen = false;
   searchValue : any="";
@@ -73,12 +74,10 @@ export class ElectionMembersComponent {
       this.LDMActivities=this.UsersList; 
     }
     else if(tab_type==2){
-      this.SittingData=this.AllSittingData;
-      this.SittingData=this.SittingData.filter((item: any) =>(item.role === 'MP'));
+      this.SittingDataMLA=this.AllSittingDataMLA; 
     }
     else if(tab_type==3){
-      this.SittingData=this.AllSittingData;
-      this.SittingData=this.SittingData.filter((item: any) =>(item.role === 'MLA'));
+      this.SittingDataMP=this.AllSittingDataMP; 
     }
   }
   returnDataset(tab_type:any){  
@@ -86,12 +85,10 @@ export class ElectionMembersComponent {
      return this.LDMActivities=this.UsersList; 
     }
     else if(tab_type==2){
-     this.SittingData=this.AllSittingData;
-      return this.SittingData=this.SittingData.filter((item: any) =>(item.role === 'MP'));
+      return this.SittingDataMLA=this.AllSittingDataMLA; 
     }
     else if(tab_type==3){
-        this.SittingData=this.AllSittingData;
-      return this.SittingData=this.SittingData.filter((item: any) =>(item.role === 'MLA'));
+      return this.SittingDataMP=this.AllSittingDataMP; 
     }
   }
   
@@ -141,7 +138,7 @@ export class ElectionMembersComponent {
     let list1:any=[];
     let list2:any=[];
     selectedlist.forEach((element:any) => {
-      let filterList = this.SittingData
+      let filterList = this.SittingDataMLA
       .filter((item: any) => item.state_id==element) 
        list1.push(filterList);
 
@@ -151,14 +148,14 @@ export class ElectionMembersComponent {
     });
 
     if(list1.length>0)
-    this.SittingData=list1[0];
+    this.SittingDataMLA=list1[0];
     if(list2.length>0)
     this.LDMActivities=list2[0];
     let el:any = document.getElementById('AICC');
         el.scrollIntoView();
   }
   ApplyFilter(){
-    this.SittingData=this.AllSittingData;
+    this.SittingDataMLA=this.AllSittingDataMLA;
     this.LDMActivities=this.UsersList;
     this.bindFilter(this.States,"STATEID","States")   
   }
@@ -224,7 +221,7 @@ export class ElectionMembersComponent {
   }
   LoadUsers() {
     const objRequest = {
-      typeId: 8,
+      typeId: 47,
       userid: 0,
       filterId: 0,
       filterText: "",
@@ -239,10 +236,12 @@ export class ElectionMembersComponent {
       })  
         if (response["errorCode"] === "200") { 
           var parseresponse = JSON.parse(response.response); 
-          this.UsersList = parseresponse.Table4;  
-          this.LDMActivities = parseresponse.Table4; 
-          this.SittingData = parseresponse.Table5; 
-          this.AllSittingData = parseresponse.Table5; 
+          this.UsersList = parseresponse.Table;  
+          this.LDMActivities = parseresponse.Table; 
+          this.SittingDataMLA = parseresponse.Table1; 
+          this.AllSittingDataMLA = parseresponse.Table1; 
+          this.SittingDataMP = parseresponse.Table2; 
+          this.AllSittingDataMP = parseresponse.Table2; 
 
           setTimeout(() => {
             $.each($(".nexagrid-basic-example"),function(ind,val){  

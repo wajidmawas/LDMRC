@@ -148,13 +148,13 @@
                             <td>{{i+1}}</td>
                             <td><img [src]="act.image_path || '../../../assets/images/logo.png'" 
                                 width="32" height="32"></td>
-                                <td class="wp">{{act.statename}}</td> 
-                            <td class="wp">{{act.pc_name}}</td>
-                            <td class="wp">{{act.election_year}}</td> 
-                            <td class="wp">{{act.category}}</td>
-                            <td class="wp">{{act.winner_candidate_name}}</td>
-                            <td class="wp">{{act.winning_party}}</td>
-                            <td class="wp">{{act.votes_secured}}</td>
+                                <td class="wp">{{act.STNAME}}</td> 
+                            <td class="wp">{{act.PCNAME}}</td>
+                            <td class="wp">{{act.YEAR}}</td> 
+                            <td class="wp">{{act.CAND_CATEGORY}}</td>
+                            <td class="wp">{{act.NAME}}</td>
+                            <td class="wp">{{act.PARTY}}</td>
+                            <td class="wp">{{act.TOTVOTPOLL}}</td>
                             <td class="wp">{{act.looser_candidate_name}}</td>
                             <td class="wp">{{act.looser_votes}}</td> 
                         </tr> 
@@ -165,11 +165,11 @@
                   </ng-template>
 
                   <ng-template #gridTemplate1 let-tableId="tableId" let-dataset="dataset" let-tabType="tabType">
-                    <div class="tabseachBar">
-                      <div class="search tab_search">
+                    <div class="tabseachBar justify-content-end">
+                      <!-- <div class="search tab_search">
                           <i class="fa fa-search"></i> 
                           <input type="text" class="form-control round"> 
-                      </div>
+                      </div> -->
                       <div class="btns">
                         <button class="btn btn-outline-white mr-2" data-toggle="modal" data-target="#printExcel" (click)="printTable(tableId)"><i class="icon-printer mr-2"></i> Print</button>
                         <button class="btn btn-secondary" (click)="export2Excel(tableId)"><i class="fa fa-cloud-download mr-2"></i>Download</button>
@@ -189,8 +189,7 @@
                           <th class="numeric-sort">Party</th>
                           <th class="numeric-sort">Membership Status</th>
                           <th class="numeric-sort">Assembly <br/> Constituency Type</th>
-                          <th class="numeric-sort">Name of the  <br/> Assembly Constituency</th> 
-                          <th class="numeric-sort">State/Union Territory</th> 
+                          <th class="numeric-sort">Name of the  <br/> Assembly Constituency</th>  
                     </tr>
                     </thead>
                     <tbody>
@@ -198,16 +197,15 @@
                             <td>{{i+1}}</td>
                             <td><a href="{{act.image_path || '../../../assets/images/logo.png'}}" target="_blank"><img [src]="act.image_path || '../../../assets/images/logo.png'" 
                               width="32" height="32"></a></td>
-                                <td class="wp">{{act.statename}}</td>
-                                <td class="wp">{{act.candidate_name}}</td> 
-                            <td class="wp">{{act.role}}</td>
-                            <td class="wp">{{act.age}}</td> 
-                            <td class="wp">{{act.phone_no}}</td>
-                            <td class="wp">{{act.email_id}}</td>
-                            <td class="wp">{{act.party}}</td>
-                            <td class="wp">{{act.membership_status}}</td>
-                            <td class="wp">{{act.constituency_type}}</td>
-                            <td class="wp">{{act.assembly_name}}</td> 
+                                <td class="wp">{{act.STNAME}}</td>
+                                <td class="wp">{{act.NAME}}</td>  
+                            <td class="wp">{{act.AGE}}</td> 
+                            <td class="wp">{{act.MOBILENO}}</td>
+                            <td class="wp">-</td>
+                            <td class="wp">{{act.PARTY}}</td>
+                            <td class="wp">{{act.YEAR}}</td>
+                            <td class="wp">{{act.PCNAME}}</td>
+                            <td class="wp">{{act.ACNAME}}</td> 
                         </tr> 
                     </tbody>
                 </table>

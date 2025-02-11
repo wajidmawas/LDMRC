@@ -28,7 +28,9 @@ export class CongressOrganizationComponent {
   StatesLimit:number=5;
   DistrictsLimit:number=5;
   userDetail:any={};
-  Designations: any = [];
+  Designations: any = [];Committees: any = [];
+  FrontalNames: any = [];
+  FrontalDesignation: any = [];
   FiltersList: any = [];
   Users: any = [];
    
@@ -37,7 +39,7 @@ export class CongressOrganizationComponent {
   States: any = [];
   FilterSection: any = [];AllDesignations: any = [];
   isOpen = false;
-  FilterOptions: any = {"Designation":false,"State":false,"District":false};
+  FilterOptions: any = {"Designation":false,"State":false,"District":false,"Committees":false,"frontals":false,"frontaldesignation":false};
   
   Districts: any = [];DistrictsList: any = [];
   constructor(public sharedService: SharedService,private router: Router,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
@@ -199,15 +201,19 @@ export class CongressOrganizationComponent {
    if(tab_type=='SC')
   return this.Users=this.Users.filter((item: any) =>(item.department_id === 2));
   else  if(tab_type=='PCC')
-  return this.Users=this.Users.filter((item: any) =>(item.department_id === 1));
+  return this.Users=this.Users.filter((item: any) =>(item.department_id === 1 && item.hierarchy_id==2));
+  else  if(tab_type=='CCC')
+  return this.Users=this.Users.filter((item: any) =>(item.department_id === 1 && item.hierarchy_id==4));
+  else  if(tab_type=='DCC')
+  return this.Users=this.Users.filter((item: any) =>(item.department_id === 1 && item.hierarchy_id==3));
   else  if(tab_type=='ST')
   return this.Users=this.Users.filter((item: any) =>(item.department_id === 3));
   else  if(tab_type=='OBC')
-  return this.Users=this.Users.filter((item: any) =>(item.department_id === 5));
+  return this.Users=this.Users.filter((item: any) =>(item.department_id === 4));
   else  if(tab_type=='Minority')
   return this.Users=this.Users.filter((item: any) =>(item.department_id === 5));
   else  if(tab_type=='AICC')
-  return this.Users;
+  return this.Users=this.Users.filter((item: any) =>(item.department_id === 1 &&   item.hierarchy_id==1));
   }
   viewDetails(access_token:any){
     window.location.href = "/user-profile/"+access_token;
@@ -226,7 +232,10 @@ export class CongressOrganizationComponent {
        
         if (response["errorCode"] === "200") {
           var parseresponse = JSON.parse(response.response); 
-          this.Designations = parseresponse.Table2;
+          this.Designations = parseresponse.Table2.filter((item: any) => item.isMain==true && item.HID==1 && item.DID==1);
+          this.Committees = parseresponse.Table7.filter((item: any) => item.Type=='C');
+          this.FrontalNames = parseresponse.Table7.filter((item: any) => item.Type=='F'); 
+          this.FrontalDesignation = parseresponse.Table2.filter((item: any) => item.IsFrontal==true && item.HID==1 && item.DID==1);
           this.AllDesignations=this.Designations;
           this.States = parseresponse.Table1; 
           this.Districts = this.DistrictsList= parseresponse.Table4; 
@@ -246,6 +255,18 @@ export class CongressOrganizationComponent {
             temp=option.filter((item: any) => item.toLowerCase()=='district');
             if(temp!=null && temp.length>0){
               this.FilterOptions.District=true;
+            } 
+            temp=option.filter((item: any) => item.toLowerCase()=='committees');
+            if(temp!=null && temp.length>0){
+              this.FilterOptions.Committees=true;
+            } 
+            temp=option.filter((item: any) => item.toLowerCase()=='frontals');
+            if(temp!=null && temp.length>0){
+              this.FilterOptions.frontals=true;
+            }
+            temp=option.filter((item: any) => item.toLowerCase()=='frontaldesignation');
+            if(temp!=null && temp.length>0){
+              this.FilterOptions.frontaldesignation=true;
             }
           }
         } else {
