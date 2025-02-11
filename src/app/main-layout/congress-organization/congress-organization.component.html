@@ -105,72 +105,95 @@
                       </div>
                   </div>
               </div> 
-
               <div class="card mb-2">
-                <div class="card-body" *ngIf="FilterOptions && FilterOptions.frontals">
-                    <div class="filter_title_div"> 
-                        <div class="d-flex w-100 align-items-center justify-content-between" id="headingFN"> 
-                                <button
-                                  class="filter_title accordion-toggle"
-                                  data-toggle="collapse"
-                                  data-target="#collapseFN"
-                                  aria-expanded="true"
-                                  aria-controls="collapseFN" 
-                                  > <span class="icon">-</span>
-                                  Name of Frontal
-                                </button>
-                                <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(FrontalNames,'FrontalNames')">Clear All</button>
-                             
-                            
-                        </div>
-                        
-                    </div>
-                    <div class="filter_main"  id="collapseFN"
-                    class="collapse show"
-                    aria-labelledby="headingFN" >
-                            <div class="inputcheck" >
-                              <mat-checkbox color="#000" class="custom" (change)="onAllCheckedResult(FrontalNames,'FrontalNames')">All</mat-checkbox>
-                            </div>
-                            <div class="inputcheck" *ngFor="let meeting of FrontalNames" >
-                              <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'FrontalNames')" color="#000" [checked]="meeting.is_selected">{{ meeting.DeptName }}</mat-checkbox>
-                            </div>
-                           
-                    </div>
-                </div>
-            </div>
-
-            <div class="card mb-2">
-              <div class="card-body" *ngIf="FilterOptions && FilterOptions.frontaldesignation">
+                <div class="card-body">
                   <div class="filter_title_div"> 
-                      <div class="d-flex w-100 align-items-center justify-content-between" id="headingFD"> 
+                      <div class="d-flex w-100 align-items-center justify-content-between" id="headingFNs"> 
                               <button
                                 class="filter_title accordion-toggle"
                                 data-toggle="collapse"
-                                data-target="#collapseFD"
+                                data-target="#collapseFNs"
                                 aria-expanded="true"
-                                aria-controls="collapseFD" 
+                                aria-controls="collapseFN" 
                                 > <span class="icon">-</span>
-                                Frontal Designation
+                                Frontals
                               </button>
-                              <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(FrontalDesignation,'FrontalNames')">Clear All</button>
-                           
-                          
                       </div>
                       
                   </div>
-                  <div class="filter_main"  id="collapseFD"
+                  <div class="filter_main"  id="collapseFNs"
                   class="collapse show"
-                  aria-labelledby="headingFD" >
-                          <div class="inputcheck" >
-                            <mat-checkbox color="#000" class="custom" (change)="onAllCheckedResult(FrontalDesignation,'FrontalNames')">All</mat-checkbox>
+                  aria-labelledby="headingFN" >
+                  <div class="card mb-4 no-bdr">
+                    <div class="card-body p-0" *ngIf="FilterOptions && FilterOptions.frontals">
+                        <div class="filter_title_div"> 
+                            <div class="d-flex w-100 align-items-center justify-content-between" id="headingFN"> 
+                                    <button
+                                      class="filter_title accordion-toggle"
+                                      data-toggle="collapse"
+                                      data-target="#collapseFN"
+                                      aria-expanded="true"
+                                      aria-controls="collapseFN" 
+                                      > <span class="icon">-</span>
+                                      Name of Frontal
+                                    </button>
+                                    <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(FrontalNames,'FrontalNames')">Clear All</button>
+                                 
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="filter_main"  id="collapseFN"
+                        class="collapse show"
+                        aria-labelledby="headingFN" >
+                                <div class="inputcheck" >
+                                  <mat-checkbox color="#000" class="custom" (change)="onAllCheckedResult(FrontalNames,'FrontalNames')">All</mat-checkbox>
+                                </div>
+                                <div class="inputcheck" *ngFor="let meeting of FrontalNames" >
+                                  <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'FrontalNames')" color="#000" [checked]="meeting.is_selected">{{ meeting.DeptName }}</mat-checkbox>
+                                </div>
+                               
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="card mb-2 no-bdr">
+                  <div class="card-body p-0" *ngIf="FilterOptions && FilterOptions.frontaldesignation">
+                      <div class="filter_title_div"> 
+                          <div class="d-flex w-100 align-items-center justify-content-between" id="headingFD"> 
+                                  <button
+                                    class="filter_title accordion-toggle"
+                                    data-toggle="collapse"
+                                    data-target="#collapseFD"
+                                    aria-expanded="true"
+                                    aria-controls="collapseFD" 
+                                    > <span class="icon">-</span>
+                                    Frontal Designation
+                                  </button>
+                                  <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(FrontalDesignation,'FrontalNames')">Clear All</button>
+                               
+                              
                           </div>
-                          <div class="inputcheck" *ngFor="let meeting of FrontalDesignation" >
-                            <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'FrontalDesignation')" color="#000" [checked]="meeting.is_selected">{{ meeting.name }}</mat-checkbox>
-                          </div>
+                          
+                      </div>
+                      <div class="filter_main"  id="collapseFD"
+                      class="collapse show"
+                      aria-labelledby="headingFD" >
+                              <div class="inputcheck" >
+                                <mat-checkbox color="#000" class="custom" (change)="onAllCheckedResult(FrontalDesignation,'FrontalNames')">All</mat-checkbox>
+                              </div>
+                              <div class="inputcheck" *ngFor="let meeting of FrontalDesignation" >
+                                <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'FrontalDesignation')" color="#000" [checked]="meeting.is_selected">{{ meeting.name }}</mat-checkbox>
+                              </div>
+                             
+                      </div>
+                  </div>
+              </div>  
                          
                   </div>
               </div>
-          </div>
+              </div>
+             
 
 
                 <div class="card mb-2">
