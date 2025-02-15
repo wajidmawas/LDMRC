@@ -15,7 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TrainingsComponent } from './trainings.component'; 
-import {MatRadioModule} from '@angular/material/radio';   
+import {MatRadioModule} from '@angular/material/radio';    
+import { MeetingModule } from '../meetings.module';
 const routes: Routes = [
   {
     path: 'trainings',
@@ -27,7 +28,8 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    TrainingsComponent  
+    TrainingsComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     TranslateModule.forChild(),
-    MatRadioModule
+    MatRadioModule,
+    MeetingModule
+    
   ],
   exports: [
     TrainingsComponent

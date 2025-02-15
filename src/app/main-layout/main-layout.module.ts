@@ -31,8 +31,7 @@ import { ElectionMembersModule } from './election-members/election-members.modul
  import { CommunicationListModule } from './communication-list/communication-list.module'; 
  import {UsersListModule} from './users_list/users_list.module';
  import {SlidersModule} from './sliders/sliders.module'
-import { IOTModule } from './IOT-dashboard/IOT-dashboard.module';
-import { AddmeetingsComponent } from './meetings/addmeetings/addmeetings.component';
+import { IOTModule } from './IOT-dashboard/IOT-dashboard.module'; 
 
 // import { CarouselModule } from 'ngx-owl-carousel-o';
 
