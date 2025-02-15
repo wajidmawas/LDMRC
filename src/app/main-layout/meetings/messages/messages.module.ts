@@ -14,22 +14,30 @@ import { MatCommonModule, MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { TrainingsComponent } from './trainings.component'; 
-import {MatRadioModule} from '@angular/material/radio';   
+import { MessagesComponent } from './messages.component'; 
+import {MatRadioModule} from '@angular/material/radio';
+import { AddmessageComponent } from '../addmessage/addmessage.component';
+import { HttpClientModule} from '@angular/common/http';
+import { AngularEditorModule } from '@wfpena/angular-wysiwyg';
 const routes: Routes = [
   {
-    path: 'trainings',
-    component: TrainingsComponent
-  } 
+    path: 'messages',
+    component: MessagesComponent
+  },
+  {
+    path: 'addmessage',
+    component: AddmessageComponent, 
+  },
 ];
-
-
+ 
 
 @NgModule({
   declarations: [
-    TrainingsComponent  
+    MessagesComponent, 
+    AddmessageComponent
   ],
   imports: [
+    HttpClientModule, AngularEditorModule,
     CommonModule,
     FormsModule,
     MatFormFieldModule,
@@ -47,8 +55,9 @@ const routes: Routes = [
     MatRadioModule
   ],
   exports: [
-    TrainingsComponent
+    MessagesComponent, 
+    AddmessageComponent
    ],
   providers: [Meetingsservice]
 })
-export class TrainingModule { }
+export class MessagesModule { }

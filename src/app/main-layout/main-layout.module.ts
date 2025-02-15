@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MeetingModule } from './meetings/meetings.module'; 
+import { MessagesModule } from './meetings/messages/messages.module';
 import { FooterComponent } from './footer/footer.component'; 
 import { CongressOrganizationModule } from './congress-organization/congress-organization.module'; 
 import { CongressLeadersModule } from './congress-leaders/congress-leaders.module';
@@ -31,7 +32,7 @@ import { ElectionMembersModule } from './election-members/election-members.modul
  import {UsersListModule} from './users_list/users_list.module';
  import {SlidersModule} from './sliders/sliders.module'
 import { IOTModule } from './IOT-dashboard/IOT-dashboard.module';
-
+import { AddmeetingsComponent } from './meetings/addmeetings/addmeetings.component';
 
 // import { CarouselModule } from 'ngx-owl-carousel-o';
 
@@ -39,8 +40,7 @@ import { IOTModule } from './IOT-dashboard/IOT-dashboard.module';
   declarations: [
     MainLayoutComponent,
     DashboardComponent, 
-    FooterComponent,
-    
+    FooterComponent, 
     
   ],
   imports: [
@@ -58,6 +58,7 @@ import { IOTModule } from './IOT-dashboard/IOT-dashboard.module';
     OwlNativeDateTimeModule,
     OwlDateTimeModule, 
     MeetingModule,
+    MessagesModule,
     CongressOrganizationModule,
     ActivityListModule,
     CongressLeadersModule,

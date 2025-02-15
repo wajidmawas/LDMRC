@@ -26,23 +26,31 @@
                                 <a href="javascript::">Leaders Dev<br> Mission (LDM)</a> 
                             </li>
                             <li class="menu-item" (click)="redirect_page('EL')">
-                                <a href="javascript::">Elections, Elected <br>Members Data</a> 
+                                <a href="javascript::">Elections Data</a> 
                             </li>
                             <li class="menu-item">
                                 <a href="javascript::" (click)="redirect_page('Activities')">Activities of the SC, ST, <br>OBC & Minority Depts</a> 
                             </li>
                             <li class="menu-item">
-                                <a href="javascript::" (click)="redirect_page('Meetings')">Meetings</a> 
+                                <a href="javascript::" (click)="redirect_page('Meetings')">Zoom Meetings</a> 
                             </li>
                             <li class="menu-item">
-                                <a href="javascript::" (click)="redirect_page('Trainings')">Trainings</a> 
+                                <a href="javascript::" (click)="redirect_page('Trainings')">Online Trainings</a> 
                             </li> 
+                            <li class="menu-item">
+                                <a href="javascript::" (click)="redirect_page('knowledge_base')">Knowledge Base</a> 
+                            </li>
+                            
                             <li class="menu-item menu-item-has-children">
                                 <a href="javascript::">More</a> 
                                 <ul class="sub-menu" *ngIf="userDetails!=null && userDetails.role_type=='A' ">
                                     <li class="menu-item"><a href="/users_list" >Users</a></li> 
                                     <li class="menu-item"><a href="/knowledge_base">Knowledge Base</a></li> 
                                     <li class="menu-item"><a href="/sliders" >Sliders</a></li> 
+                                    <li class="menu-item">
+                                        <a href="javascript::" (click)="redirect_page('messages')">Bulk Messages</a> 
+                                    </li>
+
                                     <!-- <li class="menu-item"><a href="javascript::" >Analytical</a></li> -->
                                     <li class="menu-item"><a href="/IOT" >IoT Dashboard</a></li> 
                                 <li class="back"><a href="javascript::">Back</a></li></ul>

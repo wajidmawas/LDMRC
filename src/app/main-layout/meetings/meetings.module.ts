@@ -16,8 +16,7 @@ import {MatInputModule} from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MeetingsComponent } from './meetings.component';
 import { AddmeetingsComponent } from './addmeetings/addmeetings.component';
-import {MatRadioModule} from '@angular/material/radio';
-import { AddmessageComponent } from './addmessage/addmessage.component';
+import {MatRadioModule} from '@angular/material/radio'; 
 import { HttpClientModule} from '@angular/common/http';
 import { AngularEditorModule } from '@wfpena/angular-wysiwyg';
 const routes: Routes = [
@@ -29,18 +28,14 @@ const routes: Routes = [
     path: 'addmeetings',
     component: AddmeetingsComponent, 
   },
-  {
-    path: 'addmessage',
-    component: AddmessageComponent, 
-  },
+
 ];
  
 
 @NgModule({
   declarations: [
     MeetingsComponent,
-    AddmeetingsComponent,
-    AddmessageComponent
+    AddmeetingsComponent 
   ],
   imports: [
     HttpClientModule, AngularEditorModule,
@@ -62,9 +57,8 @@ const routes: Routes = [
   ],
   exports: [
     MeetingsComponent,
-    AddmeetingsComponent,
-    AddmessageComponent
+    AddmeetingsComponent 
    ],
-  providers: [Meetingsservice]
+  providers: [Meetingsservice],
 })
 export class MeetingModule { }

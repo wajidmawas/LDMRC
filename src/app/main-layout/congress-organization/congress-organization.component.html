@@ -31,8 +31,119 @@
                 <h2 class="filter flt_mb" (click)="filter()">Filters</h2>
                 <h2 class="filter flt_web">Filters</h2>
                 <div id="accordion" class="acc_filter">
-                <div class="card mb-2">
-                    <div class="card-body" *ngIf="FilterOptions && FilterOptions.Designation">
+                  <div class="card mb-2" *ngIf="FilterOptions && FilterOptions.frontals">
+                    <div class="card-body" >
+                      <div class="filter_title_div"> 
+                          <div class="d-flex w-100 align-items-center justify-content-between" id="headingFN"> 
+                                  <button
+                                    class="filter_title accordion-toggle"
+                                    data-toggle="collapse"
+                                    data-target="#collapseFN"
+                                    aria-expanded="true"
+                                    aria-controls="collapseFN" 
+                                    > <span class="icon">-</span>
+                                   Frontals
+                                  </button>
+                                  <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(FrontalNames,'FrontalNames')">Clear All</button>
+                               
+                              
+                          </div>
+                          
+                      </div>
+                      <div class="filter_main"  id="collapseFN"
+                      class="collapse show"
+                      aria-labelledby="headingFN" >
+                              <div class="inputcheck" >
+                                <mat-checkbox color="#000" class="custom" (change)="onAllCheckedResult(FrontalNames,'FrontalNames')">All</mat-checkbox>
+                              </div>
+                              <div class="inputcheck" *ngFor="let meeting of FrontalNames" >
+                                <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'FrontalNames')" color="#000" [checked]="meeting.is_selected">{{ meeting.DeptName }}</mat-checkbox>
+                              </div>
+                             
+                      </div>
+                  </div>
+                </div> 
+
+                <div class="card mb-2" *ngIf="FilterOptions && FilterOptions.Departments">
+                  <div class="card-body" >
+                    <div class="filter_title_div"> 
+                        <div class="d-flex w-100 align-items-center justify-content-between" id="headingDept"> 
+                                <button
+                                  class="filter_title accordion-toggle"
+                                  data-toggle="collapse"
+                                  data-target="#collapseDept"
+                                  aria-expanded="true"
+                                  aria-controls="collapseDept" 
+                                  > <span class="icon">-</span>
+                                 Departments
+                                </button>
+                                <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(Departments,'Departments')">Clear All</button>
+                             
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="filter_main"  id="collapseDept"
+                    class="collapse show"
+                    aria-labelledby="headingDept" >
+                            <div class="inputcheck" >
+                              <mat-checkbox color="#000" class="custom" (change)="onAllCheckedResult(Departments,'Departments')">All</mat-checkbox>
+                            </div>
+                            <div class="inputcheck" *ngFor="let meeting of Departments.slice(0,DepartmentLimit)" >
+                              <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'Departments')" color="#000" [checked]="meeting.is_selected">{{ meeting.DeptName }}</mat-checkbox>
+                            </div>
+                            <a class="btn more_btn"  *ngIf="DepartmentLimit < Departments.length" (click)="showmore('departments')" >More</a>
+                            <a class="btn more_btn"  *ngIf="DepartmentLimit == Departments.length" (click)="showless('departments')" >Less</a>
+                    </div>
+                </div>
+              </div> 
+              <div class="card mb-2" *ngIf="FilterOptions && FilterOptions.Committees">
+                <div class="card-body" >
+                    <div class="filter_title_div">
+                        <div class="d-flex w-100 align-items-center justify-content-between" id="headingCom">
+                            
+                                <button
+                                  class="filter_title accordion-toggle"
+                                  data-toggle="collapse"
+                                  data-target="#collapseCom"
+                                  aria-expanded="true"
+                                  aria-controls="collapseCom"
+                                 
+                                  > <span class="icon">-</span>
+                                   Committees
+                                 
+                                </button>
+                                <button class="btn fil-sm btn-dark" (click)="clearCheckedResult(Committees,'Committees')" >Clear All</button>
+                             
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="filter_main"   id="collapseCom"
+                    class="collapse show"
+                    aria-labelledby="headingCom"
+                     >
+                            <div class="inputcheck" >
+                              <mat-checkbox color="#000" (change)="onAllCheckedResult(Committees,'Committees')">All</mat-checkbox>
+                            </div>
+                            <div class="inputcheck" *ngFor="let meeting of Committees" >
+                              <mat-checkbox (change)="onCheckedResult(meeting,'Committees')" color="#000" [checked]="meeting.is_selected">{{ meeting.DeptName }}</mat-checkbox>
+                            </div>
+                           
+                    </div>
+                </div>
+            </div> 
+
+
+
+
+
+
+
+
+
+                <div class="card mb-2" *ngIf="FilterOptions && FilterOptions.Designation">
+                    <div class="card-body" >
                         <div class="filter_title_div">
                             <div class="d-flex w-100 align-items-center justify-content-between" id="headingOne">
                                 
@@ -69,43 +180,8 @@
                     </div>
                 </div> 
 
-                <div class="card mb-2">
-                  <div class="card-body" *ngIf="FilterOptions && FilterOptions.Committees">
-                      <div class="filter_title_div">
-                          <div class="d-flex w-100 align-items-center justify-content-between" id="headingCom">
-                              
-                                  <button
-                                    class="filter_title accordion-toggle"
-                                    data-toggle="collapse"
-                                    data-target="#collapseCom"
-                                    aria-expanded="true"
-                                    aria-controls="collapseCom"
-                                   
-                                    > <span class="icon">-</span>
-                                     Committees
-                                   
-                                  </button>
-                                  <button class="btn fil-sm btn-dark" (click)="clearCheckedResult(Committees,'Committees')" >Clear All</button>
-                               
-                              
-                          </div>
-                          
-                      </div>
-                      <div class="filter_main"   id="collapseCom"
-                      class="collapse show"
-                      aria-labelledby="headingCom"
-                       >
-                              <div class="inputcheck" >
-                                <mat-checkbox color="#000" (change)="onAllCheckedResult(Committees,'Committees')">All</mat-checkbox>
-                              </div>
-                              <div class="inputcheck" *ngFor="let meeting of Committees" >
-                                <mat-checkbox (change)="onCheckedResult(meeting,'Committees')" color="#000" [checked]="meeting.is_selected">{{ meeting.DeptName }}</mat-checkbox>
-                              </div>
-                             
-                      </div>
-                  </div>
-              </div> 
-              <div class="card mb-2">
+              
+              <!-- <div class="card mb-2">
                 <div class="card-body">
                   <div class="filter_title_div"> 
                       <div class="d-flex w-100 align-items-center justify-content-between" id="headingFNs"> 
@@ -125,36 +201,7 @@
                   class="collapse show"
                   aria-labelledby="headingFN" >
                   <div class="card mb-4 no-bdr">
-                    <div class="card-body p-0" *ngIf="FilterOptions && FilterOptions.frontals">
-                        <div class="filter_title_div"> 
-                            <div class="d-flex w-100 align-items-center justify-content-between" id="headingFN"> 
-                                    <button
-                                      class="filter_title accordion-toggle"
-                                      data-toggle="collapse"
-                                      data-target="#collapseFN"
-                                      aria-expanded="true"
-                                      aria-controls="collapseFN" 
-                                      > <span class="icon">-</span>
-                                      Name of Frontal
-                                    </button>
-                                    <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(FrontalNames,'FrontalNames')">Clear All</button>
-                                 
-                                
-                            </div>
-                            
-                        </div>
-                        <div class="filter_main"  id="collapseFN"
-                        class="collapse show"
-                        aria-labelledby="headingFN" >
-                                <div class="inputcheck" >
-                                  <mat-checkbox color="#000" class="custom" (change)="onAllCheckedResult(FrontalNames,'FrontalNames')">All</mat-checkbox>
-                                </div>
-                                <div class="inputcheck" *ngFor="let meeting of FrontalNames" >
-                                  <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'FrontalNames')" color="#000" [checked]="meeting.is_selected">{{ meeting.DeptName }}</mat-checkbox>
-                                </div>
-                               
-                        </div>
-                    </div>
+                    
                 </div>
     
                 <div class="card mb-2 no-bdr">
@@ -192,12 +239,12 @@
                          
                   </div>
               </div>
-              </div>
+              </div> -->
              
 
 
-                <div class="card mb-2">
-                  <div class="card-body" *ngIf="FilterOptions && FilterOptions.State">
+                 <div class="card mb-2" *ngIf="FilterOptions && FilterOptions.State">
+                  <div class="card-body" >
                       <div class="filter_title_div">
                           <div class="d-flex w-100 align-items-center justify-content-between" id="headingTwo">
                               
@@ -230,8 +277,8 @@
                       </div>
                   </div>
               </div>
-              <div class="card mb-2">
-                <div class="card-body" *ngIf="FilterOptions && FilterOptions.District">
+              <div class="card mb-2" *ngIf="FilterOptions && FilterOptions.District">
+                <div class="card-body" >
                     <div class="filter_title_div">
                         <div class="d-flex w-100 align-items-center justify-content-between" id="headingThree">
                             
@@ -266,7 +313,7 @@
                             <a class="btn more_btn"  *ngIf="DistrictsLimit == Districts.length" (click)="showless('districts')" >Less</a>
                     </div>
                 </div>
-            </div>
+            </div> 
               
                 <div class="d-flex align-items-center justify-content-center mt-3 mb-3">
                     <button class="btn btn-outline-white mr-2">Clear</button>
@@ -286,9 +333,7 @@
                     <li class="nav-item" role="presentation">
                       <a class="nav-link" id="PCC-tab" data-toggle="tab" href="#DCC" (click)="showTab('DCC')" role="tab" aria-controls="profile" aria-selected="false">DCC</a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                      <a class="nav-link" id="PCC-tab" data-toggle="tab" href="#CCC" (click)="showTab('CCC')" role="tab" aria-controls="profile" aria-selected="false">CCC</a>
-                    </li>
+                   
                     <li class="nav-item" role="presentation">
                       <a class="nav-link" id="SC-tab" data-toggle="tab" href="#SC" (click)="showTab('SC')" role="tab" aria-controls="contact" aria-selected="false">SC Dept</a>
                     </li>
@@ -312,9 +357,7 @@
                     <div class="tab-pane fade" id="DCC" role="tabpanel" aria-labelledby="home-tab">
                       <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblDCC',dataset: returnDataset('DCC'),tabType :'DCC' }" ></div> 
                     </div>
-                    <div class="tab-pane fade" id="CCC" role="tabpanel" aria-labelledby="home-tab">
-                      <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblCCC',dataset: returnDataset('CCC'),tabType :'CCC' }" ></div> 
-                    </div>
+                  
                     <div class="tab-pane fade" id="SC" role="tabpanel" aria-labelledby="home-tab">
                       <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblSC',dataset: returnDataset('SC'),tabType :'SC' }" ></div> 
                     </div>  

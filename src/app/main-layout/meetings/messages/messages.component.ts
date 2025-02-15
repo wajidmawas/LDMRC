@@ -1,26 +1,18 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import 'jquery';
 import { Router } from '@angular/router';
-import { Meetingsservice } from '../meetings.service';
+import { Meetingsservice } from '../../meetings/meetings.service';
 import { SnackbarService } from 'src/shared/snackbar-service';
 import { TranslateService } from '@ngx-translate/core';
-import { ActivatedRoute } from '@angular/router';
-
-
 
 @Component({
-  selector: 'addmessage', 
-  templateUrl: './addmessage.component.html',
-  styleUrl: './addmessage.component.scss'
+  selector: 'messages',
+  templateUrl: './messages.component.html',
+  styleUrl: './messages.component.scss'
 })
-export class AddmessageComponent implements OnInit {
-  searchQuery: string = ''; // Input query for searching
-  allUsers: { id: number; name: string }[] = []; // Filtered user list
-  filteredUsers: { id: number; name: string }[] = []; // Filtered user list
-  selectedUsers: { id: number; name: string }[] = []; // Selected users
-  meetingId: number | null = null;
-  SenderList: any = [];
-   designationsList: { id: string,name : string, selected: boolean }[] = [];
+export class MessagesComponent {
+
+  designationsList: { id: string,name : string, selected: boolean }[] = [];
   categories1: {
     id: number;
     name: string;
@@ -32,36 +24,33 @@ export class AddmessageComponent implements OnInit {
     }[];
     selected: boolean;
   }[] = [];
-  todayDate: string='';
-  isLoggedIn:any='';
-  selectedOption: number = 1;
-  isonline: number = 0;
-  expandedPanels: { [key: string]: boolean } = {};
-  clsinvite:cls_addmessage=new cls_addmessage();
+  SenderList: any = [];
+  remainingText:number=0;
+  isLoggedIn:any ='';
   userdetails:any={};
-  constructor(private route: ActivatedRoute,private service:Meetingsservice, private snackbar:SnackbarService, private translate:TranslateService) {
+  selectedmeeting: any = null;
+  searchValue:any='';
+  messages: Message[] = [];
+  searchQuery: string = ''; // Input query for searching
+  clsinvite:cls_addmessage=new cls_addmessage();
+  expandedPanels: { [key: string]: boolean } = {};
+  allUsers: { id: number; name: string }[] = []; // Filtered user list
+  filteredUsers: { id: number; name: string }[] = []; // Filtered user list
+  selectedUsers: { id: number; name: string }[] = []; // Selected users
+  constructor(private service:Meetingsservice, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
-      $(".page-loader-wrapper-review").fadeOut();
+      $(".page-loader-wrapper").fadeOut();
     }, 300);
     const today = new Date();
-    this.todayDate = today.toISOString().split('T')[0]; // Extracts the date part
   }
-  ngOnInit() {   
+  ngOnInit() {  
     $(".page-loader-wrapper").fadeOut();  
     this.isLoggedIn = localStorage.getItem("cl_user");
-    this.userdetails = JSON.parse(this.isLoggedIn)
-    this.getLookupMaster(0);
+    this.userdetails = JSON.parse(this.isLoggedIn) 
+    this.getmymessage(this.userdetails.user_id)
     this.getActivityMaster(0);
     this.getOrganizer(0);
     this.getAllUsers(0);
-     // Retrieve 'id' from query parameters (e.g., ?id=4)
-     this.route.queryParams.subscribe(params => {
-      this.meetingId = params['id']; // Get the 'id' query parameter
-      this.loadMeetingData(this.meetingId); // Call method to load data using the 'id'
-    });
-
-    // Alternatively, if the 'id' is part of the route path (e.g., /meetings/:id)
-    // this.route.snapshot.paramMap.get('id'); // For route parameters
   }
   getAllUsers(id: any) {
     const objRequest = {
@@ -120,178 +109,6 @@ export class AddmessageComponent implements OnInit {
   toggleCollapse(panelName: string) {
     this.expandedPanels[panelName] = !this.expandedPanels[panelName];
   }
-  loadMeetingData(id: number | null): void {
-    if (id) {
-      console.log('Load data for meeting with id:', id);
-      const objRequest = {
-        typeId: 13,
-        userid: 0,
-        filterId: id,
-        filterText: "",
-        filterText1: ""
-      };
-    
-      this.service.getMasters(objRequest).subscribe({
-        next: (response: any) => { 
-          const parseresponse = JSON.parse(response.response);  
-          this.clsinvite.id= id;
-          this.clsinvite.sender_id= parseresponse.Table[0].sender_id;
-          this.clsinvite. msg_date= parseresponse.Table[0].date.split('T')[0]; // Format to YYYY-MM-DD
-          this.clsinvite.msg_time= parseresponse.Table[0].time.split(' ')[0];
-          this.clsinvite.created_by= parseresponse.Table[0].created_by;
-          this.clsinvite.desc= parseresponse.Table[0].desc;
-          this.clsinvite.title= parseresponse.Table[0].title;
-          this.clsinvite.imageFile= parseresponse.Table[0].imageFile;
-          this.clsinvite.imagePath= parseresponse.Table[0].imagePath;
-           // Update the designations based on the API response
-          this.updateDesignationsList(parseresponse.Table2); 
-// Update the organisation based on the API response
- this.updateOrganisationList(parseresponse.Table3);
-
-        },
-        error: (error: any) => {
-          console.error("API call failed:", error);
-        },
-        complete: () => {
-          console.log("API call completed.");
-        }
-      });
-     }
-  }
-
-  backtohome(){
-    window.location.href = "/meetings";
-  }
- 
-  cancel() {
-    this.clsinvite.sender_id=0;
-    this.clsinvite.id= 0;
-    this.clsinvite.created_by=0; 
-    this.clsinvite.msg_date='';
-    this.clsinvite.msg_time = '';
-    this.clsinvite.desc = '';
-    this.clsinvite.title='';
-    this.clsinvite.imageFile='';
-    this.clsinvite.imagePath='';
-    this.clsinvite.designations=[];
-    this.clsinvite.participants=[];
-    this.clearDesignations();
-    this.clearParticipants();
-  }
-// Clear the designations checkboxes
-clearDesignations() {
-  this.designationsList.forEach(designation => {
-    designation.selected = false;  // Clear the selection for each designation
-  });
-}
-
-// Clear the participants checkboxes
-clearParticipants() {
-  this.categories1.forEach(category => {
-    category.selected = false;  // Clear the selection for each category
-    category.activities.forEach(activity => {
-      activity.Activityselected = false;  // Clear the selection for each activity
-    });
-  });
-}
-  invite() {
-     var validate:boolean=false;
-    if (this.clsinvite.sender_id == null  || this.clsinvite.sender_id === 0) {
-      this.snackbar.showInfo("Please select Sender", "Error");
-      validate = true;
-    }
-    else if(this.clsinvite.title == undefined || this.clsinvite.title == null || this.clsinvite.title == '') {
-      this.snackbar.showInfo("Please enter title","Error");
-      validate=true;
-    }
-    else if(this.clsinvite.msg_time == undefined || this.clsinvite.msg_time == null || this.clsinvite.msg_time == '') {
-      this.snackbar.showInfo("Please enter time","Error");
-      validate=true;
-    }
-    else if(this.clsinvite.msg_date == undefined || this.clsinvite.msg_date == null || this.clsinvite.msg_date == '') {
-      this.snackbar.showInfo("Please select date ","Error");
-      validate=true;
-    }
-  
-   
-    else if(this.clsinvite.desc == undefined || this.clsinvite.desc == null || this.clsinvite.desc == '') {
-      this.snackbar.showInfo("Please enter your description","Error");
-      validate=true;
-    }
-    else if(this.clsinvite.imageFile == undefined || this.clsinvite.imageFile == null || this.clsinvite.imageFile == '') {
-      this.snackbar.showInfo("Please select image","Error");
-      validate=true;
-    }
-    else if (this.clsinvite.participants == null || this.clsinvite.participants.length === 0) {
-      this.snackbar.showInfo("Please Select Participants", "Error");
-      validate = true;
-    }
-    else if (this.clsinvite.designations == null || this.clsinvite.designations.length === 0) {
-      this.snackbar.showInfo("Please Select Designations", "Error");
-      validate = true;
-    }
-   if(!validate) {
-    $(".page-loader-wrapper-review").show(); 
-  const formData = new FormData();
-     // Append form fields
-     formData.append('id', this.clsinvite.id.toString());
-     formData.append('sender_id', this.clsinvite.sender_id.toString());
-     formData.append('created_by', this.userdetails.user_id.toString());
-     formData.append('msg_date', this.clsinvite.msg_date.toString());
-     formData.append('msg_time', this.clsinvite.msg_time.toString());
-     formData.append('desc', this.clsinvite.desc.toString());
-     formData.append('title', this.clsinvite.title.toString());
-     formData.append('imageFile', this.clsinvite.imageFile);
-     formData.append('imagePath', this.clsinvite.imagePath);
-     formData.append('participants', JSON.stringify(this.clsinvite.participants));
-     formData.append('designations', JSON.stringify(this.clsinvite.designations));
-     if (this.clsinvite.id != 0) {
-       formData.append('id', this.clsinvite.id.toString());
-       formData.delete('imageFile'); 
-   }
- this.service.SaveMessage(formData).subscribe((res: any) => {
-   setTimeout(() => {
-     $(".page-loader-wrapper-review").hide();
-   }, 500);
-   var response = res;
-   if (response.errorCode == "200") {
-      this.snackbar.showSuccess(response.message, response.status);
-     setTimeout(() => {
-       this.clsinvite = new cls_addmessage(); // Reset form data
-        this.clearDesignations();
-        this.clearParticipants();
-     }, 3000);
-    
-   } else {
-     this.snackbar.showInfo(response.message, "Error");
-   }
- });
-  
-   }
-    
-  }
-  getLookupMaster(id: any) {
-    const objRequest = {
-      typeId: 1,
-      userid: 0,
-      filterId: id,
-      filterText: "",
-      filterText1: ""
-    };
-  
-    this.service.getMasters(objRequest).subscribe({
-      next: (response: any) => { 
-        const parseresponse = JSON.parse(response.response); 
-        this.designationsList = parseresponse.Table2;
-      },
-      error: (error: any) => {
-        console.error("API call failed:", error);
-      },
-      complete: () => {
-        console.log("API call completed.");
-      }
-    });
-  }
   getActivityMaster(id: any) {
     const objRequest = {
       typeId: 18,
@@ -317,7 +134,7 @@ this.categories1 = (categoriesWithActivities|| []).map((category: any) => ({
     Activityselected: false  // Initialize Activityselected as false for all activities
   }))
 }));
-         console.log(this.categories1);
+          
       },
       error: (error: any) => {
         console.error("API call failed:", error);
@@ -339,8 +156,7 @@ this.categories1 = (categoriesWithActivities|| []).map((category: any) => ({
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
         const parseresponse = JSON.parse(response.response); 
-        this.SenderList = parseresponse.Table;
-       console.log(this.SenderList);
+        this.SenderList = parseresponse.Table; 
 
       },
       error: (error: any) => {
@@ -350,6 +166,28 @@ this.categories1 = (categoriesWithActivities|| []).map((category: any) => ({
         console.log("API call completed.");
       }
     });
+  }
+  fillUsersByDept(sender:string){
+    this.categories1.forEach(element => {
+      $("#div_"+element.id).hide();
+    });
+    if(sender!=null && sender!=""){
+      if(sender=="NCAICC"){
+        $("#div_1").show();
+      }
+      if(sender=="SCAICC"){
+        $("#div_7").show();
+      }
+      if(sender=="STAICC"){
+        $("#div_8").show();
+      }
+      if(sender=="OBCINC"){
+        $("#div_9").show();
+      }
+      if(sender=="MININC"){
+        $("#div_10").show();
+      }
+    }
   }
   updateDesignations(designation: any): void {
    
@@ -441,14 +279,43 @@ updateOrganisationList(apiResponse: any[]): void {
     }
   });
 }
-onFileChange(event: any) {
-  const input = event.target as HTMLInputElement;
-    if (input?.files?.length) {
-      const file = input.files[0];
-      this.clsinvite.imageFile = file; 
-       this.clsinvite.imagePath=file.name;
-    }
-}
+   
+  getmymessage(id: number) { 
+    const objRequest = {
+      typeId: 31,
+      userid: id,
+      filterId: 0,
+      filterText: "",
+      filterText1: ""
+    };
+  
+    this.service.getMasters(objRequest).subscribe({
+      next: (response: any) => {  
+         const parseresponse = JSON.parse(response.response); 
+        this.messages = parseresponse.Table; 
+      },
+      error: (error: any) => {
+        console.error("API call failed:", error);
+      },
+      complete: () => {
+        console.log("API call completed.");
+      }
+    });
+  }
+  sanitizeFilePath(filePath: string) {
+    // Fix backslashes in URLs and sanitize for safe rendering
+    return filePath.replace(/\\/g, '/');
+  }
+  backtohome(){
+    window.location.href = "/dashboard";
+  }
+    
+  viewmeeting(accesstoken:string){ 
+    window.location.href = "/meeting_detail/"+accesstoken; 
+  }
+  valueChange(value:any) {
+    this.remainingText = 320 - value.length;
+   }
   selectAllActivities(category: any) {
     category.activities.forEach((activity: any) => {
       activity.Activityselected = category.selected;
@@ -466,9 +333,122 @@ onFileChange(event: any) {
     });
     console.log( this.clsinvite.participants);
   }
-  
+  cancel() {
+    this.clsinvite.sender_id=0;
+    this.clsinvite.id= 0;
+    this.clsinvite.created_by=0; 
+    this.clsinvite.msg_date='';
+    this.clsinvite.msg_time = '';
+    this.clsinvite.desc = '';
+    this.clsinvite.title='';
+    this.clsinvite.imageFile='';
+    this.clsinvite.imagePath='';
+    this.clsinvite.designations=[];
+    this.clsinvite.participants=[];
+    this.clearDesignations();
+    this.clearParticipants();
+  }
+  // Clear the designations checkboxes
+clearDesignations() {
+  this.designationsList.forEach(designation => {
+    designation.selected = false;  // Clear the selection for each designation
+  });
 }
 
+// Clear the participants checkboxes
+clearParticipants() {
+  this.categories1.forEach(category => {
+    category.selected = false;  // Clear the selection for each category
+    category.activities.forEach(activity => {
+      activity.Activityselected = false;  // Clear the selection for each activity
+    });
+  });
+}
+  invite() {
+     var validate:boolean=false;
+    if(this.clsinvite.title == undefined || this.clsinvite.title == null || this.clsinvite.title == '') {
+      this.snackbar.showInfo("Please enter sender","Error");
+      validate=true;
+    } 
+    else if(this.clsinvite.desc == undefined || this.clsinvite.desc == null || this.clsinvite.desc == '') {
+      this.snackbar.showInfo("Please enter your sms text","Error");
+      validate=true;
+    }
+     
+    else if (this.clsinvite.participants == null || this.clsinvite.participants.length === 0) {
+      this.snackbar.showInfo("Please select participants", "Error");
+      validate = true;
+    } 
+   if(!validate) {
+    $(".page-loader-wrapper-review").show(); 
+  const formData = new FormData();
+     // Append form fields
+     formData.append('id', this.clsinvite.id.toString());
+     formData.append('sender_id', this.userdetails.user_id.toString());
+     formData.append('created_by', this.userdetails.user_id.toString());
+     formData.append('msg_date', new Date().toDateString());
+     formData.append('msg_time', '');
+     formData.append('desc', this.clsinvite.desc.toString());
+     formData.append('title', this.clsinvite.title.toString());
+     formData.append('imageFile', '');
+     formData.append('imagePath', '');
+     formData.append('participants', JSON.stringify(this.clsinvite.participants));
+     formData.append('designations', JSON.stringify(this.clsinvite.designations));
+     if (this.clsinvite.id != 0) {
+       formData.append('id', this.clsinvite.id.toString());
+       formData.delete('imageFile'); 
+   }
+ this.service.SaveMessage(formData).subscribe({
+  next: (response: any) => {  
+    setTimeout(() => {
+      $(".page-loader-wrapper-review").hide();
+    }, 500);
+    var response = response;
+    if (response.errorCode == "200") {
+       this.snackbar.showSuccess(response.message, response.status);
+      setTimeout(() => {
+        this.clsinvite = new cls_addmessage(); // Reset form data
+         this.clearDesignations();
+         this.clearParticipants();
+      }, 3000);
+     
+    } else {
+      this.snackbar.showInfo(response.message, "Error");
+    }
+  },
+  error: (error: any) => {
+    console.error("API call failed:", error);
+    this.snackbar.showInfo(error.error.errors, "Error");
+  },
+  complete: () => {
+    console.log("API call completed.");
+  }
+});
+ 
+  
+   }
+    
+  }
+  onSearchChange(tableid:string): void {  
+    $("#tblMeeting").find("tbody tr").show()
+    if(this.searchValue!=null && this.searchValue!=undefined && this.searchValue!=""){
+      let searchkeyword=this.searchValue;
+      $("#tblMeeting").find("tbody tr").each(function (ind, val) { 
+            if ($(this).find("td")[2].innerText.toLowerCase().indexOf(searchkeyword.toLowerCase()) == -1 && 
+                $(this).find("td")[3].innerText.toLowerCase().indexOf(searchkeyword.toLowerCase()) == -1) {
+                $(this).hide();
+            }
+            else {
+                $(this).show();
+            } 
+    });
+   
+    }
+     
+  }
+     
+}
+ 
 
 export class cls_addmessage {
   constructor(){
@@ -485,5 +465,19 @@ export class cls_addmessage {
   imagePath:string='';
   designations: { id: string }[] = [];
   participants: { id: number }[] = [];
+}
+
+
+export interface Message {
+  id: number;
+  no_of_participants: number;
+  msg_date: string;
+  msg_time: string;
+  sent_status: string;
+  file_path: string;
+  title: string;
+  description: string;
+  Datetime: string;
+  Sender: string;
 }
 

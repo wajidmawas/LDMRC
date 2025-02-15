@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 import { Meetingsservice } from '../../meetings/meetings.service';
 import { SnackbarService } from 'src/shared/snackbar-service';
 import { TranslateService } from '@ngx-translate/core';
-
+import { AddmeetingsComponent } from '../addmeetings/addmeetings.component';
 @Component({
   selector: 'trainings',
   templateUrl: './trainings.component.html',
   styleUrl: './trainings.component.scss'
-})
+}) 
 export class TrainingsComponent {
 
   upcomingmeetings: Meeting[] = [];

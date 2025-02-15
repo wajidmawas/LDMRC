@@ -38,11 +38,14 @@ export class CongressLeadersComponent {
   Districts: any = [];
   GenderList: any = [];
   AgeList: any = [];
-  YearsOfExp: any = [];
+  ElectionYear: any = [];
+  ElectionType: any = [];
+  ElectionResult: any = [];
+  ElectionContested: any = [];
   searchValue: string='';
   openSection: string | null = null;
   FilterSection: any = [];AllDesignations: any = [];
-  FilterOptions: any = {"Designation":false,"State":false,"District":false,"Caste":false,"Age":false,"Gender":false,"YearofExp":false};
+  FilterOptions: any = {"Designation":false,"ElectionResult":false,"ElectionContested":false,"State":false,"ElectionYear":false,"ElectionType":false,"District":false,"Caste":false,"Age":false,"Gender":false,"YearofExp":false};
   constructor(public sharedService: SharedService,private router: Router,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
       $(".page-loader-wrapper-review").fadeOut();
@@ -68,19 +71,20 @@ export class CongressLeadersComponent {
       this.LoadMasters();
       this.LoadUsers("") ;
       this.GenderList.push({"name":"Male","is_selected":false})
-      this.GenderList.push({"name":"Female","is_selected":false})
-      this.GenderList.push({"name":"Others","is_selected":false})
+      this.GenderList.push({"name":"Female","is_selected":false}) 
 
-      this.AgeList.push({"name":"25 to 40","is_selected":false})
-      this.AgeList.push({"name":"40 to 50","is_selected":false})
-      this.AgeList.push({"name":"50 to 60","is_selected":false})
-      this.AgeList.push({"name":"60 and above","is_selected":false})
+      this.ElectionContested.push({"name":"Yes","is_selected":false})
+      this.ElectionContested.push({"name":"No","is_selected":false})
 
-      this.YearsOfExp.push({"name":"Below 5 years","is_selected":false})
-      this.YearsOfExp.push({"name":"5 to 10 years","is_selected":false})
-      this.YearsOfExp.push({"name":"10 to 15 years","is_selected":false})
-      this.YearsOfExp.push({"name":"15 to 20 years","is_selected":false})
-      this.YearsOfExp.push({"name":"20 years and above","is_selected":false})
+      this.ElectionResult.push({"name":"Won","is_selected":false})
+      this.ElectionResult.push({"name":"Lost","is_selected":false}) 
+
+      this.AgeList.push({"name":"18 to 25","is_selected":false})
+      this.AgeList.push({"name":"25 to 35","is_selected":false})
+      this.AgeList.push({"name":"35 to 45","is_selected":false})
+      this.AgeList.push({"name":"45 to 55","is_selected":false})
+      this.AgeList.push({"name":"55 to 65","is_selected":false})
+      this.AgeList.push({"name":"65 and above","is_selected":false}) 
  
      }
      else{
@@ -116,7 +120,8 @@ export class CongressLeadersComponent {
     this.bindFilter(this.GenderList,"name","Gender")  
     this.bindFilter(this.CasteList,"id","Caste")  
     this.bindFilter(this.AgeList,"name","Age")  
-    this.bindFilter(this.YearsOfExp,"name","YearsOfExp")  
+    this.bindFilter(this.ElectionYear,"name","ElectionYear")  
+    this.bindFilter(this.ElectionType,"name","ElectionType")  
     this.LoadUsers(JSON.stringify(this.FiltersList))
 }
   onCheckedResult(childitem:any,checked_type:any) {  
@@ -150,8 +155,14 @@ export class CongressLeadersComponent {
       obj[0].is_selected=obj[0].is_selected==true ? false :true;
     }
   }
-  else  if(checked_type=='YearsOfExp'){
-    let obj=this.YearsOfExp.filter((item: any) =>(item.name === childitem.name));
+  else  if(checked_type=='ElectionYear'){
+    let obj=this.ElectionYear.filter((item: any) =>(item.name === childitem.name));
+    if(obj!=null){
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
+    }
+  }
+  else  if(checked_type=='ElectionType'){
+    let obj=this.ElectionType.filter((item: any) =>(item.name === childitem.name));
     if(obj!=null){
       obj[0].is_selected=obj[0].is_selected==true ? false :true;
     }
@@ -200,7 +211,9 @@ export class CongressLeadersComponent {
           this.Designations = parseresponse.Table2;
           this.AllDesignations=this.Designations;
           this.States = parseresponse.Table1; 
-            this.CasteList = parseresponse.Table;
+          this.CasteList = parseresponse.Table;
+          this.ElectionYear=parseresponse.Table8.filter((item: any) => item.master_type=='Election Type');
+          this.ElectionType=parseresponse.Table8.filter((item: any) => item.master_type=='Year Of Election');
 
             let cofilter=parseresponse.Table5.filter((item: any) => item.page_name=='congress_leaders');
             this.FilterSection=parseresponse.Table6;
@@ -227,9 +240,21 @@ export class CongressLeadersComponent {
               if(temp!=null && temp.length>0){
                 this.FilterOptions.Gender=true;
               }
-              temp=option.filter((item: any) => item.toLowerCase()=='yearofexp');
+              temp=option.filter((item: any) => item.toLowerCase()=='electiontype');
               if(temp!=null && temp.length>0){
-                this.FilterOptions.YearofExp=true;
+                this.FilterOptions.ElectionType=true;
+              }
+              temp=option.filter((item: any) => item.toLowerCase()=='electionyear');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.ElectionYear=true;
+              } 
+               temp=option.filter((item: any) => item.toLowerCase()=='electionresult');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.ElectionResult=true;
+              } 
+              temp=option.filter((item: any) => item.toLowerCase()=='electioncontested');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.ElectionContested=true;
               }
               temp=option.filter((item: any) => item.toLowerCase()=='caste');
               if(temp!=null && temp.length>0){

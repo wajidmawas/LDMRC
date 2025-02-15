@@ -1,0 +1,262 @@
+<div class="container-fluid">
+ <div class="block-header">
+  <div class="row mb-2">
+    <div class="col-lg-12">
+    <ul class="breadcrumb">                          
+      <li class="breadcrumb-item">Dashboard</li>
+      <li class="breadcrumb-item active">Messages</li>
+  </ul>
+</div>
+  </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
+                <a href="javascript::(0)" (click)="backtohome()">
+                <i class="fa-solid fa-arrow-left mr-2"></i></a>
+                <h2 class="mb-0">Messages</h2> 
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+    
+                    </div>
+                 
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="row mt-5 mb-5">
+    <div class="col-lg-12">
+        <div class="d-flex tabsearch align-items-center justify-content-between"> 
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"> 
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-Message-tab" data-toggle="pill" href="#pills-Message" role="tab" aria-controls="pills-Message" aria-selected="false">My Messages</a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" id="pills-Message-tab" data-toggle="pill" href="#send-Message" role="tab" aria-controls="pills-Message" aria-selected="false">Send Message</a>
+          </li>  
+      </ul>
+      
+    </div> 
+      <div class="tab-content" id="pills-tabContent">
+       
+        <div class="tab-pane fade" id="send-Message" role="tabpanel" aria-labelledby="send-Message-tab">
+     
+          <div class="row mb-5">
+     
+            <div class="col-lg-12"> 
+                <div class="row"> 
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                        <label >Sender*</label>
+                        <select class="form-control" [(ngModel)]="clsinvite.title" (change)="fillUsersByDept(clsinvite.title)" [ngModelOptions]="{standalone: true}">
+                            <option value="">Select Sender</option>
+                            <option vaue="NCAICC">NCAICC</option> 
+                            <option vaue="LDMINC">LDMINC</option> 
+                            <option vaue="SCAICC">SCAICC</option> 
+                            <option vaue="STAICC">STAICC</option> 
+                            <option vaue="OBCINC">OBCINC</option> 
+                            <option vaue="MININC">MININC</option> 
+                        </select>
+                    </div>
+                </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label >Text*</label>
+                            <textarea class="form-control" placeholder="Enter Text as per the approved template" (ngModelChange)="valueChange(clsinvite.desc)" 
+                            maxlength="320" rows="4" cols="80" [(ngModel)]="clsinvite.desc" [ngModelOptions]="{standalone: true}"></textarea>
+                            <br/>
+                            <span class="remaning">{{remainingText}}</span>
+                          </div>
+                    </div> 
+                    <!-- <div class="col-lg-3">
+                        <div class="form-group">
+                            <label >Date</label>
+                            <input class="form-control" type="date" placeholder="select Date" [(ngModel)]="clsinvite.msg_date" [ngModelOptions]="{standalone: true}"  [attr.min]="todayDate">
+                        </div>
+                    </div> -->
+                    
+                    
+                </div>
+                
+            </div>
+        
+            <div class="col-lg-12">
+                <div class="card add_bg">
+                    <div class="card-body">
+                        <h5 class="card_title">Select Recipients </h5>
+                        <span class="card_span">(only 100 people allowed in one meeting)</span> 
+        <div id="accordion"> 
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h6>Organisation</h6>
+                            </div> 
+                            <div class="col-lg-2" *ngFor="let category of categories1" id="div_{{category.id}}"> 
+                                <div  class="card">
+                                    <div class="card-header p-2">
+                                        <h6>{{category.name}}</h6>
+                                    </div>
+                                   
+                                    <div class="card-body ht-200">
+                                        <div *ngIf="category.activities && category.activities.length > 0">
+                                        <mat-checkbox  
+                                          [(ngModel)]="category.selected" 
+                                          (change)="selectAllActivities(category)" 
+                                          color="primary">
+                                         All
+                                        </mat-checkbox>
+                                       
+                                            <div *ngFor="let activity of category.activities" class="w-100">
+                                              <mat-checkbox 
+                                                
+                                                (change)="onCheckboxChange($event, activity)" 
+                                                [(ngModel)]="activity.Activityselected" 
+                                                color="primary">
+                                                {{ activity.title }}
+                                              </mat-checkbox>
+                                            </div>
+                                          </div>
+                                          <div *ngIf="(category.activities ?? []).length === 0">
+                                            <p>No Users are available for this Organisation.</p>
+                                          </div>
+                                      </div> 
+                                  </div>
+                                  
+        
+                                   
+                                    </div>
+                                                        
+                                                      <div class="col-lg-12 mt-4">
+                                                        <div class="form-group col-lg-3">
+                                                            <label for="search">Name</label>
+                                                            <div class="input-group">
+                                                              <input
+                                                                type="text"
+                                                                id="search"
+                                                                class="form-control"
+                                                                placeholder="Add People"
+                                                                [(ngModel)]="searchQuery"
+                                                                (input)="filterUsers()" 
+                                                              />
+                                                              
+                                                            </div>
+                                                          
+                                                            <!-- Filtered List of Users -->
+                                                            <ul class="list-group mt-2" *ngIf="filteredUsers.length > 0">
+                                                              <li
+                                                                class="list-group-item"
+                                                                *ngFor="let user of filteredUsers"
+                                                                (click)="addUser(user)"
+                                                              >
+                                                                {{ user.name }}
+                                                              </li>
+                                                            </ul>
+                                                          
+                                                            <!-- Selected Users -->
+                                                            <div class="selected-users mt-3" *ngIf="selectedUsers.length > 0">
+                                                              <h5>Selected Name:</h5>
+                                                              <ul class="list-group">
+                                                                <li
+                                                                  class="list-group-item d-flex justify-content-between align-items-center"
+                                                                  *ngFor="let user of selectedUsers"
+                                                                >
+                                                                  {{ user.name }}
+                                                                  <button class="btn btn-danger btn-sm" (click)="removeUser(user)">
+                                                                    Remove
+                                                                  </button>
+                                                                </li>
+                                                              </ul>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+        
+                <div class="col-lg-12 mt-4 mb-4 text-center">
+                    <button class="btn btn-lg btn-outline-white mr-2" (click)="cancel()">Cancel</button>
+                    <button class="btn btn-lg btn-primary" (click)="invite()">Send Message <img src="../../../../assets/images/btn_arrow.png" class="btn_arrow ml-2"/></button>
+                </div>
+            </div> 
+        
+        
+        </div>
+      
+        <div class="tab-pane fade show active" id="pills-Message" role="tabpanel" aria-labelledby="pills-Message-tab">
+          <div class="tabseachBar">
+            <div class="search">
+                <span>Search</span>
+                <input type="text" class="form-control round" [(ngModel)]="searchValue"    (input)="onSearchChange('')"  >
+                <button type="btn btn-primary" class="srch_icon"><i class="fa fa-search"></i></button>
+            </div> 
+      </div>
+          <div class="table-responsive" *ngIf="messages && messages.length > 0; else noMeetings">
+            <table class="table table-hover nexagrid-basic-example dataTable table-custom mb-0" id="tblMeeting">
+              <thead>
+                <tr>
+                  <th class="numeric-sort">Sr. No</th>
+                  <!-- <th class="numeric-sort">Image, Video, Audio</th> -->
+                  <th class="numeric-sort">Content</th>
+                  <th class="numeric-sort">Sender</th>
+                  <th class="numeric-sort">Date & Time</th>
+                  <th class="numeric-sort">Recipents</th>
+                  <th class="numeric-sort">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let message of messages; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <!-- <td>
+                    <img 
+                      [src]="sanitizeFilePath(message.file_path)" 
+                      width="50" 
+                      height="50" 
+                      alt="Attachment"
+                      onerror="this.src='../../../assets/images/logo.png'"
+                    />
+                  </td> -->
+                  <td class="wp">{{ message.title }} - {{ message.description }}</td>
+                  <td class="wp">{{ message.Sender }}</td>
+                  <td class="wp">{{ message.Datetime }}</td>
+                  <td class="wp">{{ message.no_of_participants }}</td>
+                  <td class="wp">{{ message.sent_status}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        
+          <!-- No meetings template -->
+          <ng-template #noMeetings>
+            <div class="no-meetings col-lg-12 d-flex flex-column align-items-center justify-content-center mb-5 mt-5">
+              <img src="../../../assets/images/noactivity.png" class="mb-3 mt-3"/>
+              <h4>You have not scheduled any meetings yet!</h4>
+            </div>
+          </ng-template>
+        </div>
+        
+      </div>
+    </div>
+</div>
+    </div>
+
+    <div class="modal fade" id="cancelalert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <div class="modal-body d-flex align-items-center flex-column justify-content-center alertbox">
+             <img src="assets/images/loader.png" width="128"/>
+             <h2>Are you sure?</h2>
+             <p>Do you really want to cancel the meeting?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-lg btn-outline-primary" data-dismiss="modal">NO</button>
+            
+            </div>
+          </div>
+        </div>
+      </div>

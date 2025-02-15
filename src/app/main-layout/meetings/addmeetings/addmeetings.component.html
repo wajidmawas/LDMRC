@@ -57,7 +57,7 @@
             </div>
             <div class="col-lg-3">
                 <div class="form-group" >
-                    <label >Organisers</label>
+                    <label >Convenor of the Meeting</label>
                     <select class="form-control" [(ngModel)]="clsinvite.organizer_id" [ngModelOptions]="{standalone: true}">
                         <option value="">Select Organisers</option>
                         <option *ngFor="let Organisers of OrganisersList" [value]="Organisers.id">{{ Organisers.first_name }} {{ Organisers.last_name}}</option> 
@@ -139,7 +139,8 @@
     <div class="col-lg-12">
         <div class="card add_bg">
             <div class="card-body">
-                <h5 class="card_title">Add People</h5>
+                <h5 class="card_title">Invite Participants to the Zoom
+                    Meeting</h5>
                 <span class="card_span">(only 100 people allowed in one meeting)</span>
                 <div class="mt-2 mb-2 w-100">
                     <mat-checkbox class="example-margin">All Members</mat-checkbox>
