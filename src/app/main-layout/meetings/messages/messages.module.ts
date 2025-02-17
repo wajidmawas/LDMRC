@@ -18,7 +18,7 @@ import { MessagesComponent } from './messages.component';
 import {MatRadioModule} from '@angular/material/radio';
 import { AddmessageComponent } from '../addmessage/addmessage.component';
 import { HttpClientModule} from '@angular/common/http';
-import { AngularEditorModule } from '@wfpena/angular-wysiwyg';
+import { AngularEditorModule } from '@wfpena/angular-wysiwyg'; 
 const routes: Routes = [
   {
     path: 'messages',

@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="block-header">
+    <div class="block-header" *ngIf="IsFrom!='training' && IsFrom!= 'meeting'">
         <div class="row mb-5">
             <div class="col-lg-12">
             <ul class="breadcrumb">                          
@@ -26,11 +26,11 @@
 <div class="row mb-5">
      
     <div class="col-lg-12">
-        <div class="row mt-3 mb-3">
-            <div class="col-lg-12">
+        <div class="row mt-3 mb-3" *ngIf="IsFrom!='training' && IsFrom!= 'meeting'">
+            <div class="col-lg-12" >
                 <mat-radio-group class="custom-radio-group" aria-label="Select an option" [(ngModel)]="selectedOption" (change)="onOptionChange()">
-                    <mat-radio-button checked value="0" [(ngModel)]="clsinvite.isonline"  color="primary">Physical Meeting</mat-radio-button>
-                    <mat-radio-button value="1" [(ngModel)]="clsinvite.isonline" color="primary">Online Meeting</mat-radio-button>
+                    <mat-radio-button  value="0" [(ngModel)]="clsinvite.isonline"  color="primary">Physical Meeting</mat-radio-button>
+                    <mat-radio-button checked value="1" [(ngModel)]="clsinvite.isonline" color="primary">Online Meeting</mat-radio-button>
                   </mat-radio-group>
            
                   
@@ -93,7 +93,7 @@
                 </div>
             </div>
            
-                <div class="col-lg-3"><mat-checkbox [(ngModel)]="clsinvite.istraining_flg" color="#000">Is Training</mat-checkbox></div> 
+                <div class="col-lg-3" *ngIf="IsFrom=='training'"><mat-checkbox [(ngModel)]="clsinvite.istraining_flg" color="#000">Is Training</mat-checkbox></div> 
                 <div class="col-lg-3" *ngIf="clsinvite.istraining_flg==true" >
                     <div class="form-group">
                         <label >End Date</label>
@@ -118,13 +118,13 @@
                     <button class="btn btn-lg btn-primary" (click)="createmeeting()">Create Zoom Meeting</button>
                 </div>
             </div>
-            <div class="col-lg-12">
+            <div class="col-lg-12" style="display: none;">
                 <div class="form-group">
                     <label >Meeting Location</label>
                     <input class="form-control" placeholder="Enter Meeting Location" [(ngModel)]="clsinvite.meeting_location" [ngModelOptions]="{standalone: true}" />
                 </div>
             </div>
-            <div class="col-lg-12">
+            <div class="col-lg-12" style="display: none;">
                 <div class="form-group">
                     <label >Description</label>
                     <!-- <textarea class="form-control" placeholder="Enter Description" [(ngModel)]="clsinvite.description" [ngModelOptions]="{standalone: true}"></textarea> -->

@@ -38,6 +38,9 @@
         <li class="nav-item">
           <a class="nav-link" id="pills-mymeeting-tab" data-toggle="pill" href="#pills-mymeeting" role="tab" aria-controls="pills-mymeeting" aria-selected="false">My Meetings</a>
         </li>  
+        <li class="nav-item">
+          <a class="nav-link" id="add-mymeeting-tab" data-toggle="pill" href="#add-meeting" role="tab" aria-controls="pills-mymeeting" aria-selected="false">Schedule a Zoom Meeting</a>
+        </li> 
       </ul>
       
     </div> 
@@ -160,7 +163,9 @@
               </ng-template>
         
         </div> 
-       
+        <div class="tab-pane fade" id="add-meeting" role="tabpanel" aria-labelledby="add-mymeeting-tab">
+          <addmeetings IsFrom="meeting"></addmeetings>
+        </div>
       </div>
     </div>
 </div>

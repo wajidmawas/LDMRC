@@ -14,6 +14,7 @@ import { AngularEditorConfig } from '@wfpena/angular-wysiwyg';
   styleUrl: './addmeetings.component.scss'
 })
 export class AddmeetingsComponent implements OnInit {
+  @Input() public IsFrom : string  = "";
   searchQuery: string = ''; // Input query for searching
   allUsers: { id: number; name: string }[] = []; // Filtered user list
   filteredUsers: { id: number; name: string }[] = []; // Filtered user list
@@ -48,11 +49,12 @@ export class AddmeetingsComponent implements OnInit {
     }, 300);
     const today = new Date();
     this.todayDate = today.toISOString().split('T')[0]; // Extracts the date part
-    this.clsinvite.isonline='0';
-    this.selectedOption = '0';
+    this.clsinvite.isonline='1';
+    this.selectedOption = '1';
+   
   }
   ngOnInit() {   
-    $(".page-loader-wrapper").fadeOut();  
+    $(".page-loader-wrapper").fadeOut();   
     this.isLoggedIn = localStorage.getItem("cl_user"); 
     this.getLookupMaster(0);
     this.getActivityMaster(0);
@@ -62,18 +64,18 @@ export class AddmeetingsComponent implements OnInit {
      this.route.queryParams.subscribe(params => {
       this.meetingId = params['id']; // Get the 'id' query parameter
       // this.loadMeetingData(this.meetingId); // Call method to load data using the 'id'
-      if (this.meetingId && this.meetingId !== 0) {
+      if (this.meetingId && this.meetingId !== 0 && this.meetingId!=undefined) {
         if (this.meetingId === this.responseid) {
           window.location.href = "/profile";
         } else {
           this.loadMeetingData(this.meetingId); // Call method to load data using the 'id'
         }
-      } else {
-        console.error('Invalid or missing Activity ID');
-      }
+      }  
     
     });
-
+    if(this.IsFrom=='training'){
+      this.clsinvite.istraining_flg=true;
+    }
     // Alternatively, if the 'id' is part of the route path (e.g., /meetings/:id)
     // this.route.snapshot.paramMap.get('id'); // For route parameters
   }
@@ -261,10 +263,10 @@ clearParticipants() {
       this.snackbar.showInfo("Please select  your duration type","Error");
       validate=true;
     }
-    else if(this.clsinvite.description == undefined || this.clsinvite.description == null || this.clsinvite.description == '') {
-      this.snackbar.showInfo("Please enter your description","Error");
-      validate=true;
-    }
+    // else if(this.clsinvite.description == undefined || this.clsinvite.description == null || this.clsinvite.description == '') {
+    //   this.snackbar.showInfo("Please enter your description","Error");
+    //   validate=true;
+    // }
     else if(this.clsinvite.short_desc == undefined || this.clsinvite.short_desc == null || this.clsinvite.short_desc == '') {
       this.snackbar.showInfo("Please enter your Shot description","Error");
       validate=true;
@@ -292,7 +294,8 @@ clearParticipants() {
     }
    if(!validate) {
     $(".page-loader-wrapper").show(); 
-   
+    this.clsinvite.description=this.clsinvite.short_desc;
+    this.clsinvite.meeting_location="24 Akbar road, New Delhi"
     this.service.InviteClient(this.clsinvite).subscribe((res: any) => {
       setTimeout(() => {
         $(".page-loader-wrapper").hide();
@@ -445,7 +448,7 @@ this.categories1 = (categoriesWithActivities|| []).map((category: any) => ({
     Activityselected: false  // Initialize Activityselected as false for all activities
   }))
 }));
-         console.log(this.categories1);
+        
       },
       error: (error: any) => {
         console.error("API call failed:", error);
@@ -468,7 +471,7 @@ this.categories1 = (categoriesWithActivities|| []).map((category: any) => ({
       next: (response: any) => { 
         const parseresponse = JSON.parse(response.response); 
         this.OrganisersList = parseresponse.Table;
-       console.log(this.OrganisersList);
+        
 
       },
       error: (error: any) => {

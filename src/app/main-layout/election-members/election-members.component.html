@@ -85,12 +85,12 @@
                     <li class="nav-item" role="presentation">
                       <a class="nav-link" id="PCC-tab" data-toggle="tab" href="#PCC" (click)="showTab(1)" role="tab" aria-controls="profile" aria-selected="false">All Parliament Contituencies</a>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    <!-- <li class="nav-item" role="presentation">
                       <a class="nav-link" id="SC-tab" data-toggle="tab" href="#SittingMP" (click)="showTab(2)" role="tab" aria-controls="contact" aria-selected="false">Sitting MP's Of  All Communities</a>
                     </li>
                     <li class="nav-item" role="presentation">
                       <a class="nav-link" id="ST-tab" data-toggle="tab" href="#SittingMLA" (click)="showTab(3)" role="tab" aria-controls="contact" aria-selected="false">Sitting MLA's Of   All Communities</a>
-                    </li>
+                    </li> -->
                    
                   </ul>
                   <div class="tab-content" id="myTabContent">
@@ -102,7 +102,7 @@
                       <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblPCC',dataset: returnDataset(1) ,tabType :'PCC' }" ></div> 
                       
                     </div>
-                    <div class="tab-pane fade" id="SittingMP" role="tabpanel" aria-labelledby="home-tab">
+                    <!-- <div class="tab-pane fade" id="SittingMP" role="tabpanel" aria-labelledby="home-tab">
                     
                     <div  *ngTemplateOutlet="gridTemplate1; context: { tableId: 'tblSittingMP',dataset: returnDataset(2) ,tabType :'SittingMP' }" ></div> 
                       
@@ -111,7 +111,7 @@
                     
                     <div  *ngTemplateOutlet="gridTemplate1; context: { tableId: 'tblSittingMLA',dataset: returnDataset(3) ,tabType :'SittingMLA' }" ></div> 
                       
-                  </div>
+                  </div> -->
                   </div>
                   <ng-template #gridTemplate let-tableId="tableId" let-dataset="dataset" let-tabType="tabType">
                     <div class="tabseachBar justify-content-end">

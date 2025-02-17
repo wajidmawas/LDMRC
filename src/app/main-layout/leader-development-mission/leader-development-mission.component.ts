@@ -32,13 +32,16 @@ export class LeaderDevelopmentMissionComponent {
   StatesLimit:number=5;
   userDetail:any={};
   Designations: any = [];
+  Assemblies: any = [];
+  ListYears: any = [];
+  ListMonths: any = [];
   Users: any = [];
   searchValue:any=[];
   UsersList: any = [];
   LDMActivities: any = [];
   States: any = [];
   Districts: any = [];DistrictsList: any = [];
-  DistrictsLimit:number=5;
+  DistrictsLimit:number=5;AssemblyLimit:number=5;
   selectedState:number | null = null;
   selectedCity:number | null = null;
   selectedActvity:number | null = null;
@@ -56,7 +59,10 @@ export class LeaderDevelopmentMissionComponent {
   activityId: string | null = null;
 responseid:any=[];
 FilterSection: any = [];AllDesignations: any = [];
-  FilterOptions: any = {"Designation":false,"State":false,"District":false,"Age":false,"Gender":false,"YearofExp":false};
+FilterTabs: any = [];
+theMonths = ["January", "February", "March", "April", "May",
+  "June", "July", "August", "September", "October", "November", "December"];
+  FilterOptions: any = {"Designation":false,"Year":false,"Assembly":false,"Month":false,"State":false,"District":false,"Age":false,"Gender":false,"YearofExp":false};
   constructor(public sharedService: SharedService,private router: Router,private service:dashboardService, private snackbar:SnackbarService, private translate:TranslateService) {
     setTimeout(() => {
       $(".page-loader-wrapper-review").fadeOut();
@@ -91,6 +97,12 @@ FilterSection: any = [];AllDesignations: any = [];
      else{
       window.location.href = "/auth/login";
      } 
+     for (let index = new Date().getFullYear(); 1980 <= index; index--) {
+      this.ListYears.push({"name":index,"is_selected":false}) 
+     }
+     for (let index = 0; index < this.theMonths.length; index++) {
+      this.ListMonths.push({"name":this.theMonths[index],"is_selected":false}) 
+     }
   }
   onSearchChange(tableid:string): void {  
     $("#"+tableid+"_wrapper").find("tbody tr").show()
@@ -126,7 +138,12 @@ FilterSection: any = [];AllDesignations: any = [];
         this.Designations=filteredData
       }
      }
-
+     this._v12(tab_type) 
+     this.clearCheckedResult(this.Designations,'');
+     this.clearCheckedResult(this.States,'');
+     this.clearCheckedResult(this.Districts,'');
+     this.clearCheckedResult(this.ListMonths,'');
+     this.clearCheckedResult(this.ListYears,'');
   }
   returnDataset(tab_type:any){  
     if(this.UsersList.length>0){
@@ -168,24 +185,8 @@ FilterSection: any = [];AllDesignations: any = [];
           this.Districts = parseresponse.Table4;  
           this.AllDesignations=this.Designations; 
 
-            let cofilter=parseresponse.Table5.filter((item: any) => item.page_name=='leader_dev_mission');
-            this.FilterSection=parseresponse.Table6;
-  
-            if(cofilter!=null && cofilter.length>0){
-              var option=cofilter[0].filter_section_name.split(',')
-              let temp=option.filter((item: any) => item.toLowerCase()=='designation');
-              if(temp!=null && temp.length>0){
-                this.FilterOptions.Designation=true;
-              }
-              temp=option.filter((item: any) => item.toLowerCase()=='state');
-              if(temp!=null && temp.length>0){
-                this.FilterOptions.State=true;
-              }
-              temp=option.filter((item: any) => item.toLowerCase()=='district');
-              if(temp!=null && temp.length>0){
-                this.FilterOptions.District=true;
-              }
-            }
+            this.FilterTabs=parseresponse.Table5;
+            this._v12("ALL");
         } else {
           console.error("API returned an error:", response.message); 
         }
@@ -200,6 +201,41 @@ FilterSection: any = [];AllDesignations: any = [];
       }
     });
   }
+  _v12(tab_name:string){
+    tab_name= tab_name!="LDM" ? "ALL":tab_name;
+    let cofilter=this.FilterTabs.filter((item: any) => item.page_name=='leader_dev_mission'  
+    && item.tab_name==tab_name);
+    this.FilterOptions.Designation = this.FilterOptions.State= 
+    this.FilterOptions.District= false;
+
+            if(cofilter!=null && cofilter.length>0){
+              var option=cofilter[0].filter_section_name.split(',')
+              let temp=option.filter((item: any) => item.toLowerCase()=='designation');
+              // if(temp!=null && temp.length>0){
+              //   this.FilterOptions.Designation=true;
+              // }
+              temp=option.filter((item: any) => item.toLowerCase()=='state');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.State=true;
+              }
+              temp=option.filter((item: any) => item.toLowerCase()=='district');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.District=true;
+              }
+              temp=option.filter((item: any) => item.toLowerCase()=='year');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.Year=true;
+              }
+              temp=option.filter((item: any) => item.toLowerCase()=='month');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.Month=true;
+              } 
+              temp=option.filter((item: any) => item.toLowerCase()=='assembly');
+              if(temp!=null && temp.length>0){
+                this.FilterOptions.Assembly=true;
+              }
+            }
+   }
   printTable(fileNm:string){ 
     let el:any = document.getElementById('divPrint');
     $(el).html($("#"+fileNm)[0]);
@@ -300,6 +336,9 @@ else if(type=='designation'){
 else if(type=='districts'){
   this.DistrictsLimit=this.Districts.length;
 }
+else if(type=='assembly'){
+  this.AssemblyLimit=this.Assembly.length;
+}
   }
   showless(type:any){
     if(type=='states'){
@@ -310,6 +349,9 @@ else if(type=='districts'){
     }
     else if(type=='districts'){
       this.DistrictsLimit=5;
+    } 
+    else if(type=='assembly'){
+      this.AssemblyLimit=5;
     }
       }
       LoadDistrictsByState(stateId:string) {
@@ -340,9 +382,36 @@ else if(type=='districts'){
           }
         });
       }
-  filter(){  
-        $('.acc_filter').toggle();
+      LoadAssembliesByState(stateId:string) {
+        const objRequest = {
+          typeId: 48,
+          userid: 0,
+          filterId: 0,
+          filterText: stateId,
+          filterText1: ""
+        };
       
+        this.service.getMasters(objRequest).subscribe({
+          next: (response: any) => {  
+            if (response["errorCode"] === "200") {
+              var parseresponse = JSON.parse(response.response);  
+              this.Assembly = parseresponse.Table; 
+            } else { 
+              console.error("API returned an error:", response.message); 
+            }
+          },
+          error: (error: any) => {
+            console.error("API call failed:", error);
+            // Handle the error appropriately
+            // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
+          },
+          complete: () => {
+            console.log("API call completed.");
+          }
+        });
+      }
+  filter(){  
+        $('.acc_filter').toggle(); 
   }
   backtohome(){
     window.location.href = "/dashboard";
@@ -374,11 +443,24 @@ else if(type=='districts'){
           templist=templist+ element +",";
         });
         this.LoadDistrictsByState(templist)
+        this.LoadAssembliesByState(templist)
       }
     }
   }
   else  if(checked_type=='Districts'){
     let obj=this.Districts.filter((item: any) =>(item.DISTRICTID === childitem.DISTRICTID));
+    if(obj!=null){
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
+    }
+  }
+  else  if(checked_type=='Years'){
+    let obj=this.ListYears.filter((item: any) =>(item.name === childitem.name));
+    if(obj!=null){
+      obj[0].is_selected=obj[0].is_selected==true ? false :true;
+    }
+  }
+  else  if(checked_type=='Months'){
+    let obj=this.ListMonths.filter((item: any) =>(item.name === childitem.name));
     if(obj!=null){
       obj[0].is_selected=obj[0].is_selected==true ? false :true;
     }
@@ -421,8 +503,7 @@ else if(type=='districts'){
   clearCheckedResult(list:any,listType:any){
     list.forEach((element:any) => {
       element.is_selected=false;
-    }); 
-     
+    });  
   }
   onstateChange(event: any): void {
     this.selectedState = event.target.value; 
@@ -442,21 +523,18 @@ else if(type=='districts'){
       filterId: id,
       filterText: "",
       filterText1: ""
-    };
-    console.log(JSON.stringify(objRequest));
+    }; 
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => { 
         var parseresponse = JSON.parse(response.response); 
         if (response["errorCode"] === "200") {  
-          this.Assembly = parseresponse.Table1
-         console.log("Assembly" + JSON.stringify(this.Assembly))
+          this.Assembly = parseresponse.Table1 
         } else {
           console.error("API returned an error:", response.message); 
         }
       },
       error: (error: any) => {
-        console.error("API call failed:", error);
-        
+        console.error("API call failed:", error); 
       },
       complete: () => {
         console.log("API call completed.");
@@ -470,8 +548,7 @@ else if(type=='districts'){
       filterId: state,
       filterText: "",
       filterText1: ""
-    };
-    console.log(JSON.stringify(objRequest));
+    }; 
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => {    
         if (response["errorCode"] === "200") {  
@@ -508,8 +585,7 @@ else if(type=='districts'){
       }
   }
   ViewActivityDetails(Activity:any)
-  {
-    console.log('Activity:', Activity);
+  { 
     if (Activity && Activity.code) {
       this.router.navigate([`activity_detail`, Activity.code]);
     } else {
@@ -521,8 +597,7 @@ else if(type=='districts'){
     this.clsldm = new cls_addldm(); // Reset form data
   }
   SaveLDM() { 
-    var validate:boolean=false;
-  
+    var validate:boolean=false; 
     // Perform client-side validation
     if (this.clsldm.title == undefined || this.clsldm.title == null || this.clsldm.title == '') {
       this.snackbar.showInfo("Please enter title", "Error");

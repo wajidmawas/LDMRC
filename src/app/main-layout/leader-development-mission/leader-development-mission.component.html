@@ -43,8 +43,8 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                 <h2 class="filter flt_mb" (click)="filter()">Filters</h2>
                 <h2 class="filter flt_web">Filters</h2>
                 <div id="accordion" class="acc_filter">
-                <div class="card mb-2">
-                    <div class="card-body" *ngIf="FilterOptions && FilterOptions.Designation">
+                <div class="card mb-2" *ngIf="FilterOptions && FilterOptions.Designation">
+                    <div class="card-body" >
                         <div class="filter_title_div">
                             <div class="d-flex w-100 align-items-center justify-content-between" id="headingOne">
                                 
@@ -80,8 +80,8 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                         </div>
                     </div>
                 </div>
-                <div class="card mb-2">
-                  <div class="card-body" *ngIf="FilterOptions && FilterOptions.State">
+                <div class="card mb-2" *ngIf="FilterOptions && FilterOptions.State">
+                  <div class="card-body" >
                       <div class="filter_title_div">
                           <div class="d-flex w-100 align-items-center justify-content-between" id="headingOne">
                               
@@ -117,8 +117,8 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                       </div>
                   </div>
               </div>
-                <div class="card mb-2">
-                    <div class="card-body" *ngIf="FilterOptions && FilterOptions.District">
+                <div class="card mb-2" *ngIf="FilterOptions && FilterOptions.District">
+                    <div class="card-body" >
                         <div class="filter_title_div">
                             <div class="d-flex w-100 align-items-center justify-content-between" id="headingOne">
                                 
@@ -154,6 +154,118 @@ and LDM Assembly Coordinators will have to add the LDM Activities
                     </div>
                     </div>
                 </div>
+
+                <div class="card mb-2" *ngIf="FilterOptions && FilterOptions.Assembly">
+                  <div class="card-body" >
+                      <div class="filter_title_div">
+                          <div class="d-flex w-100 align-items-center justify-content-between" id="headingAssembly">
+                              
+                                  <button
+                                    class="filter_title accordion-toggle"
+                                    data-toggle="collapse"
+                                    data-target="#collapseAssembly"
+                                    aria-expanded="false"
+                                    aria-controls="collapseAssembly"
+                                    
+                                    > <span class="icon">-</span>
+                                  Assembly 
+                                  </button>
+                                  <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(Assembly,'Assembly')">Clear All</button>
+                            
+                          </div>
+                          
+                      </div>
+                      <div class="filter_main"  
+                  class="collapse show"
+                  aria-labelledby="headingAssembly"
+                  data-parent="#accordion">
+                          <div class="inputcheck" >
+                            <mat-checkbox color="#000" (change)="onAllCheckedResult(Assembly,'Assembly')">All</mat-checkbox>
+                          </div>
+                          <div class="inputcheck" *ngFor="let meeting of Assembly.slice(0,AssemblyLimit)" >
+                            <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'Assembly')" color="#000" [checked]="meeting.is_selected">{{ meeting.AssemblyName }}</mat-checkbox>
+                          </div>
+                          <a class="btn more_btn" *ngIf="AssemblyLimit < Assembly.length" (click)="showmore('assembly')" >More</a>
+                          <a class="btn more_btn"  *ngIf="AssemblyLimit == Assembly.length" (click)="showless('assembly')" >Less</a>
+                  </div>
+                  </div>
+              </div>
+                <div class="card mb-2" *ngIf="FilterOptions && FilterOptions.Year">
+                  <div class="card-body" >
+                      <div class="filter_title_div">
+                          <div class="d-flex w-100 align-items-center justify-content-between" id="headingYear">
+                              
+                                  <button
+                                    class="filter_title accordion-toggle"
+                                    data-toggle="collapse"
+                                    data-target="#collapseYear"
+                                    aria-expanded="false"
+                                    aria-controls="collapseYear"
+                                    
+                                    > <span class="icon">-</span>
+                                  Period
+                                   
+                                  </button>
+                                  <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(ListYears,'Years')">Clear All</button>
+                           
+                              
+                          </div>
+                          
+                      </div>
+                      <div class="filter_main"  
+                  class="collapse show"
+                  aria-labelledby="headingYear"
+                  data-parent="#accordion">
+                          <div class="inputcheck" >
+                            <mat-checkbox color="#000" (change)="onAllCheckedResult(ListYears,'Years')">All</mat-checkbox>
+                          </div>
+                          <div class="inputcheck" *ngFor="let meeting of ListYears" >
+                            <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'Years')" color="#000" [checked]="meeting.is_selected">{{ meeting.name }}</mat-checkbox>
+                          </div>
+                        
+                  </div>
+                  </div>
+              </div>
+
+              <div class="card mb-2" *ngIf="FilterOptions && FilterOptions.Month">
+                <div class="card-body" >
+                    <div class="filter_title_div">
+                        <div class="d-flex w-100 align-items-center justify-content-between" id="headingMonth">
+                            
+                                <button
+                                  class="filter_title accordion-toggle"
+                                  data-toggle="collapse"
+                                  data-target="#collapseMonth"
+                                  aria-expanded="false"
+                                  aria-controls="collapseMonth"
+                                  
+                                  > <span class="icon">-</span>
+                                Month
+                                 
+                                </button>
+                                <button class="btn fil-sm btn-dark"  (click)="clearCheckedResult(ListMonths,'Months')">Clear All</button>
+                         
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="filter_main"  
+                class="collapse show"
+                aria-labelledby="headingMonth"
+                data-parent="#accordion">
+                        <div class="inputcheck" >
+                          <mat-checkbox color="#000" (change)="onAllCheckedResult(ListMonths,'Months')">All</mat-checkbox>
+                        </div>
+                        <div class="inputcheck" *ngFor="let meeting of ListMonths" >
+                          <mat-checkbox color="#000" (change)="onCheckedResult(meeting,'Months')" color="#000" [checked]="meeting.is_selected">{{ meeting.name }}</mat-checkbox>
+                        </div>
+                      
+                </div>
+                </div>
+            </div>
+
+
+
                 <div class="d-flex align-items-center justify-content-center mt-3 mb-3">
                     <button class="btn btn-outline-white mr-2">Clear</button>
                     <button class="btn btn-primary">Apply</button>
