@@ -1,0 +1,446 @@
+<div class="container-fluid">
+  <div class="block-header">
+    <div class="row mb-2">
+      <div class="col-lg-12">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item active">Masters</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-lg-12" *ngIf="IsTab==0">
+    <div class="col-lg-12 mt-4 mb-4 text-center">
+      <button class="col-lg-4 btn btn-lg btn-primary w-100" (click)="showTab(1)">Congress Organisation <img
+          src="../../../../assets/images/btn_arrow.png" class="btn_arrow ml-2" /></button>
+    </div>
+    <div class="col-lg-12 mt-4 mb-4 text-center">
+      <button class="col-lg-4 btn btn-lg btn-warning w-100" (click)="showTab(2)">Congress Leaders <img
+          src="../../../../assets/images/btn_arrow.png" class="btn_arrow ml-2" /></button>
+    </div>
+    <div class="col-lg-12 mt-4 mb-4 text-center">
+      <button class="col-lg-4 btn btn-lg btn-success w-100" (click)="showTab(3)">Election Data <img
+          src="../../../../assets/images/btn_arrow.png" class="btn_arrow ml-2" /></button>
+    </div>
+    <div class="col-lg-12 mt-4 mb-4 text-center">
+      <button class="col-lg-4 btn btn-lg btn-secondary w-100" (click)="showTab(4)">LDM <img
+          src="../../../../assets/images/btn_arrow.png" class="btn_arrow ml-2" /></button>
+    </div>
+  </div>
+  <div class="row mt-5 mb-5" *ngIf="IsTab==1">
+    <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
+      <a href="javascript::(0)" (click)="showTab(0)">
+      <i class="fa-solid fa-arrow-left mr-2"></i></a>
+      <h6 class="mb-0">Back</h6> 
+  </div>
+    <div class="col-lg-12">
+      
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="AICC-tab" data-toggle="pill" href="#AICC" role="tab"
+              aria-controls="pills-upmeeting" aria-selected="true">AICC</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="PCC-tab" data-toggle="pill" href="#PCC" role="tab" aria-controls="PCC"
+              aria-selected="false">PCC</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="DCC-tab" data-toggle="pill" href="#DCC" role="tab" aria-controls="DCC"
+              aria-selected="false">DCC</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="SC-tab" data-toggle="pill" href="#SC" role="tab" aria-controls="SC"
+              aria-selected="false">SC/ST/OBC/Minority</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="AICC" role="tabpanel" aria-labelledby="home-tab">
+            <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblAicc',dataset: returnDataset('AICC') ,tabType :'AICC' }" ></div> 
+          </div>
+          <div class="tab-pane fade" id="PCC" role="tabpanel" aria-labelledby="home-tab">
+            <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblPCC',dataset: returnDataset('PCC'),tabType :'PCC' }" ></div> 
+          </div>
+          <div class="tab-pane fade" id="DCC" role="tabpanel" aria-labelledby="home-tab">
+            <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblDCC',dataset: returnDataset('DCC'),tabType :'DCC' }" ></div> 
+          </div> 
+          <div class="tab-pane fade" id="SC" role="tabpanel" aria-labelledby="home-tab">
+            <div  *ngTemplateOutlet="gridTemplate; context: { tableId: 'tblSC',dataset: returnDataset('SC'),tabType :'SC' }" ></div> 
+          </div>  
+            
+        </div>
+        <ng-template #gridTemplate let-tableId="tableId" let-dataset="dataset" let-tabType="tabType">  
+          <div class="tabseachBar justify-content-end"> 
+            <div class="btns">
+              <button class="btn btn-outline-white mr-2" data-toggle="modal" (click)="addnew(tabType)" data-target="#addco"  ><i class="icon-plus mr-2"></i> Add New</button>
+            
+            </div> 
+      </div>
+      <div class="table-responsive"> 
+        <table class="table table-hover  dataTable nexagrid-basic-example table-custom mb-0" id="{{tableId}}">
+          <thead>
+              <tr>
+                <th>Sr. No</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>State</th>
+                <th>Phone Number</th>
+                <th>Email Id</th>
+                <th>Designation</th>
+                <th>Charge Area</th>
+                <th>Year</th>
+                <th>Native City/ <br/>Village</th>
+              
+                <th>#</th>
+          </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let meeting of dataset; let i = index">
+                  <td>{{i+1}}</td>
+                  <td><a href="{{meeting.image_path || '../../../assets/images/logo.png'}}" target="_blank"><img [src]="meeting.image_path || '../../../assets/images/logo.png'" 
+                      width="32" height="32"></a></td>
+                  <td>{{meeting.first_name + ' ' + meeting.last_name}}</td>
+                  <td>{{meeting.state_name}}</td>
+                  <td>{{meeting.mobile_no}}</td> 
+                  <td>{{meeting.email_id}}</td>
+                  <td>{{meeting.designation}}</td>
+                  <td>{{meeting.chargearea}}</td>
+                  <td>{{meeting.current_year}}</td>
+                  <td>{{meeting.city_name}}</td>
+              
+                  <td><a href='/user-profile/{{meeting.access_token}}' target="_blank" class="pop_edit"  >
+                    <i class="fa fa-eye"></i> 
+                  </a></td>
+              </tr> 
+          </tbody>
+      </table>
+      </div>
+    </ng-template>
+      
+    </div>
+  </div>
+  <div class="row mt-5 mb-5" *ngIf="IsTab==2">
+    <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center">
+      <a href="javascript::(0)" (click)="showTab(0)">
+      <i class="fa-solid fa-arrow-left mr-2"></i></a>
+      <h6 class="mb-0">Back</h6> 
+  </div>
+  <div class="tabseachBar justify-content-end"> 
+    <div class="btns">
+      <button class="btn btn-outline-white mr-2" data-toggle="modal" (click)="addnew('')" data-target="#addcl"  ><i class="icon-plus mr-2"></i> Add New</button>
+    
+    </div> 
+</div>
+<div class="table-responsive"> 
+<table class="table table-hover dataTable nexagrid-basic-example table-custom mb-0" id="tblLeaders">
+  <thead>
+      <tr>
+        <th>Sr. No</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>State</th>
+        <th>Phone Number</th>
+        <th>Email Id</th>
+        <th>Designation</th>
+        <th>Charge Area</th>
+        <th>Year</th>
+        <th>Native City/ <br/>Village</th>
+      
+        <th>#</th>
+  </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let meeting of Users; let i = index">
+          <td>{{i+1}}</td>
+          <td><a href="{{meeting.image_path || '../../../assets/images/logo.png'}}" target="_blank"><img [src]="meeting.image_path || '../../../assets/images/logo.png'" 
+              width="32" height="32"></a></td>
+          <td>{{meeting.first_name + ' ' + meeting.last_name}}</td>
+          <td>{{meeting.state_name}}</td>
+          <td>{{meeting.mobile_no}}</td> 
+          <td>{{meeting.email_id}}</td>
+          <td>{{meeting.designation}}</td>
+          <td>{{meeting.chargearea}}</td>
+          <td>{{meeting.current_year}}</td>
+          <td>{{meeting.city_name}}</td>
+      
+          <td><a href='/user-profile/{{meeting.access_token}}' target="_blank" class="pop_edit"  >
+            <i class="fa fa-eye"></i> 
+          </a></td>
+      </tr> 
+  </tbody>
+</table>
+</div>
+  </div>
+
+
+
+
+
+
+</div>
+<div class="modal fade" id="addco" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{modalTitle}}</h5>
+       
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      
+      <div class="modal-body d-flex align-items-center flex-column justify-content-center alertbox">
+        <div class="row">
+          <div class="col-lg-6">
+              <div class="form-group">
+                  <label for="my-input">Name*</label>
+                  <input id="my-input" class="form-control" placeholder="Enter Name" [(ngModel)]="clsCO.name" [ngModelOptions]="{standalone: true}">
+              </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+                <label for="my-input">DOB*</label>
+                <input id="my-input" class="form-control"  [attr.max]="todayDate" type="date"  [(ngModel)]="clsCO.dob" [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+              <label class="control-label">Gender*</label>
+              <select class="form-control"  [(ngModel)]="clsCO.gender" [ngModelOptions]="{standalone: true}">
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  </select>
+          </div>
+      </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+                <label for="my-input">Mobile No*</label>
+                <input id="my-input" class="form-control" maxlength="10" placeholder="Enter mobile" [(ngModel)]="clsCO.mobile_no" [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+              <label for="my-input">Email Address*</label>
+              <input id="my-input" class="form-control" placeholder="Enter Email" [(ngModel)]="clsCO.email_id" [ngModelOptions]="{standalone: true}">
+          </div>
+      </div>
+      
+    <div class="col-md-6">
+      <div class="form-group">
+          <label class="control-label">State*</label>
+          <select class="form-control" (change)="onstateChange($event)" [(ngModel)]="clsCO.state_id" [ngModelOptions]="{standalone: true}">
+              <option value="">Select State</option>
+              <option *ngFor="let state of states" [value]="state.STATEID">{{ state.STATENAME }}</option> 
+              </select>
+      </div>
+  </div>
+  <div class="col-md-6">
+      <div class="form-group">
+          <label class="control-label">City*</label>
+          <select class="form-control"   [(ngModel)]="clsCO.city_id" [ngModelOptions]="{standalone: true}">
+              <option value="">Select City</option>
+              <option *ngFor="let city of cities" [value]="city.DISTRICTID">{{ city.DISTRICTNAME }}</option> 
+              </select>
+      </div>
+  </div>
+
+    
+  <div class="col-lg-6">
+    <div class="form-group">
+        <label for="my-input">Designation*</label>
+        <select class="form-control"   [(ngModel)]="clsCO.designation" [ngModelOptions]="{standalone: true}">
+          <option value="">Select Designation</option>
+          <option *ngFor="let city of designations" [value]="city.id">{{ city.name }}</option> 
+          </select>
+    </div>
+</div>
+<div class="col-lg-6">
+  <div class="form-group">
+      <label for="my-input">Area*</label>
+      <input id="my-input" class="form-control" placeholder="Enter Area" [(ngModel)]="clsCO.area" [ngModelOptions]="{standalone: true}">
+  </div>
+</div>
+<div class="col-lg-6">
+  <div class="form-group">
+      <label for="my-input">Year*</label>
+      <input id="my-input" type="number" class="form-control" placeholder="Enter Year" [(ngModel)]="clsCO.year" [ngModelOptions]="{standalone: true}">
+  </div>
+</div>
+<div class="col-lg-6">
+  <div class="form-group">
+      <label >Image*</label>
+    <div class="photo_div">
+          <div class="d-flex align-items-center">
+              <img [src]="userdetails.details_imagePath || '../../../../assets/images/loader.png'"
+                width="32" height="32"/>
+              <div class="d-flex flex-column up_div">
+                  <h4>Upload Image</h4>
+                  <span>.jpeg,.jpg files upto 200KB</span>
+              </div>
+          </div>
+          <button  class="btn btn-primary">
+          <input type="file" (change)="onFileChange($event)"  placeholder="slect image" [(ngModel)]="clsCO.imageFile"  style="opacity: 0;position: absolute;width: 50px;">
+          Browse
+      </button>
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-lg btn-warning" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-lg btn-primary" (click)="saveScreen()"  >Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="addcl" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{modalTitle}}</h5>
+       
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      
+      <div class="modal-body d-flex align-items-center flex-column justify-content-center alertbox">
+        <div class="row">
+          <div class="col-lg-6">
+              <div class="form-group">
+                  <label for="my-input">Name*</label>
+                  <input id="my-input" class="form-control" placeholder="Enter Name" [(ngModel)]="clsCO.name" [ngModelOptions]="{standalone: true}">
+              </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+                <label for="my-input">DOB*</label>
+                <input id="my-input" class="form-control"  [attr.max]="todayDate" type="date"  [(ngModel)]="clsCO.dob" [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+              <label class="control-label">Community*</label>
+              <select class="form-control"  [(ngModel)]="clsCO.gender" [ngModelOptions]="{standalone: true}">
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  </select>
+          </div>
+      </div>
+        <div class="col-md-6">
+          <div class="form-group">
+              <label class="control-label">Gender*</label>
+              <select class="form-control"  [(ngModel)]="clsCO.gender" [ngModelOptions]="{standalone: true}">
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  </select>
+          </div>
+      </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+                <label for="my-input">Mobile No*</label>
+                <input id="my-input" class="form-control" maxlength="10" placeholder="Enter mobile" [(ngModel)]="clsCO.mobile_no" [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+              <label for="my-input">Email Address*</label>
+              <input id="my-input" class="form-control" placeholder="Enter Email" [(ngModel)]="clsCO.email_id" [ngModelOptions]="{standalone: true}">
+          </div>
+      </div>
+      
+    <div class="col-md-6">
+      <div class="form-group">
+          <label class="control-label">State*</label>
+          <select class="form-control" (change)="onstateChange($event)" [(ngModel)]="clsCO.state_id" [ngModelOptions]="{standalone: true}">
+              <option value="">Select State</option>
+              <option *ngFor="let state of states" [value]="state.STATEID">{{ state.STATENAME }}</option> 
+              </select>
+      </div>
+  </div> 
+  <div class="col-lg-6">
+    <div class="form-group">
+        <label for="my-input">Designation*</label>
+        <select class="form-control"   [(ngModel)]="clsCO.designation" [ngModelOptions]="{standalone: true}">
+          <option value="">Select Designation</option>
+          <option *ngFor="let city of designations" [value]="city.id">{{ city.name }}</option> 
+          </select>
+    </div>
+</div>
+ 
+<div class="col-lg-6">
+  <div class="form-group">
+      <label for="my-input">Exp. Years</label>
+      <input id="my-input" type="number" class="form-control" placeholder="Enter Year" [(ngModel)]="clsCO.year" [ngModelOptions]="{standalone: true}">
+  </div>
+</div>
+<div class="col-lg-6">
+  <div class="form-group">
+      <label for="my-input">No. of Year in position</label>
+      <input id="my-input" type="number" class="form-control" placeholder="Enter Year" [(ngModel)]="clsCO.year" [ngModelOptions]="{standalone: true}">
+  </div>
+</div>
+<div class="col-lg-6">
+  <div class="form-group">
+      <label for="my-input">Org. Experience Level</label>
+      <input id="my-input" type="number" class="form-control" placeholder="Enter Year" [(ngModel)]="clsCO.year" [ngModelOptions]="{standalone: true}">
+  </div>
+</div>
+<div class="col-lg-6">
+  <div class="form-group">
+      <label for="my-input">Election Contested*</label>
+      <select class="form-control"   [(ngModel)]="clsCO.designation" [ngModelOptions]="{standalone: true}">
+        <option value="">Select Designation</option>
+        <option *ngFor="let city of designations" [value]="city.id">{{ city.name }}</option> 
+        </select>
+  </div>
+</div>
+<div class="col-lg-6">
+  <div class="form-group">
+      <label for="my-input">Year of Election*</label>
+      <select class="form-control"   [(ngModel)]="clsCO.designation" [ngModelOptions]="{standalone: true}">
+        <option value="">Select Designation</option>
+        <option *ngFor="let city of designations" [value]="city.id">{{ city.name }}</option> 
+        </select>
+  </div>
+</div>
+<div class="col-lg-6">
+  <div class="form-group">
+      <label for="my-input">Election Result*</label>
+      <select class="form-control"   [(ngModel)]="clsCO.designation" [ngModelOptions]="{standalone: true}">
+        <option value="">Select Designation</option>
+        <option *ngFor="let city of designations" [value]="city.id">{{ city.name }}</option> 
+        </select>
+  </div>
+</div>
+<div class="col-lg-6">
+  <div class="form-group">
+      <label >Image</label>
+    <div class="photo_div">
+          <div class="d-flex align-items-center">
+              <img [src]="userdetails.details_imagePath || '../../../../assets/images/loader.png'"
+                width="32" height="32"/>
+              <div class="d-flex flex-column up_div">
+                  <h4>Upload Image</h4>
+                  <span>.jpeg,.jpg files upto 200KB</span>
+              </div>
+          </div>
+          <button  class="btn btn-primary">
+          <input type="file" (change)="onFileChange($event)"  placeholder="slect image" [(ngModel)]="clsCO.imageFile"  style="opacity: 0;position: absolute;width: 50px;">
+          Browse
+      </button>
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-lg btn-warning" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-lg btn-primary" (click)="saveScreen()"  >Add</button>
+      </div>
+    </div>
+  </div>
+</div>

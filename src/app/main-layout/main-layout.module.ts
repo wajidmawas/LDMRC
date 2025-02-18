@@ -32,7 +32,7 @@ import { ElectionMembersModule } from './election-members/election-members.modul
  import {UsersListModule} from './users_list/users_list.module';
  import {SlidersModule} from './sliders/sliders.module'
 import { IOTModule } from './IOT-dashboard/IOT-dashboard.module'; 
-
+import { MastersModule } from './masters/masters.module';
 // import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
@@ -69,7 +69,8 @@ import { IOTModule } from './IOT-dashboard/IOT-dashboard.module';
     CommunicationListModule,
     UsersListModule,
     SlidersModule,
-    IOTModule
+    IOTModule,
+    MastersModule,
     
     // ,CarouselModule
     

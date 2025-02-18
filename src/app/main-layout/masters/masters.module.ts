@@ -14,12 +14,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox'; 
 import { MatRadioModule } from '@angular/material/radio'; 
-import { ActivityListComponent } from './activity-list.component'; // Import the standalone component.
-import { ActivitylistService } from './activity-list.service'; 
+import { MastersComponent } from './masters.component';
+
 const routes: Routes = [
   {
-    path: 'activity_list',
-    component: ActivityListComponent,
+    path: 'masters',
+    component: MastersComponent,
   },
 ];
 
@@ -40,8 +40,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule.forChild(),
     MatRadioModule,
-    ActivityListComponent,  // Import the standalone component here.
+    MastersComponent, // Import the standalone component here.
   ],
-  providers: [ActivitylistService]
 })
-export class ActivityListModule {}
+export class MastersModule {}

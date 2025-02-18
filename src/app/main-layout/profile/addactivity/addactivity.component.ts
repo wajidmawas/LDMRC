@@ -42,8 +42,7 @@ logout() {
   localStorage.removeItem("cl_user");
   window.location.href = "/dashboard";
 }
-ngOnInit(): void { 
-  debugger;
+ngOnInit(): void {  
   $(".page-loader-wrapper").fadeOut();  
   this.userDtail = localStorage.getItem("cl_user");
   this.userdetails = JSON.parse(this.userDtail)
@@ -132,13 +131,11 @@ getvillages(id: any,state :any) {
   };
   console.log(JSON.stringify(objRequest));
   this.service.getMasters(objRequest).subscribe({
-    next: (response: any) => { 
-      debugger;
+    next: (response: any) => {  
       var parseresponse = JSON.parse(response.response); 
      
       if (response["errorCode"] === "200") { 
-        this.villages = parseresponse.Table
-       console.log("villages" + JSON.stringify(this.villages))
+        this.villages = parseresponse.Table 
       } else {
         console.error("API returned an error:", response.message); 
       }
@@ -236,8 +233,7 @@ LoadActivity(id: any) {
     }
   });
 }
-SaveActivity() {
-  debugger;
+SaveActivity() { 
   var validate:boolean=false;
 
   // Perform client-side validation
@@ -311,16 +307,14 @@ onFileChange(event: any) {
     }
 }
 
-EditActivity(id: string){
-   debugger;
+EditActivity(id: string){ 
    this.ActivityDetail(id);
   
     
 
 console.log(this.ActivitiesDetail);
 }
-ActivityDetail(id :string){
-  debugger;
+ActivityDetail(id :string){ 
   const objRequest = {
     typeId: 7,
     userid: 0,

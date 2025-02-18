@@ -206,7 +206,7 @@ theMonths = ["January", "February", "March", "April", "May",
     let cofilter=this.FilterTabs.filter((item: any) => item.page_name=='leader_dev_mission'  
     && item.tab_name==tab_name);
     this.FilterOptions.Designation = this.FilterOptions.State= 
-    this.FilterOptions.District= false;
+    this.FilterOptions.District=this.FilterOptions.Assembly= this.FilterOptions.Month= this.FilterOptions.Year=  false;
 
             if(cofilter!=null && cofilter.length>0){
               var option=cofilter[0].filter_section_name.split(',')

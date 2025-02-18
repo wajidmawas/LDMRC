@@ -38,7 +38,7 @@
         <li class="nav-item">
           <a class="nav-link" id="pills-mymeeting-tab" data-toggle="pill" href="#pills-mymeeting" role="tab" aria-controls="pills-mymeeting" aria-selected="false">Online Trainings</a>
         </li> 
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="userdetails.role_type=='A'">
           <a class="nav-link" id="add-mymeeting-tab" data-toggle="pill" href="#add-meeting" role="tab" aria-controls="pills-mymeeting" aria-selected="false">Schedule a Online Meeting</a>
         </li> 
       </ul>
