@@ -454,29 +454,24 @@
                              
                           </tbody>
                       </table>
-                      <div class="row col-lg-12">
-                        <div class="col-lg-3">
-                         
-                        </div>
-                        <div class="col-lg-6">
+                      <div class="row">
+                        <div class="col-lg-12 dflex_page">
                           <div class="rows_count">Showing {{pageCount * pageNo_2}} to {{ (pageCount * pageNo_2) + pageCount}} of {{totalRecords}} entries</div>
-                        </div>
-                        <div class="col-lg-3">
                           <div class='pagination-container'> 
-                              <ul class="pagination">
-                                <li>
-                                  <a href="javascript::" (click)="nextprevious(0)" aria-controls="tblAicc" data-dt-idx="2" tabindex="0" class="page-link">←</a>
-                                </li>
-                                <li>
-                                  <input type="text" id="search_input_all" [(ngModel)]="pageNo_2"  
-                                  (input)="onSearchChange()" value="1" class="form-control"></li>
+                            <ul class="pagination">
                               <li>
-                                <a href="javascript::" (click)="nextprevious(1)" aria-controls="tblAicc" data-dt-idx="2" tabindex="0" class="page-link">→</a>
+                                <a href="javascript::" (click)="nextprevious(0)" aria-controls="tblAicc" data-dt-idx="2" tabindex="0" class="page-link">←</a>
                               </li>
-                              </ul> 
-                          </div>
-                        
+                              <li>
+                                <input type="text" id="search_input_all" [(ngModel)]="pageNo_2"  
+                                (input)="onSearchChange()" value="1" class="form-control input_page"></li>
+                            <li>
+                              <a href="javascript::" (click)="nextprevious(1)" aria-controls="tblAicc" data-dt-idx="2" tabindex="0" class="page-link">→</a>
+                            </li>
+                            </ul> 
                         </div>
+                        </div>
+                         
 
                       </div>
                       </div>

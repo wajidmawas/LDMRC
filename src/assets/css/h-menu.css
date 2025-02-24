@@ -364,7 +364,7 @@
     -ms-transition: all 0.33s ease;
     -o-transition: all 0.33s ease;
     transition: all 0.33s ease;
-    margin: 0 10px 0 10px;
+    margin: 0 7px 0 7px;
     float: left;
     cursor: pointer;
     position: relative;
@@ -372,7 +372,7 @@
 }
 .h_menu header .desk-menu .menu-container .menu > li a {
     position: relative;
-    font-size: 13px;
+    font-size: 12px;
     padding: 15px 5px;
     display: block;
     color: #000; 
