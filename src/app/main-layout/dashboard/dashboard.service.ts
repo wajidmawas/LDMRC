@@ -13,6 +13,9 @@ export class dashboardService {
   getMasters(clsobj:object) { 
     return this.http.post(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/_GetMasters", clsobj,{ headers: this.sharedService.returnHttpHeaders()});
   } 
+  getLeadersByPaging(clsobj:object) { 
+    return this.http.post(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/_getLeadersByPaging", clsobj,{ headers: this.sharedService.returnHttpHeaders()});
+  } 
   Saveldm(addldm: FormData) {
       return from(this.sharedService.postForFormData(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/save_ldm", addldm));
     }

@@ -68,7 +68,10 @@ export class CongressOrganizationComponent {
     this.isLoggedIn = localStorage.getItem("cl_user");
     if (this.isLoggedIn != null) {
       this.LoadMasters();
-      this.LoadUsers("");
+      this.LoadUsers("","-100");
+      setTimeout(() => {
+        this.LoadUsers("","");
+      }, 1000);
     }
     else {
       window.location.href = "/auth/login";
@@ -139,7 +142,7 @@ export class CongressOrganizationComponent {
     this.bindFilter(this.Departments, "DeptId", "Departments") 
     this.bindFilter(this.States,"STATEID","States") 
     this.bindFilter(this.Districts,"DISTRICTID","Districts") 
-    this.LoadUsers(JSON.stringify(this.FiltersList))
+    this.LoadUsers(JSON.stringify(this.FiltersList),"")
   }
 
 
@@ -297,10 +300,10 @@ export class CongressOrganizationComponent {
     this.dataTables.push({"Name":"AICC", "Data":this.Users.filter((item: any) => (item.hid === 1))});
     this.dataTables.push({"Name":"PCC", "Data":this.Users.filter((item: any) => (item.hid === 2))});
     this.dataTables.push({"Name":"DCC", "Data":this.Users.filter((item: any) => (item.hid === 3))});
-    this.dataTables.push({"Name":"SC", "Data":this.Users.filter((item: any) => (item.did === 7 && item.hid === 1))});
-    this.dataTables.push({"Name":"ST", "Data":this.Users.filter((item: any) => (item.did === 8 && item.hid === 1))});
-    this.dataTables.push({"Name":"OBC", "Data":this.Users.filter((item: any) => (item.did === 9 && item.hid === 1))});
-    this.dataTables.push({"Name":"Minority", "Data":this.Users.filter((item: any) => (item.did === 10 && item.hid === 1))});
+    this.dataTables.push({"Name":"SC", "Data":this.Users.filter((item: any) => (item.did === 7 && (item.hid === 1 ||item.hid === 2)))});
+    this.dataTables.push({"Name":"ST", "Data":this.Users.filter((item: any) => (item.did === 8 && (item.hid === 1 ||item.hid === 2)))});
+    this.dataTables.push({"Name":"OBC", "Data":this.Users.filter((item: any) => (item.did === 9 && item.hid === 1 || item.hid === 2))});
+    this.dataTables.push({"Name":"Minority", "Data":this.Users.filter((item: any) => (item.did === 10 && (item.hid === 1 ||item.hid === 2)))});
   } 
   viewDetails(access_token: any) {
     window.location.href = "/user-profile/" + access_token;
@@ -420,17 +423,20 @@ export class CongressOrganizationComponent {
     });
 
   }
-  LoadUsers(filtertext: string) {
+  LoadUsers(filtertext: string,getTopRecords:string) {
     const objRequest = {
       typeId: 8,
       userid: 0,
       filterId: 0,
       filterText: filtertext,
-      filterText1: ""
+      filterText1: getTopRecords
     };
 
     this.service.getMasters(objRequest).subscribe({
       next: (response: any) => {
+        this.Users = [];
+        this.UsersList = [];
+        this.dataTables=[];
         $.each($(".nexagrid-basic-example"), function (ind, val) {
           $(val).DataTable().destroy();
         })

@@ -36,6 +36,9 @@ export class CongressLeadersComponent {
   States: any = [];
   usersid:number = 0;
   Districts: any = [];
+  pageNo :number=0;
+  pageNo_2 :number=1;
+  pageCount:number=100;
   GenderList: any = [];
   AgeList: any = [];
   ElectionYear: any = [];
@@ -43,6 +46,9 @@ export class CongressLeadersComponent {
   ElectionResult: any = [];
   ElectionContested: any = [];
   searchValue: string='';
+  keyword: string='';
+  totalRecords: number=0;
+  noOfPages: number=0;
   openSection: string | null = null;
   FilterSection: any = [];AllDesignations: any = [];
   FilterOptions: any = {"Designation":false,"ElectionResult":false,"ElectionContested":false,"State":false,"ElectionYear":false,"ElectionType":false,"District":false,"Caste":false,"Age":false,"Gender":false,"YearofExp":false};
@@ -69,7 +75,7 @@ export class CongressLeadersComponent {
     this.isLoggedIn = localStorage.getItem("cl_user");
      if(this.isLoggedIn!=null){
       this.LoadMasters();
-      this.LoadUsers("") ;
+      this.LoadUsers("") ; 
       this.GenderList.push({"name":"Male","is_selected":false})
       this.GenderList.push({"name":"Female","is_selected":false}) 
 
@@ -91,6 +97,23 @@ export class CongressLeadersComponent {
       window.location.href = "/auth/login";
      }
    
+  }
+  nextprevious(flg:number){
+    if(flg==1){
+      this.pageNo=this.pageNo+1; 
+      this.LoadUsers("");
+    }
+    else{
+      if(this.pageNo<=0){ 
+        this.pageNo=0;
+        this.snackbar.showInfo("No record[s] found", "Error");
+      }
+      else{
+      this.pageNo=this.pageNo-1;
+    }
+    }
+    this.pageNo_2=this.pageNo+1;
+    this.LoadUsers("");
   }
   bindFilter(list:any,primarycol:any,filterType:any){
     let selectedlist = list
@@ -290,47 +313,38 @@ export class CongressLeadersComponent {
   }
   LoadUsers(filterText:any) {
     const objRequest = {
-      typeId: 8,
-      userid: 0,
-      filterId: 0,
-      filterText: filterText,
-      filterText1: ""
-    };
-  
-    this.service.getMasters(objRequest).subscribe({
+      pageNo: this.pageNo,
+      keyword: "",
+      seqno: 0,
+      pageCount:this.pageCount,
+      FeatureId:100,
+      Userid:0,
+      TypeId:0,
+      FilterText: filterText
+    }; 
+    this.service.getLeadersByPaging(objRequest).subscribe({
       next: (response: any) => { 
-        $.each($(".nexagrid-basic-example"),function(ind,val){ 
-          $(val).DataTable().destroy(); 
-      })  
-        let el:any = document.getElementById('AICC');
-        el.scrollIntoView();
         this.Users=[];
         this.UsersList=[];
-        this.UsersProfessions=[];
+        this.UsersProfessions=[]; 
         if (response["errorCode"] === "200") {
           var parseresponse = JSON.parse(response.response); 
           this.Users = parseresponse.Table; 
           this.UsersList = parseresponse.Table; 
-          this.UsersProfessions = parseresponse.Table1;  
-          setTimeout(() => {
-            $.each($(".nexagrid-basic-example"),function(ind,val){  
-              $(val).DataTable({
-                pageLength: 50, 
-                  searching: true,
-                }); 
-          }) 
-           }, 100);
+          this.UsersProfessions = parseresponse.Table2;  
+          this.totalRecords=parseresponse.Table1[0]["TOTALRECORDS"];
+          this.noOfPages=parseresponse.Table1[0]["NOOFPAGES"];
         } else {
-          console.error("API returned an error:", response.message); 
+          this.snackbar.showInfo(response.message, "Error");
         }
       },
       error: (error: any) => {
-        console.error("API call failed:", error);
+        this.snackbar.showInfo(error, "Error");
         // Handle the error appropriately
         // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
       },
       complete: () => {
-        console.log("API call completed.");
+       
       }
     });
   }

@@ -354,8 +354,41 @@
                               <button class="btn btn-secondary" (click)="export2Excel()"><i class="fa fa-cloud-download mr-2"  ></i>Download</button>
                             </div> 
                       </div>
+                      <div class="body text-center d-flex justify-content-center flex-column" *ngIf="(Users ?? []).length === 0">
+                        <div class="page-loader-wrapper_2">
+                          <div class="loader">
+                              <div><img src="../../assets/images/loader.png" width="64" height="64" alt="Iconic"></div>
+                              <p>Loading...</p>
+                          </div>
+                      </div>
+                     </div>
+
                       <div class="table-responsive">
-                        <table class="table table-hover nexagrid-basic-example dataTable table-custom mb-0" id="exportable">
+                        <div class="header_wrap">
+                          <div class="num_rows">
+                      
+                          <div class="form-group"> 	 
+                             <select class  ="form-control" [(ngModel)]="pageCount"  
+                             (input)="onSearchChange()"  name="state" id="maxRows">
+                               
+                               
+                               <option value="10">10</option>
+                               <option value="15">15</option>
+                               <option value="20">20</option>
+                               <option value="50">50</option>
+                               <option value="70">70</option>
+                               <option value="100">100</option> 
+                              </select>
+                             
+                            </div>
+                          </div>
+                          <div class="tb_search">
+                  <input type="text" id="search_input_all" [(ngModel)]="searchValue"  
+                  (input)="onSearchChange()" placeholder="Search.." class="form-control">
+                          </div>
+                        </div>
+
+                        <table class="table table-hover   table-custom mb-0" id="exportable">
                           <thead>
                             <tr>
                               <th>Sr. No</th>
@@ -421,6 +454,31 @@
                              
                           </tbody>
                       </table>
+                      <div class="row col-lg-12">
+                        <div class="col-lg-3">
+                         
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="rows_count">Showing {{pageCount * pageNo_2}} to {{ (pageCount * pageNo_2) + pageCount}} of {{totalRecords}} entries</div>
+                        </div>
+                        <div class="col-lg-3">
+                          <div class='pagination-container'> 
+                              <ul class="pagination">
+                                <li>
+                                  <a href="javascript::" (click)="nextprevious(0)" aria-controls="tblAicc" data-dt-idx="2" tabindex="0" class="page-link">←</a>
+                                </li>
+                                <li>
+                                  <input type="text" id="search_input_all" [(ngModel)]="pageNo_2"  
+                                  (input)="onSearchChange()" value="1" class="form-control"></li>
+                              <li>
+                                <a href="javascript::" (click)="nextprevious(1)" aria-controls="tblAicc" data-dt-idx="2" tabindex="0" class="page-link">→</a>
+                              </li>
+                              </ul> 
+                          </div>
+                        
+                        </div>
+
+                      </div>
                       </div>
                      
                     </div>
