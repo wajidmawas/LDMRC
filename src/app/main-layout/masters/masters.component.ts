@@ -10,10 +10,11 @@ import { ActivatedRoute } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
 import { FormControl ,FormsModule } from '@angular/forms';
+import { LeaderDevelopmentMissionComponent } from "../leader-development-mission/leader-development-mission.component";
 @Component({
   selector: 'app-masters',
   standalone: true, 
-  imports: [CommonModule, MatCheckboxModule,FormsModule], 
+  imports: [CommonModule, MatCheckboxModule, FormsModule, LeaderDevelopmentMissionComponent], 
   templateUrl: './masters.component.html',
   styleUrl: './masters.component.scss'
 })

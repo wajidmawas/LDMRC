@@ -42,6 +42,7 @@ const routes: Routes = [
     TranslateModule.forChild(),
     MatRadioModule,
     MastersComponent,  
+    LeaderDevelopmentMissionComponent
      // Import the standalone component here.
   ] 
 })
