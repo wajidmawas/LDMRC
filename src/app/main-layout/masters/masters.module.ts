@@ -15,7 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox'; 
 import { MatRadioModule } from '@angular/material/radio'; 
 import { MastersComponent } from './masters.component';
-
+import { LeaderDevelopmentMissionComponent } from '../leader-development-mission/leader-development-mission.component';
+ 
 const routes: Routes = [
   {
     path: 'masters',
@@ -23,7 +24,7 @@ const routes: Routes = [
   },
 ];
 
-@NgModule({
+@NgModule({ 
   imports: [
     CommonModule,
     FormsModule,
@@ -40,7 +41,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule.forChild(),
     MatRadioModule,
-    MastersComponent, // Import the standalone component here.
-  ],
+    MastersComponent,  
+     // Import the standalone component here.
+  ] 
 })
 export class MastersModule {}

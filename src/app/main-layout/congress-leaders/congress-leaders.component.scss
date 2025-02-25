@@ -49,3 +49,21 @@
   display: flex;
   margin: 10px 0;
 }
+.dflex_page_left{
+  align-items: center;
+  justify-content: flex-start;
+  display: flex;
+  margin: 10px 0;
+}
+.srch_icon {
+  background-color: #ccc;
+  border-radius: 50px;
+  position: absolute;
+  right: 4px;
+  top: 3.5px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

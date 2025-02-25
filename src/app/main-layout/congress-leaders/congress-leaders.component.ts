@@ -38,7 +38,7 @@ export class CongressLeadersComponent {
   Districts: any = [];
   pageNo :number=0;
   pageNo_2 :number=1;
-  pageCount:number=100;
+  pageCount:any=100;
   GenderList: any = [];
   AgeList: any = [];
   ElectionYear: any = [];
@@ -192,13 +192,13 @@ export class CongressLeadersComponent {
   }
   }
   onSearchChange(): void {  
-    this.Users=this.UsersList;
-    if(this.searchValue!=null && this.searchValue!=undefined && this.searchValue!=""){
-      var list=this.Users.filter((item: any) =>(item.first_name.includes(this.searchValue) ||
-      item.last_name.includes(this.searchValue) ||
-      item.mobile_no.includes(this.searchValue) ));
-      this.Users=list;
-    }
+    this.Users=[];
+    this.UsersList=[];
+    this.UsersProfessions=[]; 
+    this.pageNo=0;
+    this.pageNo_2=1;
+    this.pageCount=100;
+    this.LoadUsers("");
      
   }
   showTab(tab_type:any){ 
@@ -311,10 +311,23 @@ export class CongressLeadersComponent {
     }); 
      
   }
+  onpageChange(){
+    this.pageNo=this.pageNo_2-1;
+    this.LoadUsers("");
+  }
+  onpagecountChange(){
+
+    this.pageNo=0;
+    this.pageNo_2=1; 
+    this.LoadUsers("");
+  }
+  returndisplay(){
+    return ((parseFloat(this.pageCount) * this.pageNo) + parseFloat(this.pageCount))
+  }
   LoadUsers(filterText:any) {
     const objRequest = {
       pageNo: this.pageNo,
-      keyword: "",
+      keyword: this.searchValue,
       seqno: 0,
       pageCount:this.pageCount,
       FeatureId:100,
@@ -334,6 +347,8 @@ export class CongressLeadersComponent {
           this.UsersProfessions = parseresponse.Table2;  
           this.totalRecords=parseresponse.Table1[0]["TOTALRECORDS"];
           this.noOfPages=parseresponse.Table1[0]["NOOFPAGES"];
+          if(this.totalRecords<this.pageCount)
+           this.pageCount=this.totalRecords;
         } else {
           this.snackbar.showInfo(response.message, "Error");
         }
