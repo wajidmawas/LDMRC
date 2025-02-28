@@ -21,8 +21,11 @@ import { LeaderDevelopmentMissionComponent } from "../leader-development-mission
 export class MastersComponent implements OnInit  { 
   IsTab:number=0;
   modalTitle:string='';tab_name:string='AICC';
+  clsldm:cls_addldm=new cls_addldm();
+  responseid:number=0;
   filename: any | null = null; 
   userDtail:any={};
+  ActivityType: any = [];
   userdetails:any={}; 
   titlesearch:string='';todayDate:string="";
   Users: any = [];
@@ -41,6 +44,12 @@ export class MastersComponent implements OnInit  {
   keyword: string='';
   totalRecords: number=0;
   noOfPages: number=0;
+  selectedState:number | null = null;
+  selectedCity:number | null = null;
+  selectedActvity:number | null = null;
+  selectedDesignation:number | null = null; Assembly: any = [];
+  selectedVillage:number | null = null;
+  villages:any=[];
   UsersProfessions: any = [];
   constructor(private route: ActivatedRoute,private router: Router,private service:ProfileService,public sharedService: SharedService, private titleService: Title,private snackbar:SnackbarService, private translate:TranslateService) {
     
@@ -53,6 +62,13 @@ ngOnInit(): void {
   this.userDtail = localStorage.getItem("cl_user");
   this.userdetails = JSON.parse(this.userDtail)   
   this.getLookupMaster(0);
+  this.getActivityType(0);
+}
+onActvitytypeChange(event: any): void {
+  this.selectedActvity = event.target.value; 
+}
+onDesiginationChange(event: any): void {
+  this.selectedDesignation = event.target.value; 
 }
 showTab(flg:number){
   this.IsTab=flg;  
@@ -66,6 +82,32 @@ else if (flg==2){
   this.getDesigination(0);
   this.LoadLeadersByPaging("")
 }
+}
+getvillages(id: any,state :any) { 
+  const objRequest = {
+    typeId: 36,
+    userid: 0,
+    filterId: state,
+    filterText: "",
+    filterText1: ""
+  }; 
+  this.service.getMasters(objRequest).subscribe({
+    next: (response: any) => {    
+      if (response["errorCode"] === "200") {  
+        var parseresponse = JSON.parse(response.response); 
+        this.villages = parseresponse.Table 
+      } else {
+        console.error("API returned an error:", response.message); 
+      }
+    },
+    error: (error: any) => {
+      console.error("API call failed:", error);
+      
+    },
+    complete: () => {
+      console.log("API call completed.");
+    }
+  });
 }
 addNewProfession() {
   this.professions.push(new cls_addprofession());  // Push a new empty profession object 
@@ -247,8 +289,132 @@ validateProfessions() {
 
   return validate;
 }
+onpdfChange(event: any) {
+  const input = event.target as HTMLInputElement;
+    if (input?.files?.length) {
+      const file = input.files[0];
+      this.clsldm.pdfFile = file; // Assign File object
+      this.clsldm.pdfPath=file.name;
 
+    }
+}
+CancelActivity()
+{
+  this.clsldm = new cls_addldm(); // Reset form data
+}
+SaveLDM_2() { 
+  var validate:boolean=false; 
+  // Perform client-side validation
+  if (this.clsldm.office_bearer == undefined || this.clsldm.office_bearer == null || this.clsldm.office_bearer == '') {
+    this.snackbar.showInfo("Please enter name", "Error");
+    validate = true;
+  }  
+  else if (this.clsldm.phone_no == undefined || this.clsldm.phone_no == null || this.clsldm.phone_no == '') {
+    this.snackbar.showInfo("Please enter phone_no", "Error");
+    validate = true;
+  }
+  else if (this.clsldm.state_id == undefined || this.clsldm.state_id == null || this.clsldm.state_id == 0) {
+    this.snackbar.showInfo("Please select state", "Error");
+    validate = true;
+  }
+  else if (this.clsldm.district_id == undefined || this.clsldm.district_id == null || this.clsldm.district_id == 0) {
+    this.snackbar.showInfo("Please select district", "Error");
+    validate = true;
+  } 
+  else if (this.clsldm.assembly_id == undefined || this.clsldm.assembly_id == null || this.clsldm.assembly_id == 0) {
+    this.snackbar.showInfo("Please select Assembly", "Error");
+    validate = true;
+  }
+  
+  if (!validate) {
+    $(".page-loader-wrapper-review").show();
+    const formData = new FormData();
+    // Append form fields
+    formData.append('phone_no', this.clsldm.phone_no);
+    formData.append('state_id', this.clsldm.state_id.toString());
+    formData.append('designation_id', this.clsldm.district_id.toString());
+    formData.append('assembly_id', this.clsldm.assembly_id.toString());
+    formData.append('office_bearer', this.clsldm.office_bearer);  
+    formData.append('expected_outcome', $("#myTab").find("li a.active").html()); 
+    formData.append('created_by', this.userdetails.user_id.toString()); 
+    formData.append('imagePath',$("#myTab").find("li a.active").html()); 
+    formData.append('title',this.clsldm.office_bearer); 
+      formData.append('desc',this.clsldm.office_bearer); 
+this.service.Saveldm_2(formData).subscribe((res: any) => {
+  setTimeout(() => {
+    $(".page-loader-wrapper-review").hide();
+  }, 500);
+  var response = res;
+  if (response.errorCode == "200") {
+     this.snackbar.showSuccess(response.message, response.status);
+    setTimeout(() => { 
+      this.clsldm = new cls_addldm(); // Reset form data
 
+    }, 3000);
+   
+  } else {
+    this.snackbar.showInfo(response._body.message, "Error");
+  }
+});
+ 
+  }
+}
+getActivityType(id: any) {
+  const objRequest = {
+    typeId: 40,
+    userid: 0,
+    filterId: id,
+    filterText: "",
+    filterText1: ""
+  };
+
+  this.service.getMasters(objRequest).subscribe({
+    next: (response: any) => { 
+      var parseresponse = JSON.parse(response.response); 
+      if (response["errorCode"] === "200") { 
+        this.ActivityType = parseresponse.Table;
+      } else {
+        console.error("API returned an error:", response.message); 
+      }
+    },
+    error: (error: any) => {
+      console.error("API call failed:", error);
+      // Handle the error appropriately
+      // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
+    },
+    complete: () => {
+      console.log("API call completed.");
+    }
+  });
+}
+LoadAssembliesByState(stateId:string) {
+  const objRequest = {
+    typeId: 48,
+    userid: 0,
+    filterId: 0,
+    filterText: stateId,
+    filterText1: ""
+  };
+
+  this.service.getMasters(objRequest).subscribe({
+    next: (response: any) => {  
+      if (response["errorCode"] === "200") {
+        var parseresponse = JSON.parse(response.response);  
+        this.Assembly = parseresponse.Table; 
+      } else { 
+        console.error("API returned an error:", response.message); 
+      }
+    },
+    error: (error: any) => {
+      console.error("API call failed:", error);
+      // Handle the error appropriately
+      // this.snackbar.showInfo("Failed to fetch data from the server", "Error");
+    },
+    complete: () => {
+      console.log("API call completed.");
+    }
+  });
+}
 
 saveproffession() { 
   var validate:boolean=false; 
@@ -299,6 +465,13 @@ if(!validate) {
 onstateChange(event: any): void { 
   this.getCities(event.target.value) 
 }
+oncityChange(event: any): void {
+  this.selectedCity = event.target.value; 
+  this.getvillages(event.target.value,this.selectedState);
+}
+onvillageChange(event: any): void {
+  this.selectedVillage = event.target.value; 
+}
 getCities(id: any) { 
   const objRequest = {
     typeId: 2,
@@ -313,6 +486,7 @@ getCities(id: any) {
       if (response["errorCode"] === "200") { 
         var parseresponse = JSON.parse(response.response);  
         this.cities = parseresponse.Table 
+        this.Assembly = parseresponse.Table1; 
  
       } else {
         console.error("API returned an error:", response.message); 
@@ -446,6 +620,16 @@ onFileChange(event: any) {
       reader.readAsDataURL(file); 
     }
 }
+onFileChange_2(event: any) {
+  const input = event.target as HTMLInputElement;
+    if (input?.files?.length) {
+      const file = input.files[0];
+      this.clsldm.imageFile = file; 
+      const reader = new FileReader();
+      reader.onload = e  => this.userdetails.details_imagePath = reader.result; 
+      reader.readAsDataURL(file); 
+    }
+}
 LoadUsers(filtertext: string,getTopRecords:string) {
   const objRequest = {
     typeId: 8,
@@ -530,4 +714,27 @@ export class cls_addprofession {
   election_result: string = '';
   election_contest: string = '';
   exp_year: number = 0;
+}
+export class cls_addldm {
+  constructor(){
+
+  }
+  date_of_posting: string= '';
+  office_bearer: string= '';
+  desc: string = '';
+  phone_no: string='';
+  imageFile: string | File = ''; // Allow both string and File
+  pdfFile: string | File = ''; // Allow both string and File
+  imagePath:string='';
+  pdfPath:string='';
+  expected_outcome: string='';
+  state_id:number = 0;
+  activity_id:number=0;
+  assembly_id:number = 0;
+  village_id:number = 0;
+  district_id:number = 0;
+  designation_id:number = 0;
+  no_of_participants:number = 0;
+  id:number=0;
+  created_by:number=0;
 }

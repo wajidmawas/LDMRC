@@ -37,5 +37,10 @@ export class ProfileService {
   console.log(Addprofession);
     return this.http.post(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/save_userprofession", Addprofession,{ headers: this.sharedService.returnHttpHeaders()});
   }
-  
+  Saveldm(addldm: FormData) {
+    return from(this.sharedService.postForFormData(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/save_ldm", addldm));
+  }
+  Saveldm_2(addldm: FormData) {
+    return from(this.sharedService.postForFormData(this.sharedService._baseUrl + this.sharedService.AdminServiceUrl + "/save_ldm_2", addldm));
+  }
 }

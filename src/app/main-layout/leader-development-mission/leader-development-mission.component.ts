@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './leader-development-mission.component.scss'
 })
 export class LeaderDevelopmentMissionComponent {
+  @Input() public IsFrom : string  = "";
   clsldm:cls_addldm=new cls_addldm();
   isLoggedIn:any='';
   Userid:any='';
